@@ -1,0 +1,41 @@
+ componentDidMount() {
+        this.slideout = new Slideout({
+            'panel': document.getElementById('panel'),
+            'menu': document.getElementById('menu'),
+            'padding': 256,
+            'tolerance': 70
+        });
+    }
+
+
+     <div className="mainBody">
+      <nav id="menu" />
+      <main id="panel">
+        <div className="toc">
+          <Draggable
+            handle=".handle"
+            defaultPosition={{ x: 0, y: 0 }}
+            position={!isDraggable ? deltaPosition : TOC_INITIOAL_POSITION}
+            onDrag={handleDrag}
+            scale={1}
+            defaultClassName="draggable"
+            disabled={isDraggable}
+          >
+            <div>
+              <div className="handle">
+                <span onClick={handleDragableClick}>Detach</span>
+                <span>Toc</span>
+                <span>X</span>
+              </div>
+              <div>
+                <Toc />
+              </div>
+            </div>
+          </Draggable>
+        </div>
+        <div className="bodyContent">
+          <Dashboard />
+        </div>
+      </main>
+   
+    </div>

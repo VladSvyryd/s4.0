@@ -1,0 +1,82 @@
+            <Menu>
+                <Menu.Item
+                    content="Übersicht"
+                    name="uebersicht"
+                    active={tocState.activePageLink === "uebersicht"}
+                    onClick={handleItemClick}
+                    as={Link}
+                    to={'/uebersicht'}
+                />
+                <Accordion activeIndex={tocState.activeAccordionIndex} panels={nodes()} onTitleClick={handleAccordionTitleClick} />
+            </Menu>
+
+            <Menu>
+                <Accordion exclusive >
+                    <Accordion.Title active={tocState.activeAccordionIndex === 0} index={0} onClick={handleAccordionTitleClick} className={tocState.activeAccordionIndex === 0 ? 'accordionTitleIsActive' : null}>
+                        Adaw
+                    </Accordion.Title>
+                    <Accordion.Content active={tocState.activeAccordionIndex === 0} className={tocState.activeAccordionIndex === 0 ? 'invisible' : null} >
+                        <Menu.Item
+                            content="Vorgesetzte"
+                            name="sfesefes"
+                            active={tocState.activePageLink === "sfesefes"}
+                            onClick={handleItemClick}
+                            as={Link}
+                            to={'/sfesefes'}
+                        />
+                    </Accordion.Content>
+
+                    <Accordion.Title active={tocState.activeAccordionIndex === 1} index={1} onClick={handleAccordionTitleClick}>
+                        <Icon name='dropdown' />
+                        What kinds of dogs are there?
+        </Accordion.Title>
+                    <Accordion.Content active={tocState.activeAccordionIndex === 1}>
+                        <Menu.Item
+                            content="Arbeitgeber"
+                            name="arbeitgeber"
+                            active={tocState.activePageLink === "arbeitgeber"}
+                            onClick={handleItemClick}
+                            as={Link}
+                            to={'/arbeitgeber'}
+                        />
+                        <Menu.Item
+                            content="Vorgesetzte"
+                            name="vorgesetzte"
+                            active={tocState.activePageLink === "vorgesetzte"}
+                            onClick={handleItemClick}
+                            as={Link}
+                            to={'/vorgesetzte'}
+                        />
+                    </Accordion.Content>
+
+                    <Accordion.Title active={tocState.activeAccordionIndex === 2} index={2} onClick={handleAccordionTitleClick}>
+                        <Icon name='dropdown' />
+                        How do you acquire a dog?
+        </Accordion.Title>
+                    <Accordion.Content active={tocState.activeAccordionIndex === 2}>
+                        <Menu.Item
+                            content="Ver"
+                            name="verantwortung_einleitung"
+                            active={tocState.activePageLink === "verantwortung_einleitung"}
+                            onClick={handleItemClick}
+                            as={Link}
+                            to={'/verantwortung_einleitung'}
+                        />
+                        <Menu.Item
+                            content="Übersicht"
+                            name="uebersicht"
+                            active={tocState.activePageLink === "uebersicht"}
+                            onClick={handleItemClick}
+                            as={Link}
+                            to={'/uebersicht'}
+                        />
+                    </Accordion.Content>
+                    <Accordion.Title active={tocState.activeAccordionIndex === 3} index={3} onClick={handleAccordionTitleClick}>
+                        What is a dog?
+        </Accordion.Title>
+                    <Accordion.Title active={tocState.activeAccordionIndex === 4} index={4} onClick={handleAccordionTitleClick}>
+                        What is a dog?
+        </Accordion.Title>
+                </Accordion>
+
+            </Menu>

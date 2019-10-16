@@ -1,0 +1,37 @@
+/*  THIS IS A GLOBAL STYLESHEET FOR ALL PAGES(HTML/JS)(NOT COMPONENTS) 
+If you are looking for styles of TOC and other interective 
+components of SHELL look directly by it's (.js) file */
+
+/* First goes small style classes for fonts, paddings, margins, buttons, backgrounds*/
+
+/* Afterwards goes extra styles for Components such as Popup, Table, TabPanel, Slider, Lists etc...*/
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 13px;
+  line-height: 18px !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+*,
+:after,
+:before {
+  box-sizing: inherit;
+}
+
+.font16 {
+  font-size: 16px;
+}
+
+.fullHeight {
+  height: 100%;
+}

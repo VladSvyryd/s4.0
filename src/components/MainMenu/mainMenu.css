@@ -1,0 +1,51 @@
+/* Style only for Menu with 4 Chapters Component*/
+
+.mainMenu {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  color: white;
+}
+
+.logoBox {
+  width: 100%;
+}
+
+.mainMenu_section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 460px;
+  background: rgba(61, 101, 50, 1);
+  justify-self: flex-end;
+  padding: 1.5em;
+}
+
+.mainMenu_section .menuTitle {
+  text-align: right;
+}
+
+.mainMenu_section .menuModule {
+  margin: auto 0;
+}
+
+.mainMenu_section .menuModule ul {
+  list-style: none;
+}
+
+.mainMenu_section .menuModule ul li a,
+.mainMenu_section .menuModule ul li {
+  padding: 5px 0;
+  cursor: pointer;
+  color: white;
+}
+
+.mainMenu_section .menuModule ul li a:hover,
+.mainMenu_section .menuModule ul li:hover {
+  color: rgb(153, 153, 153);
+}
+
+.mainMenu_section .menuModule ul li:last-child {
+  padding-top: 30px;
+}

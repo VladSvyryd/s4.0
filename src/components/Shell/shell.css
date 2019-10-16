@@ -1,0 +1,11 @@
+/* Style only for Shell Component*/
+
+.shell {
+  max-height: 680px;
+  max-width: 1024px;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}

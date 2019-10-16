@@ -1,0 +1,36 @@
+.save {
+    margin: 10px 0px 10px auto !important;
+}
+
+.note_title {
+    font-weight: bold;
+}
+
+.noteForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.date {
+    font-size: 10px;
+}
+
+.noteHeader {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 3px;
+    align-items: center;
+}
+
+.noteList {
+    overflow-y: auto;
+    height: 100%;
+    margin: 0 !important;
+    padding: 10px 5px 10px 0 !important;
+}
+
+.flex_column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}

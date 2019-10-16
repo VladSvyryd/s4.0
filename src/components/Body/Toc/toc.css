@@ -1,0 +1,33 @@
+/* Style only for TOC Component*/
+
+.invisible {
+  display: none !important;
+}
+
+.accordionTitleIsActive {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.node > a {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.toc .ui.menu {
+  margin: 0;
+  flex-direction: column !important;
+  height: 100%;
+}
+
+.toc .ui.menu .active.title {
+  font-weight: bold;
+}
+
+.toc .ui.menu .active.item {
+  font-weight: bold;
+}
+
+.toc .ui.menu .accordion.ui {
+  overflow-y: auto;
+}

@@ -1,0 +1,79 @@
+{
+  "name": "montagetechnik",
+  "version": "0.1.0",
+  "private": true,
+  "author": "TM",
+  "main": "public/main.js",
+  "productName": "Montagetechnik",
+  "homepage": "./",
+  "home": "./",
+  "dependencies": {
+    "electron-is-dev": "^1.1.0",
+    "moment": "^2.24.0",
+    "rc-menu": "^7.4.23",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-draggable": "^3.3.0",
+    "react-resizable": "^1.8.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "react-spring": "^8.0.27",
+    "redux": "^4.0.4",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.87.3",
+    "video-react": "^0.14.1",
+    "wait-on": "^3.3.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"BROWSER=none npm run start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack": "electron-builder -c.extraMetadata.main=build/main.js",
+    "preelectron-pack": "npm run build",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "ie >= 9"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.1",
+    "electron": "^5.0.7",
+    "electron-builder": "^21.1.1"
+  },
+  "build": {
+    "appId": "com.example.electron-cra",
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

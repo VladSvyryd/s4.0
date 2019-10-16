@@ -1,0 +1,21 @@
+/* Style only for CheckIDAuthentificationPage Component*/
+
+.content {
+  width: 100%;
+  height: 100%;
+}
+
+.checkPageBck {
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-end;
+}
+
+.checkSection {
+  padding: 60px 60px;
+  margin-top: auto;
+}
+
+.checkSection .check_top_section {
+  margin-bottom: 30px;
+}

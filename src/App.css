@@ -1,0 +1,19 @@
+.allCenter {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  min-height: 680px;
+}
+
+.App {
+  max-height: 680px;
+  max-width: 1024px;
+  margin: auto;
+  border: 1px solid #555;
+  height: 100%;
+  width: 100%;
+  min-height: 680px;
+}
