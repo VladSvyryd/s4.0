@@ -28,10 +28,35 @@ h5 {
   box-sizing: inherit;
 }
 
+button,
+input[type="reset"],
+input[type="submit"] {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  outline: inherit;
+  padding: 0;
+}
 .font16 {
   font-size: 16px;
 }
 
 .fullHeight {
   height: 100%;
+  margin: 0;
+}
+
+.divider {
+  border-left: 1px solid white;
+}
+
+/*
+MAIN MENU CONTAINER (GRUNDRISS; CHECKLIST
+*/
+
+.main_menu {
+  display: flex;
+  flex-direction: column;
 }

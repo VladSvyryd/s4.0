@@ -1,8 +1,8 @@
 import React from "react";
 import "rc-menu/assets/index.css";
 import { Route, Switch } from "react-router-dom";
-import AuthRoute from "../../AuthRoute/AuthRoute";
-import uebersicht from "../../../pages/impressum";
+import grundriss from "../../../pages/grundriss";
+import checklist from "../../../pages/checklist";
 
 // Dashboard
 // Placeholder for all internal links used in Programm
@@ -10,11 +10,10 @@ import uebersicht from "../../../pages/impressum";
 
 const Dashboard = props => {
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <Switch>
-        <AuthRoute path="/impressum" exact component={uebersicht} />
-      </Switch>
-    </div>
+    <Switch>
+      <Route path="/virtueles_labor/grundriss" exact component={grundriss} />
+      <Route path="/virtueles_labor/checklist" exact component={checklist} />
+    </Switch>
   );
 };
 

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import "./footer.css";
-import { withRouter } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
 import { TocContext } from "../../util/TocProvider";
 import { PagesContext } from "../../util/PagesProvider";
 import { WindowsContext } from "../../util/WindowsStatesProvider";
-import { Image } from "semantic-ui-react";
+import { Image, Label, Icon, Divider } from "semantic-ui-react";
 
 // Footer
 
@@ -211,37 +211,54 @@ const Footer = props => {
   };
   return (
     <div className="footer">
-      <div className="left_footer"></div>
+      <div className="left_footer">
+        <progress></progress>
+      </div>
       <div className="right_footer">
-        <div className="functions_left">
-          <button className="button-search">Suche</button>
-          <button className="button-notes" onClick={handleNoteToggle}>
-            Notizen
-          </button>
-          <button className="button-menu" onClick={handleGoToMenu}>
-            Hauptmenü
-          </button>
-          <button className="button-toc" onClick={handleMenuToggle}>
-            Inhalt
-          </button>
-        </div>
-        <div className="functions_right">
-          <button className="button-back" onClick={handleBackInHistory}>
+        <div className="footer_buttons">
+          <Label
+            as={NavLink}
+            to="/virtueles_labor/checklist"
+            activeStyle={{ color: "red" }}
+            image
+            style={{ backgroundColor: "transparent", color: "white" }}
+          >
+            <Icon name="list alternate outline" />
+            Checklist
+          </Label>
+          <span className="divider"></span>
+          <Label
+            as={NavLink}
+            activeStyle={{ color: "red" }}
+            to="/virtueles_labor/grundriss"
+            style={{ backgroundColor: "transparent", color: "white" }}
+            image
+          >
+            <Icon name="briefcase" />
+            Grundriss/Inhalt
+          </Label>
+          <span className="divider"></span>
+          <Label
+            as="button"
+            onClick={handleBackInHistory}
+            style={{ backgroundColor: "transparent", color: "white" }}
+            image
+          >
+            <Icon name="undo" />
             Zurück
-          </button>
-          <button className="button-prev-section" onClick={goChapterUp}>
-            &#9664;&#9664;
-          </button>
-          <button className="button-next-section" onClick={goChapterDown}>
-            &#9654;&#9654;
-          </button>
-          <button className="button-prev-page" onClick={goPageUp}>
-            &#9664;
-          </button>
-          <button className="button-next-page" onClick={goPageDown}>
-            &#9654;
-          </button>
+          </Label>
         </div>
+        <Label
+          as={NavLink}
+          to="/home"
+          style={{
+            backgroundColor: "transparent",
+            marginLeft: "auto",
+            color: "white"
+          }}
+        >
+          Home
+        </Label>
       </div>
     </div>
   );

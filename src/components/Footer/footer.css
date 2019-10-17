@@ -22,7 +22,8 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  align-items: center;
+  padding: 0 15px;
 }
 
 .functions_left {
@@ -42,27 +43,10 @@
 
 .footer [class*="button-"],
 .footer a {
-  color: white;
-  padding: 0 5px;
-  font-size: 12px;
-  text-transform: uppercase;
   font-weight: 800;
   letter-spacing: 1px;
 }
 
-.footer [class*="button-"]:hover,
-.footer a:hover {
-  color: black;
-}
-
-.functions_left div,
-.functions_right div {
-  margin: auto 10px;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.functions_right [class*="button-prev"],
-.functions_right [class*="button-next"] {
-  font-size: 18px;
+.footer_buttons {
+  margin: 0 auto;
 }

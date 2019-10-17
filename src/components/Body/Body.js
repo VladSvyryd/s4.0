@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import "./body.css";
-import Toc from "./Toc/Toc";
 import Dashboard from "./Dashboard/Dashboard";
 import Draggable from "react-draggable";
 import { WindowsContext } from "../../util/WindowsStatesProvider";
@@ -213,144 +212,17 @@ const Body = props => {
 
   // used to setUp a title of the page
   const setUpPageTitle = () => {
+    console.log(props);
     return (
       tocPages.currentPage.kuerzel + " " + tocPages.currentPage.verweis_titel
     );
   };
   return (
     <main id="panel">
-      <div className="toc">
-        <Transition
-          visible={wStates.menu.openned}
-          animation="scale"
-          duration={500}
-        >
-          <div>
-            <Draggable
-              handle=".handle"
-              defaultPosition={wStates.menu.initPosition}
-              position={
-                !wStates.menu.notMovable
-                  ? deltaPositionTOC
-                  : wStates.menu.initPosition
-              }
-              onStop={handleStopDragging}
-              onDrag={handleDrag}
-              disabled={wStates.menu.notMovable}
-              defaultClassName="draggable TOC"
-            >
-              <div>
-                <ResizableBox
-                  className="toc_box"
-                  width={
-                    wStates.menu.notMovable
-                      ? wStates.menu.initialVolume.width
-                      : wStates.menu.volume.width
-                  }
-                  height={
-                    wStates.menu.notMovable
-                      ? wStates.menu.initialVolume.height
-                      : wStates.menu.volume.height
-                  }
-                  onResizeStop={handleResizeStop}
-                  minConstraints={[260, 500]}
-                  maxConstraints={[500, 800]}
-                  axis={wStates.menu.notMovable ? "none" : "both"}
-                >
-                  <div>
-                    <div className="handle" id="toc_titel">
-                      <span
-                        className={
-                          wStates.menu.notMovable
-                            ? "button-pin"
-                            : "button-unpin"
-                        }
-                        onClick={() => handleDragableTOCClick()}
-                        id="tocPinButton"
-                      />
-                      <span>Inhaltsverzeichnis</span>
-                      <span className="button-close" onClick={handleMenuToggle}>
-                        &#10005;
-                      </span>
-                    </div>
-                  </div>
-                  <Toc {...props} />
-                </ResizableBox>
-              </div>
-            </Draggable>
-          </div>
-        </Transition>
-        <Transition
-          visible={wStates.notes.openned}
-          animation="scale"
-          duration={500}
-        >
-          <div>
-            <Draggable
-              handle=".handle"
-              defaultPosition={wStates.notes.initPosition}
-              position={
-                !wStates.notes.notMovable
-                  ? deltaPositionNOTES
-                  : wStates.notes.initPosition
-              }
-              onStop={handleStopDragging}
-              onDrag={handleDrag}
-              disabled={wStates.notes.notMovable}
-              defaultClassName="draggable NOTES"
-            >
-              <div>
-                <ResizableBox
-                  className="notes_box"
-                  width={
-                    wStates.notes.notMovable
-                      ? wStates.notes.initialVolume.width
-                      : wStates.notes.volume.width
-                  }
-                  height={
-                    wStates.notes.notMovable
-                      ? wStates.notes.initialVolume.height
-                      : wStates.notes.volume.height
-                  }
-                  onResizeStop={handleResizeStop}
-                  minConstraints={[260, 500]}
-                  maxConstraints={[500, 800]}
-                  axis={wStates.notes.notMovable ? "none" : "both"}
-                >
-                  <div>
-                    <div className="handle" id="toc_titel">
-                      {" "}
-                      <span
-                        className={
-                          wStates.notes.notMovable
-                            ? "button-pin"
-                            : "button-unpin"
-                        }
-                        onClick={() => handleDragableNOTESClick()}
-                        id="tocPinButton"
-                      >
-                        {" "}
-                      </span>{" "}
-                      <span>Notizen</span>{" "}
-                      <span
-                        className="button-close"
-                        onClick={() => handleNotesToggle()}
-                      >
-                        &#10005;
-                      </span>
-                    </div>
-                  </div>
-                  <div className="notes">
-                    <NotesForm {...props} />
-                  </div>
-                </ResizableBox>
-              </div>
-            </Draggable>
-          </div>
-        </Transition>
-      </div>
       <div className="bodyContent">
-        <div className="pageTitle">{setUpPageTitle()}</div>
+        {
+          //<div className="pageTitle">{setUpPageTitle()}</div>
+        }
         <Dashboard />
       </div>
     </main>

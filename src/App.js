@@ -26,22 +26,9 @@ const App = props => {
             <WindowsStatesProvider>
               <Switch>
                 <Route path="/" exact component={CheckPage} />
-                <AuthRoute path="/hauptmenu" exact component={MainMenu} />
                 <Route
-                  path="/grundlagen"
+                  path="/virtueles_labor"
                   render={props => <Shell path={1} {...props} />}
-                />
-                <Route
-                  path="/fuegen"
-                  render={props => <Shell path={2} {...props} />}
-                />
-                <Route
-                  path="/energieuebertragung"
-                  render={props => <Shell path={3} {...props} />}
-                />
-                <Route
-                  path="/s_tragen"
-                  render={props => <Shell path={4} {...props} />}
                 />
               </Switch>
             </WindowsStatesProvider>
