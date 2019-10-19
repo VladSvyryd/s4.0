@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Button, Image, Grid, Icon } from "semantic-ui-react";
+import { Grid, Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import Toc from "../components/Body/Toc/Toc";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
@@ -9,66 +10,60 @@ function Checklist(props) {
   const [tocState, setTocState] = useContext(TocContext);
   const [tocPages] = useContext(PagesContext);
   const handlePrevMenu = () => {
-    let newIndex = tocState.activeAccordionIndex + 1;
-    let nextChapterFirstPageString;
-    let currentPage;
-    if (
-      tocPages[newIndex] &&
-      newIndex <= tocPages.length &&
-      tocPages[newIndex].content
-    ) {
-      nextChapterFirstPageString = tocPages[newIndex].content[0].filename;
-      currentPage = tocPages[newIndex].content[0];
-    } else if (
-      tocPages[newIndex] &&
-      newIndex <= tocPages.length &&
-      tocPages[newIndex].filename
-    ) {
-      nextChapterFirstPageString = tocPages[newIndex].filename;
-      currentPage = tocPages[newIndex];
-    } else {
-      newIndex = tocState.activeAccordionIndex;
-      nextChapterFirstPageString = tocState.activePageLink;
-    }
-    setTocState(actualPage => ({
-      ...actualPage,
-      activePageLink: nextChapterFirstPageString,
-      activeAccordionIndex: newIndex,
-      currentPage: currentPage || actualPage.currentPage
-    }));
-    //props.match.url is the main path of this Kapitel
-    console.log(props.match.url + "/" + nextChapterFirstPageString);
-  };
-  const handleNextMenu = (start_with_first = true) => {
-    let newIndex = tocState.activeAccordionIndex - 1;
-    if (newIndex >= 0) {
-      let previousChapterFirstPageString;
-      let currentPage;
-      if (start_with_first && tocPages[newIndex].content) {
-        previousChapterFirstPageString = tocPages[newIndex].content[0].filename;
-        currentPage = tocPages[newIndex].content[0];
-      } else if (!start_with_first && tocPages[newIndex].content) {
-        previousChapterFirstPageString =
-          tocPages[newIndex].content[tocPages[newIndex].content.length - 1]
-            .filename;
-        currentPage =
-          tocPages[newIndex].content[tocPages[newIndex].content.length - 1];
-      } else if (tocPages[newIndex].filename) {
-        previousChapterFirstPageString = tocPages[newIndex].filename;
-        currentPage = tocPages[newIndex];
-      }
+    if (tocState.activeMenu > -1)
       setTocState(actualPage => ({
         ...actualPage,
-        activePageLink: previousChapterFirstPageString,
-        activeAccordionIndex: newIndex,
-        currentPage: currentPage
+        activeMenu: actualPage.activeMenu - 1
       }));
-      //props.match.url is the main path of this Kapitel
-      props.history.push(
-        props.match.url + "/" + previousChapterFirstPageString
-      );
-    }
   };
+  const handleNextMenu = () => {
+    if (tocState.activeMenu < tocPages.length - 1)
+      setTocState(actualPage => ({
+        ...actualPage,
+        activeMenu: actualPage.activeMenu + 1
+      }));
+  };
+  function menuLinks() {
+    return tocPages.map((page, i) => {
+      return page.firstLayer;
+    });
+  }
+
+  function parseLinks(menuIndex) {
+    //console.log(menuLinks()[menuIndex]);
+    return (
+      menuLinks()[menuIndex] &&
+      menuLinks()[menuIndex].map((section, i) => {
+        return !section.secondPages ? (
+          <Link
+            to={`/virtueles_labor/${tocPages[menuIndex].node.filename}`}
+            key={"linkSection" + i}
+          >
+            {i <= 0 && <h5>{tocPages[menuIndex].node.titel}</h5>}
+            <div className="gridList">
+              <div>{"-"} </div>
+              <div>{section.secondLayer.titel}</div>
+            </div>
+          </Link>
+        ) : (
+          <Link
+            key={"linkSection" + i}
+            to={`/virtueles_labor/${section.secondLayer.filename}`}
+          >
+            <h5>{section.secondLayer.titel}</h5>{" "}
+            {section.secondPages.map((p, i) => {
+              return (
+                <div key={"linkList" + i} className="gridList">
+                  <div>{"-"} </div>
+                  {p.titel}
+                </div>
+              );
+            })}
+          </Link>
+        );
+      })
+    );
+  }
   return (
     <Grid className="fullHeight" padded>
       <Grid.Row columns="2">
@@ -82,29 +77,49 @@ function Checklist(props) {
           }}
         >
           <Grid columns="2" className="fullHeight">
-            <Grid.Column verticalAlign="bottom">
-              <button
-                style={{ margin: "0 0 50px 5px" }}
-                onClick={handlePrevMenu}
-              >
-                <Icon name="arrow left" color="black" size="large" />
-              </button>
+            <Grid.Column verticalAlign="bottom" width="7">
+              {tocState.activeMenu > -1 ? (
+                <button
+                  style={{ margin: "0 0 50px 5px" }}
+                  onClick={handlePrevMenu}
+                >
+                  <Icon name="arrow left" color="black" size="large" />
+                </button>
+              ) : null}
             </Grid.Column>
-            <Grid.Column style={{ display: "flex" }}>
-              <div style={{ alignSelf: "center" }}>
-                <h2>alwdhahwd</h2>
-                <ul>
-                  <li>awd</li>
-                  <li>awd</li>
-                  <li>ad</li>
-                </ul>
+            <Grid.Column style={{ display: "flex" }} width="9">
+              <div style={{ display: "block", alignSelf: "center" }}>
+                {tocState.activeMenu < 0 && (
+                  <div>
+                    <h1 style={{ textAlign: "center" }}>Checkliste</h1>
+                    <p>
+                      Die Checkliste bietet Ihnen eine Übersicht über alle
+                      Mängel in den Laborbereichen und den aktuellen
+                      Bearbeitungsstand:
+                    </p>
+                    <p>
+                      Aufgaben, die Sie bereits richtig gelöst haben, sind mit
+                      einem Häkchen markiert. Mit einem Mausklick auf einen
+                      Eintrag in der Liste gelangen Sie direkt zu der jeweiligen
+                      Laborsituation mit den einzelnen Aufgabenstellungen.
+                    </p>
+                  </div>
+                )}
+                {console.log(menuLinks())}
+                {parseLinks(tocState.activeMenu)}
               </div>
-              <button
-                onClick={handleNextMenu}
-                style={{ alignSelf: "flex-end", margin: "0px 100px 50px auto" }}
-              >
-                <Icon name="arrow right" size="large" />
-              </button>
+
+              {tocState.activeMenu < tocPages.length - 1 ? (
+                <button
+                  onClick={handleNextMenu}
+                  style={{
+                    alignSelf: "flex-end",
+                    margin: "0px 100px 50px auto"
+                  }}
+                >
+                  <Icon name="arrow right" size="large" />
+                </button>
+              ) : null}
             </Grid.Column>
           </Grid>
         </Grid.Column>

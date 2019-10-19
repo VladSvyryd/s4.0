@@ -21,7 +21,7 @@ export const PagesProvider = props => {
   // Input chapter(INT), Output pages(JSON)
   let pages = pickUpCurrentChapter(props.path);
   // set global state as tocPages array
-  const [tocPages, setPages] = useState(parseNodes(pages));
+  const [tocPages, setPages] = useState(parseNodesNewWay());
 
   function pickUpCurrentChapter(number) {
     let currentPages;
@@ -78,12 +78,27 @@ export const PagesProvider = props => {
     return rootList;
   }
 
+  function getPagesFromNode(nodes) {
+    return !nodes.pages
+      ? { thirdPages: nodes }
+      : nodes.pages.map(node => ({
+          secondLayer: node,
+          secondPages: node.pages || false
+        }));
+  }
+
+  function parseNodesNewWay(pages = pagesA) {
+    return pages.map(
+      (cursor, i) =>
+        cursor.pages && { node: cursor, firstLayer: getPagesFromNode(cursor) }
+    );
+  }
   function parseLinks(p) {
     return p.map(page => page);
   }
-  useEffect(() => {
-    setPages(parseNodes(pickUpCurrentChapter(props.path)));
-  }, [props.path]);
+  /*useEffect(() => {
+    setPages(parseNodesNewWay());
+  }, [props.path])*/
   return (
     <PagesContext.Provider value={[tocPages, setPages]}>
       {props.children}

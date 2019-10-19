@@ -150,7 +150,6 @@ function CheckPage(props) {
                 {text(pageState)}
               </div>
             )}
-            {pageState}
             <div style={{ position: "absolute", top: "465px", left: "78px" }}>
               <Button
                 size="small"

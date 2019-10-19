@@ -17,15 +17,14 @@ import { Icon, Label } from "semantic-ui-react";
 const Toc = props => {
   const [tocState, setTocState] = useContext(TocContext);
   const [tocPages] = useContext(PagesContext);
-  const [activeItem, setActiveItem] = useState(-1);
   // current global path, depending from current Chapter
   let { match } = props;
 
-  function createTitle(node, index) {
+  function createTitle(cursor, index) {
     return (
       <Menu.Item
-        index={index + 1}
-        active={tocState.activeAccordionIndexa === index + 1}
+        index={index}
+        active={tocState.activeMenu === index}
         onClick={handleItemClick}
         style={{
           display: "grid",
@@ -35,34 +34,29 @@ const Toc = props => {
         }}
       >
         <div>{index + 1} </div>
-        <div>{`${node.verweis_titel}`}</div>
+        <div>{cursor.node && cursor.node.titel}</div>
       </Menu.Item>
     );
   }
 
   const handleItemClick = (e, itemProps) => {
-    let activePageReset;
-    console.log(itemProps);
-    const { index } = itemProps;
-    const newIndex = tocState.activeAccordionIndex === index ? 0 : index;
     // update TOC State
     setTocState(actualPage => ({
       ...actualPage,
-      activePageLink: activePageReset || actualPage.activePageLink,
-      activeAccordionIndex: newIndex
+      activeMenu: itemProps.index
     }));
   };
-
+  function setMenuLink(tocPages, createTitle) {}
   // this object will be returned to Body.js body
   return (
     <Menu vertical>
       <Menu.Item>
         <Menu.Header>Chemisches Labor</Menu.Header>
         <Menu.Menu>
-          {tocPages.map((node, i) => {
+          {tocPages.map((cursor, i) => {
             return i <= 4 ? (
               <div key={"holder_" + i} className="node">
-                {createTitle(node, i)}
+                {createTitle(cursor, i)}
               </div>
             ) : null;
           })}
@@ -73,7 +67,7 @@ const Toc = props => {
 
         <Menu.Menu>
           {tocPages.map((node, i) => {
-            return i > 5 ? (
+            return i >= 5 ? (
               <div key={"holder_" + i} className="node">
                 {createTitle(node, i)}
               </div>

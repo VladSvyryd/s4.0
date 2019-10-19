@@ -19,74 +19,28 @@ export const TocProvider = props => {
 
   // load global state of tocPages
   const [tocPages] = useContext(PagesContext);
-  const getIndexOfActiveAccordion = t => {
-    let currentPath = props.location.pathname
-      .split("/")
-      .slice(-1)
-      .pop();
-    let result;
-    t.forEach((element, index) => {
-      if (element.content) {
-        element.content.map((link, i) => {
-          if (link.filename === currentPath) {
-            result = index;
-          }
-        });
-      } else {
-        if (element.filename === currentPath) {
-          result = index;
-        }
-      }
-    });
-    return result;
-  };
-
-  // if it is normal page, else if it is an accordion, or if this is first start of the programm
-  const setActivePage = () => {
-    let result;
-    if (
-      tocPages[getIndexOfActiveAccordion(tocPages)] &&
-      tocPages[getIndexOfActiveAccordion(tocPages)].filename
-    ) {
-      result = tocPages[getIndexOfActiveAccordion(tocPages)];
-    } else if (
-      tocPages[getIndexOfActiveAccordion(tocPages)] &&
-      tocPages[getIndexOfActiveAccordion(tocPages)].content
-    ) {
-      tocPages[getIndexOfActiveAccordion(tocPages)].content.map(page => {
-        if (page.filename === path) {
-          result = page;
-        }
-      });
-    } else {
-      result = tocPages[0];
-    }
-    return result;
-  };
 
   // set up state of TOC, with it's main properties
   const [tocState, setTocState] = useState({
     activePageLink: path,
-    activeAccordionIndex: getIndexOfActiveAccordion(tocPages) || 0,
-    currentPage: setActivePage()
+    activeMenu: -1
   });
-  //console.log(tocState);
-  // this function listens to changes of current activa Page link, Example: click on Link in Notes, or changes in global page, Example: change og Chapter, and parses all Nodes and Linkts in TOC again
+  // if it is normal page, else if it is an accordion, or if this is first start of the programm
+  function setActivePage() {
+    return tocPages[tocState.activeMenu];
+  }
+  // console.log(tocState);
+  function getStateFromLocalStorage() {
+    return localStorage.getItem("labor_checklist_state")
+      ? JSON.parse(localStorage.getItem("labor_checklist_state"))
+      : localStorage.setItem("labor_checklist_state", [""]);
+  }
   useEffect(() => {
-    const pathname = props.location.pathname;
-    const path = pathname
-      .split("/")
-      .slice(-1)
-      .pop();
     setTocState(oldState => ({
       ...oldState,
-      activePageLink: path,
-      activeAccordionIndex: getIndexOfActiveAccordion(tocPages) || 0,
-      currentPage: setActivePage()
+      activeMenuPage: setActivePage()
     }));
-    let state = { state: { last_visited_page: props.location.pathname } };
-    localStorage.setItem("mt_state", JSON.stringify(state));
-  }, [props.location.pathname, tocState.activePageLink]);
+  }, [props.location.pathname, tocState.activeMenu]);
   return (
     <TocContext.Provider value={[tocState, setTocState]}>
       {props.children}

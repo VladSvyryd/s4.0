@@ -3,7 +3,7 @@
 .main_header {
   display: flex;
   flex-direction: row;
-  height: 45px;
+  height: 40px;
   background: #555;
   flex-shrink: 0;
 }

@@ -52,6 +52,16 @@ input[type="submit"] {
   border-left: 1px solid white;
 }
 
+.ul_no_padding {
+  padding-left: 14px;
+}
+.gridList {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: left;
+  grid-column-gap: 10px;
+}
+
 /*
 MAIN MENU CONTAINER (GRUNDRISS; CHECKLIST
 */
