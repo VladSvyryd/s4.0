@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
 import { Grid, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import Toc from "../components/Body/Toc/Toc";
-import { TocContext } from "../util/TocProvider";
-import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/notizblock_leer.png";
+import Toc from "../Body/Toc/Toc";
+import { TocContext } from "../../util/TocProvider";
+import { PagesContext } from "../../util/PagesProvider";
+import i1 from "../../assets/pics/notizblock_leer.png";
+import "./ckecklist.css";
 
 function Checklist(props) {
   const [tocState, setTocState] = useContext(TocContext);
   const [tocPages] = useContext(PagesContext);
+
+  // go back in Toc Menu = set new tocState
   const handlePrevMenu = () => {
     if (tocState.activeMenu > -1)
       setTocState(actualPage => ({
@@ -16,6 +19,7 @@ function Checklist(props) {
         activeMenu: actualPage.activeMenu - 1
       }));
   };
+  // go forward in Toc Menu = set new tocState
   const handleNextMenu = () => {
     if (tocState.activeMenu < tocPages.length - 1)
       setTocState(actualPage => ({
@@ -23,37 +27,46 @@ function Checklist(props) {
         activeMenu: actualPage.activeMenu + 1
       }));
   };
+  // set Links of Toc List
   function menuLinks() {
     return tocPages.map((page, i) => {
       return page.firstLayer;
     });
   }
 
+  // set Checklist Section in kind of List of nodes
   function parseLinks(menuIndex) {
     //console.log(menuLinks()[menuIndex]);
     return (
       menuLinks()[menuIndex] &&
       menuLinks()[menuIndex].map((section, i) => {
+        // if node has children nodes(width Link to each of them) than create childnodes with it's pages
         return !section.secondPages ? (
           <Link
             to={`/virtueles_labor/${tocPages[menuIndex].node.filename}`}
             key={"linkSection" + i}
           >
-            {i <= 0 && <h5>{tocPages[menuIndex].node.titel}</h5>}
-            <div className="gridList">
+            {i <= 0 && (
+              <div className="my_title">{tocPages[menuIndex].node.titel}</div>
+            )}
+            <div className="gridList three">
+              <div className="evaluation"></div>
               <div>{"-"} </div>
               <div>{section.secondLayer.titel}</div>
             </div>
           </Link>
         ) : (
+          // if node has only pages(solid), create node(one link refer to node) with pages
           <Link
             key={"linkSection" + i}
             to={`/virtueles_labor/${section.secondLayer.filename}`}
+            className="my_node_section"
           >
-            <h5>{section.secondLayer.titel}</h5>{" "}
+            <div className="my_title">{section.secondLayer.titel}</div>{" "}
             {section.secondPages.map((p, i) => {
               return (
-                <div key={"linkList" + i} className="gridList">
+                <div key={"linkList" + i} className="gridList three">
+                  <div className="evaluation"></div>
                   <div>{"-"} </div>
                   {p.titel}
                 </div>
@@ -77,7 +90,7 @@ function Checklist(props) {
           }}
         >
           <Grid columns="2" className="fullHeight">
-            <Grid.Column verticalAlign="bottom" width="7">
+            <Grid.Column verticalAlign="bottom" width="6">
               {tocState.activeMenu > -1 ? (
                 <button
                   style={{ margin: "0 0 50px 5px" }}
@@ -87,11 +100,36 @@ function Checklist(props) {
                 </button>
               ) : null}
             </Grid.Column>
-            <Grid.Column style={{ display: "flex" }} width="9">
-              <div style={{ display: "block", alignSelf: "center" }}>
+            <Grid.Column
+              width="9"
+              style={{
+                position: "relative",
+                display: "flex"
+              }}
+            >
+              <div
+                style={{
+                  display: "block",
+                  alignSelf: "center",
+                  paddingLeft: "20px",
+                  width: "300px",
+                  margin: "auto 0",
+                  color: "rgb(0,0,0)"
+                }}
+                className="my_node font_handschrift"
+              >
                 {tocState.activeMenu < 0 && (
-                  <div>
-                    <h1 style={{ textAlign: "center" }}>Checkliste</h1>
+                  <>
+                    <div
+                      className="font_handschrift"
+                      style={{
+                        textAlign: "center",
+                        fontSize: "50px",
+                        fontWeight: "bold"
+                      }}
+                    >
+                      Checkliste
+                    </div>
                     <p>
                       Die Checkliste bietet Ihnen eine Übersicht über alle
                       Mängel in den Laborbereichen und den aktuellen
@@ -103,7 +141,7 @@ function Checklist(props) {
                       Eintrag in der Liste gelangen Sie direkt zu der jeweiligen
                       Laborsituation mit den einzelnen Aufgabenstellungen.
                     </p>
-                  </div>
+                  </>
                 )}
                 {console.log(menuLinks())}
                 {parseLinks(tocState.activeMenu)}
@@ -113,8 +151,9 @@ function Checklist(props) {
                 <button
                   onClick={handleNextMenu}
                   style={{
-                    alignSelf: "flex-end",
-                    margin: "0px 100px 50px auto"
+                    position: "absolute",
+                    right: "65px",
+                    bottom: "65px"
                   }}
                 >
                   <Icon name="arrow right" size="large" />

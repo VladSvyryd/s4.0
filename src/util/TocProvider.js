@@ -23,18 +23,20 @@ export const TocProvider = props => {
   // set up state of TOC, with it's main properties
   const [tocState, setTocState] = useState({
     activePageLink: path,
-    activeMenu: -1
+    activeMenuPage: setActivePage(),
+    activeMenu: findActiveMenuByPath()
   });
+  function findActiveMenuByPath() {
+    return tocPages.findIndex(node => {
+      return node.node.filename === path;
+    });
+  }
+
   // if it is normal page, else if it is an accordion, or if this is first start of the programm
   function setActivePage() {
-    return tocPages[tocState.activeMenu];
+    return tocPages[findActiveMenuByPath()];
   }
-  // console.log(tocState);
-  function getStateFromLocalStorage() {
-    return localStorage.getItem("labor_checklist_state")
-      ? JSON.parse(localStorage.getItem("labor_checklist_state"))
-      : localStorage.setItem("labor_checklist_state", [""]);
-  }
+
   useEffect(() => {
     setTocState(oldState => ({
       ...oldState,

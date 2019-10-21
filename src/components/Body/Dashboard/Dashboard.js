@@ -1,8 +1,8 @@
 import React from "react";
 import "rc-menu/assets/index.css";
 import { Route, Switch } from "react-router-dom";
-import grundriss from "../../../pages/grundriss";
-import checklist from "../../../pages/checklist";
+import grundriss from "../../GrundRiss/grundriss";
+import checklist from "../../Checklist/checklist";
 import buero from "../../../pages/buero";
 
 // Dashboard

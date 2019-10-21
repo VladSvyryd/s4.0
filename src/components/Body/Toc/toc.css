@@ -1,33 +1,32 @@
 /* Style only for TOC Component*/
 
-.invisible {
-  display: none !important;
-}
-
-.accordionTitleIsActive {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.node > a {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-
-.toc .ui.menu {
-  margin: 0;
-  flex-direction: column !important;
-  height: 100%;
-}
-
-.toc .ui.menu .active.title {
+.toc.ui.vertical.menu .item > .header:not(.ui) {
   font-weight: bold;
+  color: white;
+  padding: 7px 20px;
+}
+.toc.ui.vertical.menu .item:nth-child(1) > .header:not(.ui) {
+  background-color: rgb(192, 192, 192);
+}
+.toc.ui.vertical.menu .item:nth-child(2) > .header:not(.ui) {
+  background-color: rgba(149, 162, 107, 1);
+}
+.toc.ui.menu .active.item,
+.ui.vertical.menu .item .menu a.item:hover {
+  font-weight: normal;
+  color: #4183c4 !important;
 }
 
-.toc .ui.menu .active.item {
-  font-weight: bold;
+.toc.ui.vertical.menu .menu .item {
+  font-size: 14px;
+  color: black;
 }
 
-.toc .ui.menu .accordion.ui {
-  overflow-y: auto;
+.toc.ui.vertical.menu {
+  width: 17rem;
+}
+
+.toc.ui.menu,
+.toc.ui.menu .item {
+  border: 0;
 }

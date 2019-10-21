@@ -1,703 +1,775 @@
-const pagesA = [
-    {
-        id: 651,
-        type: 0,
-        kuerzel: "A 0",
+﻿const pagesA = [
+  {
+    id: 815,
+    type: 0,
+    kuerzel: "A 1",
+    template_file: "",
+    kapitel: 1,
+    titel: "Büro",
+    filename: "buero",
+    printfile: "",
+    verweis_titel: "Physikalisch-technische Grundlagen",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 860,
+        type: 1,
+        kuerzel: "A 1.1",
         template_file: "",
         kapitel: 1,
         titel: "Büro",
         filename: "buero",
         printfile: "",
-        verweis_titel: "Übersicht",
+        verweis_titel: "Physikalisch-technische Grundlagen - Einleitung",
         mediaquery: 0,
         pagenumber: "0",
         pages: [
-
-            {
-                id: 860,
-                type: 1,
-                kuerzel: "A 1.1",
-                template_file: "",
-                kapitel: 1,
-                titel: "Büro I",
-                filename: "buero_1",
-                printfile: "",
-                verweis_titel: "buero_i",
-                mediaquery: 0,
-                pagenumber: "0",
-                pages: [{
-                    id: 752,
-                    type: 1,
-                    kuerzel: "A 1.2",
-                    template_file: "",
-                    kapitel: 1,
-                    titel: "Büro II I",
-                    filename: "buero_3_layer",
-                    printfile: "",
-                    verweis_titel: "Büro II I",
-                    mediaquery: 0,
-                    pagenumber: "0",
-                },
-                {
-                    id: 952,
-                    type: 1,
-                    kuerzel: "A 1.2",
-                    template_file: "",
-                    kapitel: 1,
-                    titel: "Büro II II",
-                    filename: "buero_3_layer",
-                    printfile: "",
-                    verweis_titel: "Büro II II",
-                    mediaquery: 0,
-                    pagenumber: "0",
-                }
-                ]
-            },
-
-            {
-                id: 652,
-                type: 1,
-                kuerzel: "A 1.2",
-                template_file: "",
-                kapitel: 1,
-                titel: "Büro II",
-                filename: "buero_ii",
-                printfile: "",
-                verweis_titel: "Büro II",
-                mediaquery: 0,
-                pagenumber: "0",
-                pages: [{
-                    id: 792,
-                    type: 1,
-                    kuerzel: "A 1.2",
-                    template_file: "",
-                    kapitel: 1,
-                    titel: "Büro II I",
-                    filename: "buero_3_layer",
-                    printfile: "",
-                    verweis_titel: "Büro II I",
-                    mediaquery: 0,
-                    pagenumber: "0",
-                },
-                {
-                    id: 985,
-                    type: 1,
-                    kuerzel: "A 1.2",
-                    template_file: "",
-                    kapitel: 1,
-                    titel: "Büro II II",
-                    filename: "buero_3_layer",
-                    printfile: "",
-                    verweis_titel: "Büro II II",
-                    mediaquery: 0,
-                    pagenumber: "0",
-                }
-                ]
-            },
+          {
+            id: 652,
+            type: 1,
+            kuerzel: "A 1.1.1",
+            template_file: "",
+            kapitel: 1,
+            titel: "Prüffristen",
+            filename: "prueffristen",
+            printfile: "",
+            verweis_titel: "Kraft",
+            mediaquery: 0,
+            pagenumber: "0"
+          }
         ]
-    },
+      },
 
-    {
-        id: 815,
-        type: 0,
-        kuerzel: "A 1",
-        template_file: "",
-        kapitel: 1,
-        titel: "SECOND",
-        filename: "adawdsd",
-        printfile: "",
-        verweis_titel: "SECOND",
-        mediaquery: 0,
-        pagenumber: "0", pages: [
-
-            {
-                id: 860,
-                type: 1,
-                kuerzel: "A 1.1",
-                template_file: "",
-                kapitel: 1,
-                titel: "Einleitung",
-                filename: "einleitung_a2",
-                printfile: "",
-                verweis_titel: "Physikalisch-technische Grundlagen - Einleitung",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 652,
-                type: 1,
-                kuerzel: "A 1.2",
-                template_file: "",
-                kapitel: 1,
-                titel: "Kraft",
-                filename: "kraft",
-                printfile: "",
-                verweis_titel: "Kraft",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 653,
-                type: 1,
-                kuerzel: "A 1.3",
-                template_file: "",
-                kapitel: 1,
-                titel: "Arbeit und Leistung",
-                filename: "arbeit_leistung",
-                printfile: "",
-                verweis_titel: "Arbeit und Leistung",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 654,
-                type: 1,
-                kuerzel: "A 1.4",
-                template_file: "",
-                kapitel: 1,
-                titel: "Drehmoment",
-                filename: "drehmoment",
-                printfile: "",
-                verweis_titel: "Drehmoment",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 655,
-                type: 1,
-                kuerzel: "A 1.5",
-                template_file: "",
-                kapitel: 1,
-                titel: "Reibung",
-                filename: "reibung",
-                printfile: "",
-                verweis_titel: "Reibung",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 656,
-                type: 1,
-                kuerzel: "A 1.6",
-                template_file: "",
-                kapitel: 1,
-                titel: "Kinematik",
-                filename: "kinematik",
-                printfile: "",
-                verweis_titel: "Kinematik",
-                mediaquery: 0,
-                pagenumber: "0",
-            }]
-    },
-
-    {
+      {
         id: 816,
         type: 0,
-        kuerzel: "A 2",
+        kuerzel: "A 1.2",
         template_file: "",
         kapitel: 1,
-        titel: "Festigkeitslehre",
-        filename: "",
+        titel: "Unterweisungen",
+        filename: "untweisungen",
         printfile: "",
         verweis_titel: "Festigkeitslehre",
         mediaquery: 0,
-        pagenumber: "0", pages: [
+        pagenumber: "0",
+        pages: [
+          {
+            id: 657,
+            type: 1,
+            kuerzel: "A 1.2.1",
+            template_file: "",
+            kapitel: 1,
+            titel: "Durchführungen",
+            filename: "durchfuehrungen",
+            printfile: "",
+            verweis_titel: "Festigkeitslehre - Einleitung",
+            mediaquery: 0,
+            pagenumber: "0"
+          },
 
-            {
-                id: 657,
-                type: 1,
-                kuerzel: "A 2.1",
-                template_file: "",
-                kapitel: 1,
-                titel: "Einleitung",
-                filename: "festigkeitlehre_einleitung",
-                printfile: "",
-                verweis_titel: "Festigkeitslehre - Einleitung",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
+          {
+            id: 658,
+            type: 1,
+            kuerzel: "A 1.2.2",
+            template_file: "",
+            kapitel: 1,
+            titel: "Teilnahme",
+            filename: "beansprungungsarten",
+            printfile: "",
+            verweis_titel: "Beanspruchungsarten",
+            mediaquery: 0,
+            pagenumber: "0"
+          }
+        ]
+      }
+    ]
+  },
 
-            {
-                id: 658,
-                type: 1,
-                kuerzel: "A 2.2",
-                template_file: "",
-                kapitel: 1,
-                titel: "Beanspruchungsarten",
-                filename: "beansprungungsarten",
-                printfile: "",
-                verweis_titel: "Beanspruchungsarten",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 659,
-                type: 1,
-                kuerzel: "A 2.3",
-                template_file: "",
-                kapitel: 1,
-                titel: "Belastungsfälle",
-                filename: "belastungsfaelle",
-                printfile: "",
-                verweis_titel: "Belastungsfälle",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 660,
-                type: 1,
-                kuerzel: "A 2.4",
-                template_file: "",
-                kapitel: 1,
-                titel: "Zulässige Spannungen",
-                filename: "zulaessige_spannungen",
-                printfile: "",
-                verweis_titel: "Zulässige Spannungen",
-                mediaquery: 0,
-                pagenumber: "0",
-            }]
-    },
-
-    {
-        id: 817,
-        type: 0,
-        kuerzel: "A 3",
+  {
+    id: 867,
+    type: 0,
+    kuerzel: "A 2",
+    template_file: "",
+    kapitel: 1,
+    titel: "Eingang chemisches Labor",
+    filename: "eingang_chem_labor",
+    printfile: "",
+    verweis_titel: "",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 868,
+        type: 1,
+        kuerzel: "A 2.1",
         template_file: "",
         kapitel: 1,
-        titel: "Werkstoffe",
-        filename: "",
+        titel: "Labortür",
+        filename: "labortueren",
         printfile: "",
-        verweis_titel: "Werkstoffe",
+        verweis_titel: "",
         mediaquery: 0,
-        pagenumber: "0", pages: [
+        pagenumber: "0"
+      },
 
-            {
-                id: 661,
-                type: 1,
-                kuerzel: "A 3.1",
-                template_file: "",
-                kapitel: 1,
-                titel: "Einleitung",
-                filename: "werkstoffe_einleitung",
-                printfile: "",
-                verweis_titel: "Werkstoffe - Einleitung",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 662,
-                type: 1,
-                kuerzel: "A 3.2",
-                template_file: "",
-                kapitel: 1,
-                titel: "Einteilung",
-                filename: "einteilung",
-                printfile: "",
-                verweis_titel: "Werkstoffe - Einteilung",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 663,
-                type: 1,
-                kuerzel: "A 3.3",
-                template_file: "",
-                kapitel: 1,
-                titel: "Benennung von Stählen",
-                filename: "benennung_staehlen",
-                printfile: "",
-                verweis_titel: "Benennung von Stählen",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 664,
-                type: 1,
-                kuerzel: "A 3.4",
-                template_file: "",
-                kapitel: 1,
-                titel: "Kennwerte und Prüfverfahren",
-                filename: "kennwerte_pruefverfahren",
-                printfile: "",
-                verweis_titel: "Kennwerte und Prüfverfahren",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 665,
-                type: 1,
-                kuerzel: "A 3.5",
-                template_file: "",
-                kapitel: 1,
-                titel: "Behandlungszustand",
-                filename: "behandlungszustand",
-                printfile: "",
-                verweis_titel: "Behandlungszustand",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 666,
-                type: 1,
-                kuerzel: "A 3.6",
-                template_file: "",
-                kapitel: 1,
-                titel: "Wärmebehandung",
-                filename: "waermebehandung",
-                printfile: "",
-                verweis_titel: "Wärmebehandung",
-                mediaquery: 0,
-                pagenumber: "0",
-            }]
-    },
-
-    {
-        id: 818,
-        type: 0,
-        kuerzel: "A 4",
+      {
+        id: 869,
+        type: 1,
+        kuerzel: "A 2.2",
         template_file: "",
         kapitel: 1,
-        titel: "Toleranzen",
-        filename: "",
+        titel: "Augennotdusche",
+        filename: "augennotdusche",
         printfile: "",
-        verweis_titel: "Toleranzen",
+        verweis_titel: "",
         mediaquery: 0,
-        pagenumber: "0", pages: [
+        pagenumber: "0"
+      },
 
-            {
-                id: 667,
-                type: 1,
-                kuerzel: "A 4.1",
-                template_file: "",
-                kapitel: 1,
-                titel: "Einleitung",
-                filename: "toleranzen_einleitung",
-                printfile: "",
-                verweis_titel: "Toleranzen - Einleitung",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 668,
-                type: 1,
-                kuerzel: "A 4.2",
-                template_file: "",
-                kapitel: 1,
-                titel: "Maßtoleranzen",
-                filename: "masstoleranzen",
-                printfile: "",
-                verweis_titel: "Maßtoleranzen",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 669,
-                type: 1,
-                kuerzel: "A 4.3",
-                template_file: "",
-                kapitel: 1,
-                titel: "Formtoleranzen",
-                filename: "formtoleranzen",
-                printfile: "",
-                verweis_titel: "Formtoleranzen",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 670,
-                type: 1,
-                kuerzel: "A 4.4",
-                template_file: "",
-                kapitel: 1,
-                titel: "Lagetoleranzen",
-                filename: "lagetoleranzen",
-                printfile: "",
-                verweis_titel: "Lagetoleranzen",
-                mediaquery: 0,
-                pagenumber: "0",
-            }]
-    },
-
-    {
-        id: 819,
-        type: 0,
-        kuerzel: "A 5",
+      {
+        id: 870,
+        type: 1,
+        kuerzel: "A 2.3",
         template_file: "",
         kapitel: 1,
-        titel: "Passungen",
-        filename: "",
+        titel: "Körpernotdusche",
+        filename: "koerpernotdusche",
         printfile: "",
-        verweis_titel: "Passungen",
+        verweis_titel: "",
         mediaquery: 0,
-        pagenumber: "0", pages: [
+        pagenumber: "0"
+      },
 
-            {
-                id: 671,
-                type: 1,
-                kuerzel: "A 5.1",
-                template_file: "",
-                kapitel: 1,
-                titel: "Einleitung",
-                filename: "passungen_einleitung",
-                printfile: "",
-                verweis_titel: "Passungen - Einleitung",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 672,
-                type: 1,
-                kuerzel: "A 5.2",
-                template_file: "",
-                kapitel: 1,
-                titel: "Grundbegriffe",
-                filename: "grundbegriffe",
-                printfile: "",
-                verweis_titel: "Grundbegriffe",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 673,
-                type: 1,
-                kuerzel: "A 5.3",
-                template_file: "",
-                kapitel: 1,
-                titel: "ISO-Passungssystem",
-                filename: "iso-passungssystem",
-                printfile: "",
-                verweis_titel: "ISO-Passungssystem",
-                mediaquery: 0,
-                pagenumber: "0",
-            }]
-    },
-
-    {
-        id: 820,
-        type: 0,
-        kuerzel: "A 6",
+      {
+        id: 871,
+        type: 1,
+        kuerzel: "A 2.4",
         template_file: "",
         kapitel: 1,
-        titel: "Oberflächen",
-        filename: "",
+        titel: "Ventil / Kennzeichnung",
+        filename: "ventil",
         printfile: "",
-        verweis_titel: "Oberflächen",
+        verweis_titel: "",
         mediaquery: 0,
-        pagenumber: "0", pages: [
+        pagenumber: "0"
+      }
+    ]
+  },
 
-            {
-                id: 674,
-                type: 1,
-                kuerzel: "A 6.1",
-                template_file: "",
-                kapitel: 1,
-                titel: "Einleitung",
-                filename: "oberflaechen_einleitung",
-                printfile: "",
-                verweis_titel: "Oberflächen - Einleitung",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 675,
-                type: 1,
-                kuerzel: "A 6.2",
-                template_file: "",
-                kapitel: 1,
-                titel: "Form",
-                filename: "form",
-                printfile: "",
-                verweis_titel: "Form",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 676,
-                type: 1,
-                kuerzel: "A 6.3",
-                template_file: "",
-                kapitel: 1,
-                titel: "Rauheit",
-                filename: "rauheit",
-                printfile: "",
-                verweis_titel: "Rauheit",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 677,
-                type: 1,
-                kuerzel: "A 6.4",
-                template_file: "",
-                kapitel: 1,
-                titel: "Angabe in Zeichnungen",
-                filename: "angabe_zeichnungen",
-                printfile: "",
-                verweis_titel: "Angabe in Zeichnungen",
-                mediaquery: 0,
-                pagenumber: "0",
-            }]
-    },
-
-    {
-        id: 821,
-        type: 0,
-        kuerzel: "A 7",
+  {
+    id: 872,
+    type: 0,
+    kuerzel: "A 3",
+    template_file: "",
+    kapitel: 1,
+    titel: "Rettungseinrichtungen",
+    filename: "rett_einrichtung",
+    printfile: "",
+    verweis_titel: "",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 873,
+        type: 1,
+        kuerzel: "A 3.1",
         template_file: "",
         kapitel: 1,
-        titel: "Prüfen (Lehren und Messen)",
-        filename: "",
+        titel: "Zugänglichkeit",
+        filename: "zugaenglichkeit",
         printfile: "",
-        verweis_titel: "Prüfen (Lehren und Messen)",
+        verweis_titel: "",
         mediaquery: 0,
-        pagenumber: "0", pages: [
+        pagenumber: "0"
+      },
 
-            {
-                id: 678,
-                type: 1,
-                kuerzel: "A 7.1",
-                template_file: "",
-                kapitel: 1,
-                titel: "Einleitung",
-                filename: "pruefen_einleitung",
-                printfile: "",
-                verweis_titel: "Prüfen - Einleitung",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 679,
-                type: 1,
-                kuerzel: "A 7.2",
-                template_file: "",
-                kapitel: 1,
-                titel: "Lehren",
-                filename: "lehren",
-                printfile: "",
-                verweis_titel: "Lehren",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 680,
-                type: 1,
-                kuerzel: "A 7.3",
-                template_file: "",
-                kapitel: 1,
-                titel: "Messen",
-                filename: "messen",
-                printfile: "",
-                verweis_titel: "Messen",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
-
-            {
-                id: 681,
-                type: 1,
-                kuerzel: "A 7.4",
-                template_file: "",
-                kapitel: 1,
-                titel: "Fehler beim Prüfen",
-                filename: "fehler_pruefen",
-                printfile: "",
-                verweis_titel: "Fehler beim Prüfen",
-                mediaquery: 0,
-                pagenumber: "0",
-            }]
-    },
-
-    {
-        id: 822,
-        type: 0,
-        kuerzel: "A 8",
+      {
+        id: 874,
+        type: 1,
+        kuerzel: "A 3.2",
         template_file: "",
         kapitel: 1,
-        titel: "Arbeits- und Umweltschutz",
-        filename: "",
+        titel: "Verbandkasten",
+        filename: "verbandkasten",
         printfile: "",
-        verweis_titel: "Arbeits- und Umweltschutz",
+        verweis_titel: "",
         mediaquery: 0,
-        pagenumber: "0", pages: [
+        pagenumber: "0"
+      },
 
-            {
-                id: 682,
-                type: 1,
-                kuerzel: "A 8.1",
-                template_file: "",
-                kapitel: 1,
-                titel: "Einleitung",
-                filename: "arbeit_umw_einleitung",
-                printfile: "",
-                verweis_titel: "Arbeits- und Umweltschutz - Einleitung",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
+      {
+        id: 875,
+        type: 1,
+        kuerzel: "A 3.3",
+        template_file: "",
+        kapitel: 1,
+        titel: "Feuerlöscher",
+        filename: "feuerloescher",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      }
+    ]
+  },
 
-            {
-                id: 683,
-                type: 1,
-                kuerzel: "A 8.2",
-                template_file: "",
-                kapitel: 1,
-                titel: "Persönliche Schutzmaßnahmen",
-                filename: "persoenliche_schutzmassnahmen",
-                printfile: "",
-                verweis_titel: "Persönliche Schutzmaßnahmen",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
+  {
+    id: 876,
+    type: 0,
+    kuerzel: "A 4",
+    template_file: "",
+    kapitel: 1,
+    titel: "Chemikalien",
+    filename: "chemikalien",
+    printfile: "",
+    verweis_titel: "",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 877,
+        type: 1,
+        kuerzel: "A 4.1",
+        template_file: "",
+        kapitel: 1,
+        titel: "Regal",
+        filename: "regal",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
 
-            {
-                id: 684,
-                type: 1,
-                kuerzel: "A 8.3",
-                template_file: "",
-                kapitel: 1,
-                titel: "Unfallverhütungsvorschriften",
-                filename: "unfallverhuetungsvorschriften",
-                printfile: "",
-                verweis_titel: "Unfallverhütungsvorschriften",
-                mediaquery: 0,
-                pagenumber: "0",
-            },
+      {
+        id: 878,
+        type: 1,
+        kuerzel: "A 4.2",
+        template_file: "",
+        kapitel: 1,
+        titel: "Sicherheitsschrank",
+        filename: "sicherheitsschrank",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      }
+    ]
+  },
 
-            {
-                id: 697,
-                type: 1,
-                kuerzel: "A 8.4",
-                template_file: "",
-                kapitel: 1,
-                titel: "Umweltschutz",
-                filename: "umweltschutz",
-                printfile: "",
-                verweis_titel: "Umweltschutz",
-                mediaquery: 0,
-                pagenumber: "0",
-            }]
-    },
+  {
+    id: 879,
+    type: 0,
+    kuerzel: "A 5",
+    template_file: "",
+    kapitel: 1,
+    titel: "Druckgasflaschenschrank",
+    filename: "druckgasflaschenschrank",
+    printfile: "",
+    verweis_titel: "",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 880,
+        type: 1,
+        kuerzel: "A 5.1",
+        template_file: "",
+        kapitel: 1,
+        titel: "Druckgasflasche",
+        filename: "druckgasflasche",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      }
+    ]
+  },
 
+  {
+    id: 881,
+    type: 0,
+    kuerzel: "A 6",
+    template_file: "",
+    kapitel: 1,
+    titel: "Apparaturen",
+    filename: "apparaturen",
+    printfile: "",
+    verweis_titel: "",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 882,
+        type: 1,
+        kuerzel: "A 6.1",
+        template_file: "",
+        kapitel: 1,
+        titel: "Apparaturen",
+        filename: "apparaturen",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0",
+        pages: [
+          {
+            id: 883,
+            type: 1,
+            kuerzel: "A 6.1.1",
+            template_file: "",
+            kapitel: 1,
+            titel: "Funktionsprüfung des Abzuges",
+            filename: "funk_des_Abzuges",
+            printfile: "",
+            verweis_titel: "",
+            mediaquery: 0,
+            pagenumber: "0"
+          }
+        ]
+      },
+
+      {
+        id: 884,
+        type: 1,
+        kuerzel: "A 6.2",
+        template_file: "",
+        kapitel: 1,
+        titel: "Versuchsaufbau im Abzug",
+        filename: "versuch_im_Abzug",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0",
+        pages: [
+          {
+            id: 885,
+            type: 1,
+            kuerzel: "A 6.2.1",
+            template_file: "",
+            kapitel: 1,
+            titel: "Hebebühne",
+            filename: "hebebuehne",
+            printfile: "",
+            verweis_titel: "",
+            mediaquery: 0,
+            pagenumber: "0"
+          },
+
+          {
+            id: 886,
+            type: 1,
+            kuerzel: "A 6.2.2",
+            template_file: "",
+            kapitel: 1,
+            titel: "Tauchsieder",
+            filename: "tauchsieder",
+            printfile: "",
+            verweis_titel: "",
+            mediaquery: 0,
+            pagenumber: "0"
+          },
+
+          {
+            id: 887,
+            type: 1,
+            kuerzel: "A 6.2.3",
+            template_file: "",
+            kapitel: 1,
+            titel: "Rundkolben",
+            filename: "rundkolben",
+            printfile: "",
+            verweis_titel: "",
+            mediaquery: 0,
+            pagenumber: "0"
+          },
+
+          {
+            id: 888,
+            type: 1,
+            kuerzel: "A 6.2.4",
+            template_file: "",
+            kapitel: 1,
+            titel: "Statische Sicherung",
+            filename: "statische_sicherung",
+            printfile: "",
+            verweis_titel: "",
+            mediaquery: 0,
+            pagenumber: "0"
+          },
+
+          {
+            id: 889,
+            type: 1,
+            kuerzel: "A 6.2.5",
+            template_file: "",
+            kapitel: 1,
+            titel: "Schliffsicherung",
+            filename: "schliffsicherung",
+            printfile: "",
+            verweis_titel: "",
+            mediaquery: 0,
+            pagenumber: "0"
+          },
+
+          {
+            id: 890,
+            type: 1,
+            kuerzel: "A 6.2.6",
+            template_file: "",
+            kapitel: 1,
+            titel: "Schlauchsicherung",
+            filename: "schlauchsicherung",
+            printfile: "",
+            verweis_titel: "",
+            mediaquery: 0,
+            pagenumber: "0"
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 891,
+    type: 0,
+    kuerzel: "A 7",
+    template_file: "",
+    kapitel: 1,
+    titel: "Mitarbeiter",
+    filename: "mitarbeiter",
+    printfile: "",
+    verweis_titel: "",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 892,
+        type: 1,
+        kuerzel: "A 7.1",
+        template_file: "",
+        kapitel: 1,
+        titel: "Ärmel des Laborkittels",
+        filename: "aermel_des_Labor",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
+
+      {
+        id: 893,
+        type: 1,
+        kuerzel: "A 7.2",
+        template_file: "",
+        kapitel: 1,
+        titel: "Laborkittel",
+        filename: "laborkittel",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
+
+      {
+        id: 894,
+        type: 1,
+        kuerzel: "A 7.3",
+        template_file: "",
+        kapitel: 1,
+        titel: "Schuhe",
+        filename: "schuhe",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
+
+      {
+        id: 895,
+        type: 1,
+        kuerzel: "A 7.4",
+        template_file: "",
+        kapitel: 1,
+        titel: "Laborbrille",
+        filename: "laborbrille",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
+
+      {
+        id: 896,
+        type: 1,
+        kuerzel: "A 7.5",
+        template_file: "",
+        kapitel: 1,
+        titel: "Rauchen",
+        filename: "rauchen",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
+
+      {
+        id: 897,
+        type: 1,
+        kuerzel: "A 7.6",
+        template_file: "",
+        kapitel: 1,
+        titel: "Essen und Trinken",
+        filename: "essen_und_trinken",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      }
+    ]
+  },
+
+  {
+    id: 898,
+    type: 0,
+    kuerzel: "A 8",
+    template_file: "",
+    kapitel: 1,
+    titel: "Eingang biotechnologiesches Labor",
+    filename: "eingang_bio_Labor",
+    printfile: "",
+    verweis_titel: "",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 899,
+        type: 1,
+        kuerzel: "A 8.1",
+        template_file: "",
+        kapitel: 1,
+        titel: "Labortür",
+        filename: "labortuer",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      }
+    ]
+  },
+
+  {
+    id: 900,
+    type: 0,
+    kuerzel: "A 9",
+    template_file: "",
+    kapitel: 1,
+    titel: "Waschbecken und Garderobe",
+    filename: "waschbecken_garderobe",
+    printfile: "",
+    verweis_titel: "",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 901,
+        type: 1,
+        kuerzel: "A 9.1",
+        template_file: "",
+        kapitel: 1,
+        titel: "Händewaschen",
+        filename: "haendewaschen",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
+
+      {
+        id: 902,
+        type: 1,
+        kuerzel: "A 9.2",
+        template_file: "",
+        kapitel: 1,
+        titel: "Persönlische Schutzausrüstung",
+        filename: "pers_ausruestung",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      }
+    ]
+  },
+
+  {
+    id: 903,
+    type: 0,
+    kuerzel: "A 10",
+    template_file: "",
+    kapitel: 1,
+    titel: "Arbeitsplatz",
+    filename: "arbeitsplatz",
+    printfile: "",
+    verweis_titel: "",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 904,
+        type: 1,
+        kuerzel: "A 10.1",
+        template_file: "",
+        kapitel: 1,
+        titel: "Belüftung",
+        filename: "belueftung",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
+
+      {
+        id: 905,
+        type: 1,
+        kuerzel: "A 10.2",
+        template_file: "",
+        kapitel: 1,
+        titel: "Arbeitsorganisation",
+        filename: "arbeitsorganisation",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
+
+      {
+        id: 906,
+        type: 1,
+        kuerzel: "A 10.3",
+        template_file: "",
+        kapitel: 1,
+        titel: "Hygieneplan",
+        filename: "hygieneplan",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      }
+    ]
+  },
+
+  {
+    id: 907,
+    type: 0,
+    kuerzel: "A 11",
+    template_file: "",
+    kapitel: 1,
+    titel: "Mikrobiologische",
+    filename: "mikrobiologische",
+    printfile: "",
+    verweis_titel: "",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 908,
+        type: 1,
+        kuerzel: "A 11.1",
+        template_file: "",
+        kapitel: 1,
+        titel: "Arbeitsmittel",
+        filename: "arbeitsmittel",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
+
+      {
+        id: 909,
+        type: 1,
+        kuerzel: "A 11.2",
+        template_file: "",
+        kapitel: 1,
+        titel: "Arbeitshaltung und Schutzhandschuhe",
+        filename: "arbeitshaltung",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0",
+        pages: [
+          {
+            id: 910,
+            type: 1,
+            kuerzel: "A 11.3",
+            template_file: "",
+            kapitel: 1,
+            titel: "Pipetten",
+            filename: "pipetten",
+            printfile: "",
+            verweis_titel: "",
+            mediaquery: 0,
+            pagenumber: "0"
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 911,
+    type: 0,
+    kuerzel: "A 12",
+    template_file: "",
+    kapitel: 1,
+    titel: "Sterilisationsautoklav",
+    filename: "sterilisationsautoklav",
+    printfile: "",
+    verweis_titel: "",
+    mediaquery: 0,
+    pagenumber: "0",
+    pages: [
+      {
+        id: 912,
+        type: 1,
+        kuerzel: "A 12.1",
+        template_file: "",
+        kapitel: 1,
+        titel: "Persönliche Schutzausrüstung",
+        filename: "pers_schutz",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
+
+      {
+        id: 913,
+        type: 1,
+        kuerzel: "A 12.2",
+        template_file: "",
+        kapitel: 1,
+        titel: "Ausstattung und Entladung des Autoklaven",
+        filename: "ausstatung_entladung",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      },
+
+      {
+        id: 914,
+        type: 1,
+        kuerzel: "A 12.3",
+        template_file: "",
+        kapitel: 1,
+        titel: "Prüfung der Wirksamkeit",
+        filename: "pruefung_der_wirksamkeit",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
+      }
+    ]
+  }
 ];
 export default pagesA;

@@ -1,13 +1,11 @@
-import React, { useContext, useState } from "react";
-import { Accordion } from "semantic-ui-react";
+import React, { useContext } from "react";
 import { Menu } from "semantic-ui-react";
-import { NavLink as Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./toc.css";
 import "rc-menu/assets/index.css";
 import { withRouter } from "react-router-dom";
 import { TocContext } from "../../../util/TocProvider";
 import { PagesContext } from "../../../util/PagesProvider";
-import { Icon, Label } from "semantic-ui-react";
 
 // TOC
 // Toc recieves props from App->Shell->Body-> Toc and uses it ({match}) to set global links as NavLink bzw. Nodes and ContentLinks
@@ -17,15 +15,56 @@ import { Icon, Label } from "semantic-ui-react";
 const Toc = props => {
   const [tocState, setTocState] = useContext(TocContext);
   const [tocPages] = useContext(PagesContext);
-  // current global path, depending from current Chapter
-  let { match } = props;
 
+  // change active Menu by mouse hover
+  const handleHover = index => {
+    setTocState(actualPage => ({
+      ...actualPage,
+      activeMenu: index
+    }));
+  };
+  // change back active Menu by mouse hover to -1
+  function handleHoverOff() {
+    setTocState(actualPage => ({
+      ...actualPage,
+      activeMenu: -1
+    }));
+  }
+
+  // create Menu Links depending on Path
   function createTitle(cursor, index) {
-    return (
+    const pathname = props.location.pathname;
+    const path =
+      pathname === "/"
+        ? "/"
+        : pathname
+            .split("/")
+            .slice(-1)
+            .pop();
+
+    return path !== "grundriss" ? (
       <Menu.Item
         index={index}
         active={tocState.activeMenu === index}
         onClick={handleItemClick}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "auto auto",
+          justifyContent: "left",
+          gridColumnGap: "10px"
+        }}
+      >
+        <div>{index + 1} </div>
+        <div>{cursor.node && cursor.node.titel}</div>
+      </Menu.Item>
+    ) : (
+      <Menu.Item
+        index={index}
+        active={tocState.activeMenu === index}
+        as={NavLink}
+        to={`/virtueles_labor/${tocPages[index].node.filename}`}
+        onMouseEnter={() => handleHover(index)}
+        onMouseLeave={() => handleHoverOff()}
         style={{
           display: "grid",
           gridTemplateColumns: "auto auto",
@@ -46,15 +85,14 @@ const Toc = props => {
       activeMenu: itemProps.index
     }));
   };
-  function setMenuLink(tocPages, createTitle) {}
-  // this object will be returned to Body.js body
+
   return (
-    <Menu vertical>
+    <Menu vertical className="toc">
       <Menu.Item>
         <Menu.Header>Chemisches Labor</Menu.Header>
-        <Menu.Menu>
+        <Menu.Menu className="toc">
           {tocPages.map((cursor, i) => {
-            return i <= 4 ? (
+            return i <= 6 ? (
               <div key={"holder_" + i} className="node">
                 {createTitle(cursor, i)}
               </div>
@@ -65,9 +103,9 @@ const Toc = props => {
       <Menu.Item>
         <Menu.Header>Biotechnologisches Labor</Menu.Header>
 
-        <Menu.Menu>
+        <Menu.Menu className="toc">
           {tocPages.map((node, i) => {
-            return i >= 5 ? (
+            return i >= 7 ? (
               <div key={"holder_" + i} className="node">
                 {createTitle(node, i)}
               </div>

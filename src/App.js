@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 import Shell from "./components/Shell/Shell";
 
 import { Route, Switch, HashRouter } from "react-router-dom";
-import AuthRoute from "./components/AuthRoute/AuthRoute";
-import MainMenu from "./components/MainMenu/MainMenu";
 import { WindowsStatesProvider } from "./util/WindowsStatesProvider";
 import { AuthProvider } from "./util/AuthProvider";
 import CheckPage from "./components/CheckPage/CheckPage";

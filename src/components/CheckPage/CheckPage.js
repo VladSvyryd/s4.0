@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Button, Image, Grid, Transition, Reveal } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Button, Image, Grid } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 import "./checkpage.css";
-import { AuthContext } from "../../util/AuthProvider";
 import Header from "./../Header/Header";
 import i1 from "../../assets/pics/laborleiter_tuer_ohne_markierung.jpg";
 import i2 from "../../assets/pics/raumplan.png";
@@ -15,7 +14,7 @@ import i5 from "../../assets/pics/checkliste.png";
 
 function CheckPage(props) {
   const [pageState, setPageSet] = useState(1);
-  const [columnWidth, setColumnWidth] = useState(["7", "9"]);
+  const [columnWidth] = useState(["7", "9"]);
   const handleNextInstraction = () => {
     setPageSet(lastState => lastState + 1);
   };
@@ -124,7 +123,7 @@ function CheckPage(props) {
       <Grid className="fullHeight">
         <Grid.Row columns="2">
           <Grid.Column
-            width={pageState == 3 ? columnWidth[1] : columnWidth[0]}
+            width={pageState === 3 ? columnWidth[1] : columnWidth[0]}
             style={{ paddingRight: "0" }}
           >
             {pageState < 3 ? (
@@ -161,7 +160,7 @@ function CheckPage(props) {
               >
                 Weiter
               </Button>
-              {pageState == 1 ? (
+              {pageState === 1 ? (
                 <div style={{ marginTop: "20px" }}>
                   <p> Sie können die Einführung auch überspringen:</p>
                   <Button size="small" onClick={handleRedirectToMainMenu}>
@@ -172,7 +171,7 @@ function CheckPage(props) {
             </div>
           </Grid.Column>
           <Grid.Column
-            width={pageState == 3 ? columnWidth[0] : columnWidth[1]}
+            width={pageState === 3 ? columnWidth[0] : columnWidth[1]}
             verticalAlign="bottom"
             style={{ paddingLeft: "0" }}
           >

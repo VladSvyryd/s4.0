@@ -1,0 +1,21 @@
+.my_node {
+  font-size: 30px;
+}
+.my_node p {
+  line-height: 1;
+}
+.my_node a {
+  color: black;
+}
+.my_node .my_title {
+  font-size: 33px;
+  line-height: 1;
+}
+.my_node_section {
+  display: block;
+
+  padding-bottom: 15px;
+}
+.my_node .gridList {
+  padding: 0 0 5px 0;
+}

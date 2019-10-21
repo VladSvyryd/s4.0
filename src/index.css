@@ -12,7 +12,7 @@ body,
   width: 100%;
   box-sizing: border-box;
   font-size: 13px;
-  line-height: 18px !important;
+  line-height: 1 !important;
   font-family: Arial, Helvetica, sans-serif !important;
 }
 h1,
@@ -26,6 +26,14 @@ h5 {
 :after,
 :before {
   box-sizing: inherit;
+}
+@font-face {
+  font-family: "journal";
+  src: local("journal"), url("./assets/fonts/journal.ttf") format("truetype"),
+    url("./assets/fonts/journal-webfont.woff") format("woff"),
+    url("./assets/fonts/journal-webfont.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 
 button,
@@ -61,7 +69,25 @@ input[type="submit"] {
   justify-content: left;
   grid-column-gap: 10px;
 }
+.gridList[class$="two"] {
+  grid-template-columns: auto auto;
+}
+.gridList[class$="three"] {
+  grid-template-columns: auto auto auto;
+}
+.my_title {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+.font_handschrift {
+  font-family: "journal";
+  letter-spacing: 1px;
+}
 
+.pointer {
+  cursor: pointer;
+}
 /*
 MAIN MENU CONTAINER (GRUNDRISS; CHECKLIST
 */
