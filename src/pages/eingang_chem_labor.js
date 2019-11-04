@@ -36,7 +36,7 @@ function Ringang_chem_labor(props) {
       firstLayer: old.firstLayer.map(e => {
         let result = e;
         if (e.secondLayer.id == ID) {
-          e.done = true;
+          e.done = !e.done;
           result = e;
         }
         return result;

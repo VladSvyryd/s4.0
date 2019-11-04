@@ -93,6 +93,21 @@ input[type="submit"] {
 .pointer {
   cursor: pointer;
 }
+
+.warning.ui.popup > .header {
+  font-size: 14px;
+  color: rgb(122, 122, 122);
+  padding-bottom: 5px;
+  padding: 5px 5px;
+  border-bottom: 1px solid rgba(222, 222, 222, 1);
+}
+.warning.ui.popup > .header + .content {
+  padding-top: 1.5em;
+}
+.exerciseContainer div {
+  padding: 5px 0;
+}
+
 /*
 MAIN MENU CONTAINER (GRUNDRISS; CHECKLIST
 */
