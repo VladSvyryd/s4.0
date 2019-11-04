@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import pagesA from "../components/Body/Toc/seitenliste_kapa";
 
 // PageProvider/PageContext
@@ -39,6 +39,9 @@ export const PagesProvider = props => {
     return pagesList;
   }
 
+  useEffect(() => {
+    localStorage.setItem("pagesList", JSON.stringify(tocPages));
+  }, [tocPages]);
   return (
     <PagesContext.Provider value={[tocPages, setPages]}>
       {props.children}

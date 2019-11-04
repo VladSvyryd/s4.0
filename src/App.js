@@ -4,7 +4,6 @@ import "semantic-ui-css/semantic.min.css";
 import Shell from "./components/Shell/Shell";
 
 import { Route, Switch, HashRouter } from "react-router-dom";
-import { WindowsStatesProvider } from "./util/WindowsStatesProvider";
 import { AuthProvider } from "./util/AuthProvider";
 import CheckPage from "./components/CheckPage/CheckPage";
 // App
@@ -21,15 +20,13 @@ const App = props => {
       <div className="App">
         <AuthProvider>
           <HashRouter>
-            <WindowsStatesProvider>
-              <Switch>
-                <Route path="/" exact component={CheckPage} />
-                <Route
-                  path="/virtueles_labor"
-                  render={props => <Shell path={1} {...props} />}
-                />
-              </Switch>
-            </WindowsStatesProvider>
+            <Switch>
+              <Route path="/" exact component={CheckPage} />
+              <Route
+                path="/virtueles_labor"
+                render={props => <Shell path={1} {...props} />}
+              />
+            </Switch>
           </HashRouter>
         </AuthProvider>
       </div>

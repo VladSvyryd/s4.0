@@ -45,7 +45,7 @@ function Grundriss(props) {
     setActiveSection(-1);
   };
 
-  // redirect to chooen exercises
+  // redirect to choosen exercises
   const goToSection = e => {
     // look in tocPages array, node with the same index as right now is hovered and push it in browser history to redirect
     props.history.push(
@@ -75,9 +75,9 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "219px",
-              left: "373px",
-              width: "82px",
-              height: "111px"
+              left: "371px",
+              width: "83px",
+              height: "112px"
             }}
           >
             {tocState.activeMenu === 0 && <Image src={i2} />}
@@ -92,7 +92,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "435px",
-              left: "161px",
+              left: "160px",
               width: "49px",
               height: "46px"
             }}
@@ -108,7 +108,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "370px",
-              left: "194px",
+              left: "193px",
               width: "82px",
               height: "111px"
             }}
@@ -124,7 +124,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "381px",
-              left: "157px",
+              left: "156px",
               width: "9px",
               height: "9px"
             }}
@@ -140,7 +140,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "354px",
-              left: "48px",
+              left: "47px",
               width: "11px",
               height: "26px"
             }}
@@ -172,7 +172,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "347px",
-              left: "282px",
+              left: "281px",
               width: "30px",
               height: "53px"
             }}
@@ -188,7 +188,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "140px",
-              left: "48px",
+              left: "47px",
               width: "34px",
               height: "197px"
             }}
@@ -204,7 +204,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "177px",
-              left: "153px",
+              left: "152px",
               width: "55px",
               height: "147px"
             }}
@@ -220,7 +220,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "435px",
-              left: "408px",
+              left: "407px",
               width: "49px",
               height: "46px"
             }}
@@ -236,7 +236,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "406px",
-              left: "326px",
+              left: "325px",
               width: "69px",
               height: "22px"
             }}
@@ -252,7 +252,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "130px",
-              left: "499px",
+              left: "498px",
               width: "118px",
               height: "31px"
             }}
@@ -268,7 +268,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "180px",
-              left: "644px",
+              left: "643px",
               width: "36px",
               height: "60px"
             }}
@@ -284,7 +284,7 @@ function Grundriss(props) {
             style={{
               position: "absolute",
               top: "316px",
-              left: "569px",
+              left: "568px",
               width: "58px",
               height: "38px"
             }}

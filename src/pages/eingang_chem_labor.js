@@ -16,16 +16,18 @@ import i8 from "../assets/pics/2-chemielaboreingang/augendusche_richtig.jpg";
 import Exercise_1 from "./eingang_chem_labor_first";
 import Exercise_2 from "./eingang_chem_labor_second";
 
-function Ringang_chem_labor() {
+function Ringang_chem_labor(props) {
   // global state of pages
   const [tocPages] = useContext(PagesContext);
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
+  console.log(tocState);
+
   // state to manage exercise object state
   const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
   // state to view different exercise on the same page in the same frame
   const [exerciseView, setExerciseView] = useState(0);
-
+  const pathname = props.location.pathname;
   // function to change state of current exercise and trigger useEffect function to save it in local storage
   // recieve exerices ID from Exercise_1,2,3,4 and loking of its state change array....
   const saveExercise = ID => {
@@ -75,7 +77,7 @@ function Ringang_chem_labor() {
       <div className="exerciseFrame">
         <div className="relative">
           <Image src={i4} />
-          <div
+          <Link
             className="absolute hoverReveal pointer"
             style={{
               right: "275px",
@@ -84,14 +86,20 @@ function Ringang_chem_labor() {
               backgroundRepeat: "no-repeat",
               backgroundSize: "232px 371px"
             }}
-            onClick={() => setExerciseView(1)}
+            //onClick={() => setExerciseView(1)}
+            to={{
+              pathname: `${pathname}/labortueren`,
+              state: {
+                currentExercise: exercise.firstLayer[0]
+              }
+            }}
           >
             {exercise.firstLayer[0].done ? (
               <Image src={i2} />
             ) : (
               <Image src={i1} />
             )}
-          </div>
+          </Link>
           <div
             className="absolute hoverReveal pointer"
             style={{
@@ -144,7 +152,6 @@ function Ringang_chem_labor() {
       return e;
     })
   );
-  console.log(currentExercisesStateList);
 
   return goToView(exerciseView);
 }
