@@ -73,12 +73,32 @@ function Ringang_chem_labor_first(props) {
     <div className="exerciseFrame">
       <Grid style={{ width: "100%" }}>
         <Grid.Row columns="2">
-          <Grid.Column width="9">
-            {my_exercise && my_exercise.done ? (
-              <Image src={i1} />
+          <Grid.Column width="9" className="relative">
+            {my_exercise && !my_exercise.done ? (
+              <Image
+                src={i2}
+                className="absolute"
+                style={{ top: "0", left: "15px" }}
+              />
             ) : (
-              <Image src={i2} />
+              <Image
+                src={i1}
+                className="absolute"
+                style={{ top: "0", left: "15px" }}
+              />
             )}
+
+            <Transition
+              visible={radioGroupState === "three"}
+              animation="fade"
+              duration={500}
+            >
+              <Image
+                src={i1}
+                className="absolute"
+                style={{ top: "0", left: "15px" }}
+              />
+            </Transition>
           </Grid.Column>
           <Grid.Column width="7" verticalAlign="middle">
             {my_exercise && !my_exercise.done ? (
@@ -155,12 +175,15 @@ function Ringang_chem_labor_first(props) {
                 </div>
               </div>
             ) : (
-              <div className="gridList">
+              <div className="gridList" style={{ width: "270px" }}>
                 <Image src={i5} />
-                <h1 className="my_title small">
-                  Labortüren müssen eine Sichtverbindung nach innen und nach
-                  außen haben.
-                </h1>
+                <div>
+                  <h1 className="my_title small">Richtig</h1>
+                  <p>
+                    Labortüren müssen eine Sichtverbindung nach innen und nach
+                    außen haben.
+                  </p>
+                </div>
               </div>
             )}
             <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
