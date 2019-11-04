@@ -143,7 +143,6 @@ function Checklist(props) {
                     </p>
                   </>
                 )}
-                {console.log(menuLinks())}
                 {parseLinks(tocState.activeMenu)}
               </div>
 

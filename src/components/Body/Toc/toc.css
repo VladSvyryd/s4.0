@@ -29,4 +29,8 @@
 .toc.ui.menu,
 .toc.ui.menu .item {
   border: 0;
+  box-shadow: 0;
+}
+.toc.ui.menu:after {
+  display: none;
 }

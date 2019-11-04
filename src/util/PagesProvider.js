@@ -11,22 +11,32 @@ export const PagesProvider = props => {
   // get pages from MainMenu Component after click on one of Topic
   // Input chapter(INT), Output pages(JSON)
   // set global state as tocPages array
-  const [tocPages, setPages] = useState(parseNodesNewWay());
+  const [tocPages, setPages] = useState(
+    JSON.parse(localStorage.getItem("pagesList")) || parseNodesNewWay()
+  );
 
   function getPagesFromNode(nodes) {
     return !nodes.pages
-      ? { thirdPages: nodes }
+      ? { thirdPages: nodes, done: false }
       : nodes.pages.map(node => ({
           secondLayer: node,
-          secondPages: node.pages || false
+          secondPages: node.pages || false,
+          done: false
         }));
   }
 
   function parseNodesNewWay(pages = pagesA) {
-    return pages.map(
+    let pagesList = pages.map(
       (cursor, i) =>
-        cursor.pages && { node: cursor, firstLayer: getPagesFromNode(cursor) }
+        cursor.pages && {
+          node: cursor,
+          firstLayer: getPagesFromNode(cursor),
+          done: false
+        }
     );
+    localStorage.setItem("pagesList", JSON.stringify(pagesList));
+
+    return pagesList;
   }
 
   return (

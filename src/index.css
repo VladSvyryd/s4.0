@@ -96,3 +96,43 @@ MAIN MENU CONTAINER (GRUNDRISS; CHECKLIST
   display: flex;
   flex-direction: column;
 }
+
+/* Exercise Frame*/
+.exerciseFrame {
+  display: flex;
+  margin: 25px auto 0px;
+  flex-direction: row;
+  width: 930px;
+  height: 497px;
+  padding: 0;
+  border: 1px solid grey;
+}
+.exerciseFrame > .ui.image {
+  margin: 0;
+}
+.exerciseFrame > .centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+}
+
+.exerciseFrame .textIntro {
+  width: 250px;
+}
+
+.exerciseFrame .absolute {
+  position: absolute;
+}
+
+.exerciseFrame .relative {
+  position: relative;
+}
+
+.exerciseFrame .hoverReveal img {
+  visibility: hidden;
+}
+.exerciseFrame .hoverReveal:hover img {
+  visibility: visible;
+}
