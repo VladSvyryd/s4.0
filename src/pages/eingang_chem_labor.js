@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Grid, Icon, Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
-import reducer from "../util/reducer";
 import i4 from "../assets/pics/2-chemielaboreingang/start_grau.jpg";
 import i1 from "../assets/pics/2-chemielaboreingang/tuer_btn_falsch.jpg";
 import i2 from "../assets/pics/2-chemielaboreingang/tuer_btn_richtig.jpg";
@@ -12,9 +11,7 @@ import i5 from "../assets/pics/2-chemielaboreingang/dusche_btn.jpg";
 import i6 from "../assets/pics/2-chemielaboreingang/augendusche_btn_falsch.jpg";
 import i7 from "../assets/pics/2-chemielaboreingang/augendusche_btn_richtig.jpg";
 import i8 from "../assets/pics/2-chemielaboreingang/augendusche_richtig.jpg";
-
-import Exercise_1 from "./eingang_chem_labor_first";
-import Exercise_2 from "./eingang_chem_labor_second";
+import i9 from "../assets/pics/achtung.png";
 
 function Ringang_chem_labor(props) {
   // global state of pages
@@ -48,30 +45,6 @@ function Ringang_chem_labor(props) {
     tocPages[tocState.activeMenu] = exercise;
     localStorage.setItem("pagesList", JSON.stringify(tocPages));
   }, [exercise]);
-
-  function goToView(index) {
-    switch (index) {
-      case 1:
-        return (
-          <Exercise_1
-            currentExercise={exercise.firstLayer[0]}
-            backToParent={setExerciseView}
-            save={saveExercise}
-          />
-        );
-      case 2:
-        return (
-          <Exercise_2
-            currentExercise={exercise.firstLayer[1]}
-            backToParent={setExerciseView}
-            save={saveExercise}
-          />
-        );
-      default:
-        return introExercise();
-    }
-  }
-  const showOnFocus = () => {};
   const introExercise = () => {
     return (
       <div className="exerciseFrame">
@@ -100,16 +73,21 @@ function Ringang_chem_labor(props) {
               <Image src={i1} />
             )}
           </Link>
-          <div
+          <Link
             className="absolute hoverReveal pointer"
             style={{
               right: "66px",
               top: "18px"
             }}
-            onClick={() => setExerciseView(2)}
+            to={{
+              pathname: `${pathname}/augennotdusche`,
+              state: {
+                currentExercise: exercise.firstLayer[1]
+              }
+            }}
           >
             <Image src={i5} />
-          </div>
+          </Link>
           <div
             className="absolute hoverReveal pointer"
             style={{
@@ -129,19 +107,26 @@ function Ringang_chem_labor(props) {
           </div>
         </div>
         <div className="centered">
-          <div className="textIntro">
-            <p>
-              <b>Ansicht Eingang chemisches Labor</b>
-            </p>
-            <p>
-              Alle sicherheitstechnischen Einrichtungen eines Labors müssen
-              einwandfrei funktionieren, damit sie im Gefahrfall einsatzbereit
-              sind.
-            </p>
-            <p>
-              Finden Sie heraus, was Sie an dieser Situation noch verbessern
-              können.
-            </p>
+          <div className="textIntro" style={{ width: "200px" }}>
+            <div className="gridList">
+              <Image src={i9} />
+              <div>
+                <p>
+                  <b>
+                    Ansicht <br /> Eingang chemisches Labor
+                  </b>
+                </p>
+                <p>
+                  Alle sicherheitstechnischen Einrichtungen eines Labors müssen
+                  einwandfrei funktionieren, damit sie im Gefahrfall
+                  einsatzbereit sind.
+                </p>
+                <p>
+                  Finden Sie heraus, was Sie an dieser Situation noch verbessern
+                  können.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -153,7 +138,7 @@ function Ringang_chem_labor(props) {
     })
   );
 
-  return goToView(exerciseView);
+  return introExercise();
 }
 
 export default Ringang_chem_labor;

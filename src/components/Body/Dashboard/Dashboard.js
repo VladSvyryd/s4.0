@@ -5,9 +5,8 @@ import grundriss from "../../GrundRiss/grundriss";
 import checklist from "../../Checklist/checklist";
 import buero from "../../../pages/buero";
 import eingang_chem_labor from "../../../pages/eingang_chem_labor";
-import engang_chem_labor_first from "../../../pages/eingang_chem_labor_first";
 import labortueren from "../../../pages/labortueren";
-
+import augennotdusche from "../../../pages/augennotdusche";
 // Dashboard
 // Placeholder for all internal links used in Programm
 // maps all url that can be loaded into Dashboard component
@@ -26,12 +25,12 @@ const Dashboard = props => {
       <Route
         path="/virtueles_labor/eingang_chem_labor/labortueren"
         exact
-        component={engang_chem_labor_first}
+        component={labortueren}
       />
       <Route
-        path="/virtueles_labor/labortueren"
+        path="/virtueles_labor/eingang_chem_labor/augennotdusche"
         exact
-        component={labortueren}
+        component={augennotdusche}
       />
     </Switch>
   );

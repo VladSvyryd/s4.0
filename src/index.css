@@ -82,8 +82,6 @@ input[type="submit"] {
 }
 .my_title.small {
   font-size: 16px;
-  font-weight: bold;
-  padding-bottom: 10px;
 }
 .font_handschrift {
   font-family: "journal";
@@ -144,6 +142,11 @@ MAIN MENU CONTAINER (GRUNDRISS; CHECKLIST
 
 .exerciseFrame .absolute {
   position: absolute !important;
+}
+.exerciseFrame .absolute.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .exerciseFrame .relative {
