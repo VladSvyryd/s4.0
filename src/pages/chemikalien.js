@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { Grid, Icon, Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
-import i4 from "../assets/pics/2-chemielaboreingang/start_grau.jpg";
-import i1 from "../assets/pics/2-chemielaboreingang/tuer_btn_falsch.jpg";
-import i2 from "../assets/pics/2-chemielaboreingang/tuer_btn_richtig.jpg";
+import i4 from "../assets/pics/4-chemiekalienschrank/startbild_sw_mit_flasche.jpg";
+import i1 from "../assets/pics/4-chemiekalienschrank/regal_mit_flasche.jpg";
+import i2 from "../assets/pics/4-chemiekalienschrank/regal_ohne_flasche.jpg";
 import i3 from "../assets/pics/2-chemielaboreingang/tuer_richtig.jpg";
 import i5 from "../assets/pics/2-chemielaboreingang/dusche_btn.jpg";
 import i6 from "../assets/pics/2-chemielaboreingang/augendusche_btn_falsch.jpg";
 import i7 from "../assets/pics/2-chemielaboreingang/augendusche_btn_richtig.jpg";
-import i8 from "../assets/pics/2-chemielaboreingang/augendusche_richtig.jpg";
+import i8 from "../assets/pics/4-chemiekalienschrank/startbild_sw_mit_flasche.jpg";
 import i9 from "../assets/pics/achtung.png";
 
 function Chemikalien(props) {
@@ -53,15 +53,14 @@ function Chemikalien(props) {
           <Link
             className="absolute hoverReveal pointer"
             style={{
-              right: "275px",
-              top: "118px",
+              right: "10px",
+              top: "35px",
               backgroundImage: `url('${exercise.firstLayer[0].done && i3}')`,
               backgroundRepeat: "no-repeat",
-              backgroundSize: "232px 371px"
+              width: "266px"
             }}
-            //onClick={() => setExerciseView(1)}
             to={{
-              pathname: `${pathname}/labortueren`,
+              pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
               state: {
                 currentExercise: exercise.firstLayer[0]
               }
@@ -73,38 +72,29 @@ function Chemikalien(props) {
               <Image src={i1} />
             )}
           </Link>
+
           <Link
             className="absolute hoverReveal pointer"
             style={{
-              right: "66px",
-              top: "18px"
+              left: "70px",
+              top: "140px",
+              backgroundImage: `url('${exercise.firstLayer[1].done && i8}')`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "232px 371px"
             }}
             to={{
-              pathname: `${pathname}/augennotdusche`,
+              pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
               state: {
                 currentExercise: exercise.firstLayer[1]
               }
             }}
-          >
-            <Image src={i5} />
-          </Link>
-          <div
-            className="absolute hoverReveal pointer"
-            style={{
-              right: "160px",
-              top: "252px",
-              backgroundImage: `url('${exercise.firstLayer[0].done && i8}')`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "232px 371px"
-            }}
-            onClick={() => setExerciseView(3)}
           >
             {exercise.firstLayer[0].done ? (
               <Image src={i7} />
             ) : (
               <Image src={i6} />
             )}
-          </div>
+          </Link>
         </div>
         <div className="centered">
           <div className="textIntro" style={{ width: "200px" }}>
