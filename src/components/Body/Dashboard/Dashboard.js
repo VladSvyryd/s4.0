@@ -7,6 +7,7 @@ import buero from "../../../pages/buero";
 import eingang_chem_labor from "../../../pages/eingang_chem_labor";
 import labortueren from "../../../pages/labortueren";
 import augennotdusche from "../../../pages/augennotdusche";
+import chemikalien from "../../../pages/chemikalien";
 // Dashboard
 // Placeholder for all internal links used in Programm
 // maps all url that can be loaded into Dashboard component
@@ -31,6 +32,11 @@ const Dashboard = props => {
         path="/virtueles_labor/eingang_chem_labor/augennotdusche"
         exact
         component={augennotdusche}
+      />
+      <Route
+        path="/virtueles_labor/chemikalien"
+        exact
+        component={chemikalien}
       />
     </Switch>
   );

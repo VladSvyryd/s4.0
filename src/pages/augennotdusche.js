@@ -7,6 +7,7 @@ import i3 from "../assets/pics/frage.png";
 import i1 from "../assets/pics/2-chemielaboreingang/ventil.jpg";
 import i2 from "../assets/pics/2-chemielaboreingang/ventil_richtig.jpg";
 import i4 from "../assets/pics/2-chemielaboreingang/ventil_bild.jpg";
+import { useTransition, animated, config } from "react-spring";
 
 function Augennotdusche(props) {
   // state to go through active page
@@ -128,8 +129,48 @@ function Augennotdusche(props) {
       done: !old.done
     }));
   }
+  const slides = [
+    {
+      id: 0
+    },
+    {
+      id: 1,
+      url: i2
+    },
+    {
+      id: 2,
+      url: i3
+    },
+    { id: 3, url: i4 }
+  ];
+  const [index, set] = useState(0);
+  const transitions = useTransition(slides[index], item => item.id, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: config.molasses
+  });
+  function fade_1() {
+    return transitions.map(tr => {
+      console.log(tr);
+      const { item, props, key } = tr;
+      return (
+        <animated.img
+          key={key}
+          className="bg"
+          style={{
+            ...props
+          }}
+          src={item.url}
+        />
+      );
+    });
+  }
 
-  function fade_1() {}
+  function start() {
+    const nIntervId = window.setInterval(() => set(state => state + 1), 3000);
+    setTimeout(() => clearInterval(nIntervId), 6000); // prints "[object Window]" after 1 second
+  }
   return false ? (
     <div className="exerciseFrame">
       <Grid style={{ width: "100%" }} padded="horizontally">
@@ -179,10 +220,8 @@ function Augennotdusche(props) {
     </div>
   ) : (
     <>
-      <div>
-        <Image src={i3} />
-      </div>
-      <button>PUSH</button>
+      {fade_1()}
+      <button onClick={() => start()}>PUSH</button>
     </>
   );
 }
