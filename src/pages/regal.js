@@ -136,7 +136,7 @@ function Regal(props) {
     <div className="exerciseFrame">
       <Grid style={{ width: "100%" }}>
         <Grid.Row columns="2">
-          <Grid.Column width="9" className="relative">
+          <Grid.Column width="10" className="relative">
             <Image
               src={i1}
               className="absolute"
@@ -151,7 +151,7 @@ function Regal(props) {
               <Image src={i2} />
             </Transition>
           </Grid.Column>
-          <Grid.Column width="7">
+          <Grid.Column width="6">
             <div className="relative fullHeight">
               <Transition
                 visible={my_exercise && !my_exercise.done}
@@ -199,6 +199,12 @@ function Regal(props) {
                         Innerhalb des Labors müssen entzündbare Flüssigkeiten
                         über 1 | Nennvolumen an geschützter Stelle (im
                         Sicherheitsschrank) gelagert werden.
+                        <button
+                          onClick={() => isDone()}
+                          style={{ background: "red" }}
+                        >
+                          RESET
+                        </button>
                       </p>
                     </div>
                   </div>

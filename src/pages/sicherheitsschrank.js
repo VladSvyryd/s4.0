@@ -3,11 +3,17 @@ import { withRouter } from "react-router-dom";
 import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/4-chemiekalienschrank/schrank_mit_flasche_ohne_etiket.jpg";
-import i2 from "../assets/pics/4-chemiekalienschrank/schrank_mit_flasche_mit_etiket.jpg";
+import i1 from "../assets/pics/4-chemiekalienschrank/schrank_ohne_flasche_ohne_etiket.jpg";
+import i2 from "../assets/pics/4-chemiekalienschrank/schrank_mit_flasche_ohne_etiket.jpg";
 import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
+import i6 from "../assets/pics/achtung.png";
+import i7 from "../assets/pics/4-chemiekalienschrank/btn_etikett.png";
+import i10 from "../assets/pics/4-chemiekalienschrank/grau_azeton.jpg";
+import i8 from "../assets/pics/4-chemiekalienschrank/btn_flasche.png";
+import i9 from "../assets/pics/4-chemiekalienschrank/schrank_loesung_bg.jpg";
+import i11 from "../assets/pics/4-chemiekalienschrank/btn_etikett_mit_ankleber.png";
 
 function Sicherheitsschrank(props) {
   // state to go through active page
@@ -19,6 +25,10 @@ function Sicherheitsschrank(props) {
   const [my_exercise, setMyExercise] = useState(
     props.location.state && props.location.state.currentExercise
   );
+  const [sibling_exercise] = useState(
+    props.location.state && props.location.state.siblingExercise
+  );
+  const [activeActualExercise, setActiveActualExercise] = useState(null);
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
 
@@ -132,98 +142,222 @@ function Sicherheitsschrank(props) {
       done: !old.done
     }));
   }
-
-  return (
-    <div className="exerciseFrame">
-      <Grid style={{ width: "100%" }}>
-        <Grid.Row columns="2">
-          <Grid.Column width="9" className="relative">
-            <Image
-              src={i1}
-              className="absolute"
-              style={{ top: "0", left: "15px" }}
-            />
-            <Transition
-              visible={animationTrigger || (my_exercise && my_exercise.done)}
-              animation="fade"
-              duration={animationTrigger ? 500 : 0}
-              className="absolute"
-            >
-              <Image src={i2} />
-            </Transition>
-          </Grid.Column>
-          <Grid.Column width="7">
-            <div className="relative fullHeight">
+  const actualExercise = () => {
+    return (
+      <div className="exerciseFrame">
+        <Grid style={{ width: "100%" }}>
+          <Grid.Row columns="2">
+            <Grid.Column width="10" className="relative">
+              {sibling_exercise && sibling_exercise.done ? (
+                <Image
+                  src={i2}
+                  className="absolute"
+                  style={{ top: "0", left: "15px" }}
+                />
+              ) : (
+                <Image src={i1} />
+              )}
               <Transition
-                visible={my_exercise && !my_exercise.done}
-                animation="fade"
-                duration={animationTrigger ? 500 : 0}
-              >
-                <div className="absolute" style={{ top: "13%" }}>
-                  <div className="gridList" style={{ width: "300px" }}>
-                    <h1 className="my_title small">
-                      Das Etikett ist durch ausgelaufene Flüssigkeit nicht mehr
-                      zu lesen. Wie sollte der Behälter vereinfacht
-                      gekennzeichnet werden?
-                    </h1>
-                    <Image src={i4} />
-                  </div>
-                  <div className="exerciseContainer" style={{ width: "300px" }}>
-                    {generateRadioButtons()}
-                  </div>
-                  <div style={{ marginTop: "20px", width: "330px" }}>
-                    <p>
-                      Weitere Informationen zu dieser Frage erhalten Sie in
-                      Kapitel ÄNDERN!!!!
-                    </p>
-                  </div>
-                </div>
-              </Transition>
-              <Transition
-                as="div"
                 visible={animationTrigger || (my_exercise && my_exercise.done)}
                 animation="fade"
                 duration={animationTrigger ? 500 : 0}
+                className="absolute"
               >
-                <div className="absolute " style={{ top: "13%" }}>
-                  <div
-                    className=" gridList "
-                    style={{ width: "270px", columnGap: "30px" }}
-                  >
-                    <Image src={i5} />
-                    <div>
-                      <span className="my_title small">Richtig</span>
-                      <p style={{ marginTop: "5px" }}>
-                        Im Anhang 4 der aktuellen Laborrichtlinie wird die
-                        vereinfachte Kennzeichnung im Labor beschrieben: Die
-                        kurzen Phrasen in Kombination mit den Piktogrammen geben
-                        eine schnelle und aussagekräftige Gefahrenauskunft.
-                      </p>
+                <Image
+                  src={i9}
+                  className="absolute"
+                  style={{ top: 0, width: "928px", maxWidth: "none" }}
+                />
+              </Transition>
+            </Grid.Column>
+            <Grid.Column width="6">
+              <div className="relative fullHeight">
+                <Transition
+                  visible={my_exercise && !my_exercise.done}
+                  animation="fade"
+                  duration={animationTrigger ? 500 : 0}
+                >
+                  <div className="absolute" style={{ top: "5%" }}>
+                    <div className="gridList" style={{ width: "300px" }}>
+                      <h1 className="my_title small">
+                        Das Etikett ist durch ausgelaufene Flüssigkeit nicht
+                        mehr zu lesen. Wie sollte der Behälter vereinfacht
+                        gekennzeichnet werden?
+                      </h1>
+                      <Image src={i4} />
+                    </div>
+                    <div
+                      className="exerciseContainer"
+                      style={{ width: "300px" }}
+                    >
+                      {generateRadioButtons()}
+                    </div>
+                    <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
-                        Berücksichtigen Sie bei der Auswahl der
-                        Piktogramm-Phrasen- Kombinationen auch Ihre
-                        Gefährdungsbeurteilung. Bei größeren Mengen Aceton im
-                        Anfängerpraktikum kann z.B. zusätzlich die Phrase
-                        „Betäubend“ sinnvoll sein.
-                      </p>
-                      <p>
-                        Notwendige Details können in den
-                        Sicherheitsdatenblättern und Betriebsanweisungen
-                        nachgeschlagen werden.
+                        Weitere Informationen zu dieser Frage erhalten Sie in
+                        Kapitel ÄNDERN!!!!
                       </p>
                     </div>
                   </div>
+                </Transition>
+                <Transition
+                  as="div"
+                  visible={
+                    animationTrigger || (my_exercise && my_exercise.done)
+                  }
+                  animation="fade"
+                  duration={animationTrigger ? 500 : 0}
+                >
+                  <div
+                    className="absolute "
+                    style={{
+                      top: "13%",
+                      padding: "30px",
+                      background: "rgba(255,255,255,.8)",
+                      width: "340px",
+                      left: "-90px",
+                      borderRadius: "15px"
+                    }}
+                  >
+                    <div
+                      className=" gridList "
+                      style={{ width: "270px", columnGap: "15px" }}
+                    >
+                      <Image src={i5} />
+                      <div>
+                        <span className="my_title small">Richtig</span>
+                        <p style={{ marginTop: "5px" }}>
+                          Im Anhang 4 der aktuellen Laborrichtlinie wird die
+                          vereinfachte Kennzeichnung im Labor beschrieben: Die
+                          kurzen Phrasen in Kombination mit den Piktogrammen
+                          geben eine schnelle und aussagekräftige
+                          Gefahrenauskunft.
+                        </p>
+                        <p>
+                          Berücksichtigen Sie bei der Auswahl der
+                          Piktogramm-Phrasen- Kombinationen auch Ihre
+                          Gefährdungsbeurteilung. Bei größeren Mengen Aceton im
+                          Anfängerpraktikum kann z.B. zusätzlich die Phrase
+                          „Betäubend“ sinnvoll sein.
+                        </p>
+                        <p>
+                          Notwendige Details können in den
+                          Sicherheitsdatenblättern und Betriebsanweisungen
+                          nachgeschlagen werden.
+                          <button
+                            onClick={() => isDone()}
+                            style={{ background: "grey" }}
+                          >
+                            RESET
+                          </button>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Transition>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+    );
+  };
+  const preExercise = () => {
+    return (
+      <div className="exerciseFrame">
+        <Grid style={{ width: "100%" }}>
+          <Grid.Row columns="2">
+            <Grid.Column width="10" className="relative">
+              {sibling_exercise && sibling_exercise.done ? (
+                <Image
+                  src={i2}
+                  className="absolute"
+                  style={{ top: "0", left: "15px" }}
+                />
+              ) : (
+                <Image src={i1} />
+              )}
+              <div
+                className="absolute hoverReveal pointer"
+                style={{
+                  right: "200px",
+                  top: "174px",
+                  backgroundImage: `url('${my_exercise &&
+                    my_exercise.done &&
+                    i10}')`,
+                  backgroundRepeat: "no-repeat"
+                }}
+                onClick={() => setActiveActualExercise(true)}
+              >
+                {my_exercise && my_exercise.done ? (
+                  <Image src={i11} />
+                ) : (
+                  <Image src={i7} />
+                )}
+              </div>
+              {sibling_exercise && sibling_exercise.done && (
+                <Popup
+                  className="warning"
+                  trigger={
+                    <div
+                      className="absolute hoverReveal pointer"
+                      style={{ right: "355px", top: "82px" }}
+                    >
+                      <Image src={i8} />
+                    </div>
+                  }
+                  offset="0, 25px"
+                  position="right center"
+                  on="click"
+                  style={{ minWidth: "252px" }}
+                >
+                  <Popup.Header as="span" className="headerPop">
+                    Aufgabe bereits erfolgreich gelöst
+                  </Popup.Header>
+                  <Popup.Content style={{ paddingLeft: "7px" }}>
+                    <p>
+                      Diese Flasche mit einer leicht entzündbaren Flüssigkeit
+                      haben Sie aus dem Regal in diesen Sicherheitsschrank
+                      gestellt.
+                    </p>
+                  </Popup.Content>
+                </Popup>
+              )}
+            </Grid.Column>
+            <Grid.Column width="6">
+              <div className="relative fullHeight">
+                <div className="absolute " style={{ top: "13%" }}>
+                  <div
+                    className=" gridList "
+                    style={{ width: "260px", columnGap: "30px" }}
+                  >
+                    <Image src={i6} />
+                    <div>
+                      <span className="my_title small">
+                        Ansicht Sicherheitsschrank
+                      </span>
+                      <p style={{ marginTop: "5px" }}>
+                        Sicherheitsschränke sind besondere Lagereinrichtungen
+                        für entzündbare Flüssigkeiten.
+                      </p>
+                      <p>
+                        Im Brandfall halten sie einem Feuer viele Minuten stand
+                        und verhindern die schnelle Entzündung der Stoffe und
+                        Gemische, so dass sich die Personen in Sicherheit
+                        bringen können.
+                      </p>
+                      <p>Schauen Sie sich den Inhalt genauer an!</p>
+                    </div>
+                  </div>
                 </div>
-              </Transition>
-            </div>
-            <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-              RESET
-            </button>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </div>
-  );
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+    );
+  };
+  return !activeActualExercise ? preExercise() : actualExercise();
 }
 
 export default withRouter(Sicherheitsschrank);

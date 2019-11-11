@@ -133,6 +133,7 @@ MAIN MENU CONTAINER (GRUNDRISS; CHECKLIST
   height: 497px;
   padding: 0;
   border: 1px solid grey;
+  overflow: hidden;
 }
 .exerciseFrame > .ui.image {
   margin: 0;
