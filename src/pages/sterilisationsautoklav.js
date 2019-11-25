@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { Image, Popup } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
-import i4 from "../assets/pics/4-chemiekalienschrank/startbild_sw_mit_flasche.jpg";
-import i1 from "../assets/pics/4-chemiekalienschrank/regal_ohne_flashe_markiert.jpg";
-import i2 from "../assets/pics/4-chemiekalienschrank/regal_mit_flashe_markiert.jpg";
-import i3 from "../assets/pics/4-chemiekalienschrank/btn_schrank.png";
-import i5 from "../assets/pics/4-chemiekalienschrank/startbild_sw_ohne_flasche.jpg";
+import i1 from "../assets/pics/12-sterilisationsauklav/falsch.jpg";
+import i2 from "../assets/pics/12-sterilisationsauklav/mitarbeiter_false_active.jpg";
+import i3 from "../assets/pics/12-sterilisationsauklav/pers_schutz_false_active.jpg";
 import i9 from "../assets/pics/achtung.png";
+import i4 from "../assets/pics/9-waschbecken/waschbecken_active_start.jpg";
+import i5 from "../assets/pics/9-waschbecken/garderobe_active_end.jpg";
 
-function Chemikalien(props) {
+function Sterilisationsautoklav(props) {
   // global state of pages
   const [tocPages] = useContext(PagesContext);
   // state to go through active page
@@ -18,9 +18,11 @@ function Chemikalien(props) {
 
   // state to manage exercise object state
   const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
+
   // state to view different exercise on the same page in the same frame
   const [exerciseView, setExerciseView] = useState(0);
   const pathname = props.location.pathname;
+  console.log(exercise);
 
   let contextRef = createRef(); // reference to instructions field
 
@@ -29,8 +31,8 @@ function Chemikalien(props) {
   // instructions for pictures
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
-    "Sicherheitsschrank",
-    "Regal mit Chemikalien"
+    "Waschbecken",
+    "Garderobe für Arbeitskleidung"
   ];
   const handleOpenInstruction = () => {
     setdefaultInstruction(old => (old = !old));
@@ -55,20 +57,51 @@ function Chemikalien(props) {
     tocPages[tocState.activeMenu] = exercise;
     localStorage.setItem("pagesList", JSON.stringify(tocPages));
   }, [exercise]);
+
+  const style_garderobe = {
+    left: "234px",
+    top: "356px"
+  };
+  const style_ausstatung_entladung = {
+    left: "13px",
+    top: "48px"
+  };
   const introExercise = () => {
     return (
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            <Image src={i4} />
+            {exercise.firstLayer[0].done ? (
+              <Image src={i1} />
+            ) : (
+              <Image src={i1} />
+            )}
             <Link
               className="absolute hoverReveal pointer"
-              style={{
-                right: "2px",
-                top: "44px",
-                backgroundImage: `url('${exercise.firstLayer[0].done && i5}')`,
-                backgroundRepeat: "no-repeat"
+              style={style_ausstatung_entladung}
+              to={{
+                pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
+                state: {
+                  currentExercise: exercise.firstLayer[1]
+                }
               }}
+            >
+              <Popup
+                trigger={<Image src={i2} />}
+                context={contextRef}
+                content={instructions[1]}
+                position="top center"
+                basic
+                className="instructionsPopup"
+                onOpen={handleOpenInstruction}
+                onClose={handleOpenInstruction}
+                mouseEnterDelay={200}
+                mouseLeaveDelay={200}
+              />
+            </Link>
+            <Link
+              className="absolute hoverReveal pointer"
+              style={style_garderobe}
               to={{
                 pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
                 state: {
@@ -79,43 +112,15 @@ function Chemikalien(props) {
               <Popup
                 trigger={
                   exercise.firstLayer[0].done ? (
-                    <Image src={i1} />
+                    <Image src={i3} />
                   ) : (
-                    <Image src={i2} />
+                    <Image src={i3} />
                   )
                 }
-                basic
                 context={contextRef}
                 content={instructions[2]}
                 position="top center"
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
-            </Link>
-
-            <Link
-              className="absolute hoverReveal pointer"
-              style={{
-                left: "16px",
-                top: "10px"
-              }}
-              to={{
-                pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
-                state: {
-                  currentExercise: exercise.firstLayer[1],
-                  siblingExercise: exercise.firstLayer[0]
-                }
-              }}
-            >
-              <Popup
-                trigger={<Image src={i3} />}
                 basic
-                context={contextRef}
-                content={instructions[1]}
-                position="top center"
                 className="instructionsPopup"
                 onOpen={handleOpenInstruction}
                 onClose={handleOpenInstruction}
@@ -125,23 +130,24 @@ function Chemikalien(props) {
             </Link>
           </div>
           <div className="centered">
-            <div className="textIntro" style={{ width: "200px" }}>
+            <div className="textIntro" style={{ width: "250px" }}>
               <div className="gridList">
                 <Image src={i9} />
                 <div>
                   <p>
                     <b>
-                      Ansicht <br /> Eingang chemisches Labor
+                      Ansicht <br /> Waschbecken und Garderobe
                     </b>
                   </p>
                   <p>
-                    Alle sicherheitstechnischen Einrichtungen eines Labors
-                    müssen einwandfrei funktionieren, damit sie im Gefahrfall
-                    einsatzbereit sind.
+                    Durch kontaminierte Kleidungsstücke oder Geräte können
+                    biologische Arbeitsstoffe schnell verbreitet werden und
+                    möglicherweise zu Infektionen führen.
                   </p>
                   <p>
-                    Finden Sie heraus, was Sie an dieser Situation noch
-                    verbessern können.
+                    Die Hygieneregeln wie das Händewaschen oder das richtige
+                    Aufbewahren der persönlichen Schutzausrüstung sind deswegen
+                    wichtig!
                   </p>
                 </div>
               </div>
@@ -166,4 +172,4 @@ function Chemikalien(props) {
   return introExercise();
 }
 
-export default Chemikalien;
+export default Sterilisationsautoklav;

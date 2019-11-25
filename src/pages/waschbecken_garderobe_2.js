@@ -3,13 +3,13 @@ import { withRouter } from "react-router-dom";
 import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/4-chemiekalienschrank/regal_mit_flasche.jpg";
-import i2 from "../assets/pics/4-chemiekalienschrank/regal_ohne_flasche.jpg";
+import i1 from "../assets/pics/9-waschbecken/waschbecken.jpg";
+import i2 from "../assets/pics/9-waschbecken/waschbecken_richtig.jpg";
 import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 
-function Regal(props) {
+function Waschbecken_garderobe_2(props) {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
   // load global state of tocPages
@@ -25,15 +25,16 @@ function Regal(props) {
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [
-      "Ja, wenn der Behälter richtig verschlossen ist.",
-      "Ja, in verschlossenen Originalgebinden.",
-      "Nein, innerhalb des Laborraums müssen leicht entzündbare Flüssigkeiten über 1 l Nennvolumen im Sicherheitsschrank gelagert werden."
+      "Ich wasche meine Hände nur vor dem Verlassen des Labors.",
+      "Ich wasche und desinfiziere meine Hände nach jeder zusammenhängenden Arbeitseinheit und vor dem Verlassen des Labors.",
+      "Ich wasche und desinfiziere meine Hände nur dann, wenn ich mit kontaminierten Gegenständen in Kontakt gekommen bin.",
+      "Ich wasche und desinfiziere meine Hände nur vor dem Verlassen des Labors."
     ],
-    answerIndex: 2
+    answerIndex: 1
   };
   let contextRef = createRef(); // reference to instructions field
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   // parse radioButtons from aufgabe object
@@ -141,7 +142,7 @@ function Regal(props) {
       <div className="exerciseFrame">
         <Grid style={{ width: "100%" }}>
           <Grid.Row columns="2">
-            <Grid.Column width="10" className="relative">
+            <Grid.Column width="8" className="relative">
               <Image
                 src={i1}
                 className="absolute"
@@ -156,7 +157,7 @@ function Regal(props) {
                 <Image src={i2} />
               </Transition>
             </Grid.Column>
-            <Grid.Column width="6">
+            <Grid.Column width="8">
               <div className="relative fullHeight">
                 <Transition
                   visible={my_exercise && !my_exercise.done}
@@ -164,22 +165,22 @@ function Regal(props) {
                   duration={animationTrigger ? 700 : 0}
                 >
                   <div className="absolute" style={{ top: "13%" }}>
-                    <div className="gridList" style={{ width: "300px" }}>
+                    <div className="gridList" style={{ width: "390px" }}>
                       <h1 className="my_title small">
-                        Dürfen Sie 2,5-l-Glasflaschen mit leicht entzündbaren
-                        Flüssigkeiten im Regal am Arbeitsplatz lagern?
+                        Wann genau müssen Sie sich bei Tätigkeiten in der
+                        Schutzstufe 2 die Hände waschen?
                       </h1>
                       <Image src={i4} />
                     </div>
                     <div
                       className="exerciseContainer"
-                      style={{ width: "300px" }}
+                      style={{ width: "390px", marginTop: "20px" }}
                     >
                       {generateRadioButtons()}
                     </div>
                     <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
-                        Weitere Informationen zu dieser Frage erhalten Sie in
+                        Weitere Informationen zu dieser Frage erhalten Sie im
                         Kapitel ÄNDERN!!!!
                       </p>
                     </div>
@@ -237,8 +238,8 @@ function Regal(props) {
         context={contextRef}
         content={
           my_exercise && my_exercise.done
-            ? instructions[instructions.length - 2]
-            : instructions[instructions.length - 1]
+            ? instructions[instructions.length - 1]
+            : instructions[instructions.length - 2]
         }
         position="top center"
         className="instructionsPopup"
@@ -248,4 +249,4 @@ function Regal(props) {
   );
 }
 
-export default withRouter(Regal);
+export default withRouter(Waschbecken_garderobe_2);

@@ -200,7 +200,7 @@ function Augennotdusche(props) {
               style={{ width: "270px", bottom: "40px", left: "200px" }}
             >
               <p>
-                Weitere Informationen zu dieser Frage erhalten Sie in Kapitel
+                Weitere Informationen zu dieser Frage erhalten Sie im Kapitel
                 <br />
                 LINKKKKK
               </p>

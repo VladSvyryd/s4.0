@@ -695,22 +695,20 @@
         printfile: "",
         verweis_titel: "",
         mediaquery: 0,
-        pagenumber: "0",
-        pages: [
-          {
-            id: 910,
-            type: 1,
-            kuerzel: "A 11.3",
-            template_file: "",
-            kapitel: 1,
-            titel: "Pipetten",
-            filename: "pipetten",
-            printfile: "",
-            verweis_titel: "",
-            mediaquery: 0,
-            pagenumber: "0"
-          }
-        ]
+        pagenumber: "0"
+      },
+      {
+        id: 910,
+        type: 1,
+        kuerzel: "A 11.3",
+        template_file: "",
+        kapitel: 1,
+        titel: "Pipetten",
+        filename: "pipetten",
+        printfile: "",
+        verweis_titel: "",
+        mediaquery: 0,
+        pagenumber: "0"
       }
     ]
   },

@@ -1,15 +1,22 @@
 import React, { useContext, useState, createRef } from "react";
 import { withRouter } from "react-router-dom";
-import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
+import {
+  Grid,
+  Checkbox,
+  Popup,
+  Button,
+  Image,
+  Transition
+} from "semantic-ui-react";
 import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/4-chemiekalienschrank/regal_mit_flasche.jpg";
-import i2 from "../assets/pics/4-chemiekalienschrank/regal_ohne_flasche.jpg";
-import i3 from "../assets/pics/achtung_rot.png";
+import i1 from "../assets/pics/5-druckgasflaschenschrank/exercise_pic.jpg";
+import i2 from "../assets/pics/5-druckgasflaschenschrank/finish.jpg";
+import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
-
-function Regal(props) {
+import i3 from "../assets/pics/5-druckgasflaschenschrank/finish_1.jpg";
+function Druckgasflasche(props) {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
   // load global state of tocPages
@@ -19,73 +26,66 @@ function Regal(props) {
   const [my_exercise, setMyExercise] = useState(
     props.location.state && props.location.state.currentExercise
   );
-  const [radioGroupState, setRadioGroupState] = useState(" ");
+  const [radioGroupState, setRadioGroupState] = useState({
+    r0: false,
+    r1: false,
+    r2: false
+  });
   const [animationTrigger, setAnimationTrigger] = useState(false);
-
+  const [triggerWarning, setTrigger] = useState(false);
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [
-      "Ja, wenn der Behälter richtig verschlossen ist.",
-      "Ja, in verschlossenen Originalgebinden.",
-      "Nein, innerhalb des Laborraums müssen leicht entzündbare Flüssigkeiten über 1 l Nennvolumen im Sicherheitsschrank gelagert werden."
+      "Druckgasflaschen müssen immer gegen Umfallen gesichert werden.",
+      "In Laboratorien mit erhöhter Brandgefahr müssen Druckgasflaschen in Sicherheitsschränken aufbewahrt oder nach Arbeitsende entfernt werden.",
+      "Das Laboratorium muss entsprechend gekennzeichnet sein."
     ],
-    answerIndex: 2
+    answerBitValue: 7 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
   let contextRef = createRef(); // reference to instructions field
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
-      return i !== aufgabe.answerIndex ? (
-        <Popup
-          key={`${radioButton}-${i}`}
-          className="warning"
-          trigger={
-            <Checkbox
-              label={radioButton}
-              value={i}
-              onChange={handleChange}
-              checked={radioGroupState === i}
-            />
-          }
-          offset="0, 25px"
-          position="left center"
-          open={radioGroupState === i}
-        >
-          <Popup.Header as="span" className="headerPop">
-            Dieser Antwort war leider falsch!
-          </Popup.Header>
-          <Popup.Content>
-            <Image src={i3} centered />
-          </Popup.Content>
-        </Popup>
-      ) : (
+      return (
         <Checkbox
-          key={`${radioButton}-${i}`}
+          key={`radioButton-${i}`}
+          name={"r" + i}
           label={radioButton}
-          value={i}
-          checked={radioGroupState === i}
+          value={i > 0 ? i * 2 : 1}
           onChange={handleChange}
         />
       );
     });
   };
-  // handle change of radio button,
+
+  // check if answerBitValue match bitValue of checkbox group ->
   //set state of exercise,
   //add click event to get back to other exercise
-  const handleChange = (e, { value }) => {
-    if (value !== aufgabe.answerIndex) {
-      tryAgain(value);
-    } else {
+  const handleSubmit = () => {
+    let sum = Object.values(radioGroupState).reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    );
+    if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
-      setRadioGroupState(value);
       setAnimationTrigger(true);
       document.addEventListener("mousedown", handleClickToReturnBack);
+    } else {
+      setTrigger(true);
     }
   };
+  // handle change of radio button,
+  const handleChange = (e, { name, value }) => {
+    if (!radioGroupState[name]) {
+      setRadioGroupState(old => ({ ...old, [name]: value }));
+    } else {
+      setRadioGroupState(old => ({ ...old, [name]: false }));
+    }
+  };
+
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
     document.removeEventListener("mousedown", handleClickToReturnBack);
@@ -141,11 +141,12 @@ function Regal(props) {
       <div className="exerciseFrame">
         <Grid style={{ width: "100%" }}>
           <Grid.Row columns="2">
-            <Grid.Column width="10" className="relative">
+            <Grid.Column width="9" className="relative">
               <Image
                 src={i1}
                 className="absolute"
                 style={{ top: "0", left: "15px" }}
+                floated="left"
               />
               <Transition
                 visible={animationTrigger || (my_exercise && my_exercise.done)}
@@ -156,7 +157,7 @@ function Regal(props) {
                 <Image src={i2} />
               </Transition>
             </Grid.Column>
-            <Grid.Column width="6">
+            <Grid.Column width="7">
               <div className="relative fullHeight">
                 <Transition
                   visible={my_exercise && !my_exercise.done}
@@ -166,17 +167,40 @@ function Regal(props) {
                   <div className="absolute" style={{ top: "13%" }}>
                     <div className="gridList" style={{ width: "300px" }}>
                       <h1 className="my_title small">
-                        Dürfen Sie 2,5-l-Glasflaschen mit leicht entzündbaren
-                        Flüssigkeiten im Regal am Arbeitsplatz lagern?
+                        Welche Aussagen bezüglich Druckgasflaschen sind richtig?
                       </h1>
                       <Image src={i4} />
                     </div>
-                    <div
-                      className="exerciseContainer"
-                      style={{ width: "300px" }}
+                    <Popup
+                      className="warning"
+                      trigger={
+                        <div
+                          className="exerciseContainer"
+                          style={{ width: "300px" }}
+                        >
+                          {generateRadioButtons()}
+                          <Button
+                            type="submit"
+                            compact
+                            style={{ margin: "20px 30px" }}
+                            onClick={() => handleSubmit()}
+                          >
+                            Auswertung
+                          </Button>
+                        </div>
+                      }
+                      offset="0, 25px"
+                      position="left center"
+                      onClose={() => setTrigger(false)}
+                      open={triggerWarning}
                     >
-                      {generateRadioButtons()}
-                    </div>
+                      <Popup.Header as="span" className="headerPop">
+                        Dieser Antwort war leider falsch!
+                      </Popup.Header>
+                      <Popup.Content>
+                        <Image src={i6} centered />
+                      </Popup.Content>
+                    </Popup>
                     <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
@@ -202,22 +226,19 @@ function Regal(props) {
                       <div>
                         <span className="my_title small">Richtig</span>
                         <p style={{ marginTop: "5px" }}>
-                          Bewahren Sie Behälter mit Gefahrstoffen nur so auf,
-                          dass Sie sie sicher entnehmen und wieder abstellen
-                          können.
-                        </p>
-                        <p>
-                          Innerhalb des Labors müssen entzündbare Flüssigkeiten
-                          über 1 | Nennvolumen an geschützter Stelle (im
-                          Sicherheitsschrank) gelagert werden.
-                          <button
-                            onClick={() => isDone()}
-                            style={{ background: "red" }}
-                          >
-                            RESET
-                          </button>
+                          Um eine Gefährdung durch Druckgasflaschen zu
+                          vermeiden, sollten sie außerhalb des Labors oder in
+                          Sicherheitsschränken aufbewahrt werden. Gasflaschen
+                          müssen gegen Umfallen gesichert sein.
                         </p>
                       </div>
+                    </div>
+                    <Image src={i3} centered style={{ marginTop: "20px" }} />
+                    <div
+                      style={{ margin: "20px 30px" }}
+                      onClick={() => isDone()}
+                    >
+                      Reset
                     </div>
                   </div>
                 </Transition>
@@ -237,8 +258,8 @@ function Regal(props) {
         context={contextRef}
         content={
           my_exercise && my_exercise.done
-            ? instructions[instructions.length - 2]
-            : instructions[instructions.length - 1]
+            ? instructions[instructions.length - 1]
+            : instructions[instructions.length - 2]
         }
         position="top center"
         className="instructionsPopup"
@@ -248,4 +269,4 @@ function Regal(props) {
   );
 }
 
-export default withRouter(Regal);
+export default withRouter(Druckgasflasche);

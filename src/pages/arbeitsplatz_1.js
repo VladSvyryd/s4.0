@@ -1,15 +1,22 @@
 import React, { useContext, useState, createRef } from "react";
 import { withRouter } from "react-router-dom";
-import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
+import {
+  Grid,
+  Checkbox,
+  Popup,
+  Button,
+  Image,
+  Transition
+} from "semantic-ui-react";
 import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/4-chemiekalienschrank/regal_mit_flasche.jpg";
-import i2 from "../assets/pics/4-chemiekalienschrank/regal_ohne_flasche.jpg";
-import i3 from "../assets/pics/achtung_rot.png";
+import i1 from "../assets/pics/10-arbeitsplatz/fenster_auf.jpg";
+import i2 from "../assets/pics/10-arbeitsplatz/fenster_zu.jpg";
+import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 
-function Regal(props) {
+function Arbeitsplatz_1(props) {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
   // load global state of tocPages
@@ -20,16 +27,18 @@ function Regal(props) {
     props.location.state && props.location.state.currentExercise
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
-  const [animationTrigger, setAnimationTrigger] = useState(false);
 
+  const [animationTrigger, setAnimationTrigger] = useState(false);
+  const [triggerWarning, setTrigger] = useState(false);
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [
-      "Ja, wenn der Behälter richtig verschlossen ist.",
-      "Ja, in verschlossenen Originalgebinden.",
-      "Nein, innerhalb des Laborraums müssen leicht entzündbare Flüssigkeiten über 1 l Nennvolumen im Sicherheitsschrank gelagert werden."
+      "Fenster sollten während der Arbeit fünf Minuten lang weit geöffnet werden, um für eine gute Durchlüftung zu sorgen.",
+      "Fenster sind während der Arbeit mit biologischen Arbeitsstoffen geschlossen zu halten.",
+      "Fenster sollten immer auf Kipp stehen, um für eine angemessene Belüftung während der gesamten Arbeit zu sorgen.",
+      "Fenster müssen abgeschlossen werden, sie dürfen zu keiner Zeit geöffnet werden."
     ],
-    answerIndex: 2
+    answerIndex: 1 /// right answer index in array of questions
   };
   let contextRef = createRef(); // reference to instructions field
   const instructions = [
@@ -59,7 +68,7 @@ function Regal(props) {
             Dieser Antwort war leider falsch!
           </Popup.Header>
           <Popup.Content>
-            <Image src={i3} centered />
+            <Image src={i6} centered />
           </Popup.Content>
         </Popup>
       ) : (
@@ -73,6 +82,7 @@ function Regal(props) {
       );
     });
   };
+
   // handle change of radio button,
   //set state of exercise,
   //add click event to get back to other exercise
@@ -141,11 +151,12 @@ function Regal(props) {
       <div className="exerciseFrame">
         <Grid style={{ width: "100%" }}>
           <Grid.Row columns="2">
-            <Grid.Column width="10" className="relative">
+            <Grid.Column width="8" className="relative">
               <Image
                 src={i1}
                 className="absolute"
                 style={{ top: "0", left: "15px" }}
+                floated="left"
               />
               <Transition
                 visible={animationTrigger || (my_exercise && my_exercise.done)}
@@ -156,31 +167,37 @@ function Regal(props) {
                 <Image src={i2} />
               </Transition>
             </Grid.Column>
-            <Grid.Column width="6">
-              <div className="relative fullHeight">
+            <Grid.Column width="8">
+              <div
+                className="relative fullHeight"
+                style={{ paddingLeft: "15px" }}
+              >
                 <Transition
                   visible={my_exercise && !my_exercise.done}
                   animation="fade"
                   duration={animationTrigger ? 700 : 0}
                 >
-                  <div className="absolute" style={{ top: "13%" }}>
-                    <div className="gridList" style={{ width: "300px" }}>
+                  <div className="absolute" style={{ top: "11%" }}>
+                    <div className="gridList" style={{ width: "390px" }}>
                       <h1 className="my_title small">
-                        Dürfen Sie 2,5-l-Glasflaschen mit leicht entzündbaren
-                        Flüssigkeiten im Regal am Arbeitsplatz lagern?
+                        Dürfen Sie in einem Labor der Schutzstufe 2 die Fenster
+                        öffnen?
                       </h1>
                       <Image src={i4} />
                     </div>
+                    <p>
+                      <b> Kreuzen Sie die richtigen Antworten an.</b>
+                    </p>
                     <div
                       className="exerciseContainer"
-                      style={{ width: "300px" }}
+                      style={{ width: "300px", marginTop: "20px" }}
                     >
                       {generateRadioButtons()}
                     </div>
                     <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
-                        Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Hier erhalten Sie weitere Informationen zur Frage:
+                        ÄNDERN!!!!
                       </p>
                     </div>
                   </div>
@@ -196,28 +213,30 @@ function Regal(props) {
                   <div className="absolute " style={{ top: "13%" }}>
                     <div
                       className=" gridList "
-                      style={{ width: "270px", columnGap: "30px" }}
+                      style={{ width: "390px", columnGap: "30px" }}
                     >
                       <Image src={i5} />
                       <div>
-                        <span className="my_title small">Richtig</span>
+                        <span className="my_title small">Richtig!</span>
                         <p style={{ marginTop: "5px" }}>
-                          Bewahren Sie Behälter mit Gefahrstoffen nur so auf,
-                          dass Sie sie sicher entnehmen und wieder abstellen
-                          können.
+                          Damit es durch einen Luftzug nicht zu einer
+                          Verbreitung von Aerosolen kommt, müssen Fenster und
+                          Türen während der Arbeit mit biologischen
+                          Arbeitsstoffen geschlossen bleiben.
                         </p>
                         <p>
-                          Innerhalb des Labors müssen entzündbare Flüssigkeiten
-                          über 1 | Nennvolumen an geschützter Stelle (im
-                          Sicherheitsschrank) gelagert werden.
-                          <button
-                            onClick={() => isDone()}
-                            style={{ background: "red" }}
-                          >
-                            RESET
-                          </button>
+                          Erst wenn die biologischen Arbeitsstoffe sicher
+                          verwahrt und alle Arbeitsmittel gereinigt und
+                          desinfiziert wurden, dürfen die Fenster geöffnet
+                          werden.
                         </p>
                       </div>
+                    </div>
+                    <div
+                      style={{ position: "absolute", top: "0", right: "0" }}
+                      onClick={() => isDone()}
+                    >
+                      Reset
                     </div>
                   </div>
                 </Transition>
@@ -237,8 +256,8 @@ function Regal(props) {
         context={contextRef}
         content={
           my_exercise && my_exercise.done
-            ? instructions[instructions.length - 2]
-            : instructions[instructions.length - 1]
+            ? instructions[instructions.length - 1]
+            : instructions[instructions.length - 2]
         }
         position="top center"
         className="instructionsPopup"
@@ -248,4 +267,4 @@ function Regal(props) {
   );
 }
 
-export default withRouter(Regal);
+export default withRouter(Arbeitsplatz_1);

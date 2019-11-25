@@ -145,7 +145,7 @@ function Labortueren(props) {
             <Transition
               visible={animationTrigger || (my_exercise && my_exercise.done)}
               animation="fade"
-              duration={animationTrigger ? 500 : 0}
+              duration={animationTrigger ? 700 : 0}
               className="absolute"
             >
               <Image src={i1} />
@@ -156,7 +156,7 @@ function Labortueren(props) {
               <Transition
                 visible={my_exercise && !my_exercise.done}
                 animation="fade"
-                duration={animationTrigger ? 500 : 0}
+                duration={animationTrigger ? 700 : 0}
               >
                 <div className="absolute" style={{ top: "13%" }}>
                   <div className="gridList" style={{ width: "300px" }}>
@@ -187,7 +187,7 @@ function Labortueren(props) {
                 as="div"
                 visible={animationTrigger || (my_exercise && my_exercise.done)}
                 animation="fade"
-                duration={animationTrigger ? 500 : 0}
+                duration={animationTrigger ? 700 : 0}
               >
                 <div className="absolute " style={{ top: "13%" }}>
                   <div

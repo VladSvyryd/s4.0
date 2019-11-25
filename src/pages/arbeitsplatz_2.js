@@ -3,13 +3,15 @@ import { withRouter } from "react-router-dom";
 import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/4-chemiekalienschrank/regal_mit_flasche.jpg";
-import i2 from "../assets/pics/4-chemiekalienschrank/regal_ohne_flasche.jpg";
+import i1 from "../assets/pics/10-arbeitsplatz/schuettler_ohne.jpg";
+import i2 from "../assets/pics/10-arbeitsplatz/schuettler_mit.jpg";
+import i6 from "../assets/pics/10-arbeitsplatz/gefaess_mit.jpg";
+
 import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 
-function Regal(props) {
+function Arbeitsplatz_2(props) {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
   // load global state of tocPages
@@ -25,9 +27,9 @@ function Regal(props) {
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [
-      "Ja, wenn der Behälter richtig verschlossen ist.",
-      "Ja, in verschlossenen Originalgebinden.",
-      "Nein, innerhalb des Laborraums müssen leicht entzündbare Flüssigkeiten über 1 l Nennvolumen im Sicherheitsschrank gelagert werden."
+      "Das Desinfektionsmittel darf nicht auf dem Arbeitstisch stehen. ",
+      "Es muss eine Liste ausgehängt werden, auf der die Mitarbeiter ihre Tätigkeiten am Arbeitsplatz und die Uhrzeit aufschreiben.",
+      "Beim Umgang mit dem Schüttler können Bioaerosole entstehen. Deswegen dürfen nur dicht verschlossene Gefäße verwendet werden."
     ],
     answerIndex: 2
   };
@@ -36,6 +38,7 @@ function Regal(props) {
     "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
+
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -139,13 +142,17 @@ function Regal(props) {
   return (
     <>
       <div className="exerciseFrame">
-        <Grid style={{ width: "100%" }}>
+        <Grid
+          style={{ width: "100%" }}
+          reversed="computer"
+          padded="horizontally"
+        >
           <Grid.Row columns="2">
             <Grid.Column width="10" className="relative">
               <Image
                 src={i1}
                 className="absolute"
-                style={{ top: "0", left: "15px" }}
+                style={{ top: "55px", right: "0" }}
               />
               <Transition
                 visible={animationTrigger || (my_exercise && my_exercise.done)}
@@ -153,34 +160,40 @@ function Regal(props) {
                 duration={animationTrigger ? 700 : 0}
                 className="absolute"
               >
-                <Image src={i2} />
+                <Image
+                  src={i2}
+                  className="absolute"
+                  style={{ top: "55px", right: "0" }}
+                />
               </Transition>
             </Grid.Column>
             <Grid.Column width="6">
-              <div className="relative fullHeight">
+              <div
+                className="relative fullHeight"
+                style={{ paddingLeft: "20px" }}
+              >
                 <Transition
                   visible={my_exercise && !my_exercise.done}
                   animation="fade"
                   duration={animationTrigger ? 700 : 0}
                 >
                   <div className="absolute" style={{ top: "13%" }}>
-                    <div className="gridList" style={{ width: "300px" }}>
+                    <div className="gridList" style={{ width: "250px" }}>
                       <h1 className="my_title small">
-                        Dürfen Sie 2,5-l-Glasflaschen mit leicht entzündbaren
-                        Flüssigkeiten im Regal am Arbeitsplatz lagern?
+                        Kreuzen Sie an, was an diesem Arbeitsplatz nicht stimmt!
                       </h1>
                       <Image src={i4} />
                     </div>
                     <div
                       className="exerciseContainer"
-                      style={{ width: "300px" }}
+                      style={{ width: "250px", marginTop: "20px" }}
                     >
                       {generateRadioButtons()}
                     </div>
                     <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
-                        Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Hier erhalten Sie weitere Informationen zur Frage
+                        ÄNDERN!!!!
                       </p>
                     </div>
                   </div>
@@ -200,25 +213,36 @@ function Regal(props) {
                     >
                       <Image src={i5} />
                       <div>
-                        <span className="my_title small">Richtig</span>
+                        <span className="my_title small">Richtig!</span>
                         <p style={{ marginTop: "5px" }}>
-                          Bewahren Sie Behälter mit Gefahrstoffen nur so auf,
-                          dass Sie sie sicher entnehmen und wieder abstellen
-                          können.
+                          Da es durch die Bewegung der Flüssigkeit zu
+                          Aerosolbildung kommt, müssen im Umgang mit Schüttlern
+                          dicht verschlossene Gefäße verwendet werden. Dies gilt
+                          auch für Zentrifugen oder Aufschlussgeräte.
                         </p>
-                        <p>
-                          Innerhalb des Labors müssen entzündbare Flüssigkeiten
-                          über 1 | Nennvolumen an geschützter Stelle (im
-                          Sicherheitsschrank) gelagert werden.
-                          <button
-                            onClick={() => isDone()}
-                            style={{ background: "red" }}
-                          >
-                            RESET
-                          </button>
-                        </p>
+                        <div style={{ width: "130px" }}>
+                          <p>
+                            Alle Gefäße mit biologischen Arbeitsstoffen der
+                            Risikogruppe 2 sollten in der
+                            Sicherheits&shy;werkbank geöffnet werden.
+                            <button
+                              onClick={() => isDone()}
+                              style={{ background: "red" }}
+                            >
+                              RESET
+                            </button>
+                          </p>
+                        </div>
                       </div>
                     </div>
+                    <Image
+                      src={i6}
+                      style={{
+                        position: "absolute",
+                        bottom: "-163px",
+                        right: "-98px"
+                      }}
+                    />
                   </div>
                 </Transition>
               </div>
@@ -237,8 +261,8 @@ function Regal(props) {
         context={contextRef}
         content={
           my_exercise && my_exercise.done
-            ? instructions[instructions.length - 2]
-            : instructions[instructions.length - 1]
+            ? instructions[instructions.length - 1]
+            : instructions[instructions.length - 2]
         }
         position="top center"
         className="instructionsPopup"
@@ -248,4 +272,4 @@ function Regal(props) {
   );
 }
 
-export default withRouter(Regal);
+export default withRouter(Arbeitsplatz_2);
