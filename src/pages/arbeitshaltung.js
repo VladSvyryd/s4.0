@@ -44,7 +44,6 @@ function Arbeitshaltung(props) {
     ],
     answerBitValue: 5 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
-  let contextRef = createRef(); // reference to instructions field
   const instructions = [
     "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
@@ -291,20 +290,12 @@ function Arbeitshaltung(props) {
         </Grid>
       </div>
       <div className="instructionsField">
-        <strong ref={contextRef}></strong>
-      </div>
-      <Popup
-        basic
-        context={contextRef}
-        content={
-          my_exercise && my_exercise.done
+        <span>
+          {my_exercise && my_exercise.done
             ? instructions[instructions.length - 1]
-            : instructions[instructions.length - 2]
-        }
-        position="top center"
-        className="instructionsPopup"
-        open
-      />
+            : instructions[instructions.length - 2]}
+        </span>
+      </div>
     </>
   );
 }

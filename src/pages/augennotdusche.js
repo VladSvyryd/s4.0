@@ -129,51 +129,58 @@ function Augennotdusche(props) {
       done: !old.done
     }));
   }
-  const slides = [
-    {
-      id: 0
-    },
+  const [slides, setSlides] = useState([
     {
       id: 1,
-      url: i2
+      url: i1
     },
     {
       id: 2,
+      url: i2
+    },
+    {
+      id: 3,
       url: i3
     },
-    { id: 3, url: i4 }
-  ];
+    {
+      id: 4,
+      url: i4
+    }
+  ]);
   const [index, set] = useState(0);
-  const transitions = useTransition(slides[index], item => item.id, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: config.molasses
-  });
+  const [onScreen, changeOnScreen] = useState([]);
   function fade_1() {
-    return transitions.map(tr => {
-      console.log(tr);
-      const { item, props, key } = tr;
-      return (
-        <animated.img
-          key={key}
-          className="bg"
-          style={{
-            ...props
-          }}
-          src={item.url}
-        />
-      );
-    });
+    return onScreen.map(item => (
+      <div className="absolute" key={item.id} style={{ left: "0", top: "0" }}>
+        <Image src={`${item.url}`} />
+      </div>
+    ));
   }
 
   function start() {
-    const nIntervId = window.setInterval(() => set(state => state + 1), 3000);
-    setTimeout(() => clearInterval(nIntervId), 6000); // prints "[object Window]" after 1 second
+    if (slides.length > 0) {
+      let nextSlide = slides.pop();
+      changeOnScreen(old => [...old, nextSlide]);
+      setSlides(slides.slice(0, slides.length));
+    }
+    //const nIntervId = window.setInterval(
+    // () => onScreen.push(slides.pop()),
+    // 3000
+    // );
+    //setTimeout(() => clearInterval(nIntervId), 6000); // prints "[object Window]" after 1 second
   }
-  return false ? (
+
+  const startSequence = () => {
+    const nIntervId = window.setInterval(() => start(), 800);
+    setTimeout(() => clearInterval(nIntervId), 6000);
+  };
+  return (
     <div className="exerciseFrame">
-      <Grid style={{ width: "100%" }} padded="horizontally">
+      <Grid
+        style={{ width: "100%" }}
+        padded="horizontally"
+        className="relative"
+      >
         <Grid.Row columns="2">
           <Grid.Column
             width="9"
@@ -207,7 +214,10 @@ function Augennotdusche(props) {
             </div>
           </Grid.Column>
           <Grid.Column width="7" className="relative">
-            <Image src={i4} centered style={{ margin: "25px auto" }} />
+            <div>
+              <Image src={i4} centered style={{ margin: "25px auto" }} />
+            </div>
+
             <div
               className="exerciseContainer"
               style={{ width: "330px", margin: "0px 13px" }}
@@ -216,13 +226,23 @@ function Augennotdusche(props) {
             </div>
           </Grid.Column>
         </Grid.Row>
+        {my_exercise && my_exercise.done && (
+          <div className="absolute">
+            <Transition.Group as="div" duration={700}>
+              {my_exercise && my_exercise.done && startSequence()}
+              {fade_1()}
+            </Transition.Group>
+            <button
+              className="absolute"
+              style={{ right: "0", top: "0" }}
+              onClick={() => start()}
+            >
+              PUSH
+            </button>
+          </div>
+        )}
       </Grid>
     </div>
-  ) : (
-    <>
-      {fade_1()}
-      <button onClick={() => start()}>PUSH</button>
-    </>
   );
 }
 

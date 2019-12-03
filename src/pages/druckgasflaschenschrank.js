@@ -19,11 +19,8 @@ function Druckgasflaschenschrank(props) {
   // state to manage exercise object state
   const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
 
-  // state to view different exercise on the same page in the same frame
-  const [exerciseView, setExerciseView] = useState(0);
   const pathname = props.location.pathname;
   console.log(exercise);
-  let contextRef = createRef(); // reference to instructions field
 
   // state to show default instructions
   const [defaultInstruction, setdefaultInstruction] = useState(true);
@@ -33,9 +30,8 @@ function Druckgasflaschenschrank(props) {
     "Ungesicherte Druckflasche",
     "Druckgasflaschenschrank"
   ];
-  const handleOpenInstruction = () => {
-    setdefaultInstruction(old => (old = !old));
-  };
+  const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
+
   // function to change state of current exercise and trigger useEffect function to save it in local storage
   // recieve exerices ID from Exercise_1,2,3,4 and loking of its state change array....
   const saveExercise = ID => {
@@ -80,6 +76,12 @@ function Druckgasflaschenschrank(props) {
               <Image src={i1} />
             )}
             <Link
+              onMouseEnter={() =>
+                exercise.firstLayer[0].done
+                  ? setCurrentInstruction(instructions[2])
+                  : setCurrentInstruction(instructions[1])
+              }
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={
                 exercise.firstLayer[0].done ? style_as_done : style_as_not_done
@@ -91,28 +93,11 @@ function Druckgasflaschenschrank(props) {
                 }
               }}
             >
-              <Popup
-                trigger={
-                  exercise.firstLayer[0].done ? (
-                    <Image src={i5} />
-                  ) : (
-                    <Image src={i3} />
-                  )
-                }
-                context={contextRef}
-                content={
-                  exercise.firstLayer[0].done
-                    ? instructions[2]
-                    : instructions[1]
-                }
-                position="top center"
-                basic
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
+              {exercise.firstLayer[0].done ? (
+                <Image src={i5} />
+              ) : (
+                <Image src={i3} />
+              )}
             </Link>
           </div>
           <div className="centered">
@@ -140,16 +125,8 @@ function Druckgasflaschenschrank(props) {
           </div>
         </div>
         <div className="instructionsField">
-          <strong ref={contextRef}></strong>
+          <span>{currentInstruction}</span>
         </div>
-        <Popup
-          basic
-          context={contextRef}
-          content={instructions[0]}
-          position="top center"
-          className="instructionsPopup"
-          open={defaultInstruction}
-        />
       </>
     );
   };

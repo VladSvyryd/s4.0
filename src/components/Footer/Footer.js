@@ -1,6 +1,6 @@
 import React from "react";
 import "./footer.css";
-import { withRouter, NavLink } from "react-router-dom";
+import { withRouter, NavLink, Link } from "react-router-dom";
 import { Label, Icon } from "semantic-ui-react";
 
 // Footer
@@ -12,6 +12,13 @@ const Footer = props => {
   const handleBackInHistory = () => {
     props.history.goBack();
   };
+  const button_style = {
+    color: "white",
+    backgroundColor: "transparent"
+  };
+  const active_style = {
+    color: "#ffc21b"
+  };
   return (
     <div className="footer">
       <div className="left_footer">
@@ -19,37 +26,35 @@ const Footer = props => {
       </div>
       <div className="right_footer">
         <div className="footer_buttons">
-          <Label
-            as={NavLink}
+          <NavLink
             to="/virtueles_labor/checklist"
-            activeStyle={{ color: "red" }}
-            image
-            style={{ backgroundColor: "transparent", color: "white" }}
+            activeStyle={active_style}
+            style={button_style}
+            className="grid twoColumn alignCenter padded gap10"
           >
             <Icon name="list alternate outline" size="large" />
             Checklist
-          </Label>
+          </NavLink>
           <span className="divider"></span>
-          <Label
-            as={NavLink}
-            activeStyle={{ color: "red" }}
+          <NavLink
+            activeStyle={active_style}
             to="/virtueles_labor/grundriss"
-            style={{ backgroundColor: "transparent", color: "white" }}
-            image
+            className="grid twoColumn alignCenter padded gap10"
+            style={button_style}
           >
             <Icon name="briefcase" size="large" />
-            Grundriss/Inhalt
-          </Label>
+            <span> Grundriss/Inhalt</span>
+          </NavLink>
           <span className="divider"></span>
-          <Label
+          <div
             as="button"
             onClick={handleBackInHistory}
-            style={{ backgroundColor: "transparent", color: "white" }}
-            image
+            style={button_style}
+            className="grid twoColumn alignCenter padded gap10 pointer"
           >
             <Icon name="undo" size="large" />
             Zurück
-          </Label>
+          </div>
         </div>
         <Label
           as={NavLink}

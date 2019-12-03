@@ -46,9 +46,10 @@ function Pipetten(props) {
   };
   let contextRef = createRef(); // reference to instructions field
   const instructions = [
-    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
+    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
+
   // parse radioButtons from aufgabe object
   // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
   const generateRadioButtons = () => {
@@ -190,13 +191,21 @@ function Pipetten(props) {
                     }}
                   >
                     <div className="gridList" style={{ width: "390px" }}>
-                      <h1 className="my_title small">
-                        Was müssen Sie beim Umgang mit Ihrer persönlichen
-                        Schutzausrüstung im Labor der Schutzstufe 2 beachten?
-                      </h1>
+                      <div>
+                        <h1
+                          className="my_title small"
+                          style={{ paddingBottom: "0" }}
+                        >
+                          Wenn Sie biologische Arbeitsstoffe der Risikogruppe 2
+                          pipettieren, müssen Sie in der Sicherheitswerkbank
+                          arbeiten.
+                        </h1>
+                        <h1 className="my_title small">
+                          Was sollten Sie dabei besonders beachten?
+                        </h1>
+                      </div>
                       <Image src={i4} />
                     </div>
-                    <p>Kreuzen Sie die richtigen Antworten an.</p>
                     <Popup
                       className="warning"
                       hoverable={false}
@@ -293,20 +302,12 @@ function Pipetten(props) {
         </Grid>
       </div>
       <div className="instructionsField">
-        <strong ref={contextRef}></strong>
-      </div>
-      <Popup
-        basic
-        context={contextRef}
-        content={
-          my_exercise && my_exercise.done
+        <span>
+          {my_exercise && my_exercise.done
             ? instructions[instructions.length - 1]
-            : instructions[instructions.length - 2]
-        }
-        position="top center"
-        className="instructionsPopup"
-        open
-      />
+            : instructions[instructions.length - 2]}
+        </span>
+      </div>
     </>
   );
 }

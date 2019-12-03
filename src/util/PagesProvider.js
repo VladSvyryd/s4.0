@@ -20,7 +20,10 @@ export const PagesProvider = props => {
       ? { thirdPages: nodes, done: false }
       : nodes.pages.map(node => ({
           secondLayer: node,
-          secondPages: node.pages || false,
+          secondPages:
+            (node.pages &&
+              node.pages.map(page => ({ thirdLayer: page, done: false }))) ||
+            false,
           done: false
         }));
   }

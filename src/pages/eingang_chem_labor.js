@@ -11,7 +11,11 @@ import i5 from "../assets/pics/2-chemielaboreingang/dusche_btn.jpg";
 import i6 from "../assets/pics/2-chemielaboreingang/augendusche_btn_falsch.jpg";
 import i7 from "../assets/pics/2-chemielaboreingang/augendusche_btn_richtig.jpg";
 import i8 from "../assets/pics/2-chemielaboreingang/augendusche_richtig.jpg";
+import i13 from "../assets/pics/2-chemielaboreingang/augendusche_btn_richtig_inactive.jpg";
 import i9 from "../assets/pics/achtung.png";
+import i10 from "../assets/pics/2-chemielaboreingang/kenn_btn_falsch.jpg";
+import i11 from "../assets/pics/2-chemielaboreingang/kenn_btn_richtig.jpg";
+import i12 from "../assets/pics/2-chemielaboreingang/kenn_richtig.jpg";
 
 function Ringang_chem_labor(props) {
   // global state of pages
@@ -22,24 +26,17 @@ function Ringang_chem_labor(props) {
 
   // state to manage exercise object state
   const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
-  // state to view different exercise on the same page in the same frame
-  const [exerciseView, setExerciseView] = useState(0);
   const pathname = props.location.pathname;
+  const instructions = [
+    "Suchen Sie im Bild nach aktiven Bereichen, die nicht in Ordnung sind!",
+    "Labortür",
+    "Körpernotdusche",
+    "Augennotdusche",
+    "Ventile der Notduschen"
+  ];
+  const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
+
   // function to change state of current exercise and trigger useEffect function to save it in local storage
-  // recieve exerices ID from Exercise_1,2,3,4 and loking of its state change array....
-  const saveExercise = ID => {
-    setExercise(old => ({
-      ...old,
-      firstLayer: old.firstLayer.map(e => {
-        let result = e;
-        if (e.secondLayer.id == ID) {
-          e.done = !e.done;
-          result = e;
-        }
-        return result;
-      })
-    }));
-  };
   // callback function to trigger save of exercise in localStorage each time exercise state has been changed
   useEffect(() => {
     tocPages[tocState.activeMenu] = exercise;
@@ -47,96 +44,131 @@ function Ringang_chem_labor(props) {
   }, [exercise]);
   const introExercise = () => {
     return (
-      <div className="exerciseFrame">
-        <div className="relative">
-          <Image src={i4} />
-          <Link
-            className="absolute hoverReveal pointer"
-            style={{
-              right: "275px",
-              top: "118px",
-              backgroundImage: `url('${exercise.firstLayer[0].done && i3}')`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "232px 371px"
-            }}
-            //onClick={() => setExerciseView(1)}
-            to={{
-              pathname: `${pathname}/labortueren`,
-              state: {
-                currentExercise: exercise.firstLayer[0]
-              }
-            }}
-          >
-            {exercise.firstLayer[0].done ? (
-              <Image src={i2} />
-            ) : (
-              <Image src={i1} />
-            )}
-          </Link>
-          <Link
-            className="absolute hoverReveal pointer"
-            style={{
-              right: "66px",
-              top: "18px"
-            }}
-            to={{
-              pathname: `${pathname}/augennotdusche`,
-              state: {
-                currentExercise: exercise.firstLayer[1]
-              }
-            }}
-          >
-            <Image src={i5} />
-          </Link>
-          <div
-            className="absolute hoverReveal pointer"
-            style={{
-              right: "160px",
-              top: "252px",
-              backgroundImage: `url('${exercise.firstLayer[2].done && i8}')`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "232px 371px"
-            }}
-            onClick={() => setExerciseView(3)}
-          >
-            {exercise.firstLayer[2].done ? (
-              <Image src={i7} />
-            ) : (
-              <Image src={i6} />
-            )}
+      <>
+        <div className="exerciseFrame">
+          <div className="relative">
+            <Image src={i4} />
+            <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[1])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
+              className="absolute hoverReveal pointer"
+              style={{
+                right: "275px",
+                top: "118px",
+                backgroundImage: `url('${exercise.firstLayer[0].done && i3}')`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "232px 371px"
+              }}
+              //onClick={() => setExerciseView(1)}
+              to={{
+                pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
+                state: {
+                  currentExercise: exercise.firstLayer[0]
+                }
+              }}
+            >
+              {exercise.firstLayer[0].done ? (
+                <Image src={i2} />
+              ) : (
+                <Image src={i1} />
+              )}
+            </Link>
+            <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[2])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
+              className="absolute hoverReveal pointer"
+              style={{
+                right: "66px",
+                top: "18px"
+              }}
+              to={{
+                pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
+                state: {
+                  currentExercise: exercise.firstLayer[1]
+                }
+              }}
+            >
+              <Image src={i5} />
+            </Link>
+            <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[3])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
+              className="absolute hoverReveal pointer"
+              style={{
+                right: "160px",
+                top: "252px",
+                backgroundImage: `url('${exercise.firstLayer[2].done && i13}')`,
+                backgroundRepeat: "no-repeat"
+              }}
+              to={{
+                pathname: `${pathname}/${exercise.firstLayer[2].secondLayer.filename}`,
+                state: {
+                  currentExercise: exercise.firstLayer[2]
+                }
+              }}
+            >
+              {exercise.firstLayer[2].done ? (
+                <Image src={i7} />
+              ) : (
+                <Image src={i6} />
+              )}
+            </Link>
+            <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[4])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
+              className="absolute hoverReveal pointer"
+              style={{
+                right: "77px",
+                top: "347px",
+                backgroundImage: `url('${exercise.firstLayer[3].done && i12}')`,
+                backgroundPositionX: "right",
+
+                backgroundRepeat: "no-repeat"
+              }}
+              to={{
+                pathname: `${pathname}/${exercise.firstLayer[3].secondLayer.filename}`,
+                state: {
+                  currentExercise: exercise.firstLayer[3]
+                }
+              }}
+            >
+              {exercise.firstLayer[3].done ? (
+                <Image src={i11} />
+              ) : (
+                <Image src={i10} />
+              )}
+            </Link>
           </div>
-        </div>
-        <div className="centered">
-          <div className="textIntro" style={{ width: "200px" }}>
-            <div className="gridList">
-              <Image src={i9} />
-              <div>
-                <p>
-                  <b>
-                    Ansicht <br /> Eingang chemisches Labor
-                  </b>
-                </p>
-                <p>
-                  Alle sicherheitstechnischen Einrichtungen eines Labors müssen
-                  einwandfrei funktionieren, damit sie im Gefahrfall
-                  einsatzbereit sind.
-                </p>
-                <p>
-                  Finden Sie heraus, was Sie an dieser Situation noch verbessern
-                  können.
-                </p>
+          <div className="centered">
+            <div className="textIntro" style={{ width: "200px" }}>
+              <div className="gridList">
+                <Image src={i9} />
+                <div>
+                  <p>
+                    <b>
+                      Ansicht <br /> Eingang chemisches Labor
+                    </b>
+                  </p>
+                  <p>
+                    Alle sicherheitstechnischen Einrichtungen eines Labors
+                    müssen einwandfrei funktionieren, damit sie im Gefahrfall
+                    einsatzbereit sind.
+                  </p>
+                  <p>
+                    Finden Sie heraus, was Sie an dieser Situation noch
+                    verbessern können.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+        <div className="instructionsField">
+          <span>{currentInstruction}</span>
+        </div>
+      </>
     );
   };
-  const [currentExercisesStateList, setCurrentExercisesStateList] = useState(
-    exercise.firstLayer.map(e => {
-      return e;
-    })
-  );
 
   return introExercise();
 }

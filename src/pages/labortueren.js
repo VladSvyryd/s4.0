@@ -31,7 +31,11 @@ function Labortueren(props) {
     ],
     answerIndex: 2
   };
-
+  // instructions for pictures
+  const instructions = [
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft!",
+    "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
+  ];
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -133,86 +137,100 @@ function Labortueren(props) {
   }
 
   return (
-    <div className="exerciseFrame">
-      <Grid style={{ width: "100%" }}>
-        <Grid.Row columns="2">
-          <Grid.Column width="9" className="relative">
-            <Image
-              src={i2}
-              className="absolute"
-              style={{ top: "0", left: "15px" }}
-            />
-            <Transition
-              visible={animationTrigger || (my_exercise && my_exercise.done)}
-              animation="fade"
-              duration={animationTrigger ? 700 : 0}
-              className="absolute"
-            >
-              <Image src={i1} />
-            </Transition>
-          </Grid.Column>
-          <Grid.Column width="7">
-            <div className="relative fullHeight">
+    <>
+      <div className="exerciseFrame">
+        <Grid style={{ width: "100%" }}>
+          <Grid.Row columns="2">
+            <Grid.Column width="9" className="relative">
+              <Image
+                src={i2}
+                className="absolute"
+                style={{ top: "0", left: "15px" }}
+              />
               <Transition
-                visible={my_exercise && !my_exercise.done}
-                animation="fade"
-                duration={animationTrigger ? 700 : 0}
-              >
-                <div className="absolute" style={{ top: "13%" }}>
-                  <div className="gridList" style={{ width: "300px" }}>
-                    <h1 className="my_title small">
-                      Entspricht diese Tür den Anforderungen der Technischen
-                      Regeln für Gefahrstoffe?
-                    </h1>
-                    <Image src={i4} />
-                  </div>
-                  <div className="exerciseContainer" style={{ width: "300px" }}>
-                    {generateRadioButtons()}
-                  </div>
-                  <div style={{ marginTop: "20px", width: "330px" }}>
-                    <p>
-                      Die TRGS 526 „Laboratorien“ und die BGI/GUV-I 850-0
-                      „Sicheres Arbeiten in Laboratorien“ schreiben zu Ihrer
-                      eigenen Sicherheit bestimmte bauliche Maßnahmen bei der
-                      Einrichtung eines Laborraums vor.
-                    </p>
-                    <p>
-                      Weitere Informationen zu dieser Frage erhalten Sie in
-                      Kapitel ÄNDERN!!!!
-                    </p>
-                  </div>
-                </div>
-              </Transition>
-              <Transition
-                as="div"
                 visible={animationTrigger || (my_exercise && my_exercise.done)}
                 animation="fade"
                 duration={animationTrigger ? 700 : 0}
+                className="absolute"
               >
-                <div className="absolute " style={{ top: "13%" }}>
-                  <div
-                    className=" gridList "
-                    style={{ width: "270px", columnGap: "30px" }}
-                  >
-                    <Image src={i5} />
-                    <div>
-                      <span className="my_title small">Richtig</span>
-                      <p style={{ marginTop: "5px" }}>
-                        Labortüren müssen eine Sichtverbindung nach innen und
-                        nach außen haben.
+                <Image src={i1} />
+              </Transition>
+            </Grid.Column>
+            <Grid.Column width="7">
+              <div className="relative fullHeight">
+                <Transition
+                  visible={my_exercise && !my_exercise.done}
+                  animation="fade"
+                  duration={animationTrigger ? 700 : 0}
+                >
+                  <div className="absolute" style={{ top: "13%" }}>
+                    <div className="gridList" style={{ width: "300px" }}>
+                      <h1 className="my_title small">
+                        Entspricht diese Tür den Anforderungen der Technischen
+                        Regeln für Gefahrstoffe?
+                      </h1>
+                      <Image src={i4} />
+                    </div>
+                    <div
+                      className="exerciseContainer"
+                      style={{ width: "300px" }}
+                    >
+                      {generateRadioButtons()}
+                    </div>
+                    <div style={{ marginTop: "20px", width: "330px" }}>
+                      <p>
+                        Die TRGS 526 „Laboratorien“ und die BGI/GUV-I 850-0
+                        „Sicheres Arbeiten in Laboratorien“ schreiben zu Ihrer
+                        eigenen Sicherheit bestimmte bauliche Maßnahmen bei der
+                        Einrichtung eines Laborraums vor.
+                      </p>
+                      <p>
+                        Weitere Informationen zu dieser Frage erhalten Sie in
+                        Kapitel ÄNDERN!!!!
                       </p>
                     </div>
                   </div>
-                </div>
-              </Transition>
-            </div>
-            <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-              RESET
-            </button>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </div>
+                </Transition>
+                <Transition
+                  as="div"
+                  visible={
+                    animationTrigger || (my_exercise && my_exercise.done)
+                  }
+                  animation="fade"
+                  duration={animationTrigger ? 700 : 0}
+                >
+                  <div className="absolute " style={{ top: "13%" }}>
+                    <div
+                      className=" gridList "
+                      style={{ width: "270px", columnGap: "30px" }}
+                    >
+                      <Image src={i5} />
+                      <div>
+                        <span className="my_title small">Richtig</span>
+                        <p style={{ marginTop: "5px" }}>
+                          Labortüren müssen eine Sichtverbindung nach innen und
+                          nach außen haben.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Transition>
+              </div>
+              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
+                RESET
+              </button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+      <div className="instructionsField">
+        <span>
+          {my_exercise && my_exercise.done
+            ? instructions[instructions.length - 1]
+            : instructions[instructions.length - 2]}
+        </span>
+      </div>
+    </>
   );
 }
 

@@ -3,11 +3,19 @@ import { withRouter } from "react-router-dom";
 import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/9-waschbecken/waschbecken.jpg";
-import i2 from "../assets/pics/9-waschbecken/waschbecken_richtig.jpg";
+import i1 from "../assets/pics/12-sterilisationsauklav/mitarbeiter.jpg";
+import i2 from "../assets/pics/12-sterilisationsauklav/mitarbeiter_richtig.jpg";
 import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
+import DropBox from "../components/DropBox";
+import DraggableItem from "../components/DraggableItem";
+
+// to create drag and drop component used external library  react-drag-drop-container
+// https://github.com/peterh32/react-drag-drop-container <---- this is github page with instructions
+// to create exercise you need to Objects DropBox (Object that recieves draggables) and DraggableItem (Object to Drag)
+// the logic of exercises flows into DropBox, which has check of exerciseBitValue and currentBitValue of recieved by DropBox Draggables
+// the isDone() function goes from this Parent component into DropBox to be activated as soon as th exercise has been done
 
 function Ausstatung_entladung(props) {
   // state to go through active page
@@ -19,73 +27,26 @@ function Ausstatung_entladung(props) {
   const [my_exercise, setMyExercise] = useState(
     props.location.state && props.location.state.currentExercise
   );
-  const [radioGroupState, setRadioGroupState] = useState(" ");
+  const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
+  const [feedbackFromDropBox, setFeedbackFromDropBox] = useState(0);
   const [animationTrigger, setAnimationTrigger] = useState(false);
 
-  // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
-  const aufgabe = {
-    labels: [
-      "Ich wasche meine Hände nur vor dem Verlassen des Labors.",
-      "Ich wasche und desinfiziere meine Hände nach jeder zusammenhängenden Arbeitseinheit und vor dem Verlassen des Labors.",
-      "Ich wasche und desinfiziere meine Hände nur dann, wenn ich mit kontaminierten Gegenständen in Kontakt gekommen bin.",
-      "Ich wasche und desinfiziere meine Hände nur vor dem Verlassen des Labors."
-    ],
-    answerIndex: 1
-  };
-  let contextRef = createRef(); // reference to instructions field
   const instructions = [
-    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
+    "Sie haben leider die falsche Schutzausrüstung ausgewählt! Versuchen Sie es erneut.",
+    "Ziehen Sie die richtige Begriffe auf die Liste neben der Person!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
-  // parse radioButtons from aufgabe object
-  const generateRadioButtons = () => {
-    return aufgabe.labels.map((radioButton, i) => {
-      return i !== aufgabe.answerIndex ? (
-        <Popup
-          key={`${radioButton}-${i}`}
-          className="warning"
-          trigger={
-            <Checkbox
-              label={radioButton}
-              value={i}
-              onChange={handleChange}
-              checked={radioGroupState === i}
-            />
-          }
-          offset="0, 25px"
-          position="left center"
-          open={radioGroupState === i}
-        >
-          <Popup.Header as="span" className="headerPop">
-            Dieser Antwort war leider falsch!
-          </Popup.Header>
-          <Popup.Content>
-            <Image src={i3} centered />
-          </Popup.Content>
-        </Popup>
-      ) : (
-        <Checkbox
-          key={`${radioButton}-${i}`}
-          label={radioButton}
-          value={i}
-          checked={radioGroupState === i}
-          onChange={handleChange}
-        />
-      );
-    });
-  };
-  // handle change of radio button,
+  const [currentInstruction, setCurrentInstruction] = useState(
+    my_exercise && my_exercise.done ? instructions[2] : instructions[1]
+  );
+
+  // handle change of exerciseCurrentState,
   //set state of exercise,
   //add click event to get back to other exercise
-  const handleChange = (e, { value }) => {
-    if (value !== aufgabe.answerIndex) {
-      tryAgain(value);
-    } else {
-      isDone();
-      setRadioGroupState(value);
-      setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
-    }
+  const handleExerciseIsDone = () => {
+    setAnimationTrigger(true);
+    isDone();
+    document.addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
@@ -95,14 +56,10 @@ function Ausstatung_entladung(props) {
 
   // reset state of current exercise
   const resetAllAnswers = () => {
-    setRadioGroupState("this");
+    setExerciseCurrentState("this");
     removeClick();
   };
-  // set up current exercise state and set click event to reset radio button states
-  const tryAgain = value => {
-    setRadioGroupState(value);
-    document.addEventListener("mousedown", resetAllAnswers);
-  };
+
   // reset click event on document
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
@@ -135,19 +92,79 @@ function Ausstatung_entladung(props) {
       ...old,
       done: !old.done
     }));
+    setCurrentInstruction(instructions[2]);
   }
 
+  const droppableStyle = {
+    width: "225px",
+    height: "246px",
+    top: "157px",
+    left: "304px",
+    display: "flex",
+    flexDirection: "column"
+  };
+  const draggableSet = {
+    display: "flex",
+    flexDirection: "column",
+    width: "230px"
+  };
+
+  const exercise = {
+    draggableItems: [
+      { id: 1, text: "Gesichtschutz" },
+      { id: 2, text: "Schutzbrille" },
+      { id: 4, text: "Chemikalienhandschuhe" },
+      { id: 8, text: "Hitzehandschuhe" },
+      { id: 16, text: "Latexhandschuhe" },
+      { id: 32, text: "Gummierte" }
+    ],
+    bitValueAnswer: 10
+  };
+  const itemsStyle = {
+    backgroundColor: "rgb(222,222,222)",
+    padding: "7px 11px",
+    fontWeight: "bold",
+    margin: "6px 0",
+    width: "100%",
+    boxShadow: "3px 3px 7px #0000003d"
+  };
+
+  // feedbackSuccess is true: it was match by drop, false: wrong element
+  const handleFailToDropItem = feedbackSuccess => {
+    if (my_exercise && !my_exercise.done) {
+      feedbackSuccess
+        ? setCurrentInstruction(instructions[1])
+        : setCurrentInstruction(instructions[0]);
+    }
+  };
   return (
     <>
-      <div className="exerciseFrame">
+      <div className="exerciseFrame ausstatung_entladung">
         <Grid style={{ width: "100%" }}>
           <Grid.Row columns="2">
-            <Grid.Column width="8" className="relative">
+            <Grid.Column width="10" className="relative">
               <Image
                 src={i1}
                 className="absolute"
-                style={{ top: "0", left: "15px" }}
+                style={{ top: "0", left: "14px" }}
               />
+              <div className="absolute" style={droppableStyle}>
+                <DropBox
+                  id="dr2"
+                  name="dr2"
+                  droppedItemsClass="itemIsDroppedState"
+                  exerciseBitValueAnswer={exercise.bitValueAnswer}
+                  exerciseCurrentState={exerciseCurrentState}
+                  setExerciseCurrentState={setExerciseCurrentState}
+                  feedbackAboutSucces={""}
+                  idDoneCallback={
+                    // this triggers animation and exercise is Done
+                    // this trieger has to be activated in DropBox by calling function isDoneCallb ack
+                    handleExerciseIsDone
+                  }
+                  withLabel={<b>-</b>}
+                />
+              </div>
               <Transition
                 visible={animationTrigger || (my_exercise && my_exercise.done)}
                 animation="fade"
@@ -157,30 +174,41 @@ function Ausstatung_entladung(props) {
                 <Image src={i2} />
               </Transition>
             </Grid.Column>
-            <Grid.Column width="8">
+            <Grid.Column width="6">
               <div className="relative fullHeight">
                 <Transition
                   visible={my_exercise && !my_exercise.done}
                   animation="fade"
                   duration={animationTrigger ? 700 : 0}
                 >
-                  <div className="absolute" style={{ top: "13%" }}>
-                    <div className="gridList" style={{ width: "390px" }}>
+                  <div className="absolute" style={{ top: "7%" }}>
+                    <div className="gridList" style={{ width: "320px" }}>
                       <h1 className="my_title small">
-                        Wann genau müssen Sie sich bei Tätigkeiten in der
-                        Schutzstufe 2 die Hände waschen?
+                        Welche persönliche Schutzausrüstung muss Ihr Kollege
+                        zusätzlich tragen, um autoklaviertes Gut sicher aus dem
+                        Sterilisationsautoklaven entnehmen zu können?
                       </h1>
                       <Image src={i4} />
                     </div>
-                    <div
-                      className="exerciseContainer"
-                      style={{ width: "390px", marginTop: "20px" }}
-                    >
-                      {generateRadioButtons()}
+                    <div style={{ width: "320px" }}>
+                      <div id="dr1" style={draggableSet}>
+                        {exercise.draggableItems.map(item => (
+                          <DraggableItem
+                            key={item.id}
+                            label={item.text}
+                            bitValue={item.id}
+                            exerciseBitValueAnswer={exercise.bitValueAnswer}
+                            callbackAfterDropFail={handleFailToDropItem}
+                            dragClone={true}
+                            dragElemOpacity={0.4}
+                            handler={<div style={itemsStyle}>{item.text}</div>}
+                          />
+                        ))}
+                      </div>
                     </div>
                     <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
-                        Weitere Informationen zu dieser Frage erhalten Sie im
+                        Weitere Informationen zu dieser Frage erhalten Sie in
                         Kapitel ÄNDERN!!!!
                       </p>
                     </div>
@@ -194,7 +222,7 @@ function Ausstatung_entladung(props) {
                   animation="fade"
                   duration={animationTrigger ? 700 : 0}
                 >
-                  <div className="absolute " style={{ top: "13%" }}>
+                  <div className="absolute" style={{ top: "22%", left: "9%" }}>
                     <div
                       className=" gridList "
                       style={{ width: "270px", columnGap: "30px" }}
@@ -203,48 +231,28 @@ function Ausstatung_entladung(props) {
                       <div>
                         <span className="my_title small">Richtig</span>
                         <p style={{ marginTop: "5px" }}>
-                          Bewahren Sie Behälter mit Gefahrstoffen nur so auf,
-                          dass Sie sie sicher entnehmen und wieder abstellen
-                          können.
+                          Mit Hitzehandschuhen und Schutzbrille kann Ihr Kollege
+                          das sterilisierte Gut sicher aus dem Autoklaven
+                          nehmen.
                         </p>
-                        <p>
-                          Innerhalb des Labors müssen entzündbare Flüssigkeiten
-                          über 1 | Nennvolumen an geschützter Stelle (im
-                          Sicherheitsschrank) gelagert werden.
-                          <button
-                            onClick={() => isDone()}
-                            style={{ background: "red" }}
-                          >
-                            RESET
-                          </button>
-                        </p>
+                        <button
+                          onClick={() => isDone()}
+                          style={{ background: "red" }}
+                        >
+                          RESET
+                        </button>
                       </div>
                     </div>
                   </div>
                 </Transition>
               </div>
-              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                RESET
-              </button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </div>
       <div className="instructionsField">
-        <strong ref={contextRef}></strong>
+        <span>{currentInstruction}</span>
       </div>
-      <Popup
-        basic
-        context={contextRef}
-        content={
-          my_exercise && my_exercise.done
-            ? instructions[instructions.length - 1]
-            : instructions[instructions.length - 2]
-        }
-        position="top center"
-        className="instructionsPopup"
-        open
-      />
     </>
   );
 }

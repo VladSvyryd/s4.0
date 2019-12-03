@@ -13,6 +13,7 @@
     "rc-menu": "^7.4.23",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-drag-drop-container": "^6.1.1",
     "react-draggable": "^3.3.0",
     "react-resizable": "^1.8.0",
     "react-router-dom": "^5.0.1",

@@ -3,12 +3,18 @@ import { Link } from "react-router-dom";
 import { Image, Popup } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
+
 import i1 from "../assets/pics/12-sterilisationsauklav/falsch.jpg";
 import i2 from "../assets/pics/12-sterilisationsauklav/mitarbeiter_false_active.jpg";
 import i3 from "../assets/pics/12-sterilisationsauklav/pers_schutz_false_active.jpg";
+import i4 from "../assets/pics/achtung_rot.png";
+import i5 from "../assets/pics/12-sterilisationsauklav/richtig1.jpg";
+import i6 from "../assets/pics/12-sterilisationsauklav/mitarbeiter_true_active.jpg";
+import i7 from "../assets/pics/12-sterilisationsauklav/richtig2.jpg";
+import i8 from "../assets/pics/12-sterilisationsauklav/mitarbeiter_all_true_active.jpg";
+import i10 from "../assets/pics/12-sterilisationsauklav/pers_schutz_all_true_active.jpg";
+
 import i9 from "../assets/pics/achtung.png";
-import i4 from "../assets/pics/9-waschbecken/waschbecken_active_start.jpg";
-import i5 from "../assets/pics/9-waschbecken/garderobe_active_end.jpg";
 
 function Sterilisationsautoklav(props) {
   // global state of pages
@@ -19,66 +25,60 @@ function Sterilisationsautoklav(props) {
   // state to manage exercise object state
   const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
 
-  // state to view different exercise on the same page in the same frame
-  const [exerciseView, setExerciseView] = useState(0);
+  const [warningState, setWarningState] = useState(false);
   const pathname = props.location.pathname;
-  console.log(exercise);
 
-  let contextRef = createRef(); // reference to instructions field
-
-  // state to show default instructions
-  const [defaultInstruction, setdefaultInstruction] = useState(true);
   // instructions for pictures
   const instructions = [
-    "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
-    "Waschbecken",
-    "Garderobe für Arbeitskleidung"
+    "Suchen Sie im Bild nach aktiven Bereichen und beantworten Sie die Fragen zur sicheren Arbeit mit Sterilisationsautoklaven!",
+    "Persönliche Schutzausrüstung",
+    "Technische Ausstattung und autoklaviertes Gut"
   ];
-  const handleOpenInstruction = () => {
-    setdefaultInstruction(old => (old = !old));
+  const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
+
+  // opens warning by click on Link which is block due to exercise is not done
+  const handleWarning = () => {
+    setWarningState(old => (old = !old));
   };
+
   // function to change state of current exercise and trigger useEffect function to save it in local storage
-  // recieve exerices ID from Exercise_1,2,3,4 and loking of its state change array....
-  const saveExercise = ID => {
-    setExercise(old => ({
-      ...old,
-      firstLayer: old.firstLayer.map(e => {
-        let result = e;
-        if (e.secondLayer.id == ID) {
-          e.done = !e.done;
-          result = e;
-        }
-        return result;
-      })
-    }));
-  };
   // callback function to trigger save of exercise in localStorage each time exercise state has been changed
   useEffect(() => {
     tocPages[tocState.activeMenu] = exercise;
     localStorage.setItem("pagesList", JSON.stringify(tocPages));
   }, [exercise]);
 
-  const style_garderobe = {
+  const style_technische_ausstattung = {
     left: "234px",
     top: "356px"
   };
-  const style_ausstatung_entladung = {
+  const style_pers_schutz = {
     left: "13px",
     top: "48px"
+  };
+  const style_technische_ausstattung_first_true = {
+    left: "233px",
+    top: "352px"
   };
   const introExercise = () => {
     return (
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            {exercise.firstLayer[0].done ? (
-              <Image src={i1} />
+            {exercise.firstLayer[1].done ? (
+              exercise.firstLayer[0].done ? (
+                <Image src={i7} />
+              ) : (
+                <Image src={i5} />
+              )
             ) : (
               <Image src={i1} />
             )}
             <Link
               className="absolute hoverReveal pointer"
-              style={style_ausstatung_entladung}
+              style={style_pers_schutz}
+              onMouseEnter={() => setCurrentInstruction(instructions[1])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               to={{
                 pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
                 state: {
@@ -86,48 +86,99 @@ function Sterilisationsautoklav(props) {
                 }
               }}
             >
-              <Popup
-                trigger={<Image src={i2} />}
-                context={contextRef}
-                content={instructions[1]}
-                position="top center"
-                basic
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
+              {exercise.firstLayer[1].done ? (
+                exercise.firstLayer[0].done ? (
+                  <Image src={i8} />
+                ) : (
+                  <Image src={i6} />
+                )
+              ) : (
+                <Image src={i2} />
+              )}
             </Link>
-            <Link
-              className="absolute hoverReveal pointer"
-              style={style_garderobe}
-              to={{
-                pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
-                state: {
-                  currentExercise: exercise.firstLayer[0]
+            {exercise.firstLayer[1].done ? (
+              <Link
+                onMouseEnter={() => setCurrentInstruction(instructions[2])}
+                onMouseLeave={() => setCurrentInstruction(instructions[0])}
+                className="absolute hoverReveal pointer"
+                style={
+                  exercise.firstLayer[1].done
+                    ? exercise.firstLayer[0].done
+                      ? style_technische_ausstattung
+                      : style_technische_ausstattung_first_true
+                    : style_technische_ausstattung
                 }
-              }}
-            >
-              <Popup
-                trigger={
+                to={{
+                  pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
+                  state: {
+                    currentExercise: exercise.firstLayer[0]
+                  }
+                }}
+              >
+                {exercise.firstLayer[1].done ? (
                   exercise.firstLayer[0].done ? (
-                    <Image src={i3} />
+                    <Image src={i10} />
                   ) : (
                     <Image src={i3} />
                   )
+                ) : (
+                  <Image src={i3} />
+                )}
+              </Link>
+            ) : (
+              <div
+                onMouseEnter={() => setCurrentInstruction(instructions[2])}
+                onMouseLeave={() => setCurrentInstruction(instructions[0])}
+                className="absolute hoverReveal pointer"
+                style={
+                  exercise.firstLayer[1].done
+                    ? exercise.firstLayer[0].done
+                      ? style_technische_ausstattung
+                      : style_technische_ausstattung_first_true
+                    : style_technische_ausstattung
                 }
-                context={contextRef}
-                content={instructions[2]}
-                position="top center"
-                basic
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
-            </Link>
+                onClick={handleWarning}
+              >
+                <Popup
+                  open={warningState}
+                  trigger={<Image src={i3} />}
+                  position="top center"
+                  basic
+                  content={
+                    <div className="">
+                      <Popup.Header as="span">
+                        <div
+                          className="headerPop "
+                          style={{
+                            textAlign: "center",
+                            fontWeight: "bold",
+                            color: "rgb(122,122,122)"
+                          }}
+                        >
+                          Hinweis
+                        </div>
+                      </Popup.Header>
+                      <Popup.Content
+                        style={{ paddingLeft: "7px", paddingTop: "10px" }}
+                      >
+                        <div
+                          className="gridList"
+                          style={{ alignItems: "center" }}
+                        >
+                          <Image src={i4} />
+                          <span>
+                            Das autoklarierte Gut kann noch nicht entnommen
+                            werden, da der Mitarbeiter nicht ordnungsgemäß
+                            gekleidet ist.
+                          </span>
+                        </div>
+                      </Popup.Content>
+                    </div>
+                  }
+                  onClose={warningState ? handleWarning : null}
+                />
+              </div>
+            )}
           </div>
           <div className="centered">
             <div className="textIntro" style={{ width: "250px" }}>
@@ -155,16 +206,8 @@ function Sterilisationsautoklav(props) {
           </div>
         </div>
         <div className="instructionsField">
-          <strong ref={contextRef}></strong>
+          <span>{currentInstruction}</span>
         </div>
-        <Popup
-          basic
-          context={contextRef}
-          content={instructions[0]}
-          position="top center"
-          className="instructionsPopup"
-          open={defaultInstruction}
-        />
       </>
     );
   };

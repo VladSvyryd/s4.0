@@ -34,6 +34,7 @@ function Sicherheitsschrank(props) {
   const [sibling_exercise] = useState(
     props.location.state && props.location.state.siblingExercise
   );
+  console.log(my_exercise);
   const [activeActualExercise, setActiveActualExercise] = useState(null);
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -48,10 +49,7 @@ function Sicherheitsschrank(props) {
     ],
     answerIndex: 2
   };
-  let contextRef = createRef(); // reference to instructions field
 
-  // state to show default instructions
-  const [defaultInstruction, setdefaultInstruction] = useState(true);
   // instructions for pictures
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
@@ -62,10 +60,8 @@ function Sicherheitsschrank(props) {
     "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
-  const handleOpenInstruction = () => {
-    setdefaultInstruction(old => (old = !old));
-    setOpenWarning(false);
-  };
+  const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
+
   const [OpenWarning, setOpenWarning] = useState(false);
   // handle open warning window if exercise with "Flasche mit einer leicht entzündbaren Flüssigkeit" has been already done
   const handleOpenWarning = () => {
@@ -216,7 +212,7 @@ function Sicherheitsschrank(props) {
                     <Image
                       src={i2}
                       className="absolute"
-                      style={{ top: "0", left: "15px" }}
+                      style={{ top: "0", left: "14px" }}
                     />
 
                     <Image
@@ -226,7 +222,18 @@ function Sicherheitsschrank(props) {
                     />
                   </>
                 ) : (
-                  <Image src={i1} />
+                  <>
+                    <Image
+                      src={i1}
+                      className="absolute"
+                      style={{ top: "0", left: "14px" }}
+                    />
+                    <Image
+                      src={i7}
+                      className="absolute"
+                      style={{ top: "174px", left: "226px" }}
+                    />
+                  </>
                 )}
                 <Transition
                   visible={
@@ -281,7 +288,7 @@ function Sicherheitsschrank(props) {
                             <Popup.Header as="span" className="headerPop">
                               Dieser Antwort war leider falsch!
                             </Popup.Header>
-                            <Popup.Content>
+                            <Popup.Content style={{ marginTop: "10px" }}>
                               {Notification(radioGroupState)}
                             </Popup.Content>
                           </div>
@@ -356,20 +363,12 @@ function Sicherheitsschrank(props) {
           </Grid>
         </div>
         <div className="instructionsField">
-          <strong ref={contextRef}></strong>
-        </div>
-        <Popup
-          basic
-          context={contextRef}
-          content={
-            my_exercise && my_exercise.done
+          <span>
+            {my_exercise && my_exercise.done
               ? instructions[instructions.length - 1]
-              : instructions[instructions.length - 2]
-          }
-          position="top center"
-          className="instructionsPopup"
-          open
-        />
+              : instructions[instructions.length - 2]}
+          </span>
+        </div>
       </>
     );
   };
@@ -401,63 +400,56 @@ function Sicherheitsschrank(props) {
                   }}
                   onClick={() => setActiveActualExercise(true)}
                 >
-                  <Popup
-                    trigger={
-                      my_exercise && my_exercise.done ? (
-                        <Image src={i11} />
-                      ) : (
-                        <Image src={i7} />
-                      )
-                    }
-                    basic
-                    context={contextRef}
-                    content={
-                      my_exercise && my_exercise.done
-                        ? instructions[4]
-                        : instructions[1]
-                    }
-                    position="top center"
-                    className="instructionsPopup"
-                    onOpen={handleOpenInstruction}
-                    onClose={handleOpenInstruction}
-                    mouseEnterDelay={200}
-                    mouseLeaveDelay={200}
-                  />
+                  {my_exercise && my_exercise.done ? (
+                    <Image
+                      src={i11}
+                      onMouseEnter={() =>
+                        setCurrentInstruction(instructions[5])
+                      }
+                      onMouseLeave={() =>
+                        setCurrentInstruction(instructions[0])
+                      }
+                    />
+                  ) : (
+                    <Image
+                      src={i7}
+                      onMouseEnter={() =>
+                        setCurrentInstruction(instructions[1])
+                      }
+                      onMouseLeave={() =>
+                        setCurrentInstruction(instructions[0])
+                      }
+                    />
+                  )}
                 </div>
                 {sibling_exercise && sibling_exercise.done && (
-                  <div onClick={handleOpenWarning}>
-                    <Popup
-                      trigger={
+                  <div
+                    onClick={handleOpenWarning}
+                    onMouseEnter={() => setCurrentInstruction(instructions[2])}
+                    onMouseLeave={() => setCurrentInstruction(instructions[0])}
+                  >
+                    {
+                      <div
+                        className="absolute hoverReveal pointer"
+                        style={{ right: "355px", top: "82px" }}
+                        onMouseLeave={() => setOpenWarning(false)}
+                      >
+                        <Image src={i8} />
                         <div
-                          className="absolute hoverReveal pointer"
-                          style={{ right: "355px", top: "82px" }}
+                          className={`ui popup  right center  warning absolute ${
+                            OpenWarning ? "visible" : null
+                          }`}
+                          style={{ minWidth: "252px", left: "100%" }}
                         >
-                          <Image src={i8} />
-                          <div
-                            className={`ui popup  right center  warning absolute ${
-                              OpenWarning ? "visible" : null
-                            }`}
-                            style={{ minWidth: "252px", left: "100%" }}
-                          >
-                            <Popup.Header as="span" className="headerPop">
-                              Aufgabe bereits erfolgreich gelöst
-                            </Popup.Header>
-                            <Popup.Content
-                              style={{ paddingLeft: "7px" }}
-                            ></Popup.Content>
-                          </div>
+                          <Popup.Header as="span" className="headerPop">
+                            Aufgabe bereits erfolgreich gelöst
+                          </Popup.Header>
+                          <Popup.Content
+                            style={{ paddingLeft: "7px" }}
+                          ></Popup.Content>
                         </div>
-                      }
-                      basic
-                      context={contextRef}
-                      content={instructions[2]}
-                      position="top center"
-                      className="instructionsPopup"
-                      onOpen={handleOpenInstruction}
-                      onClose={handleOpenInstruction}
-                      mouseEnterDelay={200}
-                      mouseLeaveDelay={200}
-                    />
+                      </div>
+                    }
                   </div>
                 )}
               </Grid.Column>
@@ -493,16 +485,8 @@ function Sicherheitsschrank(props) {
           </Grid>
         </div>
         <div className="instructionsField">
-          <strong ref={contextRef}></strong>
+          <span>{currentInstruction}</span>
         </div>
-        <Popup
-          basic
-          context={contextRef}
-          content={instructions[0]}
-          position="top center"
-          className="instructionsPopup"
-          open={defaultInstruction}
-        />
       </>
     );
   };

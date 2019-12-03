@@ -24,6 +24,19 @@ import pipetten from "../../../pages/pipetten";
 import arbeitshaltung from "../../../pages/arbeitshaltung";
 import sterilisationsautoklav from "../../../pages/sterilisationsautoklav";
 import ausstatung_entladung from "../../../pages/ausstatung_entladung";
+import pers_schutz from "../../../pages/pers_schutz";
+import koerpernotdusche from "../../../pages/koerpernotdusche";
+import ventil from "../../../pages/ventil";
+import rett_einrichtung from "../../../pages/rett_einrichtung";
+import zugaenglichkeit from "../../../pages/zugaenglichkeit";
+import feuerloescher from "../../../pages/feuerloescher";
+import verbandkasten from "../../../pages/verbandkasten";
+import apparaturen from "../../../pages/apparaturen";
+import apparaturen_1 from "../../../pages/apparaturen_1";
+import versuch_im_Abzug from "../../../pages/versuch_im_Abzug";
+import versuch_im_Abzug_hebebuehne from "../../../pages/versuch_im_Abzug_hebebuehne";
+import eingang_bio_Labor from "../../../pages/eingang_bio_Labor";
+import hygieneplan from "../../../pages/hygieneplan";
 
 // Dashboard
 // Placeholder for all internal links used in Programm
@@ -51,6 +64,37 @@ const Dashboard = props => {
         component={augennotdusche}
       />
       <Route
+        path="/virtueles_labor/eingang_chem_labor/koerpernotdusche"
+        exact
+        component={koerpernotdusche}
+      />
+      <Route
+        path="/virtueles_labor/eingang_chem_labor/ventil"
+        exact
+        component={ventil}
+      />
+      <Route
+        path="/virtueles_labor/rett_einrichtung"
+        exact
+        component={rett_einrichtung}
+      />
+      <Route
+        path="/virtueles_labor/rett_einrichtung/zugaenglichkeit"
+        exact
+        component={zugaenglichkeit}
+      />
+      <Route
+        path="/virtueles_labor/rett_einrichtung/feuerloescher"
+        exact
+        component={feuerloescher}
+      />
+      <Route
+        path="/virtueles_labor/rett_einrichtung/verbandkasten"
+        exact
+        component={verbandkasten}
+      />
+
+      <Route
         path="/virtueles_labor/chemikalien"
         exact
         component={chemikalien}
@@ -75,6 +119,32 @@ const Dashboard = props => {
         exact
         component={druckgasflasche}
       />
+      <Route
+        path="/virtueles_labor/apparaturen"
+        exact
+        component={apparaturen}
+      />
+      <Route
+        path="/virtueles_labor/apparaturen/apparaturen"
+        exact
+        component={apparaturen_1}
+      />
+      <Route
+        path="/virtueles_labor/apparaturen/versuch_im_Abzug"
+        exact
+        component={versuch_im_Abzug}
+      />
+      <Route
+        path="/virtueles_labor/apparaturen/versuch_im_Abzug/hebebuehne"
+        exact
+        component={versuch_im_Abzug_hebebuehne}
+      />
+      <Route
+        path="/virtueles_labor/eingang_bio_Labor"
+        exact
+        component={eingang_bio_Labor}
+      />
+
       <Route
         path="/virtueles_labor/waschbecken_garderobe"
         exact
@@ -106,6 +176,12 @@ const Dashboard = props => {
         component={arbeitsplatz_2}
       />
       <Route
+        path="/virtueles_labor/arbeitsplatz/hygieneplan"
+        exact
+        component={hygieneplan}
+      />
+
+      <Route
         path="/virtueles_labor/mikrobiologische"
         exact
         component={mikrobiologische}
@@ -134,6 +210,11 @@ const Dashboard = props => {
         path="/virtueles_labor/sterilisationsautoklav/ausstatung_entladung"
         exact
         component={ausstatung_entladung}
+      />
+      <Route
+        path="/virtueles_labor/sterilisationsautoklav/pers_schutz"
+        exact
+        component={pers_schutz}
       />
     </Switch>
   );

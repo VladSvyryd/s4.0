@@ -32,8 +32,6 @@ function Mikrobiologische(props) {
   const [exerciseView, setExerciseView] = useState(0);
   const pathname = props.location.pathname;
 
-  let contextRef = createRef(); // reference to instructions field
-
   // state to show default instructions
   const [defaultInstruction, setdefaultInstruction] = useState(true);
   // instructions for pictures
@@ -43,6 +41,8 @@ function Mikrobiologische(props) {
     "Arbeitshaltung und Schutzhandschuhe",
     "Arbeitsmittel"
   ];
+  const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
+
   const handleOpenInstruction = () => {
     setdefaultInstruction(old => (old = !old));
   };
@@ -278,6 +278,8 @@ function Mikrobiologische(props) {
             <Image src={switchBackgroundImageByExerciseState()} />
 
             <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[1])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={switchPipettenImageByExerciseState().style}
               to={{
@@ -287,22 +289,11 @@ function Mikrobiologische(props) {
                 }
               }}
             >
-              <Popup
-                trigger={
-                  <Image src={switchPipettenImageByExerciseState().img} />
-                }
-                context={contextRef}
-                content={instructions[1]}
-                position="top center"
-                basic
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
+              <Image src={switchPipettenImageByExerciseState().img} />
             </Link>
             <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[2])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={switchGlovesImageByExerciseState().style}
               to={{
@@ -312,20 +303,11 @@ function Mikrobiologische(props) {
                 }
               }}
             >
-              <Popup
-                trigger={<Image src={switchGlovesImageByExerciseState().img} />}
-                context={contextRef}
-                content={instructions[2]}
-                position="top center"
-                basic
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
+              <Image src={switchGlovesImageByExerciseState().img} />
             </Link>
             <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[3])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={switchArbeitsmittelImageByExerciseState().style}
               to={{
@@ -335,20 +317,7 @@ function Mikrobiologische(props) {
                 }
               }}
             >
-              <Popup
-                trigger={
-                  <Image src={switchArbeitsmittelImageByExerciseState().img} />
-                }
-                context={contextRef}
-                content={instructions[3]}
-                position="top center"
-                basic
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
+              <Image src={switchArbeitsmittelImageByExerciseState().img} />
             </Link>
           </div>
           <div className="centered">
@@ -377,16 +346,8 @@ function Mikrobiologische(props) {
           </div>
         </div>
         <div className="instructionsField">
-          <strong ref={contextRef}></strong>
+          <span> {currentInstruction}</span>
         </div>
-        <Popup
-          basic
-          context={contextRef}
-          content={instructions[0]}
-          position="top center"
-          className="instructionsPopup"
-          open={defaultInstruction}
-        />
       </>
     );
   };

@@ -23,9 +23,6 @@ function Arbeitsplatz(props) {
   // state to manage exercise object state
   const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
 
-  let contextRef = createRef(); // reference to instructions field
-  // state to show default instructions
-  const [defaultInstruction, setdefaultInstruction] = useState(true);
   // instructions for pictures
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
@@ -33,28 +30,10 @@ function Arbeitsplatz(props) {
     "Schüttler und Desinfektionsmittel",
     "Hygieneplan"
   ];
-  const handleOpenInstruction = () => {
-    setdefaultInstruction(old => (old = !old));
-  };
+  const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
 
   const pathname = props.location.pathname;
-  console.log(exercise);
 
-  // function to change state of current exercise and trigger useEffect function to save it in local storage
-  // recieve exerices ID from Exercise_1,2,3,4 and loking of its state change array....
-  const saveExercise = ID => {
-    setExercise(old => ({
-      ...old,
-      firstLayer: old.firstLayer.map(e => {
-        let result = e;
-        if (e.secondLayer.id == ID) {
-          e.done = !e.done;
-          result = e;
-        }
-        return result;
-      })
-    }));
-  };
   // callback function to trigger save of exercise in localStorage each time exercise state has been changed
   useEffect(() => {
     tocPages[tocState.activeMenu] = exercise;
@@ -86,6 +65,8 @@ function Arbeitsplatz(props) {
               <Image src={i1} />
             )}
             <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[1])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={style_2}
               to={{
@@ -95,26 +76,15 @@ function Arbeitsplatz(props) {
                 }
               }}
             >
-              <Popup
-                trigger={
-                  exercise.firstLayer[0].done ? (
-                    <Image src={i8} />
-                  ) : (
-                    <Image src={i3} />
-                  )
-                }
-                basic
-                context={contextRef}
-                content={instructions[1]}
-                position="top center"
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
+              {exercise.firstLayer[0].done ? (
+                <Image src={i8} />
+              ) : (
+                <Image src={i3} />
+              )}
             </Link>
             <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[2])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={style_1}
               to={{
@@ -124,26 +94,15 @@ function Arbeitsplatz(props) {
                 }
               }}
             >
-              <Popup
-                trigger={
-                  exercise.firstLayer[1].done ? (
-                    <Image src={i5} />
-                  ) : (
-                    <Image src={i4} />
-                  )
-                }
-                basic
-                context={contextRef}
-                content={instructions[2]}
-                position="top center"
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
+              {exercise.firstLayer[1].done ? (
+                <Image src={i5} />
+              ) : (
+                <Image src={i4} />
+              )}
             </Link>
-            <div
+            <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[3])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={style_3}
               to={{
@@ -153,19 +112,8 @@ function Arbeitsplatz(props) {
                 }
               }}
             >
-              <Popup
-                trigger={<Image src={i6} />}
-                context={contextRef}
-                content={instructions[3]}
-                position="top center"
-                basic
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
-            </div>
+              <Image src={i6} />
+            </Link>
           </div>
           <div className="centered">
             <div className="textIntro" style={{ width: "250px" }}>
@@ -173,19 +121,17 @@ function Arbeitsplatz(props) {
                 <Image src={i9} />
                 <div>
                   <p>
-                    <b>
-                      Ansicht <br /> Waschbecken und Garderobe
-                    </b>
+                    <b>Ansicht Arbeitsplatz</b>
                   </p>
                   <p>
-                    Durch kontaminierte Kleidungsstücke oder Geräte können
-                    biologische Arbeitsstoffe schnell verbreitet werden und
-                    möglicherweise zu Infektionen führen.
+                    Bei Tätigkeiten mit biologischen Arbeitsstoffen schreibt der
+                    Gesetzgeber eine Reihe von Schutzmaßnahmen vor, die auch die
+                    Gestaltung des Arbeitsplatzes und die Arbeitsorganisation
+                    betreffen.
                   </p>
                   <p>
-                    Die Hygieneregeln wie das Händewaschen oder das richtige
-                    Aufbewahren der persönlichen Schutzausrüstung sind deswegen
-                    wichtig!
+                    Überprüfen Sie, ob an diesem Arbeitsplatz der Schutzstufe 2
+                    alle Vorschriften eingehalten werden.
                   </p>
                 </div>
               </div>
@@ -193,16 +139,8 @@ function Arbeitsplatz(props) {
           </div>
         </div>
         <div className="instructionsField">
-          <strong ref={contextRef}></strong>
+          <span>{currentInstruction}</span>
         </div>
-        <Popup
-          basic
-          context={contextRef}
-          content={instructions[0]}
-          position="top center"
-          className="instructionsPopup"
-          open={defaultInstruction}
-        />
       </>
     );
   };

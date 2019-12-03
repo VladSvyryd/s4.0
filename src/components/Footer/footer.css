@@ -43,10 +43,11 @@
 
 .footer [class*="button-"],
 .footer a {
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 1px;
 }
 
 .footer_buttons {
+  display: flex;
   margin: 0 auto;
 }

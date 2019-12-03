@@ -75,6 +75,22 @@ input[type="submit"] {
 .gridList[class$="three"] {
   grid-template-columns: auto auto auto;
 }
+
+.grid {
+  display: grid;
+}
+.grid.twoColumn {
+  grid-template-columns: auto auto;
+}
+.grid.alignCenter {
+  align-items: center;
+}
+.grid.padded {
+  padding: 0 10px;
+}
+.grid.gap10 {
+  grid-column-gap: 5px;
+}
 .my_title {
   font-size: 20px;
   font-weight: bold;
@@ -117,7 +133,7 @@ input[type="submit"] {
 
 .instructionsField {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   height: 76px;
 }
@@ -129,6 +145,55 @@ input[type="submit"] {
   max-width: 100%;
 }
 
+.toc.ui.vertical.menu .item .menu .active.item {
+  font-weight: normal !important;
+}
+/* drop container fill his parent width*/
+.droptarget {
+  height: 100%;
+}
+
+/*This style is only for ausstatung_entladung exercise, it makes items that has been already dragged and succesfully dropped "disabled"*/
+.ausstatung_entladung .dropped .ddcontainersource > div {
+  background-color: transparent !important;
+  color: rgba(51, 135, 38, 1) !important;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 0px !important;
+}
+/* After draggable item has been dropped, he can change his style*/
+.ausstatung_entladung .itemIsDroppedState {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: left;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 5px;
+}
+.ausstatung_entladung .itemIsDroppedState .draggedLabel {
+  padding: 0 5px;
+}
+
+/* Warning Popup*/
+.headerPop {
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(222, 222, 222, 1);
+}
+
+/*Blink animation */
+.blink {
+  animation: blink-animation 1.3s steps(2, start) infinite;
+  -webkit-animation: blink-animation 1.3s steps(2, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+/*Blink end*/
 /*
 MAIN MENU CONTAINER (GRUNDRISS; CHECKLIST
 */

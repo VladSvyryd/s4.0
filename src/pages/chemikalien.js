@@ -18,38 +18,18 @@ function Chemikalien(props) {
 
   // state to manage exercise object state
   const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
-  // state to view different exercise on the same page in the same frame
-  const [exerciseView, setExerciseView] = useState(0);
+  // for internal linking to exercises on this page
   const pathname = props.location.pathname;
 
-  let contextRef = createRef(); // reference to instructions field
-
-  // state to show default instructions
-  const [defaultInstruction, setdefaultInstruction] = useState(true);
   // instructions for pictures
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
     "Sicherheitsschrank",
     "Regal mit Chemikalien"
   ];
-  const handleOpenInstruction = () => {
-    setdefaultInstruction(old => (old = !old));
-  };
+  const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
+
   // function to change state of current exercise and trigger useEffect function to save it in local storage
-  // recieve exerices ID from Exercise_1,2,3,4 and loking of its state change array....
-  const saveExercise = ID => {
-    setExercise(old => ({
-      ...old,
-      firstLayer: old.firstLayer.map(e => {
-        let result = e;
-        if (e.secondLayer.id == ID) {
-          e.done = !e.done;
-          result = e;
-        }
-        return result;
-      })
-    }));
-  };
   // callback function to trigger save of exercise in localStorage each time exercise state has been changed
   useEffect(() => {
     tocPages[tocState.activeMenu] = exercise;
@@ -62,6 +42,8 @@ function Chemikalien(props) {
           <div className="relative">
             <Image src={i4} />
             <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[2])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={{
                 right: "2px",
@@ -76,27 +58,16 @@ function Chemikalien(props) {
                 }
               }}
             >
-              <Popup
-                trigger={
-                  exercise.firstLayer[0].done ? (
-                    <Image src={i1} />
-                  ) : (
-                    <Image src={i2} />
-                  )
-                }
-                basic
-                context={contextRef}
-                content={instructions[2]}
-                position="top center"
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
+              {exercise.firstLayer[0].done ? (
+                <Image src={i1} />
+              ) : (
+                <Image src={i2} />
+              )}
             </Link>
 
             <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[1])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={{
                 left: "16px",
@@ -110,38 +81,24 @@ function Chemikalien(props) {
                 }
               }}
             >
-              <Popup
-                trigger={<Image src={i3} />}
-                basic
-                context={contextRef}
-                content={instructions[1]}
-                position="top center"
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
+              <Image src={i3} />
             </Link>
           </div>
           <div className="centered">
-            <div className="textIntro" style={{ width: "200px" }}>
+            <div className="textIntro" style={{ width: "250px" }}>
               <div className="gridList">
                 <Image src={i9} />
                 <div>
                   <p>
-                    <b>
-                      Ansicht <br /> Eingang chemisches Labor
-                    </b>
+                    <b>Ansicht Chemikalien</b>
                   </p>
                   <p>
-                    Alle sicherheitstechnischen Einrichtungen eines Labors
-                    müssen einwandfrei funktionieren, damit sie im Gefahrfall
-                    einsatzbereit sind.
+                    Für die Lagerung von entzündbaren Flüssigkeiten gibt es
+                    gesetzliche Vorschriften, die einzuhalten sind.
                   </p>
                   <p>
-                    Finden Sie heraus, was Sie an dieser Situation noch
-                    verbessern können.
+                    Dies ist notwendig, damit weder Sie noch die Umwelt im
+                    Brandfall gefährdet werden können
                   </p>
                 </div>
               </div>
@@ -149,16 +106,8 @@ function Chemikalien(props) {
           </div>
         </div>
         <div className="instructionsField">
-          <strong ref={contextRef}></strong>
+          <span>{currentInstruction}</span>
         </div>
-        <Popup
-          basic
-          context={contextRef}
-          content={instructions[0]}
-          position="top center"
-          className="instructionsPopup"
-          open={defaultInstruction}
-        />
       </>
     );
   };

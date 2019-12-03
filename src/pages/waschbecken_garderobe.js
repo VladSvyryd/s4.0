@@ -19,24 +19,17 @@ function Waschbecken_garderobe(props) {
   // state to manage exercise object state
   const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
 
-  // state to view different exercise on the same page in the same frame
-  const [exerciseView, setExerciseView] = useState(0);
   const pathname = props.location.pathname;
   console.log(exercise);
 
-  let contextRef = createRef(); // reference to instructions field
-
-  // state to show default instructions
-  const [defaultInstruction, setdefaultInstruction] = useState(true);
   // instructions for pictures
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
     "Waschbecken",
     "Garderobe für Arbeitskleidung"
   ];
-  const handleOpenInstruction = () => {
-    setdefaultInstruction(old => (old = !old));
-  };
+  const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
+
   // function to change state of current exercise and trigger useEffect function to save it in local storage
   // recieve exerices ID from Exercise_1,2,3,4 and loking of its state change array....
   const saveExercise = ID => {
@@ -78,6 +71,8 @@ function Waschbecken_garderobe(props) {
             )}
 
             <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[2])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={style_garderobe}
               to={{
@@ -87,26 +82,15 @@ function Waschbecken_garderobe(props) {
                 }
               }}
             >
-              <Popup
-                trigger={
-                  exercise.firstLayer[0].done ? (
-                    <Image src={i5} />
-                  ) : (
-                    <Image src={i3} />
-                  )
-                }
-                context={contextRef}
-                content={instructions[2]}
-                position="top center"
-                basic
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
+              {exercise.firstLayer[0].done ? (
+                <Image src={i5} />
+              ) : (
+                <Image src={i3} />
+              )}
             </Link>
             <Link
+              onMouseEnter={() => setCurrentInstruction(instructions[1])}
+              onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={style_waschbecken}
               to={{
@@ -116,18 +100,7 @@ function Waschbecken_garderobe(props) {
                 }
               }}
             >
-              <Popup
-                trigger={<Image src={i4} />}
-                context={contextRef}
-                content={instructions[1]}
-                position="top center"
-                basic
-                className="instructionsPopup"
-                onOpen={handleOpenInstruction}
-                onClose={handleOpenInstruction}
-                mouseEnterDelay={200}
-                mouseLeaveDelay={200}
-              />
+              <Image src={i4} />
             </Link>
           </div>
           <div className="centered">
@@ -156,16 +129,8 @@ function Waschbecken_garderobe(props) {
           </div>
         </div>
         <div className="instructionsField">
-          <strong ref={contextRef}></strong>
+          <span>{currentInstruction}</span>
         </div>
-        <Popup
-          basic
-          context={contextRef}
-          content={instructions[0]}
-          position="top center"
-          className="instructionsPopup"
-          open={defaultInstruction}
-        />
       </>
     );
   };

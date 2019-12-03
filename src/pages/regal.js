@@ -31,10 +31,9 @@ function Regal(props) {
     ],
     answerIndex: 2
   };
-  let contextRef = createRef(); // reference to instructions field
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
-    "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
+    "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen.",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft"
   ];
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
@@ -230,20 +229,12 @@ function Regal(props) {
         </Grid>
       </div>
       <div className="instructionsField">
-        <strong ref={contextRef}></strong>
-      </div>
-      <Popup
-        basic
-        context={contextRef}
-        content={
-          my_exercise && my_exercise.done
+        <span>
+          {my_exercise && my_exercise.done
             ? instructions[instructions.length - 2]
-            : instructions[instructions.length - 1]
-        }
-        position="top center"
-        className="instructionsPopup"
-        open
-      />
+            : instructions[instructions.length - 1]}
+        </span>
+      </div>
     </>
   );
 }

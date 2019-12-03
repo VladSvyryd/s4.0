@@ -249,20 +249,12 @@ function Arbeitsplatz_1(props) {
         </Grid>
       </div>
       <div className="instructionsField">
-        <strong ref={contextRef}></strong>
-      </div>
-      <Popup
-        basic
-        context={contextRef}
-        content={
-          my_exercise && my_exercise.done
+        <span>
+          {my_exercise && my_exercise.done
             ? instructions[instructions.length - 1]
-            : instructions[instructions.length - 2]
-        }
-        position="top center"
-        className="instructionsPopup"
-        open
-      />
+            : instructions[instructions.length - 2]}
+        </span>
+      </div>
     </>
   );
 }

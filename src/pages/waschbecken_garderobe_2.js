@@ -32,7 +32,6 @@ function Waschbecken_garderobe_2(props) {
     ],
     answerIndex: 1
   };
-  let contextRef = createRef(); // reference to instructions field
   const instructions = [
     "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
@@ -180,7 +179,7 @@ function Waschbecken_garderobe_2(props) {
                     </div>
                     <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
-                        Weitere Informationen zu dieser Frage erhalten Sie im
+                        Weitere Informationen zu dieser Frage erhalten Sie in
                         Kapitel ÄNDERN!!!!
                       </p>
                     </div>
@@ -231,20 +230,12 @@ function Waschbecken_garderobe_2(props) {
         </Grid>
       </div>
       <div className="instructionsField">
-        <strong ref={contextRef}></strong>
-      </div>
-      <Popup
-        basic
-        context={contextRef}
-        content={
-          my_exercise && my_exercise.done
+        <span>
+          {my_exercise && my_exercise.done
             ? instructions[instructions.length - 1]
-            : instructions[instructions.length - 2]
-        }
-        position="top center"
-        className="instructionsPopup"
-        open
-      />
+            : instructions[instructions.length - 2]}
+        </span>
+      </div>
     </>
   );
 }
