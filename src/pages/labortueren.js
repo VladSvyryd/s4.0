@@ -19,7 +19,7 @@ function Labortueren(props) {
   const [my_exercise, setMyExercise] = useState(tocState.currentExerciseByPath);
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
-  console.log(my_exercise);
+  console.log("my_exercise", my_exercise);
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [
@@ -115,16 +115,9 @@ function Labortueren(props) {
   function isDone() {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
-
-    // go throught all subpages of active page, search for same ID, change status of exercise to done: true
-    pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
-      let result = e;
-      if (e.secondLayer.id == my_exercise.secondLayer.id) {
-        e.done = !e.done;
-        result = e;
-      }
-      return result;
-    });
+    // performe change of property "done" in JSON Exerciselist object
+    pagesFromLocalStorage.forEach(e => findNode(my_exercise.id, e));
+    console.log(pagesFromLocalStorage);
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page
@@ -133,7 +126,35 @@ function Labortueren(props) {
       done: !old.done
     }));
   }
+  function findNode(currentExerciseId, currentNode) {
+    var i, currentChild, result;
 
+    if (currentExerciseId === currentNode.id) {
+      console.log("currentNode", currentNode);
+      currentNode.done = true;
+    } else {
+      // Use a for loop instead of forEach to avoid nested functions
+      // Otherwise "return" will not work properly
+      for (
+        i = 0;
+        currentNode.pages !== undefined && i < currentNode.pages.length;
+        i += 1
+      ) {
+        currentChild = currentNode.pages[i];
+
+        // Search in the current child
+        result = findNode(currentExerciseId, currentChild);
+
+        // Return the result if the node has been found
+        if (result !== false) {
+          //currentNode.done = true;
+        }
+      }
+
+      // The node has not been found and we have no more options
+      return false;
+    }
+  }
   return (
     <>
       <div className="exerciseFrame">

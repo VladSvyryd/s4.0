@@ -109,16 +109,9 @@ function Augennotdusche(props) {
   function isDone() {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
+    // performe change of property "done" in JSON Exerciselist object
+    pagesFromLocalStorage.forEach(e => findNode(my_exercise.id, e));
 
-    // go throught all subpages of active page, search for same ID, change status of exercise to done: true
-    pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
-      let result = e;
-      if (e.secondLayer.id == my_exercise.secondLayer.id) {
-        e.done = !e.done;
-        result = e;
-      }
-      return result;
-    });
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page
@@ -126,6 +119,34 @@ function Augennotdusche(props) {
       ...old,
       done: !old.done
     }));
+  }
+  function findNode(currentExerciseId, currentNode) {
+    var i, currentChild, result;
+
+    if (currentExerciseId == currentNode.id) {
+      currentNode.done = !currentNode.done;
+    } else {
+      // Use a for loop instead of forEach to avoid nested functions
+      // Otherwise "return" will not work properly
+      for (
+        i = 0;
+        currentNode.pages !== undefined && i < currentNode.pages.length;
+        i += 1
+      ) {
+        currentChild = currentNode.pages[i];
+
+        // Search in the current child
+        result = findNode(currentExerciseId, currentChild);
+
+        // Return the result if the node has been found
+        if (result !== false) {
+          currentNode.done = !currentNode.done;
+        }
+      }
+
+      // The node has not been found and we have no more options
+      return false;
+    }
   }
   const [slides, setSlides] = useState([
     {
@@ -149,7 +170,11 @@ function Augennotdusche(props) {
   const [onScreen, changeOnScreen] = useState([]);
   function fade_1() {
     return onScreen.map(item => (
-      <div className="absolute" key={item.id} style={{ left: "0", top: "0" }}>
+      <div
+        className="absolute"
+        key={item.id}
+        style={{ left: "0", top: "0", width: "100%", height: "100%" }}
+      >
         <Image src={`${item.url}`} />
       </div>
     ));
@@ -220,14 +245,17 @@ function Augennotdusche(props) {
           </Grid.Column>
         </Grid.Row>
         {my_exercise && my_exercise.done && (
-          <div className="absolute">
-            <Transition.Group as="div" duration={700}>
+          <div className="absolute" style={{ width: "100%", height: "100%" }}>
+            <Transition.Group
+              as="div"
+              duration={animationTrigger || !my_exercise.done ? 700 : 0}
+              style={{ width: "100%", height: "100%" }}
+            >
               {my_exercise && my_exercise.done && startSequence()}
               {fade_1()}
             </Transition.Group>
             <button
-              className="absolute"
-              style={{ right: "0", top: "0" }}
+              style={{ position: "fixed", right: "50%", top: "30px" }}
               onClick={() => start()}
             >
               PUSH

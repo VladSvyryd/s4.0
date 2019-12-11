@@ -29,9 +29,7 @@ function Koerpernotdusche(props) {
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
-  const [my_exercise, setMyExercise] = useState(
-    tocState.currentExerciseByPath
-  );
+  const [my_exercise, setMyExercise] = useState(tocState.currentExerciseByPath);
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDraggables, setFeedbackFromDraggables] = useState(false);
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -78,16 +76,9 @@ function Koerpernotdusche(props) {
   function isDone() {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
+    // performe change of property "done" in JSON Exerciselist object
+    pagesFromLocalStorage.forEach(e => findNode(my_exercise.id, e));
 
-    // go throught all subpages of active page, search for same ID, change status of exercise to done: true
-    pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
-      let result = e;
-      if (e.secondLayer.id == my_exercise.secondLayer.id) {
-        e.done = !e.done;
-        result = e;
-      }
-      return result;
-    });
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page
@@ -95,6 +86,34 @@ function Koerpernotdusche(props) {
       ...old,
       done: !old.done
     }));
+  }
+  function findNode(currentExerciseId, currentNode) {
+    var i, currentChild, result;
+
+    if (currentExerciseId == currentNode.id) {
+      currentNode.done = !currentNode.done;
+    } else {
+      // Use a for loop instead of forEach to avoid nested functions
+      // Otherwise "return" will not work properly
+      for (
+        i = 0;
+        currentNode.pages !== undefined && i < currentNode.pages.length;
+        i += 1
+      ) {
+        currentChild = currentNode.pages[i];
+
+        // Search in the current child
+        result = findNode(currentExerciseId, currentChild);
+
+        // Return the result if the node has been found
+        if (result !== false) {
+          currentNode.done = !currentNode.done;
+        }
+      }
+
+      // The node has not been found and we have no more options
+      return false;
+    }
   }
   const handleFailToDropItem = feedbackSuccess => {
     setFeedbackFromDraggables(!feedbackSuccess);

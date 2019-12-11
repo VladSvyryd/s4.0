@@ -38,6 +38,8 @@ export const PagesProvider = props => {
         e.done = false;
       }
     });
+    // important to save mutated array back to local storage
+    localStorage.setItem("pagesList", JSON.stringify(arr));
     return arr;
   }
 
