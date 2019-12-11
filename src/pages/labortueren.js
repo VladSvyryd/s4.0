@@ -16,12 +16,10 @@ function Labortueren(props) {
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
-  const [my_exercise, setMyExercise] = useState(
-    props.location.state && props.location.state.currentExercise
-  );
+  const [my_exercise, setMyExercise] = useState(tocState.currentExerciseByPath);
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
-
+  console.log(my_exercise);
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [

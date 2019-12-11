@@ -65,8 +65,8 @@ function Sterilisationsautoklav(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            {exercise.firstLayer[1].done ? (
-              exercise.firstLayer[0].done ? (
+            {exercise.pages[1].done ? (
+              exercise.pages[0].done ? (
                 <Image src={i7} />
               ) : (
                 <Image src={i5} />
@@ -80,14 +80,14 @@ function Sterilisationsautoklav(props) {
               onMouseEnter={() => setCurrentInstruction(instructions[1])}
               onMouseLeave={() => setCurrentInstruction(instructions[0])}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[1].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[1]
+                  currentExercise: exercise.pages[1]
                 }
               }}
             >
-              {exercise.firstLayer[1].done ? (
-                exercise.firstLayer[0].done ? (
+              {exercise.pages[1].done ? (
+                exercise.pages[0].done ? (
                   <Image src={i8} />
                 ) : (
                   <Image src={i6} />
@@ -96,27 +96,27 @@ function Sterilisationsautoklav(props) {
                 <Image src={i2} />
               )}
             </Link>
-            {exercise.firstLayer[1].done ? (
+            {exercise.pages[1].done ? (
               <Link
                 onMouseEnter={() => setCurrentInstruction(instructions[2])}
                 onMouseLeave={() => setCurrentInstruction(instructions[0])}
                 className="absolute hoverReveal pointer"
                 style={
-                  exercise.firstLayer[1].done
-                    ? exercise.firstLayer[0].done
+                  exercise.pages[1].done
+                    ? exercise.pages[0].done
                       ? style_technische_ausstattung
                       : style_technische_ausstattung_first_true
                     : style_technische_ausstattung
                 }
                 to={{
-                  pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
+                  pathname: `${pathname}/${exercise.pages[0].filename}`,
                   state: {
-                    currentExercise: exercise.firstLayer[0]
+                    currentExercise: exercise.pages[0]
                   }
                 }}
               >
-                {exercise.firstLayer[1].done ? (
-                  exercise.firstLayer[0].done ? (
+                {exercise.pages[1].done ? (
+                  exercise.pages[0].done ? (
                     <Image src={i10} />
                   ) : (
                     <Image src={i3} />
@@ -131,8 +131,8 @@ function Sterilisationsautoklav(props) {
                 onMouseLeave={() => setCurrentInstruction(instructions[0])}
                 className="absolute hoverReveal pointer"
                 style={
-                  exercise.firstLayer[1].done
-                    ? exercise.firstLayer[0].done
+                  exercise.pages[1].done
+                    ? exercise.pages[0].done
                       ? style_technische_ausstattung
                       : style_technische_ausstattung_first_true
                     : style_technische_ausstattung

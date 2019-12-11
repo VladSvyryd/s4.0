@@ -43,7 +43,7 @@ function Arbeitsplatz(props) {
   const style_1 = {
     left: "50px",
     top: "219px",
-    backgroundImage: `url('${exercise && exercise.firstLayer[1].done && i7}')`,
+    backgroundImage: `url('${exercise && exercise.pages[1].done && i7}')`,
     backgroundRepeat: "no-repeat"
   };
   const style_2 = {
@@ -59,28 +59,20 @@ function Arbeitsplatz(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            {exercise.firstLayer[0].done ? (
-              <Image src={i2} />
-            ) : (
-              <Image src={i1} />
-            )}
+            {exercise.pages[0].done ? <Image src={i2} /> : <Image src={i1} />}
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[1])}
               onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={style_2}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[0].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[0]
+                  currentExercise: exercise.pages[0]
                 }
               }}
             >
-              {exercise.firstLayer[0].done ? (
-                <Image src={i8} />
-              ) : (
-                <Image src={i3} />
-              )}
+              {exercise.pages[0].done ? <Image src={i8} /> : <Image src={i3} />}
             </Link>
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[2])}
@@ -88,17 +80,13 @@ function Arbeitsplatz(props) {
               className="absolute hoverReveal pointer"
               style={style_1}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[1].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[1]
+                  currentExercise: exercise.pages[1]
                 }
               }}
             >
-              {exercise.firstLayer[1].done ? (
-                <Image src={i5} />
-              ) : (
-                <Image src={i4} />
-              )}
+              {exercise.pages[1].done ? <Image src={i5} /> : <Image src={i4} />}
             </Link>
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[3])}
@@ -106,9 +94,9 @@ function Arbeitsplatz(props) {
               className="absolute hoverReveal pointer"
               style={style_3}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[2].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[2].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[2]
+                  currentExercise: exercise.pages[2]
                 }
               }}
             >

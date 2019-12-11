@@ -30,7 +30,7 @@ function Eingang_bio_Labor(props) {
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise  only in this case as static object from array of exercises
   const [my_exercise, setMyExercise] = useState(
-    tocPages[tocState.activeMenu].firstLayer[0]
+    tocPages[tocState.activeMenu].pages[0]
   );
   console.log(my_exercise);
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
@@ -78,7 +78,7 @@ function Eingang_bio_Labor(props) {
     // go throught all subpages of active page, search for same ID, change status of exercise to done: true
     pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
       let result = e;
-      if (e.secondLayer.id == my_exercise.secondLayer.id) {
+      if (e.id == my_exercise.id) {
         e.done = !e.done;
         result = e;
       }

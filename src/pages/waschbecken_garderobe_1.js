@@ -24,7 +24,7 @@ function Waschbecken_garderobe_1(props) {
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
-    props.location.state && props.location.state.currentExercise
+    tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,

@@ -55,14 +55,14 @@ const Toc = props => {
         }}
       >
         <div>{index + 1} </div>
-        <div>{cursor.node && cursor.node.titel}</div>
+        <div>{cursor && cursor.titel}</div>
       </Menu.Item>
     ) : (
       <Menu.Item
         index={index}
         active={tocState.activeMenu === index}
         as={NavLink}
-        to={`/virtueles_labor/${tocPages[index].node.filename}`}
+        to={`/virtueles_labor/${tocPages[index].filename}`}
         onMouseEnter={() => handleHover(index)}
         onMouseLeave={() => handleHoverOff()}
         style={{
@@ -73,7 +73,7 @@ const Toc = props => {
         }}
       >
         <div>{index + 1} </div>
-        <div>{cursor.node && cursor.node.titel}</div>
+        <div>{cursor && cursor.titel}</div>
       </Menu.Item>
     );
   }

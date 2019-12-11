@@ -16,9 +16,7 @@ function Augennotdusche(props) {
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
-  const [my_exercise, setMyExercise] = useState(
-    props.location.state && props.location.state.currentExercise
-  );
+  const [my_exercise, setMyExercise] = useState(tocState.currentExerciseByPath);
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
@@ -163,11 +161,6 @@ function Augennotdusche(props) {
       changeOnScreen(old => [...old, nextSlide]);
       setSlides(slides.slice(0, slides.length));
     }
-    //const nIntervId = window.setInterval(
-    // () => onScreen.push(slides.pop()),
-    // 3000
-    // );
-    //setTimeout(() => clearInterval(nIntervId), 6000); // prints "[object Window]" after 1 second
   }
 
   const startSequence = () => {

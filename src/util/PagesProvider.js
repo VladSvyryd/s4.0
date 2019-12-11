@@ -12,7 +12,7 @@ export const PagesProvider = props => {
   // Input chapter(INT), Output pages(JSON)
   // set global state as tocPages array
   const [tocPages, setPages] = useState(
-    JSON.parse(localStorage.getItem("pagesList")) || parseNodesNewWay()
+    JSON.parse(localStorage.getItem("pagesList")) || mutateTocPages()
   );
 
   function getPagesFromNode(nodes) {
@@ -26,6 +26,19 @@ export const PagesProvider = props => {
             false,
           done: false
         }));
+  }
+
+  function mutateTocPages(pages = pagesA) {
+    let arr = pages;
+    arr.forEach(e => {
+      if (e.pages) {
+        e.done = false;
+        mutateTocPages(e.pages);
+      } else {
+        e.done = false;
+      }
+    });
+    return arr;
   }
 
   function parseNodesNewWay(pages = pagesA) {

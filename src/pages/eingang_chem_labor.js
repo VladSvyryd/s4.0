@@ -26,6 +26,7 @@ function Ringang_chem_labor(props) {
 
   // state to manage exercise object state
   const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
+
   const pathname = props.location.pathname;
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen, die nicht in Ordnung sind!",
@@ -55,23 +56,19 @@ function Ringang_chem_labor(props) {
               style={{
                 right: "275px",
                 top: "118px",
-                backgroundImage: `url('${exercise.firstLayer[0].done && i3}')`,
+                backgroundImage: `url('${exercise.pages[0].done && i3}')`,
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "232px 371px"
               }}
               //onClick={() => setExerciseView(1)}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[0].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[0]
+                  currentExercise: exercise.pages[0]
                 }
               }}
             >
-              {exercise.firstLayer[0].done ? (
-                <Image src={i2} />
-              ) : (
-                <Image src={i1} />
-              )}
+              {exercise.pages[0].done ? <Image src={i2} /> : <Image src={i1} />}
             </Link>
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[2])}
@@ -82,9 +79,9 @@ function Ringang_chem_labor(props) {
                 top: "18px"
               }}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[1].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[1]
+                  currentExercise: exercise.pages[1]
                 }
               }}
             >
@@ -97,21 +94,17 @@ function Ringang_chem_labor(props) {
               style={{
                 right: "160px",
                 top: "252px",
-                backgroundImage: `url('${exercise.firstLayer[2].done && i13}')`,
+                backgroundImage: `url('${exercise.pages[2].done && i13}')`,
                 backgroundRepeat: "no-repeat"
               }}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[2].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[2].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[2]
+                  currentExercise: exercise.pages[2]
                 }
               }}
             >
-              {exercise.firstLayer[2].done ? (
-                <Image src={i7} />
-              ) : (
-                <Image src={i6} />
-              )}
+              {exercise.pages[2].done ? <Image src={i7} /> : <Image src={i6} />}
             </Link>
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[4])}
@@ -120,19 +113,19 @@ function Ringang_chem_labor(props) {
               style={{
                 right: "77px",
                 top: "347px",
-                backgroundImage: `url('${exercise.firstLayer[3].done && i12}')`,
+                backgroundImage: `url('${exercise.pages[3].done && i12}')`,
                 backgroundPositionX: "right",
 
                 backgroundRepeat: "no-repeat"
               }}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[3].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[3].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[3]
+                  currentExercise: exercise.pages[3]
                 }
               }}
             >
-              {exercise.firstLayer[3].done ? (
+              {exercise.pages[3].done ? (
                 <Image src={i11} />
               ) : (
                 <Image src={i10} />

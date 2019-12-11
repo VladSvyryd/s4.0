@@ -37,9 +37,9 @@ function Druckgasflaschenschrank(props) {
   const saveExercise = ID => {
     setExercise(old => ({
       ...old,
-      firstLayer: old.firstLayer.map(e => {
+      pages: old.pages.map(e => {
         let result = e;
-        if (e.secondLayer.id == ID) {
+        if (e.id == ID) {
           e.done = !e.done;
           result = e;
         }
@@ -56,13 +56,13 @@ function Druckgasflaschenschrank(props) {
   const style_as_done = {
     left: "181px",
     top: "126px",
-    backgroundImage: `url('${exercise && exercise.firstLayer[0].done && i4}')`,
+    backgroundImage: `url('${exercise && exercise.pages[0].done && i4}')`,
     backgroundRepeat: "no-repeat"
   };
   const style_as_not_done = {
     left: "26px",
     top: "227px",
-    backgroundImage: `url('${exercise && exercise.firstLayer[0].done && i2}')`,
+    backgroundImage: `url('${exercise && exercise.pages[0].done && i2}')`,
     backgroundRepeat: "no-repeat"
   };
   const introExercise = () => {
@@ -70,34 +70,24 @@ function Druckgasflaschenschrank(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            {exercise.firstLayer[0].done ? (
-              <Image src={i2} />
-            ) : (
-              <Image src={i1} />
-            )}
+            {exercise.pages[0].done ? <Image src={i2} /> : <Image src={i1} />}
             <Link
               onMouseEnter={() =>
-                exercise.firstLayer[0].done
+                exercise.pages[0].done
                   ? setCurrentInstruction(instructions[2])
                   : setCurrentInstruction(instructions[1])
               }
               onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
-              style={
-                exercise.firstLayer[0].done ? style_as_done : style_as_not_done
-              }
+              style={exercise.pages[0].done ? style_as_done : style_as_not_done}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[0].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[0]
+                  currentExercise: exercise.pages[0]
                 }
               }}
             >
-              {exercise.firstLayer[0].done ? (
-                <Image src={i5} />
-              ) : (
-                <Image src={i3} />
-              )}
+              {exercise.pages[0].done ? <Image src={i5} /> : <Image src={i3} />}
             </Link>
           </div>
           <div className="centered">

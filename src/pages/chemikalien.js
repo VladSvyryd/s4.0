@@ -48,21 +48,17 @@ function Chemikalien(props) {
               style={{
                 right: "2px",
                 top: "44px",
-                backgroundImage: `url('${exercise.firstLayer[0].done && i5}')`,
+                backgroundImage: `url('${exercise.pages[0].done && i5}')`,
                 backgroundRepeat: "no-repeat"
               }}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[0].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[0]
+                  currentExercise: exercise.pages[0]
                 }
               }}
             >
-              {exercise.firstLayer[0].done ? (
-                <Image src={i1} />
-              ) : (
-                <Image src={i2} />
-              )}
+              {exercise.pages[0].done ? <Image src={i1} /> : <Image src={i2} />}
             </Link>
 
             <Link
@@ -74,10 +70,10 @@ function Chemikalien(props) {
                 top: "10px"
               }}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[1].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[1],
-                  siblingExercise: exercise.firstLayer[0]
+                  currentExercise: exercise.pages[1],
+                  siblingExercise: exercise.pages[0]
                 }
               }}
             >

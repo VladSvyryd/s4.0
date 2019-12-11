@@ -49,14 +49,13 @@ function Grundriss(props) {
   const goToSection = e => {
     // look at current Element id, split string and take last element as Integer
     let permanentActiveMenu = e.currentTarget.id.split("-")[1];
-    console.log(permanentActiveMenu);
     setTocState(actualPage => ({
       ...actualPage,
       activeMenu: parseInt(permanentActiveMenu)
     }));
     // look in tocPages array, node with the same index as right now is hovered and push it in browser history to redirect
     props.history.push(
-      `/virtueles_labor/${tocPages[tocState.activeMenu].node.filename}`
+      `/virtueles_labor/${tocPages[tocState.activeMenu].filename}`
     );
   };
   return (

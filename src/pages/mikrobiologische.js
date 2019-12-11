@@ -51,9 +51,9 @@ function Mikrobiologische(props) {
   const saveExercise = ID => {
     setExercise(old => ({
       ...old,
-      firstLayer: old.firstLayer.map(e => {
+      pages: old.pages.map(e => {
         let result = e;
-        if (e.secondLayer.id == ID) {
+        if (e.id == ID) {
           e.done = !e.done;
           result = e;
         }
@@ -82,40 +82,40 @@ function Mikrobiologische(props) {
   const switchBackgroundImageByExerciseState = () => {
     if (
       exercise &&
-      !exercise.firstLayer[0].done &&
-      !exercise.firstLayer[1].done &&
-      !exercise.firstLayer[2].done
+      !exercise.pages[0].done &&
+      !exercise.pages[1].done &&
+      !exercise.pages[2].done
     ) {
       // alles falsch
       console.log(exercise, "alles falsch");
       return i1;
     } else if (
-      (!exercise.firstLayer[0].done && exercise.firstLayer[1].done) ||
-      (!exercise.firstLayer[0].done && exercise.firstLayer[2].done)
+      (!exercise.pages[0].done && exercise.pages[1].done) ||
+      (!exercise.pages[0].done && exercise.pages[2].done)
     ) {
       // schutzhandschuhe richtig
       console.log(exercise, " nur schutzhandschuhe richtig");
 
       return i5;
     } else if (
-      (exercise.firstLayer[0].done && exercise.firstLayer[1].done) ||
-      (exercise.firstLayer[0].done && exercise.firstLayer[2].done)
+      (exercise.pages[0].done && exercise.pages[1].done) ||
+      (exercise.pages[0].done && exercise.pages[2].done)
     ) {
       // schutzhandschuhe richtig, arbeitsmittel richtig
       console.log(exercise, "schutzhandschuhe richtig, arbeitsmittel richtig");
       return i4;
     } else if (
-      !exercise.firstLayer[2].done &&
-      exercise.firstLayer[0].done &&
-      !exercise.firstLayer[1].done
+      !exercise.pages[2].done &&
+      exercise.pages[0].done &&
+      !exercise.pages[1].done
     ) {
       // arbeitsmittel richtig
       console.log(exercise, "nur arbeitsmittel richtig");
       return i2;
     } else if (
-      exercise.firstLayer[2].done &&
-      exercise.firstLayer[0].done &&
-      exercise.firstLayer[1].done
+      exercise.pages[2].done &&
+      exercise.pages[0].done &&
+      exercise.pages[1].done
     ) {
       console.log(exercise, "alles richtig");
       return i4;
@@ -124,9 +124,9 @@ function Mikrobiologische(props) {
   const switchGlovesImageByExerciseState = () => {
     if (
       exercise &&
-      !exercise.firstLayer[2].done &&
-      !exercise.firstLayer[0].done &&
-      !exercise.firstLayer[1].done
+      !exercise.pages[2].done &&
+      !exercise.pages[0].done &&
+      !exercise.pages[1].done
     ) {
       // alles falsch
       console.log(exercise, "alles falsch");
@@ -135,8 +135,8 @@ function Mikrobiologische(props) {
         style: style_arbeitsmittel
       };
     } else if (
-      (!exercise.firstLayer[0].done && exercise.firstLayer[1].done) ||
-      (!exercise.firstLayer[0].done && exercise.firstLayer[2].done)
+      (!exercise.pages[0].done && exercise.pages[1].done) ||
+      (!exercise.pages[0].done && exercise.pages[2].done)
     ) {
       // schutzhandschuhe richtig
       console.log(exercise, "schutzhandschuhe richtig");
@@ -146,8 +146,8 @@ function Mikrobiologische(props) {
         style: style_arbeitsmittel
       };
     } else if (
-      (exercise.firstLayer[0].done && exercise.firstLayer[1].done) ||
-      (exercise.firstLayer[0].done && exercise.firstLayer[2].done)
+      (exercise.pages[0].done && exercise.pages[1].done) ||
+      (exercise.pages[0].done && exercise.pages[2].done)
     ) {
       // schutzhandschuhe richtig, arbeitsmittel richtig
       console.log(exercise, "alles richtig");
@@ -156,9 +156,9 @@ function Mikrobiologische(props) {
         style: style_arbeitsmittel
       };
     } else if (
-      !exercise.firstLayer[2].done &&
-      exercise.firstLayer[0].done &&
-      !exercise.firstLayer[1].done
+      !exercise.pages[2].done &&
+      exercise.pages[0].done &&
+      !exercise.pages[1].done
     ) {
       // arbeitsmittel richtig
       console.log(exercise, "nur arbeitsmittel richtig");
@@ -177,9 +177,9 @@ function Mikrobiologische(props) {
   const switchArbeitsmittelImageByExerciseState = () => {
     if (
       exercise &&
-      !exercise.firstLayer[2].done &&
-      !exercise.firstLayer[0].done &&
-      !exercise.firstLayer[1].done
+      !exercise.pages[2].done &&
+      !exercise.pages[0].done &&
+      !exercise.pages[1].done
     ) {
       // alles falsch
       return {
@@ -187,8 +187,8 @@ function Mikrobiologische(props) {
         style: style_arbeitshaltung
       };
     } else if (
-      (!exercise.firstLayer[0].done && exercise.firstLayer[1].done) ||
-      (!exercise.firstLayer[0].done && exercise.firstLayer[2].done)
+      (!exercise.pages[0].done && exercise.pages[1].done) ||
+      (!exercise.pages[0].done && exercise.pages[2].done)
     ) {
       // schutzhandschuhe richtig
       return {
@@ -196,8 +196,8 @@ function Mikrobiologische(props) {
         style: style_arbeitshaltung
       };
     } else if (
-      (exercise.firstLayer[0].done && exercise.firstLayer[1].done) ||
-      (exercise.firstLayer[0].done && exercise.firstLayer[2].done)
+      (exercise.pages[0].done && exercise.pages[1].done) ||
+      (exercise.pages[0].done && exercise.pages[2].done)
     ) {
       // schutzhandschuhe richtig, arbeitsmittel richtig
       return {
@@ -205,9 +205,9 @@ function Mikrobiologische(props) {
         style: style_arbeitshaltung
       };
     } else if (
-      !exercise.firstLayer[2].done &&
-      exercise.firstLayer[0].done &&
-      !exercise.firstLayer[1].done
+      !exercise.pages[2].done &&
+      exercise.pages[0].done &&
+      !exercise.pages[1].done
     ) {
       // arbeitsmittel richtig
       return {
@@ -225,9 +225,9 @@ function Mikrobiologische(props) {
   const switchPipettenImageByExerciseState = () => {
     if (
       exercise &&
-      !exercise.firstLayer[2].done &&
-      !exercise.firstLayer[0].done &&
-      !exercise.firstLayer[1].done
+      !exercise.pages[2].done &&
+      !exercise.pages[0].done &&
+      !exercise.pages[1].done
     ) {
       // alles falsch
       return {
@@ -235,8 +235,8 @@ function Mikrobiologische(props) {
         style: style_pipetten
       };
     } else if (
-      (!exercise.firstLayer[0].done && exercise.firstLayer[1].done) ||
-      (!exercise.firstLayer[0].done && exercise.firstLayer[2].done)
+      (!exercise.pages[0].done && exercise.pages[1].done) ||
+      (!exercise.pages[0].done && exercise.pages[2].done)
     ) {
       // schutzhandschuhe richtig
       return {
@@ -244,8 +244,8 @@ function Mikrobiologische(props) {
         style: style_pipetten
       };
     } else if (
-      (exercise.firstLayer[0].done && exercise.firstLayer[1].done) ||
-      (exercise.firstLayer[0].done && exercise.firstLayer[2].done)
+      (exercise.pages[0].done && exercise.pages[1].done) ||
+      (exercise.pages[0].done && exercise.pages[2].done)
     ) {
       // schutzhandschuhe richtig, arbeitsmittel richtig
       return {
@@ -253,9 +253,9 @@ function Mikrobiologische(props) {
         style: style_pipetten
       };
     } else if (
-      !exercise.firstLayer[2].done &&
-      exercise.firstLayer[0].done &&
-      !exercise.firstLayer[1].done
+      !exercise.pages[2].done &&
+      exercise.pages[0].done &&
+      !exercise.pages[1].done
     ) {
       // arbeitsmittel richtig
       return {
@@ -283,9 +283,9 @@ function Mikrobiologische(props) {
               className="absolute hoverReveal pointer"
               style={switchPipettenImageByExerciseState().style}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[2].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[2].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[2]
+                  currentExercise: exercise.pages[2]
                 }
               }}
             >
@@ -297,9 +297,9 @@ function Mikrobiologische(props) {
               className="absolute hoverReveal pointer"
               style={switchGlovesImageByExerciseState().style}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[1].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[1]
+                  currentExercise: exercise.pages[1]
                 }
               }}
             >
@@ -311,9 +311,9 @@ function Mikrobiologische(props) {
               className="absolute hoverReveal pointer"
               style={switchArbeitsmittelImageByExerciseState().style}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[0].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[0]
+                  currentExercise: exercise.pages[0]
                 }
               }}
             >

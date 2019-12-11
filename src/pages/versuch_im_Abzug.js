@@ -21,7 +21,7 @@ function Versuch_im_Abzug(props) {
 
   // each Link to my_exercise has such params
   const [my_exercise, setMy_exercise] = useState(
-    props.location.state && props.location.state.currentExercise
+    tocState.currentExerciseByPath
   );
   console.log(my_exercise, tocState);
   // for internal linking to my_exercises on this page

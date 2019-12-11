@@ -60,38 +60,34 @@ function Apparaturen(props) {
                 top: "13px"
               }}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[0].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[0]
+                  currentExercise: exercise.pages[0]
                 }
               }}
             >
-              {exercise.firstLayer[0].done ? (
-                <Image src={i2} />
-              ) : (
-                <Image src={i2} />
-              )}
+              {exercise.pages[0].done ? <Image src={i2} /> : <Image src={i2} />}
             </Link>
 
-            <div
+            <Link
               onMouseEnter={() => setCurrentInstruction(instructions[1])}
               onMouseLeave={() => setCurrentInstruction(instructions[0])}
-              onClick={() => set_CurrentViewIndex(1)}
+              //onClick={() => set_CurrentViewIndex(1)}
               className="absolute hoverReveal pointer"
               style={{
                 left: "76px",
                 top: "83px"
               }}
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[1].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[1],
-                  siblingExercise: exercise.firstLayer[0]
+                  currentExercise: exercise.pages[1],
+                  siblingExercise: exercise.pages[0]
                 }
               }}
             >
               <Image src={i3} />
-            </div>
+            </Link>
           </div>
           <div className="centered">
             <div className="textIntro" style={{ width: "260px" }}>

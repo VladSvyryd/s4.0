@@ -66,25 +66,21 @@ function Rett_einrichtung(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            {exercise.firstLayer[0].done ? (
-              <Image src={i8} />
-            ) : (
-              <Image src={i1} />
-            )}
-            {exercise.firstLayer[0].done ? (
+            {exercise.pages[0].done ? <Image src={i8} /> : <Image src={i1} />}
+            {exercise.pages[0].done ? (
               <Link
                 className="absolute hoverReveal pointer"
                 style={style_verbandkasten}
                 onMouseEnter={() => setCurrentInstruction(instructions[1])}
                 onMouseLeave={() => setCurrentInstruction(instructions[0])}
                 to={{
-                  pathname: `${pathname}/${exercise.firstLayer[1].secondLayer.filename}`,
+                  pathname: `${pathname}/${exercise.pages[1].filename}`,
                   state: {
-                    currentExercise: exercise.firstLayer[1]
+                    currentExercise: exercise.pages[1]
                   }
                 }}
               >
-                {exercise.firstLayer[0].done ? (
+                {exercise.pages[0].done ? (
                   <Image src={i5} />
                 ) : (
                   <Image src={i2} />
@@ -137,26 +133,26 @@ function Rett_einrichtung(props) {
                 />
               </div>
             )}
-            {exercise.firstLayer[0].done ? (
+            {exercise.pages[0].done ? (
               <Link
                 onMouseEnter={() => setCurrentInstruction(instructions[2])}
                 onMouseLeave={() => setCurrentInstruction(instructions[0])}
                 className="absolute hoverReveal pointer"
                 style={
-                  exercise.firstLayer[1].done
-                    ? exercise.firstLayer[0].done
+                  exercise.pages[1].done
+                    ? exercise.pages[0].done
                       ? style_feuerleoscher
                       : style_flipchart
                     : style_feuerleoscher
                 }
                 to={{
-                  pathname: `${pathname}/${exercise.firstLayer[2].secondLayer.filename}`,
+                  pathname: `${pathname}/${exercise.pages[2].filename}`,
                   state: {
-                    currentExercise: exercise.firstLayer[2]
+                    currentExercise: exercise.pages[2]
                   }
                 }}
               >
-                {exercise.firstLayer[0].done ? (
+                {exercise.pages[0].done ? (
                   <Image src={i10} />
                 ) : (
                   <Image src={i3} />
@@ -168,8 +164,8 @@ function Rett_einrichtung(props) {
                 onMouseLeave={() => setCurrentInstruction(instructions[0])}
                 className="absolute hoverReveal pointer"
                 style={
-                  exercise.firstLayer[1].done
-                    ? exercise.firstLayer[0].done
+                  exercise.pages[1].done
+                    ? exercise.pages[0].done
                       ? style_feuerleoscher
                       : style_flipchart
                     : style_feuerleoscher
@@ -220,20 +216,20 @@ function Rett_einrichtung(props) {
               onMouseLeave={() => setCurrentInstruction(instructions[0])}
               className="absolute hoverReveal pointer"
               style={
-                exercise.firstLayer[1].done
-                  ? exercise.firstLayer[0].done
+                exercise.pages[1].done
+                  ? exercise.pages[0].done
                     ? style_flipchart
                     : style_flipchart
                   : style_flipchart
               }
               to={{
-                pathname: `${pathname}/${exercise.firstLayer[0].secondLayer.filename}`,
+                pathname: `${pathname}/${exercise.pages[0].filename}`,
                 state: {
-                  currentExercise: exercise.firstLayer[0]
+                  currentExercise: exercise.pages[0]
                 }
               }}
             >
-              {!exercise.firstLayer[0].done && <Image src={i11} />}
+              {!exercise.pages[0].done && <Image src={i11} />}
             </Link>
           </div>
           <div className="centered">

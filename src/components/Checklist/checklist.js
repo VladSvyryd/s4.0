@@ -30,10 +30,9 @@ function Checklist(props) {
   // set Links of Toc List
   function menuLinks() {
     return tocPages.map((page, i) => {
-      return page.firstLayer;
+      return page.pages;
     });
   }
-
   // set Checklist Section in kind of List of nodes
   function parseLinks(menuIndex) {
     //console.log(menuLinks()[menuIndex]);
@@ -41,29 +40,29 @@ function Checklist(props) {
       menuLinks()[menuIndex] &&
       menuLinks()[menuIndex].map((section, i) => {
         // if node has children nodes(width Link to each of them) than create childnodes with it's pages
-        return !section.secondPages ? (
+        return !section.pages ? (
           <Link
-            to={`/virtueles_labor/${tocPages[menuIndex].node.filename}`}
+            to={`/virtueles_labor/${tocPages[menuIndex].filename}`}
             key={"linkSection" + i}
           >
             {i <= 0 && (
-              <div className="my_title">{tocPages[menuIndex].node.titel}</div>
+              <div className="my_title">{tocPages[menuIndex].titel}</div>
             )}
             <div className="gridList three">
               <div className="evaluation"></div>
               <div>{"-"} </div>
-              <div>{section.secondLayer.titel}</div>
+              <div>{section.titel}</div>
             </div>
           </Link>
         ) : (
           // if node has only pages(solid), create node(one link refer to node) with pages
           <Link
             key={"linkSection" + i}
-            to={`/virtueles_labor/${section.secondLayer.filename}`}
+            to={`/virtueles_labor/${section.filename}`}
             className="my_node_section"
           >
-            <div className="my_title">{section.secondLayer.titel}</div>{" "}
-            {section.secondPages.map((p, i) => {
+            <div className="my_title">{section.titel}</div>{" "}
+            {section.pages.map((p, i) => {
               return (
                 <div key={"linkList" + i} className="gridList three">
                   <div className="evaluation"></div>
