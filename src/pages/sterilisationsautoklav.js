@@ -43,10 +43,10 @@ function Sterilisationsautoklav(props) {
 
   // function to change state of current exercise and trigger useEffect function to save it in local storage
   // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  useEffect(() => {
-    tocPages[tocState.activeMenu] = exercise;
-    localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  }, [exercise]);
+  //useEffect(() => {
+  // tocPages[tocState.activeMenu] = exercise;
+  // localStorage.setItem("pagesList", JSON.stringify(tocPages));
+  //}, [exercise]);
 
   const style_technische_ausstattung = {
     left: "234px",

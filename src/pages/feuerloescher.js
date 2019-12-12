@@ -9,6 +9,8 @@ import {
   Image,
   Transition
 } from "semantic-ui-react";
+import markNodeDone from "../util/externalFunctions";
+
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/3-rettungseinrichtungen/feuerloescher_frage.png";
 import i2 from "../assets/pics/3-rettungseinrichtungen/feuerloescher_loesung.png";
@@ -24,7 +26,8 @@ function Feuerloescher(props) {
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
-    tocState.currentExerciseByPath
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
 
@@ -122,16 +125,9 @@ function Feuerloescher(props) {
   function isDone() {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
+    // performe change of property "done" in JSON Exerciselist object
+    pagesFromLocalStorage.forEach(e => markNodeDone(my_exercise.id, e));
 
-    // go throught all subpages of active page, search for same ID, change status of exercise to done: true
-    pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
-      let result = e;
-      if (e.secondLayer.id == my_exercise.secondLayer.id) {
-        e.done = !e.done;
-        result = e;
-      }
-      return result;
-    });
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page

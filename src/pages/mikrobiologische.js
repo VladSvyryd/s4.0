@@ -18,6 +18,7 @@ import i12 from "../assets/pics/11-sicherheitswerkbank/arbeitsmittel_active_true
 import i13 from "../assets/pics/11-sicherheitswerkbank/arbeitsmittel_active_true_handschuhe_falsch.jpg";
 import i14 from "../assets/pics/11-sicherheitswerkbank/pipeten_active_handschuhe_true_arbeitsmittel_true.jpg";
 import i15 from "../assets/pics/11-sicherheitswerkbank/pipeten_active_arbeitsmittel_true.jpg";
+import i16 from "../assets/pics/11-sicherheitswerkbank/pipeten_active_handschuhe_true_1.jpg";
 
 function Mikrobiologische(props) {
   // global state of pages
@@ -32,8 +33,6 @@ function Mikrobiologische(props) {
   const [exerciseView, setExerciseView] = useState(0);
   const pathname = props.location.pathname;
 
-  // state to show default instructions
-  const [defaultInstruction, setdefaultInstruction] = useState(true);
   // instructions for pictures
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
@@ -43,29 +42,11 @@ function Mikrobiologische(props) {
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
 
-  const handleOpenInstruction = () => {
-    setdefaultInstruction(old => (old = !old));
-  };
-  // function to change state of current exercise and trigger useEffect function to save it in local storage
-  // recieve exerices ID from Exercise_1,2,3,4 and loking of its state change array....
-  const saveExercise = ID => {
-    setExercise(old => ({
-      ...old,
-      pages: old.pages.map(e => {
-        let result = e;
-        if (e.id == ID) {
-          e.done = !e.done;
-          result = e;
-        }
-        return result;
-      })
-    }));
-  };
   // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  useEffect(() => {
-    tocPages[tocState.activeMenu] = exercise;
-    localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  }, [exercise]);
+  //useEffect(() => {
+  //  tocPages[tocState.activeMenu] = exercise;
+  // localStorage.setItem("pagesList", JSON.stringify(tocPages));
+  //}, [exercise]);
 
   const style_arbeitsmittel = {
     left: "250px",
@@ -240,7 +221,7 @@ function Mikrobiologische(props) {
     ) {
       // schutzhandschuhe richtig
       return {
-        img: i7,
+        img: i16,
         style: style_pipetten
       };
     } else if (

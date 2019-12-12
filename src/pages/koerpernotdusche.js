@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Grid, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
+import markNodeDone from "../util/externalFunctions";
 import i1 from "../assets/pics/2-chemielaboreingang/augendusche.jpg";
 import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
@@ -13,7 +14,6 @@ import i8 from "../assets/pics/2-chemielaboreingang/augen_symbol_2.png";
 import i9 from "../assets/pics/2-chemielaboreingang/augen_symbol_3.png";
 import i10 from "../assets/pics/2-chemielaboreingang/augendusche_loesung.jpg";
 import DropBox from "../components/DropBox";
-
 import DraggableItem from "../components/DraggableItem";
 
 // to create drag and drop component used external library  react-drag-drop-container
@@ -29,11 +29,19 @@ function Koerpernotdusche(props) {
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
-  const [my_exercise, setMyExercise] = useState(tocState.currentExerciseByPath);
+  const [my_exercise, setMyExercise] = useState(
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
+  );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDraggables, setFeedbackFromDraggables] = useState(false);
   const [animationTrigger, setAnimationTrigger] = useState(false);
-
+  console.log(
+    "THIS",
+    my_exercise,
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
+  );
   const instructions = [
     "Bitte ziehen Sie das Symbol auf den markierten Bereich!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
@@ -66,10 +74,10 @@ function Koerpernotdusche(props) {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
   // if page refreshs go to Grundriss page
-  const path = props.location.pathname.split("/");
-  path.pop();
-  const r = path.join("/");
-  if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
+  //const path = props.location.pathname.split("/");
+  //path.pop();
+  //const r = path.join("/");
+  //if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
@@ -77,7 +85,7 @@ function Koerpernotdusche(props) {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
     // performe change of property "done" in JSON Exerciselist object
-    pagesFromLocalStorage.forEach(e => findNode(my_exercise.id, e));
+    pagesFromLocalStorage.forEach(e => markNodeDone(my_exercise.id, e));
 
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
@@ -87,34 +95,7 @@ function Koerpernotdusche(props) {
       done: !old.done
     }));
   }
-  function findNode(currentExerciseId, currentNode) {
-    var i, currentChild, result;
 
-    if (currentExerciseId == currentNode.id) {
-      currentNode.done = !currentNode.done;
-    } else {
-      // Use a for loop instead of forEach to avoid nested functions
-      // Otherwise "return" will not work properly
-      for (
-        i = 0;
-        currentNode.pages !== undefined && i < currentNode.pages.length;
-        i += 1
-      ) {
-        currentChild = currentNode.pages[i];
-
-        // Search in the current child
-        result = findNode(currentExerciseId, currentChild);
-
-        // Return the result if the node has been found
-        if (result !== false) {
-          currentNode.done = !currentNode.done;
-        }
-      }
-
-      // The node has not been found and we have no more options
-      return false;
-    }
-  }
   const handleFailToDropItem = feedbackSuccess => {
     setFeedbackFromDraggables(!feedbackSuccess);
   };

@@ -18,19 +18,20 @@ export const TocProvider = props => {
 
   // load global state of tocPages
   const [tocPages] = useContext(PagesContext);
-  console.log(path);
   // set up state of TOC, with it's main properties
+  const INITIAL_STATE = getRootPages(tocPages);
   const [tocState, setTocState] = useState({
-    activePageLink: path,
-    activeMenuPage: getRootPages(tocPages).currentPage,
-    activeMenu: getRootPages(tocPages).index,
-    currentExerciseByPath: getRootPages(tocPages).currentPage
+    //activePageLink: path,
+    activeMenuPage: INITIAL_STATE.currentPage,
+    activeMenu: INITIAL_STATE.index,
+    currentExerciseByPath: INITIAL_STATE.currentPage
   });
   function getRootPages(rootPages) {
     let changedRootPages = rootPages.map(e => findNode(path, e));
     let currentExercise = changedRootPages.find(element => element);
     let currentActiveMenu = changedRootPages.findIndex(element => element);
-    return { index: currentActiveMenu, currentPage: currentExercise };
+    let result = { index: currentActiveMenu, currentPage: currentExercise };
+    return result;
   }
 
   function findNode(currentPath, currentNode) {
@@ -72,12 +73,15 @@ export const TocProvider = props => {
     return tocPages.find(e => e.node.filename === path);
   }
   useEffect(() => {
+    console.log("isTriggerd");
+    let s = getRootPages(tocPages);
     setTocState(oldState => ({
       ...oldState,
-      activeMenuPage: getRootPages(tocPages).currentPage,
-      currentExerciseByPath: getRootPages(tocPages).currentPage
+      activeMenuPage: s.currentPage,
+      currentExerciseByPath: s.currentPage
     }));
-  }, [pathname, tocState.activeMenu]);
+  }, [props.location.pathname, tocState.activeMenu]);
+
   return (
     <TocContext.Provider value={[tocState, setTocState]}>
       {props.children}

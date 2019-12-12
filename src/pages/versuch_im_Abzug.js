@@ -21,7 +21,8 @@ function Versuch_im_Abzug(props) {
 
   // each Link to my_exercise has such params
   const [my_exercise, setMy_exercise] = useState(
-    tocState.currentExerciseByPath
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
   );
   console.log(my_exercise, tocState);
   // for internal linking to my_exercises on this page
@@ -73,7 +74,7 @@ function Versuch_im_Abzug(props) {
                     my_exercise.secondPages[0].thirdLayer.filename}`,
                   state: {
                     currentExercise:
-                      my_exercise && my_exercise.secondPages[0].thirdLayer
+                      my_exercise && my_exercise.pages[0].thirdLayer
                   }
                 }}
               >

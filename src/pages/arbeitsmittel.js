@@ -15,6 +15,8 @@ import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import i3 from "../assets/pics/11-sicherheitswerkbank/arbeitsmittel_ok.jpg";
+import markNodeDone from "../util/externalFunctions";
+
 function Arbeitsmittel(props) {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
@@ -23,7 +25,8 @@ function Arbeitsmittel(props) {
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
-    tocState.currentExerciseByPath
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
@@ -121,26 +124,19 @@ function Arbeitsmittel(props) {
   }
 
   // if page refreshs go to Grundriss page
-  const path = props.location.pathname.split("/");
-  path.pop();
-  const r = path.join("/");
-  if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
+  //const path = props.location.pathname.split("/");
+  //path.pop();
+  //const r = path.join("/");
+  // if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
   function isDone() {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
+    // performe change of property "done" in JSON Exerciselist object
+    pagesFromLocalStorage.forEach(e => markNodeDone(my_exercise.id, e));
 
-    // go throught all subpages of active page, search for same ID, change status of exercise to done: true
-    pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
-      let result = e;
-      if (e.secondLayer.id == my_exercise.secondLayer.id) {
-        e.done = !e.done;
-        result = e;
-      }
-      return result;
-    });
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page

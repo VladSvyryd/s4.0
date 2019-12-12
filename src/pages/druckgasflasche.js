@@ -1,4 +1,4 @@
-import React, { useContext, useState, createRef } from "react";
+import React, { useContext, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { TocContext } from "../util/TocProvider";
 import {
@@ -16,6 +16,8 @@ import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import i3 from "../assets/pics/5-druckgasflaschenschrank/finish_1.jpg";
+import markNodeDone from "../util/externalFunctions";
+
 function Druckgasflasche(props) {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
@@ -24,7 +26,8 @@ function Druckgasflasche(props) {
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
-    tocState.currentExerciseByPath
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
@@ -116,16 +119,9 @@ function Druckgasflasche(props) {
   function isDone() {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
+    // performe change of property "done" in JSON Exerciselist object
+    pagesFromLocalStorage.forEach(e => markNodeDone(my_exercise.id, e));
 
-    // go throught all subpages of active page, search for same ID, change status of exercise to done: true
-    pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
-      let result = e;
-      if (e.secondLayer.id == my_exercise.secondLayer.id) {
-        e.done = !e.done;
-        result = e;
-      }
-      return result;
-    });
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page

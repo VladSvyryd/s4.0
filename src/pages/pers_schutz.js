@@ -9,6 +9,8 @@ import {
   Image,
   Transition
 } from "semantic-ui-react";
+import markNodeDone from "../util/externalFunctions";
+
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/12-sterilisationsauklav/draussen.jpg";
 import i2 from "../assets/pics/12-sterilisationsauklav/draussen_klein.jpg";
@@ -24,7 +26,8 @@ function Pers_schutz(props) {
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
-    tocState.currentExerciseByPath
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
@@ -87,7 +90,6 @@ function Pers_schutz(props) {
     } else {
       setRadioGroupState(old => ({ ...old, [name]: false }));
     }
-    console.log(radioGroupState);
   };
 
   // add click event to document to return to other exercises and reset click events
@@ -121,26 +123,19 @@ function Pers_schutz(props) {
   }
 
   // if page refreshs go to Grundriss page
-  const path = props.location.pathname.split("/");
-  path.pop();
-  const r = path.join("/");
-  if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
+  //const path = props.location.pathname.split("/");
+  //path.pop();
+  //const r = path.join("/");
+  //if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
   function isDone() {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
+    // performe change of property "done" in JSON Exerciselist object
+    pagesFromLocalStorage.forEach(e => markNodeDone(my_exercise.id, e));
 
-    // go throught all subpages of active page, search for same ID, change status of exercise to done: true
-    pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
-      let result = e;
-      if (e.secondLayer.id == my_exercise.secondLayer.id) {
-        e.done = !e.done;
-        result = e;
-      }
-      return result;
-    });
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page

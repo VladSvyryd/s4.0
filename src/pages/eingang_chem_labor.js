@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect, useReducer } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Icon, Image } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
 import i4 from "../assets/pics/2-chemielaboreingang/start_grau.jpg";
@@ -10,7 +10,6 @@ import i3 from "../assets/pics/2-chemielaboreingang/tuer_richtig.jpg";
 import i5 from "../assets/pics/2-chemielaboreingang/dusche_btn.jpg";
 import i6 from "../assets/pics/2-chemielaboreingang/augendusche_btn_falsch.jpg";
 import i7 from "../assets/pics/2-chemielaboreingang/augendusche_btn_richtig.jpg";
-import i8 from "../assets/pics/2-chemielaboreingang/augendusche_richtig.jpg";
 import i13 from "../assets/pics/2-chemielaboreingang/augendusche_btn_richtig_inactive.jpg";
 import i9 from "../assets/pics/achtung.png";
 import i10 from "../assets/pics/2-chemielaboreingang/kenn_btn_falsch.jpg";
@@ -26,7 +25,6 @@ function Ringang_chem_labor(props) {
 
   // state to manage exercise object state
   const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
-
   const pathname = props.location.pathname;
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen, die nicht in Ordnung sind!",
@@ -39,10 +37,10 @@ function Ringang_chem_labor(props) {
 
   // function to change state of current exercise and trigger useEffect function to save it in local storage
   // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  useEffect(() => {
-    tocPages[tocState.activeMenu] = exercise;
-    localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  }, [exercise]);
+  //useEffect(() => {
+  //tocPages[tocState.activeMenu] = exercise;
+  //localStorage.setItem("pagesList", JSON.stringify(tocPages));
+  //}, [exercise]);
   const introExercise = () => {
     return (
       <>

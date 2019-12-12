@@ -32,26 +32,11 @@ function Druckgasflaschenschrank(props) {
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
 
-  // function to change state of current exercise and trigger useEffect function to save it in local storage
-  // recieve exerices ID from Exercise_1,2,3,4 and loking of its state change array....
-  const saveExercise = ID => {
-    setExercise(old => ({
-      ...old,
-      pages: old.pages.map(e => {
-        let result = e;
-        if (e.id == ID) {
-          e.done = !e.done;
-          result = e;
-        }
-        return result;
-      })
-    }));
-  };
   // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  useEffect(() => {
-    tocPages[tocState.activeMenu] = exercise;
-    localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  }, [exercise]);
+  //useEffect(() => {
+  //  tocPages[tocState.activeMenu] = exercise;
+  //  localStorage.setItem("pagesList", JSON.stringify(tocPages));
+  //}, [exercise]);
 
   const style_as_done = {
     left: "181px",

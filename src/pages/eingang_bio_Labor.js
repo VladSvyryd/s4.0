@@ -14,6 +14,7 @@ import i9 from "../assets/pics/8-biolaboreingang/laser.png";
 import i10 from "../assets/pics/8-biolaboreingang/tuer_richtig.jpg";
 import i11 from "../assets/pics/8-biolaboreingang/bio_gross.jpg";
 import DropBox from "../components/DropBox";
+import markNodeDone from "../util/externalFunctions";
 
 import DraggableItem from "../components/DraggableItem";
 
@@ -74,16 +75,9 @@ function Eingang_bio_Labor(props) {
   function isDone() {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
+    // performe change of property "done" in JSON Exerciselist object
+    pagesFromLocalStorage.forEach(e => markNodeDone(my_exercise.id, e));
 
-    // go throught all subpages of active page, search for same ID, change status of exercise to done: true
-    pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
-      let result = e;
-      if (e.id == my_exercise.id) {
-        e.done = !e.done;
-        result = e;
-      }
-      return result;
-    });
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page

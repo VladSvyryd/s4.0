@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect, createRef } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Image, Popup } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/10-arbeitsplatz/startseite_auf_ohne.jpg";
@@ -12,7 +12,6 @@ import i5 from "../assets/pics/10-arbeitsplatz/schuettler_mit_active.jpg";
 import i6 from "../assets/pics/10-arbeitsplatz/protokol_active.jpg";
 import i7 from "../assets/pics/10-arbeitsplatz/schuettler_mit_passiv.png";
 import i8 from "../assets/pics/10-arbeitsplatz/fenster_zu_active.jpg";
-import i10 from "../assets/pics/10-arbeitsplatz/fenster_zu_passiv.jpg";
 
 function Arbeitsplatz(props) {
   // global state of pages

@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect, createRef } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Image, Popup } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
 import i4 from "../assets/pics/4-chemiekalienschrank/startbild_sw_mit_flasche.jpg";
@@ -31,10 +31,10 @@ function Chemikalien(props) {
 
   // function to change state of current exercise and trigger useEffect function to save it in local storage
   // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  useEffect(() => {
-    tocPages[tocState.activeMenu] = exercise;
-    localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  }, [exercise]);
+  // useEffect(() => {
+  // tocPages[tocState.activeMenu] = exercise;
+  //localStorage.setItem("pagesList", JSON.stringify(tocPages));
+  //}, [exercise]);
   const introExercise = () => {
     return (
       <>

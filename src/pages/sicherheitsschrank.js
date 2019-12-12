@@ -1,4 +1,4 @@
-import React, { useContext, useState, createRef } from "react";
+import React, { useContext, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -14,7 +14,7 @@ import i10 from "../assets/pics/4-chemiekalienschrank/grau_azeton.jpg";
 import i8 from "../assets/pics/4-chemiekalienschrank/btn_flasche.png";
 import i9 from "../assets/pics/4-chemiekalienschrank/schrank_loesung_bg.jpg";
 import i11 from "../assets/pics/4-chemiekalienschrank/btn_etikett_mit_ankleber.png";
-
+import markNodeDone from "../util/externalFunctions";
 import aceton_1 from "../assets/pics/4-chemiekalienschrank/aceton_1.png";
 import aceton_2 from "../assets/pics/4-chemiekalienschrank/aceton_2.png";
 import aceton_3 from "../assets/pics/4-chemiekalienschrank/aceton_3.png";
@@ -29,10 +29,12 @@ function Sicherheitsschrank(props) {
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
-    tocState.currentExerciseByPath
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
   );
   const [sibling_exercise] = useState(
-    props.location.state && props.location.state.siblingExercise
+    (props.location.state && props.location.state.siblingExercise) ||
+      tocPages[3].pages[0]
   );
   console.log(my_exercise);
   const [activeActualExercise, setActiveActualExercise] = useState(null);
@@ -148,16 +150,9 @@ function Sicherheitsschrank(props) {
   function isDone() {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
+    // performe change of property "done" in JSON Exerciselist object
+    pagesFromLocalStorage.forEach(e => markNodeDone(my_exercise.id, e));
 
-    // go throught all subpages of active page, search for same ID, change status of exercise to done: true
-    pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
-      let result = e;
-      if (e.secondLayer.id == my_exercise.secondLayer.id) {
-        e.done = !e.done;
-        result = e;
-      }
-      return result;
-    });
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page
@@ -383,7 +378,7 @@ function Sicherheitsschrank(props) {
                   <Image
                     src={i2}
                     className="absolute"
-                    style={{ top: "0", left: "15px" }}
+                    style={{ top: "0", left: "14px" }}
                   />
                 ) : (
                   <Image src={i1} />

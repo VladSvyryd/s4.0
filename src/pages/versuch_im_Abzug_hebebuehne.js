@@ -11,6 +11,7 @@ import i8 from "../assets/pics/6-apparaturen/abzug_handwerker.png";
 import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
+import markNodeDone from "../util/externalFunctions";
 
 function Versuch_im_Abzug_hebebuehne(props) {
   // state to go through active page
@@ -19,7 +20,10 @@ function Versuch_im_Abzug_hebebuehne(props) {
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
-  const [my_exercise, setMyExercise] = useState(tocState.currentExerciseByPath);
+  const [my_exercise, setMyExercise] = useState(
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
+  );
   const [radioGroupState, setRadioGroupState] = useState(" ");
 
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -119,16 +123,9 @@ function Versuch_im_Abzug_hebebuehne(props) {
   function isDone() {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
+    // performe change of property "done" in JSON Exerciselist object
+    pagesFromLocalStorage.forEach(e => markNodeDone(my_exercise.id, e));
 
-    // go throught all subpages of active page, search for same ID, change status of exercise to done: true
-    pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
-      let result = e;
-      if (e.secondLayer.id == my_exercise.secondLayer.id) {
-        e.done = !e.done;
-        result = e;
-      }
-      return result;
-    });
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page

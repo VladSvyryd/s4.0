@@ -1,15 +1,15 @@
-import React, { useContext, useState, createRef } from "react";
+import React, { useContext, useState } from "react";
 import { withRouter } from "react-router-dom";
-import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
+import { Grid, Image, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/10-arbeitsplatz/hygieneplan_aufgabe.jpg";
 import i2 from "../assets/pics/10-arbeitsplatz/hygieneplan.jpg";
-import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import DropBox from "../components/DropBox";
 import DraggableItem from "../components/DraggableItem";
+import markNodeDone from "../util/externalFunctions";
 
 // to create drag and drop component used external library  react-drag-drop-container
 // https://github.com/peterh32/react-drag-drop-container <---- this is github page with instructions
@@ -25,7 +25,8 @@ function Hygieneplan(props) {
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
-    tocState.currentExerciseByPath
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
   );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDropBox, setFeedbackFromDropBox] = useState(0);
@@ -65,26 +66,19 @@ function Hygieneplan(props) {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
   // if page refreshs go to Grundriss page
-  const path = props.location.pathname.split("/");
-  path.pop();
-  const r = path.join("/");
-  if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
+  //const path = props.location.pathname.split("/");
+  //path.pop();
+  //const r = path.join("/");
+  //if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
   function isDone() {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
+    // performe change of property "done" in JSON Exerciselist object
+    pagesFromLocalStorage.forEach(e => markNodeDone(my_exercise.id, e));
 
-    // go throught all subpages of active page, search for same ID, change status of exercise to done: true
-    pagesFromLocalStorage[tocState.activeMenu].firstLayer.map(e => {
-      let result = e;
-      if (e.secondLayer.id == my_exercise.secondLayer.id) {
-        e.done = !e.done;
-        result = e;
-      }
-      return result;
-    });
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page
@@ -92,7 +86,6 @@ function Hygieneplan(props) {
       ...old,
       done: !old.done
     }));
-    setCurrentInstruction(instructions[2]);
   }
   const droppableStyle_done = {
     width: "385px",

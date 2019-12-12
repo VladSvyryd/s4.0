@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -16,10 +16,14 @@ function Labortueren(props) {
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
-  const [my_exercise, setMyExercise] = useState(tocState.currentExerciseByPath);
+  // if this page is opened from link than it will grab exercise looking through json exerciselist
+  const [my_exercise, setMyExercise] = useState(
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
+  );
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
-  console.log("my_exercise", my_exercise);
+
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [
@@ -105,10 +109,10 @@ function Labortueren(props) {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
   // if page refreshs go to Grundriss page
-  const path = props.location.pathname.split("/");
-  path.pop();
-  const r = path.join("/");
-  if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
+  //const path = props.location.pathname.split("/");
+  //path.pop();
+  //const r = path.join("/");
+  //if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
