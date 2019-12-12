@@ -5,11 +5,17 @@ import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/6-apparaturen/apparaturen_schema.jpg";
 import i2 from "../assets/pics/6-apparaturen/hebebühne_schema.jpg";
-import i3 from "../assets/pics/6-apparaturen/hebebühne_fragezeichen.jpg";
-import i4 from "../assets/pics/6-apparaturen/hebebühne_schema.jpg";
-import i5 from "../assets/pics/6-apparaturen/hebebühne_schema.jpg";
-import i6 from "../assets/pics/6-apparaturen/hebebühne_schema.jpg";
-import i7 from "../assets/pics/6-apparaturen/hebebühne_schema.jpg";
+import i2_2 from "../assets/pics/6-apparaturen/hebebühne_fragezeichen.jpg";
+import i3 from "../assets/pics/6-apparaturen/tauchsieder_schema.jpg";
+import i3_2 from "../assets/pics/6-apparaturen/tauchsieder_fragezeichen.jpg";
+import i4 from "../assets/pics/6-apparaturen/schliffe_schema.jpg";
+import i4_2 from "../assets/pics/6-apparaturen/schliffe_fragezeichen.jpg";
+import i5 from "../assets/pics/6-apparaturen/sicherung_schema.jpg";
+import i5_2 from "../assets/pics/6-apparaturen/sicherung_fragezeichen.jpg";
+import i6 from "../assets/pics/6-apparaturen/schlauch_schema.jpg";
+import i6_2 from "../assets/pics/6-apparaturen/schlauch_fragezeichen.jpg";
+import i7 from "../assets/pics/6-apparaturen/rundkolben_schema.jpg";
+import i7_2 from "../assets/pics/6-apparaturen/rundkolben_fragezeichen.jpg";
 
 import i9 from "../assets/pics/achtung.png";
 
@@ -22,26 +28,28 @@ function Versuch_im_Abzug(props) {
   // each Link to my_exercise has such params
   const [my_exercise, setMy_exercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+      tocPages[tocState.activeMenu].pages[1]
   );
-  console.log(my_exercise, tocState);
+  console.log(my_exercise);
   // for internal linking to my_exercises on this page
   const pathname = props.location.pathname;
   // instructions for pictures
   const instructions = [
     "Suchen Sie in dem Versuchsaufbau nach aktiven Bereichen und überprüfen Sie, ob alles in Ordnung ist!",
     "Halterung des Heiztopfes mit Wasserbad",
-    "Schalterleiste des Abzugs"
+    "Schalterleiste des Abzugs",
+    "Vierhalsrundkolben",
+    "Kolonnenkopf",
+    "Schauglas des Kühlwasserablaufs",
+    "Destillatkolben"
   ];
-  const instructionImgs = [i3];
+  const instructionImgs = [i2_2, i3_2, i4_2, i5_2, i6_2, i7_2];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
-  const [currentInstructionImg, setCurrentInstructionImg] = useState(
-    instructions[0]
-  );
+  const [currentInstructionImg, setCurrentInstructionImg] = useState();
   // if page refreshs go to Grundriss page
-  const path = props.location.pathname.split("/");
-  path.pop();
-  const r = path.join("/");
+  //const path = props.location.pathname.split("/");
+  //path.pop();
+  //const r = path.join("/");
   //if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
 
   const handleHover = index => {
@@ -53,6 +61,27 @@ function Versuch_im_Abzug(props) {
     bottom: "11px",
     left: "54px"
   };
+  const style_tauchsieder_schema = {
+    bottom: "141px",
+    left: "22px"
+  };
+  const style_rundkolben = {
+    bottom: "155px",
+    left: "78px"
+  };
+  const style_statische_sicherung = {
+    bottom: "359px",
+    left: "101px"
+  };
+  const style_schlauch_schema = {
+    bottom: "355px",
+    left: "217px"
+  };
+  const style_schlauchsicherung = {
+    bottom: "21px",
+    left: "183px"
+  };
+
   return (
     <>
       <div className="exerciseFrame">
@@ -71,14 +100,89 @@ function Versuch_im_Abzug(props) {
                 style={style_hebebuehne}
                 to={{
                   pathname: `${pathname}/${my_exercise &&
-                    my_exercise.secondPages[0].thirdLayer.filename}`,
+                    my_exercise.pages[0].filename}`,
                   state: {
-                    currentExercise:
-                      my_exercise && my_exercise.pages[0].thirdLayer
+                    currentExercise: my_exercise && my_exercise.pages[0]
                   }
                 }}
               >
                 <Image src={i2} />
+              </Link>
+              <Link
+                onMouseEnter={() => handleHover(2)}
+                onMouseLeave={() => handleHover(0)}
+                className="absolute hoverReveal pointer"
+                style={style_tauchsieder_schema}
+                to={{
+                  pathname: `${pathname}/${my_exercise &&
+                    my_exercise.pages[1].filename}`,
+                  state: {
+                    currentExercise: my_exercise && my_exercise.pages[1]
+                  }
+                }}
+              >
+                <Image src={i3} />
+              </Link>
+              <Link
+                onMouseEnter={() => handleHover(3)}
+                onMouseLeave={() => handleHover(0)}
+                className="absolute hoverReveal pointer"
+                style={style_schlauch_schema}
+                to={{
+                  pathname: `${pathname}/${my_exercise &&
+                    my_exercise.pages[5].filename}`,
+                  state: {
+                    currentExercise: my_exercise && my_exercise.pages[5]
+                  }
+                }}
+              >
+                <Image src={i6} />
+              </Link>
+              <Link
+                onMouseEnter={() => handleHover(5)}
+                onMouseLeave={() => handleHover(0)}
+                className="absolute hoverReveal pointer"
+                style={style_rundkolben}
+                to={{
+                  pathname: `${pathname}/${my_exercise &&
+                    my_exercise.pages[4].filename}`,
+                  state: {
+                    currentExercise: my_exercise && my_exercise.pages[4]
+                  }
+                }}
+              >
+                <Image src={i4} />
+              </Link>
+              <Link
+                onMouseEnter={() => handleHover(6)}
+                onMouseLeave={() => handleHover(0)}
+                className="absolute hoverReveal pointer"
+                style={style_schlauchsicherung}
+                to={{
+                  pathname: `${pathname}/${my_exercise &&
+                    my_exercise.pages[2].filename}`,
+                  state: {
+                    currentExercise: my_exercise && my_exercise.pages[2]
+                  }
+                }}
+              >
+                <Image src={i7} />
+              </Link>
+
+              <Link
+                onMouseEnter={() => handleHover(4)}
+                onMouseLeave={() => handleHover(0)}
+                className="absolute hoverReveal pointer"
+                style={style_statische_sicherung}
+                to={{
+                  pathname: `${pathname}/${my_exercise &&
+                    my_exercise.pages[3].filename}`,
+                  state: {
+                    currentExercise: my_exercise && my_exercise.pages[3]
+                  }
+                }}
+              >
+                <Image src={i5} />
               </Link>
             </Grid.Column>
             <Grid.Column width="6" verticalAlign="middle">

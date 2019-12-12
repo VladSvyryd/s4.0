@@ -34,9 +34,14 @@ import verbandkasten from "../../../pages/verbandkasten";
 import apparaturen from "../../../pages/apparaturen";
 import apparaturen_1 from "../../../pages/apparaturen_1";
 import versuch_im_Abzug from "../../../pages/versuch_im_Abzug";
-import versuch_im_Abzug_hebebuehne from "../../../pages/versuch_im_Abzug_hebebuehne";
+import hebebuehne from "../../../pages/hebebuehne";
 import eingang_bio_Labor from "../../../pages/eingang_bio_Labor";
 import hygieneplan from "../../../pages/hygieneplan";
+import tauchsieder from "../../../pages/tauchsieder";
+import statische_sicherung from "../../../pages/statische_sicherung";
+import schliffsicherung from "../../../pages/schliffsicherung";
+import rundkolben from "../../../pages/rundkolben";
+import schlauchsicherung from "../../../pages/schlauchsicherung";
 
 // Dashboard
 // Placeholder for all internal links used in Programm
@@ -137,8 +142,34 @@ const Dashboard = props => {
       <Route
         path="/virtueles_labor/apparaturen/versuch_im_Abzug/hebebuehne"
         exact
-        component={versuch_im_Abzug_hebebuehne}
+        component={hebebuehne}
       />
+      <Route
+        path="/virtueles_labor/apparaturen/versuch_im_Abzug/tauchsieder"
+        exact
+        component={tauchsieder}
+      />
+      <Route
+        path="/virtueles_labor/apparaturen/versuch_im_Abzug/statische_sicherung"
+        exact
+        component={statische_sicherung}
+      />
+      <Route
+        path="/virtueles_labor/apparaturen/versuch_im_Abzug/schliffsicherung"
+        exact
+        component={schliffsicherung}
+      />
+      <Route
+        path="/virtueles_labor/apparaturen/versuch_im_Abzug/rundkolben"
+        exact
+        component={rundkolben}
+      />
+      <Route
+        path="/virtueles_labor/apparaturen/versuch_im_Abzug/schlauchsicherung"
+        exact
+        component={schlauchsicherung}
+      />
+
       <Route
         path="/virtueles_labor/eingang_bio_Labor"
         exact

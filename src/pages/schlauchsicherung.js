@@ -1,19 +1,17 @@
 import React, { useContext, useState, createRef } from "react";
 import { withRouter } from "react-router-dom";
+import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
-import { Grid, Checkbox, Popup, Image, Transition } from "semantic-ui-react";
 import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/6-apparaturen/abzug_frage.jpg";
-import i2 from "../assets/pics/6-apparaturen/abzug_lampe_aus.jpg";
-import i3 from "../assets/pics/6-apparaturen/abzug_lampe_rot.jpg";
-import i7 from "../assets/pics/6-apparaturen/abzug_lampe_grün.jpg";
-import i8 from "../assets/pics/6-apparaturen/abzug_handwerker.png";
-import i6 from "../assets/pics/achtung_rot.png";
+import i1 from "../assets/pics/6-apparaturen/schlauch_frage.jpg";
+import i2 from "../assets/pics/6-apparaturen/schlauch_loesung2.jpg";
+import i6 from "../assets/pics/6-apparaturen/schlauch_loesung1.jpg";
+import markNodeDone from "../util/externalFunctions";
+import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
-import markNodeDone from "../util/externalFunctions";
 
-function Versuch_im_Abzug_hebebuehne(props) {
+function Schlauchsicherung(props) {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
   // load global state of tocPages
@@ -25,22 +23,23 @@ function Versuch_im_Abzug_hebebuehne(props) {
       tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
-
   const [animationTrigger, setAnimationTrigger] = useState(false);
-  const [triggerWarning, setTrigger] = useState(false);
+
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [
-      "Ich ärgere mich, weil ich das nicht vor dem Versuchsaufbau gemerkt habe und führe den Versuch durch.",
-      "Ich führe den Versuch durch. Zusätzlich sorge ich für ausreichende Lüftung, indem ich Fenster und Türen öffne.",
-      "Ich benutze den Abzug nicht, sondern sorge für eine Reparatur."
+      "Der Schlauch ist spröde. Er muss durch einen anderen ersetzt werden.",
+      "Es muss ein DVGW-geprüfter Schlauch verwendet werden.",
+      "Der Schlauch muss gegen Abrutschen mit einer Schlauchschelle gesichert werden."
     ],
-    answerIndex: 2 /// right answer index in array of questions
+    answerIndex: 2
   };
+  let contextRef = createRef(); // reference to instructions field
   const instructions = [
     "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
+
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -64,7 +63,7 @@ function Versuch_im_Abzug_hebebuehne(props) {
             Dieser Antwort war leider falsch!
           </Popup.Header>
           <Popup.Content>
-            <Image src={i6} centered />
+            <Image src={i3} centered />
           </Popup.Content>
         </Popup>
       ) : (
@@ -78,7 +77,6 @@ function Versuch_im_Abzug_hebebuehne(props) {
       );
     });
   };
-
   // handle change of radio button,
   //set state of exercise,
   //add click event to get back to other exercise
@@ -138,14 +136,18 @@ function Versuch_im_Abzug_hebebuehne(props) {
   return (
     <>
       <div className="exerciseFrame">
-        <Grid style={{ width: "100%" }} padded="horizontally">
-          <Grid.Row columns="3">
-            <Grid.Column
-              width="5"
-              className="relative"
-              style={{ padding: "0" }}
-            >
-              <Image src={i1} className="absolute" floated="left" />
+        <Grid
+          style={{ width: "100%" }}
+          reversed="computer"
+          padded="horizontally"
+        >
+          <Grid.Row columns="2">
+            <Grid.Column width="6" className="relative">
+              <Image
+                src={i1}
+                className="absolute"
+                style={{ top: "33px", right: "60px" }}
+              />
               <Transition
                 visible={animationTrigger || (my_exercise && my_exercise.done)}
                 animation="fade"
@@ -153,16 +155,16 @@ function Versuch_im_Abzug_hebebuehne(props) {
                 className="absolute"
               >
                 <Image
-                  src={i8}
+                  src={i2}
                   className="absolute"
-                  style={{ right: "-140px" }}
+                  style={{ top: "33px", right: "60px" }}
                 />
               </Transition>
             </Grid.Column>
-            <Grid.Column width="7">
+            <Grid.Column width="10">
               <div
                 className="relative fullHeight"
-                style={{ paddingLeft: "35px" }}
+                style={{ paddingLeft: "20px" }}
               >
                 <Transition
                   visible={my_exercise && !my_exercise.done}
@@ -171,30 +173,29 @@ function Versuch_im_Abzug_hebebuehne(props) {
                 >
                   <div
                     className="absolute"
-                    style={{ top: "11%", maxWidth: "390px" }}
+                    style={{ left: "100px", top: "30%" }}
                   >
-                    <div className="gridList">
-                      <div>
-                        <h1 className="my_title small">
-                          Beim Einschalten gibt der Abzug einen Alarm. Wie
-                          müssen Sie sich verhalten?
-                        </h1>
-                      </div>
+                    <div
+                      className="gridList"
+                      style={{ width: "300px", alignItems: "center" }}
+                    >
+                      <h1
+                        className="my_title small"
+                        style={{ padding: 0, margin: 0 }}
+                      >
+                        Welcher Fehler liegt hier vor?
+                      </h1>
                       <Image src={i4} />
                     </div>
                     <div
                       className="exerciseContainer"
-                      style={{
-                        marginTop: "20px",
-                        display: "flex",
-                        flexDirection: "column"
-                      }}
+                      style={{ width: "340px", marginTop: "20px" }}
                     >
                       {generateRadioButtons()}
                     </div>
-                    <div style={{ marginTop: "100px" }}>
+                    <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
-                        Weitere Informationen zu dieser Frage erhalten Sie in
+                        Weitere Informationen zur dieser Frage erhalten Sie in
                         Kapitel ÄNDERN!!!!
                       </p>
                     </div>
@@ -210,64 +211,65 @@ function Versuch_im_Abzug_hebebuehne(props) {
                 >
                   <div
                     className="absolute "
-                    style={{ top: "33%", maxWidth: "180px", right: "-20px" }}
+                    style={{ left: "250px", top: "30%" }}
                   >
-                    <div className=" gridList " style={{ columnGap: "30px" }}>
+                    <div
+                      className=" gridList "
+                      style={{ width: "270px", columnGap: "15px" }}
+                    >
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>
                         <p style={{ marginTop: "5px" }}>
-                          Alle Abzüge im Labor müssen einwandfrei funktionieren.
+                          Auch bei ungefährlichen Versuchen können abspringende
+                          Schläuche Schäden verursachen, z.B. durch Siedeverzug
+                          in einem Ölbad.
                         </p>
+                        <div>
+                          <p>
+                            Achten Sie deshalb nicht nur auf einen
+                            abrutschfesten Sitz des Schlauchs, sondern sichern
+                            Sie ihn z.B. mit einer Schlauchschelle.
+                            <button
+                              onClick={() => isDone()}
+                              style={{ background: "red" }}
+                            >
+                              RESET
+                            </button>
+                          </p>
+                        </div>
                       </div>
                     </div>
+                    <Image
+                      src={i6}
+                      style={{
+                        position: "absolute",
+                        bottom: "-168px",
+                        left: "-264px"
+                      }}
+                    />
                   </div>
                 </Transition>
-                <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                  RESET
-                </button>
               </div>
-            </Grid.Column>
-            <Grid.Column
-              width="4"
-              style={{ padding: "0" }}
-              className="relative"
-            >
-              <Image
-                src={i2}
-                className="absolute"
-                style={{ right: "0", top: "0" }}
-              />
-
-              <Image
-                src={i3}
-                className="absolute blink"
-                style={{ right: "0", top: "0" }}
-              />
-              <Transition
-                visible={my_exercise && my_exercise.done}
-                animation="fade"
-                duration={animationTrigger ? 700 : 0}
-              >
-                <Image
-                  src={i7}
-                  className="absolute"
-                  style={{ right: "0", top: "0" }}
-                />
-              </Transition>
+              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
+                RESET
+              </button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </div>
       <div className="instructionsField">
         <span>
-          {my_exercise && my_exercise.done
-            ? instructions[instructions.length - 1]
-            : instructions[instructions.length - 2]}
+          {" "}
+          <span>
+            {my_exercise && my_exercise.done
+              ? instructions[instructions.length - 1]
+              : instructions[instructions.length - 2]}
+          </span>
         </span>
       </div>
     </>
   );
 }
 
-export default withRouter(Versuch_im_Abzug_hebebuehne);
+export default withRouter(Schlauchsicherung);
