@@ -11,6 +11,25 @@ export const usePager = (callback, initialState) => {
         const newIndex = activeAccordionIndex === index ? -1 : index
         setActiveAccordionIndex(newIndex)
     }
+    const path = "hebebuehne"    // buero/prueffristen
+
+const arr = [];
+function checkNodeArrays(page, path){
+  for (let index = 0; index < page.length; index++) {
+    const element = page[index];
+    if(element.filename === path){
+      arr.push(element.id)
+      return true
+    } else {
+      if(element.pages){
+        if(checkNodeArrays(element.pages, path)){
+          arr.push(element.id)
+          return true
+        }
+      }
+    }
+  }
+}
     return {
         handleItemClick,
         handleAccordionTitleClick,
