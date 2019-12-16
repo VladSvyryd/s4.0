@@ -1,94 +1,98 @@
 import React, { useContext, useState } from "react";
 import { withRouter } from "react-router-dom";
-import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
+import {
+  Grid,
+  Checkbox,
+  Image,
+  Popup,
+  Button,
+  Transition
+} from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/2-chemielaboreingang/tuer_loesung.jpg";
-import i2 from "../assets/pics/2-chemielaboreingang/tuer_aufgabe.jpg";
+import i1 from "../assets/pics/1_buero/unterweisung.jpg";
+import i2 from "../assets/pics/1_buero/unterweisung_loesung.jpg";
 import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import markNodeDone from "../util/externalFunctions";
 
-function Labortueren(props) {
+function Durchfuehrungen(props) {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
   // load global state of tocPages
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
-  // if this page is opened from link than it will grab exercise looking through json exerciselist
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
       tocState.currentExerciseByPath
   );
-  const [radioGroupState, setRadioGroupState] = useState(" ");
+  const [radioGroupState, setRadioGroupState] = useState({
+    r0: false,
+    r1: false,
+    r2: false
+  });
   const [animationTrigger, setAnimationTrigger] = useState(false);
-
+  const [triggerWarning, setTrigger] = useState(false);
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [
-      "Ja, die Tür ist in Ordnung.",
-      "Nein, denn die Labortür ist nicht breit genug.",
-      "Nein, denn Labortüren müssen eine Sichtverbindung nach innen und nach außen haben."
+      "Datum, Ort, Thema und besprochene Mängel",
+      "Unterschrift des Laborleiters ",
+      "Namen und Unterschriften der Teilnehmer "
     ],
-    answerIndex: 2
+    answerBitValue: 7 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
-  // instructions for pictures
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft!",
+    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
-      return i !== aufgabe.answerIndex ? (
-        <Popup
-          key={`${radioButton}-${i}`}
-          className="warning"
-          trigger={
-            <Checkbox
-              label={radioButton}
-              value={i}
-              onChange={handleChange}
-              checked={radioGroupState === i}
-            />
-          }
-          offset="0, 25px"
-          position="left center"
-          open={radioGroupState === i}
-        >
-          <Popup.Header as="span" className="headerPop">
-            Dieser Antwort war leider falsch!
-          </Popup.Header>
-          <Popup.Content>
-            <Image src={i3} centered />
-          </Popup.Content>
-        </Popup>
-      ) : (
+      return (
         <Checkbox
-          key={`${radioButton}-${i}`}
+          key={`radioButton-${i}`}
+          name={"r" + i}
           label={radioButton}
-          value={i}
-          checked={radioGroupState === i}
+          value={i > 0 ? i * 2 : 1}
           onChange={handleChange}
         />
       );
     });
   };
-  // handle change of radio button,
+
+  // check if answerBitValue match bitValue of checkbox group ->
   //set state of exercise,
   //add click event to get back to other exercise
-  const handleChange = (e, { value }) => {
-    if (value !== aufgabe.answerIndex) {
-      tryAgain(value);
-    } else {
+  const handleSubmit = () => {
+    let sum = Object.values(radioGroupState).reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    );
+    if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
-      setRadioGroupState(value);
       setAnimationTrigger(true);
       document.addEventListener("mousedown", handleClickToReturnBack);
+    } else {
+      setTrigger(true);
     }
   };
+  // handle change of radio button,
+  const handleChange = (e, { name, value }) => {
+    if (!radioGroupState[name]) {
+      setRadioGroupState(old => ({ ...old, [name]: value }));
+    } else {
+      setRadioGroupState(old => ({ ...old, [name]: false }));
+    }
+  };
+  // check if any of radiobuttons are checked
+  function checkRadioButtonsStatus() {
+    let sum = Object.values(radioGroupState).reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    );
+    return sum > 0 ? true : false;
+  }
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
     document.removeEventListener("mousedown", handleClickToReturnBack);
@@ -110,10 +114,10 @@ function Labortueren(props) {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
   // if page refreshs go to Grundriss page
-  //const path = props.location.pathname.split("/");
-  //path.pop();
-  //const r = path.join("/");
-  //if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
+  const path = props.location.pathname.split("/");
+  path.pop();
+  const r = path.join("/");
+  if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
@@ -131,16 +135,18 @@ function Labortueren(props) {
       done: !old.done
     }));
   }
+
   return (
     <>
       <div className="exerciseFrame">
         <Grid style={{ width: "100%" }}>
           <Grid.Row columns="2">
-            <Grid.Column width="9" className="relative">
+            <Grid.Column width="10" className="relative">
               <Image
-                src={i2}
+                src={i1}
                 className="absolute"
                 style={{ top: "0", left: "15px" }}
+                floated="left"
               />
               <Transition
                 visible={animationTrigger || (my_exercise && my_exercise.done)}
@@ -148,10 +154,10 @@ function Labortueren(props) {
                 duration={animationTrigger ? 700 : 0}
                 className="absolute"
               >
-                <Image src={i1} />
+                <Image src={i2} />
               </Transition>
             </Grid.Column>
-            <Grid.Column width="7">
+            <Grid.Column width="6">
               <div className="relative fullHeight">
                 <Transition
                   visible={my_exercise && !my_exercise.done}
@@ -160,25 +166,51 @@ function Labortueren(props) {
                 >
                   <div className="absolute" style={{ top: "13%" }}>
                     <div className="gridList" style={{ width: "300px" }}>
-                      <h1 className="my_title small">
-                        Entspricht diese Tür den Anforderungen der Technischen
-                        Regeln für Gefahrstoffe?
-                      </h1>
+                      <div>
+                        <h1 className="my_title small">
+                          Wenn Ihr Vorgesetzter eine Unterweisung über
+                          Gefahrstoffe durchgeführt hat, muss er sich dies auch
+                          schriftlich von Ihnen bestätigen lassen.
+                        </h1>
+                        <h1 className="my_title small">
+                          Welche Angaben gehören zu einer vollständigen
+                          Dokumentation?
+                        </h1>
+                      </div>
                       <Image src={i4} />
                     </div>
-                    <div
-                      className="exerciseContainer"
-                      style={{ width: "300px" }}
+                    <Popup
+                      className="warning"
+                      trigger={
+                        <div
+                          className="exerciseContainer"
+                          style={{ width: "300px" }}
+                        >
+                          {generateRadioButtons()}
+                          <Button
+                            disabled={!checkRadioButtonsStatus()}
+                            type="submit"
+                            compact
+                            style={{ margin: "20px 30px" }}
+                            onClick={() => handleSubmit()}
+                          >
+                            Auswertung
+                          </Button>
+                        </div>
+                      }
+                      offset="0, 25px"
+                      position="left center"
+                      onClose={() => setTrigger(false)}
+                      open={triggerWarning}
                     >
-                      {generateRadioButtons()}
-                    </div>
+                      <Popup.Header as="span" className="headerPop">
+                        Dieser Antwort war leider falsch!
+                      </Popup.Header>
+                      <Popup.Content>
+                        <Image src={i3} centered />
+                      </Popup.Content>
+                    </Popup>
                     <div style={{ marginTop: "20px", width: "330px" }}>
-                      <p>
-                        Die TRGS 526 „Laboratorien“ und die BGI/GUV-I 850-0
-                        „Sicheres Arbeiten in Laboratorien“ schreiben zu Ihrer
-                        eigenen Sicherheit bestimmte bauliche Maßnahmen bei der
-                        Einrichtung eines Laborraums vor.
-                      </p>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
                         Kapitel ÄNDERN!!!!
@@ -203,10 +235,17 @@ function Labortueren(props) {
                       <div>
                         <span className="my_title small">Richtig</span>
                         <p style={{ marginTop: "5px" }}>
-                          Labortüren müssen eine Sichtverbindung nach innen und
-                          nach außen haben.
+                          Die Teilnahme an der Unterweisung über Gefahrstoffe
+                          muss sich der Vorgesetzte auch schriftlich durch eine
+                          Unterschrift des Teilnehmers bestätigen lassen.
                         </p>
                       </div>
+                    </div>
+                    <div
+                      style={{ margin: "20px 30px" }}
+                      onClick={() => isDone()}
+                    >
+                      Reset
                     </div>
                   </div>
                 </Transition>
@@ -229,4 +268,4 @@ function Labortueren(props) {
   );
 }
 
-export default withRouter(Labortueren);
+export default withRouter(Durchfuehrungen);

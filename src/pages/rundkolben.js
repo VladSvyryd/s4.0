@@ -30,7 +30,8 @@ function Rundkolben(props) {
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise  only in this case as static object from array of exercises
   const [my_exercise, setMyExercise] = useState(
-    tocPages[tocState.activeMenu].pages[0]
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
   );
   console.log(my_exercise);
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);

@@ -42,6 +42,9 @@ import statische_sicherung from "../../../pages/statische_sicherung";
 import schliffsicherung from "../../../pages/schliffsicherung";
 import rundkolben from "../../../pages/rundkolben";
 import schlauchsicherung from "../../../pages/schlauchsicherung";
+import untweisungen from "../../../pages/untweisungen";
+import durchfuehrungen from "../../../pages/durchfuehrungen";
+import beansprungungsarten from "../../../pages/beansprungungsarten";
 
 // Dashboard
 // Placeholder for all internal links used in Programm
@@ -53,6 +56,22 @@ const Dashboard = props => {
       <Route path="/virtueles_labor/grundriss" exact component={grundriss} />
       <Route path="/virtueles_labor/checklist" exact component={checklist} />
       <Route path="/virtueles_labor/buero" exact component={buero} />
+      <Route
+        path="/virtueles_labor/buero/untweisungen"
+        exact
+        component={untweisungen}
+      />
+      <Route
+        path="/virtueles_labor/buero/untweisungen/durchfuehrungen"
+        exact
+        component={durchfuehrungen}
+      />
+      <Route
+        path="/virtueles_labor/buero/untweisungen/beansprungungsarten"
+        exact
+        component={beansprungungsarten}
+      />
+
       <Route
         path="/virtueles_labor/eingang_chem_labor"
         exact

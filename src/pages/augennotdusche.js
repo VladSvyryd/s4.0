@@ -7,7 +7,10 @@ import i3 from "../assets/pics/frage.png";
 import i1 from "../assets/pics/2-chemielaboreingang/ventil.jpg";
 import i2 from "../assets/pics/2-chemielaboreingang/ventil_richtig.jpg";
 import i4 from "../assets/pics/2-chemielaboreingang/ventil_bild.jpg";
-import { useTransition, animated, config } from "react-spring";
+import i5 from "../assets/pics/2-chemielaboreingang/monteur_comes.png";
+import i7 from "../assets/pics/2-chemielaboreingang/monteur.png";
+import i8 from "../assets/pics/achtung_gruen.png";
+import i6 from "../assets/pics/2-chemielaboreingang/ventil_bild_richtig.jpg";
 
 function Augennotdusche(props) {
   // state to go through active page
@@ -16,8 +19,10 @@ function Augennotdusche(props) {
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
-  const [my_exercise, setMyExercise] = useState((props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath);
+  const [my_exercise, setMyExercise] = useState(
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
+  );
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
@@ -76,6 +81,7 @@ function Augennotdusche(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
+      startSequence();
       document.addEventListener("mousedown", handleClickToReturnBack);
     }
   };
@@ -149,39 +155,153 @@ function Augennotdusche(props) {
       return false;
     }
   }
-  const [slides, setSlides] = useState([
-    {
-      id: 1,
-      url: i1
-    },
-    {
-      id: 2,
-      url: i2
-    },
-    {
-      id: 3,
-      url: i3
-    },
-    {
-      id: 4,
-      url: i4
-    }
-  ]);
-  const [index, set] = useState(0);
+  const [slides, setSlides] = useState(
+    [
+      {
+        id: 1,
+        div: (
+          <div
+            key="1"
+            className="absolute"
+            style={{
+              top: "14px",
+              left: "0px",
+              width: "100%",
+              height: "95%",
+              backgroundColor: "white"
+            }}
+          >
+            <Image
+              className="absolute"
+              style={{ top: "-1px", left: "0" }}
+              src={i1}
+            />
+
+            <Image
+              className="absolute"
+              style={{ top: "6px", left: "350px" }}
+              src={i5}
+            />
+            <Image
+              className="absolute"
+              style={{ top: "25px", right: "53px" }}
+              src={i4}
+            />
+          </div>
+        )
+      },
+      {
+        id: 2,
+        div: (
+          <div
+            key="1"
+            className="absolute"
+            style={{
+              top: "14px",
+              left: "0px",
+              width: "100%",
+              height: "95%",
+              backgroundColor: "white"
+            }}
+          >
+            <Image
+              className="absolute"
+              style={{ top: "-1px", left: "0" }}
+              src={i2}
+            />
+            <Image
+              className="absolute"
+              style={{ top: "6px", left: "350px" }}
+              src={i5}
+            />
+            <Image
+              className="absolute"
+              style={{ top: "25px", right: "53px" }}
+              src={i6}
+            />
+          </div>
+        )
+      },
+      {
+        id: 3,
+        div: (
+          <div
+            key="1"
+            className="absolute"
+            style={{
+              top: "14px",
+              left: "0px",
+              width: "100%",
+              height: "95%",
+              backgroundColor: "white"
+            }}
+          >
+            <Image
+              className="absolute"
+              style={{ top: "-1px", left: "0" }}
+              src={i2}
+            />
+            <div className="absolute" style={{ top: "200px", left: "200px" }}>
+              <div
+                className=" gridList "
+                style={{ width: "270px", columnGap: "30px" }}
+              >
+                <Image src={i8} />
+                <div>
+                  <span className="my_title small">Richtig</span>
+                  <p style={{ marginTop: "5px" }}>
+                    Körpernotduschen sind für den Ernstfall montiert und müssen
+                    monatlich auf ihre Funktionsfähigkeit überprüft werden.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <Image
+              className="absolute"
+              style={{ top: "25px", right: "53px" }}
+              src={i6}
+            />
+            <Image
+              className="absolute"
+              style={{ top: "6px", right: "-27px" }}
+              src={i7}
+            />
+          </div>
+        )
+      }
+    ].reverse()
+  );
+  // active frame array
   const [onScreen, changeOnScreen] = useState([]);
-  function fade_1() {
-    return onScreen.map(item => (
-      <div
-        className="absolute"
-        key={item.id}
-        style={{ left: "0", top: "0", width: "100%", height: "100%" }}
-      >
-        <Image src={`${item.url}`} />
-      </div>
-    ));
+
+  function setUpAniationFrames() {
+    // if is previously done
+    if (my_exercise.done && !animationTrigger) {
+      // push all frames till last state
+      pushNewFrameToActiveFrameArray();
+      return onScreen.map(item => (
+        <div
+          className="absolute"
+          key={item.id}
+          style={{ left: "0", top: "0", width: "100%", height: "100%" }}
+        >
+          {item.div}
+        </div>
+      ));
+    } else {
+      return onScreen.map(item => (
+        <div
+          className="absolute"
+          key={item.id}
+          style={{ left: "0", top: "0", width: "100%", height: "100%" }}
+        >
+          {item.div}
+        </div>
+      ));
+    }
   }
 
-  function start() {
+  function pushNewFrameToActiveFrameArray() {
     if (slides.length > 0) {
       let nextSlide = slides.pop();
       changeOnScreen(old => [...old, nextSlide]);
@@ -190,7 +310,10 @@ function Augennotdusche(props) {
   }
 
   const startSequence = () => {
-    const nIntervId = window.setInterval(() => start(), 800);
+    const nIntervId = window.setInterval(
+      () => pushNewFrameToActiveFrameArray(),
+      1400
+    );
     setTimeout(() => clearInterval(nIntervId), 6000);
   };
   return (
@@ -252,12 +375,12 @@ function Augennotdusche(props) {
               duration={animationTrigger || !my_exercise.done ? 700 : 0}
               style={{ width: "100%", height: "100%" }}
             >
-              {my_exercise && my_exercise.done && startSequence()}
-              {fade_1()}
+              {setUpAniationFrames()}
             </Transition.Group>
+
             <button
               style={{ position: "fixed", right: "50%", top: "30px" }}
-              onClick={() => start()}
+              onClick={() => isDone()}
             >
               PUSH
             </button>
