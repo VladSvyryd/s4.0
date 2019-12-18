@@ -43,6 +43,23 @@ function Rett_einrichtung(props) {
     setWarningState(old => (old = !old));
   };
 
+  // recursive find all connectiog nodes and final node , return id of them as array last->first
+  function checkNodeArrays(page) {
+    let array = [];
+    for (let index = 0; index < page.length; index++) {
+      const element = page[index];
+      if ((element.type = 0)) {
+        // push in array
+        console.log(element);
+      } else {
+        if (element.pages) {
+          checkNodeArrays(element.pages);
+        }
+      }
+    }
+    console.log(array);
+    return array;
+  }
   // function to change state of current exercise and trigger useEffect function to save it in local storage
   // callback function to trigger save of exercise in localStorage each time exercise state has been changed
   useEffect(() => {
@@ -235,7 +252,7 @@ function Rett_einrichtung(props) {
           <div className="centered">
             <div className="textIntro" style={{ width: "250px" }}>
               <div className="gridList">
-                <Image src={i9} />
+                <Image src={i9} onClick={() => checkNodeArrays(tocPages)} />
                 <div>
                   <p>
                     <b>

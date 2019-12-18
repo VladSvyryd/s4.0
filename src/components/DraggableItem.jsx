@@ -11,7 +11,8 @@ export default class DraggableItem extends React.Component {
     super(props);
     this.state = {
       noDragging: false,
-      exerciseBitValueAnswer: this.props.exerciseBitValueAnswer
+      exerciseBitValueAnswer: this.props.exerciseBitValueAnswer,
+      multipleDroppable: this.props.multipleDroppable
     };
   }
 
@@ -21,10 +22,23 @@ export default class DraggableItem extends React.Component {
     console.log({ "onDrop event passed back to DropBox": e });
     // check if you can't drop and trigger function of failled drop
     // this function will trigger some feedback in the parent
-    if (e.dropData.name !== "undefined") {
+
+    if (!this.state.multipleDroppable && e.dropData.name !== "undefined") {
       let isMatched =
         (this.state.exerciseBitValueAnswer & e.dragData.value) ===
         e.dragData.value;
+      if (isMatched) {
+        this.setState({ noDragging: true });
+      }
+      // trigger function from parent
+      this.props.callbackAfterDropFail(isMatched);
+    } else if (
+      this.state.multipleDroppable &&
+      e.dropData.name !== "undefined"
+    ) {
+      // in this case it is name or indexName of Droppable container to be allowed to be droppped in
+      let isMatched =
+        e.dropData.name === "dr" + this.state.exerciseBitValueAnswer;
       if (isMatched) {
         this.setState({ noDragging: true });
       }
@@ -40,7 +54,11 @@ export default class DraggableItem extends React.Component {
         onDragEnd={this.handleDrop}
         targetKey={this.props.targetKey}
         dragClone={this.props.dragClone || false}
-        dragData={{ label: this.props.label, value: this.props.bitValue }}
+        dragData={{
+          label: this.props.label,
+          extraText: this.props.extraText,
+          value: this.props.bitValue
+        }}
         customDragElement={this.props.customDragElement}
         onDrop={this.landedOn}
         noDragging={this.props.noDragging || this.state.noDragging}

@@ -20,6 +20,8 @@ export const TocProvider = props => {
   const [tocPages] = useContext(PagesContext);
   // set up state of TOC, with it's main properties
   const INITIAL_STATE = getRootPages(tocPages);
+  const [arr, set] = useState([]);
+
   const [tocState, setTocState] = useState({
     //activePageLink: path,
     activeMenuPage: INITIAL_STATE.currentPage,
@@ -72,14 +74,15 @@ export const TocProvider = props => {
   function setActivePage() {
     return tocPages.find(e => e.node.filename === path);
   }
+
   useEffect(() => {
-    console.log("isTriggerd");
     let s = getRootPages(tocPages);
     setTocState(oldState => ({
       ...oldState,
       activeMenuPage: s.currentPage,
       currentExerciseByPath: s.currentPage
     }));
+    console.log(tocState);
   }, [props.location.pathname, tocState.activeMenu]);
 
   return (

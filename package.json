@@ -1,10 +1,10 @@
 {
-  "name": "montagetechnik",
+  "name": "virtueles_labor",
   "version": "0.1.0",
   "private": true,
   "author": "TM",
   "main": "public/main.js",
-  "productName": "Montagetechnik",
+  "productName": "Virtueles Labor",
   "homepage": "./",
   "home": "./",
   "dependencies": {

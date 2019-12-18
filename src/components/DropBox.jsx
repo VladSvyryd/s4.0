@@ -30,6 +30,7 @@ export default class DropBox extends React.Component {
       // push new items in items array
       items.push({
         label: e.dragData.label,
+        extraText: e.dragData.extraText,
         uid: `${e.dragData.label}-${items.length}`
       });
       // update array state with new array
@@ -45,9 +46,21 @@ export default class DropBox extends React.Component {
         exerciseCurrentState: this.props.exerciseCurrentState
       });
 
-      // check if the box current state matchs with bit value of exercise
-      if (this.state.exerciseBitValueAnswer === this.props.exerciseCurrentState)
+      if (
+        this.props.multipleDropBitValueAnswer &&
+        this.props.exerciseCurrentState ===
+          this.props.multipleDropBitValueAnswer
+      )
         this.props.idDoneCallback();
+
+      // check if the box current state matchs with bit value of exercise
+      if (
+        !this.props.multipleDropBitValueAnswer &&
+        this.state.exerciseBitValueAnswer === this.props.exerciseCurrentState
+      )
+        this.props.idDoneCallback();
+
+      console.log(e.dragData);
     }
   };
 
@@ -58,7 +71,7 @@ export default class DropBox extends React.Component {
         targetKey={this.props.targetKey}
         dropData={{ name: this.props.name }}
       >
-        <div className="animal">
+        <div>
           {this.props.children}
           {this.state.items.map((item, index) => {
             return (
@@ -70,7 +83,13 @@ export default class DropBox extends React.Component {
                 {this.props.withLabel && (
                   <span className="draggedLabel">{this.props.withLabel}</span>
                 )}
-                <span className="draggedContext"> {item.label}</span>
+                <span> </span>
+                <div className="draggedContext">
+                  <span style={{ fontWeight: "bold" }}>{item.label}</span>
+                  {item.extraText && (
+                    <span style={{ fontSize: "10px" }}>{item.extraText}</span>
+                  )}
+                </div>
               </div>
             );
           })}

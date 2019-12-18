@@ -45,6 +45,7 @@ import schlauchsicherung from "../../../pages/schlauchsicherung";
 import untweisungen from "../../../pages/untweisungen";
 import durchfuehrungen from "../../../pages/durchfuehrungen";
 import beansprungungsarten from "../../../pages/beansprungungsarten";
+import prueffristen from "../../../pages/prueffristen";
 
 // Dashboard
 // Placeholder for all internal links used in Programm
@@ -70,6 +71,11 @@ const Dashboard = props => {
         path="/virtueles_labor/buero/untweisungen/beansprungungsarten"
         exact
         component={beansprungungsarten}
+      />
+      <Route
+        path="/virtueles_labor/buero/prueffristen"
+        exact
+        component={prueffristen}
       />
 
       <Route

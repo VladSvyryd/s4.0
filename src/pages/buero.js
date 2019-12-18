@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Image, Transition } from "semantic-ui-react";
+import { Image, Transition, Visibility } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
@@ -18,15 +18,15 @@ function Buero(props) {
   const [exercise, saveExerciseState] = useState(tocPages[tocState.activeMenu]);
   const [animationTrigger, setAnimationTrigger] = useState(true);
   const instructions = [
-    "Suchen Sie im Bild nach aktiven Bereichen, die nicht in Ordnung sind!",
-    "Labortür",
-    "Körpernotdusche",
-    "Augennotdusche",
-    "Ventile der Notduschen"
+    "Klicken Sie auf einzelne Ordner, um sie zu öffnen!",
+    "In diesem Ordner sind Unterweisungen abgelegt. Überprüfen Sie die Unterweisung zum Thema „Gefährliche Eigenschaften von Stoffen“.",
+    "Klicken Sie auf diesen Ordner, um die Prüffristen der Laborgeräte zu untersuchen."
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
   const [showDetails, setShowDetails] = useState(true);
   const [onScreen, changeOnScreen] = useState([]);
+  const [unterweisungPopup, setUnterweisungPopup] = useState(false);
+  const [pruefPopup, setPruefPopup] = useState(false);
   const pathname = props.location.pathname;
 
   const [slides, setSlides] = useState(
@@ -66,9 +66,6 @@ function Buero(props) {
             }}
           >
             <div className="exerciseFrame">{main_section()}</div>
-            <div className="instructionsField">
-              <span>{currentInstruction} test</span>
-            </div>
           </div>
         )
       }
@@ -81,9 +78,14 @@ function Buero(props) {
       pushNewFrameToActiveFrameArray();
       return onScreen.map(item => (
         <div
-          className="absolute"
           key={item.id}
-          style={{ left: "0", top: "0", width: "100%", height: "100%" }}
+          style={{
+            position: "absolute",
+            left: "0",
+            top: "0",
+            width: "100%",
+            height: "100%"
+          }}
         >
           {item.div}
         </div>
@@ -91,9 +93,14 @@ function Buero(props) {
     } else {
       return onScreen.map(item => (
         <div
-          className="absolute"
           key={item.id}
-          style={{ left: "0", top: "0", width: "100%", height: "100%" }}
+          style={{
+            position: "absolute",
+            left: "0",
+            top: "0",
+            width: "100%",
+            height: "100%"
+          }}
         >
           {item.div}
         </div>
@@ -115,7 +122,20 @@ function Buero(props) {
     );
     setTimeout(() => clearInterval(nIntervId), 6000);
   };
-
+  const handleHoverEnter = (e, instruction) => {
+    setCurrentInstruction(instruction);
+    if (e.target.style.overflow === "hidden") {
+      e.target.style.overflow = "visible";
+    }
+  };
+  const handleHoverLeave = e => {
+    setCurrentInstruction(instructions[0]);
+    console.log(e.target);
+    if (e.target.parentNode.style.overflow === "visible") {
+      e.target.parentNode.style.overflow = "hidden";
+    }
+  };
+  console.log(currentInstruction);
   useEffect(() => {
     startSequence();
   }, []);
@@ -125,14 +145,15 @@ function Buero(props) {
         <div className="relative">
           <Image src={i3} />
           <Link
-            onMouseEnter={() => setCurrentInstruction(instructions[1])}
-            onMouseLeave={() => setCurrentInstruction(instructions[0])}
+            onMouseEnter={e => handleHoverEnter(e, instructions[1])}
+            onMouseLeave={e => handleHoverLeave(e)}
             className="absolute hoverReveal pointer"
             style={{
               right: "227px",
               top: "14px",
               width: "117px",
-              height: "456px"
+              height: "456px",
+              overflow: "hidden"
             }}
             to={{
               pathname: `${pathname}/${exercise.pages[1].filename}`,
@@ -141,7 +162,7 @@ function Buero(props) {
               }
             }}
           >
-            <Image src={i4} />
+            {<Image src={i4} />}
             <div
               style={{
                 position: "absolute",
@@ -149,32 +170,51 @@ function Buero(props) {
                 right: "-412px",
                 width: "412px",
                 height: "290px",
-                backgroundImage: `url('${i6}')`
+                backgroundImage: `url('${i6}')`,
+                display: "flex",
+                flexDirection: "column",
+                color: "rgba(0,0,0,.87)",
+                zIndex: 1
               }}
             >
-              <div>Unterweisungen</div>
-              <div>
+              <div
+                style={{
+                  alignSelf: "center",
+                  height: "29px",
+                  display: "grid",
+                  alignItems: "center"
+                }}
+              >
+                <h1 className="my_title small" style={{ padding: "0px" }}>
+                  Unterweisungen
+                </h1>
+              </div>
+              <div style={{ width: "260px", margin: "auto" }}>
                 <p>
-                  Flucht und Rettungswege Erste Hilfe bei Unfällen
-                  Arbeitsmedizinisch-toxikologische Beratung Durchgangsärzte in
-                  der Umgebung Unfallmeldung an Berufsgenossenschaft
+                  Flucht und Rettungswege <br /> Erste Hilfe bei Unfällen <br />
+                  Arbeitsmedizinisch-toxikologische Beratung <br />{" "}
+                  Durchgangsärzte in der Umgebung <br /> Unfallmeldung an
+                  Berufsgenossenschaft
+                  <br />
                   <b>Gefährliche Eigenschaften von Stoffen</b>
-                  Umgang mit Abzügen Umgang mit Druckgasflaschen Lagerung von
-                  Gefahrstoffen Transport von Gefahrstoffen Gefahrstoffe und
-                  Schwangerschaft
+                  <br />
+                  Umgang mit Abzügen <br /> Umgang mit Druckgasflaschen <br />{" "}
+                  Lagerung von Gefahrstoffen <br /> Transport von Gefahrstoffen{" "}
+                  <br /> Gefahrstoffe und Schwangerschaft
                 </p>
               </div>
             </div>
           </Link>
           <Link
-            onMouseEnter={() => setCurrentInstruction(instructions[2])}
-            onMouseLeave={() => setCurrentInstruction(instructions[0])}
+            onMouseEnter={e => handleHoverEnter(e, instructions[2])}
+            onMouseLeave={e => handleHoverLeave(e)}
             className="absolute hoverReveal pointer"
             style={{
               right: "130px",
               top: "13px",
               width: "110px",
-              height: "456px"
+              height: "456px",
+              overflow: "hidden"
             }}
             to={{
               pathname: `${pathname}/${exercise.pages[0].filename}`,
@@ -184,12 +224,45 @@ function Buero(props) {
             }}
           >
             <Image src={i5} />
+            <div
+              style={{
+                position: "absolute",
+                bottom: "0",
+                right: "-412px",
+                width: "412px",
+                height: "290px",
+                backgroundImage: `url('${i6}')`,
+                display: "flex",
+                flexDirection: "column",
+                color: "rgba(0,0,0,.87)",
+                zIndex: 1
+              }}
+            >
+              <div
+                style={{
+                  alignSelf: "center",
+                  height: "29px",
+                  display: "grid",
+                  alignItems: "center"
+                }}
+              >
+                <h1 className="my_title small" style={{ padding: "0px" }}>
+                  Prüffristen
+                </h1>
+              </div>
+              <div style={{ width: "260px", margin: "50px auto auto" }}>
+                <p>
+                  Der Ordner enthält Angaben zu den Prüffristen von Geräten und
+                  Einrichtungen.
+                </p>
+              </div>
+            </div>
           </Link>
         </div>
         <div className="centered">
           <div className="textIntro">
             <div className="gridList">
-              <Image src={i9} />
+              <Image src={i9} onClick={() => setCurrentInstruction("test")} />
               <div>
                 <p>
                   <b>Ansicht Büro</b>
@@ -226,13 +299,13 @@ function Buero(props) {
             <Image src={i1} />
           </div>
         </div>
-        <Transition.Group
-          as="div"
-          duration={700}
-          style={{ position: "relative", width: "100%", height: "100%" }}
-        >
+
+        <Transition.Group as="div" duration={700}>
           {setUpAniationFrames()}
         </Transition.Group>
+      </div>
+      <div className="instructionsField">
+        <span>{currentInstruction}</span>
       </div>
     </>
   );

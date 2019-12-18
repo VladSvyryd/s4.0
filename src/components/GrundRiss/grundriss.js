@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Image, Grid } from "semantic-ui-react";
 import Toc from "../Body/Toc/Toc";
@@ -24,10 +24,26 @@ function Grundriss(props) {
   const [tocState, setTocState] = useContext(TocContext);
   const [tocPages] = useContext(PagesContext);
   const [activeSection, setActiveSection] = useState(-2);
-
+  const instructions = [
+    "Klicken Sie auf einzelne Bereiche im Grundriss oder auf die Begriffe, um in die jeweilige Ansicht zu gelangen!",
+    "Hier gelangen Sie in das Büro des Labors.",
+    "Eingangsbereich chemisches Labor",
+    "Rettungseinrichtungen",
+    "Chemikalienschrank",
+    "Gasflaschenschrank",
+    "Apparaturen",
+    "Mitarbeiter",
+    "Zugang biotechnologisches Labor",
+    "Waschbecken und Garderobe",
+    "Arbeitsplatz",
+    "Mikrobiologische Sicherheitswerkbank",
+    "Sterilisationsauklav"
+  ];
+  const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
   const toggleHover = e => {
     // look at current Element id, split string and take last element as Integer
     let permanentActiveMenu = e.currentTarget.id.split("-")[1];
+    let instructionIndex = parseInt(permanentActiveMenu) + 1;
     // setActiveMenu Index to this number to highlight it in Toc Component
     setTocState(actualPage => ({
       ...actualPage,
@@ -58,8 +74,21 @@ function Grundriss(props) {
       `/virtueles_labor/${tocPages[tocState.activeMenu].filename}`
     );
   };
+
+  // this is an observable, that waiting on tocActiveMenu index to be changed, each change sets current instruction text
+  useEffect(() => {
+    if (tocState.activeMenu >= 0) {
+      setCurrentInstruction(instructions[parseInt(tocState.activeMenu) + 1]);
+    } else {
+      setCurrentInstruction(instructions[0]);
+    }
+    return () => {
+      setCurrentInstruction(instructions[0]);
+    };
+  }, [tocState.activeMenu]);
+
   return (
-    <Grid className="fullHeight" padded>
+    <Grid className="fullHeight" padded style={{ position: "relative" }}>
       <Grid.Row columns="2">
         <Grid.Column
           width="11"
@@ -307,6 +336,12 @@ function Grundriss(props) {
           </Grid>
         </Grid.Column>
       </Grid.Row>
+      <div
+        className="instructionsField"
+        style={{ position: "absolute", left: "0", bottom: "0", width: "100%" }}
+      >
+        {currentInstruction}
+      </div>
     </Grid>
   );
 }

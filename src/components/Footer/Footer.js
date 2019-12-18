@@ -9,8 +9,13 @@ import { Label, Icon } from "semantic-ui-react";
 // uses tocState, tocPages, wState global states to : update state of Toc, active page, state of Notes and Search, Back function
 
 const Footer = props => {
+  // TODO: has to be changed
   const handleBackInHistory = () => {
-    props.history.goBack();
+    if (
+      !(props.location.pathname === "/virtueles_labor/grundriss") &&
+      !(props.location.pathname === "/virtueles_labor/checklist")
+    )
+      props.history.goBack();
   };
   const button_style = {
     color: "white",
