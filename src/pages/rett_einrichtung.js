@@ -44,13 +44,14 @@ function Rett_einrichtung(props) {
   };
 
   // recursive find all connectiog nodes and final node , return id of them as array last->first
+  let array = [];
   function checkNodeArrays(page) {
-    let array = [];
     for (let index = 0; index < page.length; index++) {
       const element = page[index];
-      if ((element.type = 0)) {
+      if (element.type === 1) {
         // push in array
         console.log(element);
+        array.push(element);
       } else {
         if (element.pages) {
           checkNodeArrays(element.pages);
