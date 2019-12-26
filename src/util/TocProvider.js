@@ -12,21 +12,21 @@ export const TocProvider = props => {
     pathname === "/"
       ? "/"
       : pathname
-          .split("/")
-          .slice(-1)
-          .pop();
+        .split("/")
+        .slice(-1)
+        .pop();
 
   // load global state of tocPages
   const [tocPages] = useContext(PagesContext);
   // set up state of TOC, with it's main properties
-  const INITIAL_STATE = getRootPages(tocPages);
-  const [arr, set] = useState([]);
+  const INITIAL_PAGE_STATE = getRootPages(tocPages);
 
   const [tocState, setTocState] = useState({
     //activePageLink: path,
-    activeMenuPage: INITIAL_STATE.currentPage,
-    activeMenu: INITIAL_STATE.index,
-    currentExerciseByPath: INITIAL_STATE.currentPage
+    activeMenuPage: INITIAL_PAGE_STATE.currentPage,
+    activeMenu: INITIAL_PAGE_STATE.index,
+    currentExerciseByPath: INITIAL_PAGE_STATE.currentPage,
+    exercisesState: getExercisesState()
   });
   function getRootPages(rootPages) {
     let changedRootPages = rootPages.map(e => findNode(path, e));
@@ -35,7 +35,29 @@ export const TocProvider = props => {
     let result = { index: currentActiveMenu, currentPage: currentExercise };
     return result;
   }
+  function getExercisesState() {
+    let exercisesState = { allExercises: [], doneCount: 0, totalExercisesCount: 0 };
+    function checkNodeArrays(page) {
+      for (let index = 0; index < page.length; index++) {
+        const element = page[index];
+        if (element.type === 1) {
+          // push in array
+          //console.log(element);
+          exercisesState.allExercises.push(element);
+          if (element.done) exercisesState.doneCount++
+        } else {
+          if (element.pages) {
+            checkNodeArrays(element.pages);
+          }
+        }
+      }
+      exercisesState.totalExercisesCount = exercisesState.allExercises.length + 1
+      //console.log(exercisesState);
 
+      return exercisesState;
+    }
+    return checkNodeArrays(tocPages)
+  }
   function findNode(currentPath, currentNode) {
     var i, currentChild, result;
 
@@ -75,12 +97,14 @@ export const TocProvider = props => {
     return tocPages.find(e => e.node.filename === path);
   }
 
+
   useEffect(() => {
     let s = getRootPages(tocPages);
     setTocState(oldState => ({
       ...oldState,
       activeMenuPage: s.currentPage,
-      currentExerciseByPath: s.currentPage
+      currentExerciseByPath: s.currentPage,
+      exercisesState: getExercisesState()
     }));
     console.log(tocState);
   }, [props.location.pathname, tocState.activeMenu]);

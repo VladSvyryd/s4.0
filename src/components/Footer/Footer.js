@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./footer.css";
 import { withRouter, NavLink, Link } from "react-router-dom";
 import { Label, Icon } from "semantic-ui-react";
-
+import { Progress } from 'semantic-ui-react'
+import { TocContext } from "../../util/TocProvider";
 // Footer
 
 // Deals with "<->  <<-->>"" buttons, Menu, MainMenu, Notes, Search
 // uses tocState, tocPages, wState global states to : update state of Toc, active page, state of Notes and Search, Back function
 
 const Footer = props => {
+  // state to go through active page
+  const [tocState, setTocState] = useContext(TocContext);
   // TODO: has to be changed
   const handleBackInHistory = () => {
     if (
@@ -24,10 +27,18 @@ const Footer = props => {
   const active_style = {
     color: "#ffc21b"
   };
+  const getPercentFromTotal = () => {
+    return Math.round(tocState.exercisesState.doneCount / tocState.exercisesState.totalExercisesCount * 100)
+
+  }
   return (
     <div className="footer">
       <div className="left_footer">
-        <progress></progress>
+
+        <span style={{ fontSize: "11px", paddingBottom: "5px" }}> {tocState.exercisesState.doneCount} von {tocState.exercisesState.totalExercisesCount} Mängeln gefunden </span>
+        {/* <Progress percent={getPercentFromTotal()} size="tiny" style={{ width: "70%", margin: 0 }} color="blue" /> */}
+        <progress value={`${getPercentFromTotal()}`} max="100" style={{ width: "70%", margin: 0 }} ></progress>
+
       </div>
       <div className="right_footer">
         <div className="footer_buttons">

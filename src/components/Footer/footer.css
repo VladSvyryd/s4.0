@@ -11,10 +11,11 @@
 .left_footer {
   width: 262px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-shrink: 0;
   background: rgba(222, 222, 222, 1);
   align-items: center;
+  justify-content: center;
 }
 
 .right_footer {

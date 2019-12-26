@@ -24,12 +24,12 @@ function Prueffristen(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+    tocState.currentExerciseByPath
   );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDropBox, setFeedbackFromDropBox] = useState(0);
   const [animationTrigger, setAnimationTrigger] = useState(false);
-
+  console.log(my_exercise)
   const instructions = [
     "Diese Zuordnung war falsch!",
     "Ordnen Sie die Laborgeräte den empfohlenen Prüffristen zu, indem Sie die Begriffe in die jeweilige Spalte ziehen.",

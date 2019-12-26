@@ -256,3 +256,26 @@ MAIN MENU CONTAINER (GRUNDRISS; CHECKLIST
 .exerciseFrame .hoverReveal:hover img {
   visibility: visible;
 }
+
+progress[value]{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+   height: 7px;
+   transition: all;
+  
+  
+}
+progress[value]::-webkit-progress-bar {
+  box-shadow: none;
+  background: rgba(255,255,255,1);
+  padding: 0;
+ border-radius: .1em;
+    
+    
+}
+progress[value]::-webkit-progress-value {
+ background: #2185d0;
+ border-radius: .1em;
+ transition: all;
+}
