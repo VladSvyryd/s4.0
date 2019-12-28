@@ -19,7 +19,7 @@
         template_file: "",
         kapitel: 1,
         titel: "Büro",
-        filename: "prueffristen",
+        filename: "buero-prueffristen",
         printfile: "",
         verweis_titel: "Physikalisch-technische Grundlagen - Einleitung",
         mediaquery: 0,

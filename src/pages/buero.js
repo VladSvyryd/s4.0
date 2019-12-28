@@ -217,9 +217,9 @@ function Buero(props) {
               overflow: "hidden"
             }}
             to={{
-              pathname: `${pathname}/${exercise.pages[0].filename}`,
+              pathname: `${pathname}/${exercise.pages[0].pages[0].filename}`,
               state: {
-                currentExercise: exercise.pages[0]
+                currentExercise: exercise.pages[0].pages[0]
               }
             }}
           >
