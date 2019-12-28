@@ -46,6 +46,7 @@ import untweisungen from "../../../pages/untweisungen";
 import durchfuehrungen from "../../../pages/durchfuehrungen";
 import beansprungungsarten from "../../../pages/beansprungungsarten";
 import prueffristen from "../../../pages/prueffristen";
+import mitarbeiter from "../../../pages/mitarbeiter";
 
 // Dashboard
 // Placeholder for all internal links used in Programm
@@ -193,6 +194,11 @@ const Dashboard = props => {
         path="/virtueles_labor/apparaturen/versuch_im_Abzug/schlauchsicherung"
         exact
         component={schlauchsicherung}
+      />
+      <Route
+        path="/virtueles_labor/mitarbeiter"
+        exact
+        component={mitarbeiter}
       />
 
       <Route
