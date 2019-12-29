@@ -26,7 +26,7 @@ function Arbeitshaltung(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+    tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
@@ -100,7 +100,7 @@ function Arbeitshaltung(props) {
 
   // reset state of current exercise
   const resetAllAnswers = () => {
-    setRadioGroupState({ r0: false, r1: false, r2: false });
+    setRadioGroupState({ r0: false, r1: false, r2: false, r3: false });
     setTrigger(false);
     removeClick();
   };

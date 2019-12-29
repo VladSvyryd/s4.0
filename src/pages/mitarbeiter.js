@@ -5,6 +5,10 @@ import i3 from "../assets/pics/7-mitarbeiter/food_false_active.jpg";
 import i2 from "../assets/pics/7-mitarbeiter/food_false_passive.jpg";
 import i5 from "../assets/pics/7-mitarbeiter/smoke_false_active.jpg";
 import i4 from "../assets/pics/7-mitarbeiter/smoke_false_passive.jpg";
+import i11 from "../assets/pics/7-mitarbeiter/noeating.png";
+import i12 from "../assets/pics/7-mitarbeiter/nosmoking.png";
+import i13 from "../assets/pics/7-mitarbeiter/noeating_sign.png";
+import i14 from "../assets/pics/7-mitarbeiter/nosmoking_sign.png";
 import i1 from "../assets/pics/7-mitarbeiter/tisch_leer.jpg";
 import i6 from "../assets/pics/7-mitarbeiter/armel-active.png";
 import i7 from "../assets/pics/7-mitarbeiter/kittel-active.png";
@@ -31,12 +35,16 @@ function Mitarbeiter(props) {
     // instructions for pictures
     const instructions = [
         "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
-        "Waschbecken",
-        "Garderobe für Arbeitskleidung"
+        "Zigarettenschachtel",
+        "Leckeres Schinkenbrötchen mit Kakao",
+        "Offener Laborkittel",
+        "Fußschutz",
+        "Augen- und Gesichtsschutz",
+        "Hochgekrempelte Ärmel"
     ];
     const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
 
-    const [currentMittarbeiter, setMitarbeiter] = useState(15)
+    const [currentMittarbeiter, setMitarbeiter] = useState(0)
 
     const setMitarbeiterPicture = () => {
         if (!exercise.pages[0].done && !exercise.pages[1].done && !exercise.pages[2].done && !exercise.pages[2].done) setMitarbeiter(0)
@@ -54,21 +62,44 @@ function Mitarbeiter(props) {
         if (exercise.pages[0].done && exercise.pages[1].done) setMitarbeiter(12)
         if (exercise.pages[0].done && exercise.pages[1].done && exercise.pages[3].done) setMitarbeiter(13)
         if (exercise.pages[0].done && exercise.pages[1].done && exercise.pages[2].done) setMitarbeiter(14)
-        if (exercise.pages[0].done && exercise.pages[1].done && exercise.pages[2].done && exercise.pages[2].done) setMitarbeiter(14)
+        if (exercise.pages[0].done && exercise.pages[1].done && exercise.pages[2].done && exercise.pages[3].done) setMitarbeiter(15)
 
     }
 
     const style_food_false = {
+        display: "flex",
+        position: "absolute",
         left: "0",
         bottom: "111px",
         backgroundImage: `url('${exercise && !exercise.pages[5].done && i2}')`,
         backgroundRepeat: "no-repeat"
     };
-    const style_smoke_flase = {
+    const style_food_true = {
+        position: "absolute",
+        left: "150px",
+        top: "30px",
+        display: "flex",
+        backgroundImage: `url('${exercise && exercise.pages[5].done && i13}')`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center 8px"
+
+    };
+    const style_smoke_false = {
+        display: "flex",
+        position: "absolute",
         left: "136px",
         top: "302px",
         backgroundImage: `url('${exercise && !exercise.pages[4].done && i4}')`,
         backgroundRepeat: "no-repeat"
+    };
+    const style_smoke_true = {
+        display: "flex",
+        position: "absolute",
+        left: "30px",
+        top: "30px",
+        backgroundImage: `url('${exercise && exercise.pages[4].done && i14}')`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center"
     };
     useEffect(() => {
         setMitarbeiterPicture()
@@ -84,8 +115,8 @@ function Mitarbeiter(props) {
                         <Link
                             onMouseEnter={() => setCurrentInstruction(instructions[2])}
                             onMouseLeave={() => setCurrentInstruction(instructions[0])}
-                            className="absolute hoverReveal pointer"
-                            style={style_food_false}
+                            className="absolute  pointer hoverReveal"
+                            style={exercise.pages[5].done ? style_food_true : style_food_false}
                             to={{
                                 pathname: `${pathname}/${exercise.pages[5].filename}`,
                                 state: {
@@ -93,13 +124,13 @@ function Mitarbeiter(props) {
                                 }
                             }}
                         >
-                            {exercise.pages[5].done ? <Image src={i5} /> : <Image src={i3} />}
+                            {exercise.pages[5].done ? <Image src={i11} /> : <Image src={i3} />}
                         </Link>
                         <Link
                             onMouseEnter={() => setCurrentInstruction(instructions[1])}
                             onMouseLeave={() => setCurrentInstruction(instructions[0])}
-                            className="absolute hoverReveal pointer"
-                            style={style_smoke_flase}
+                            className="absolute  pointer hoverReveal"
+                            style={exercise.pages[4].done ? style_smoke_true : style_smoke_false}
                             to={{
                                 pathname: `${pathname}/${exercise.pages[4].filename}`,
                                 state: {
@@ -107,12 +138,12 @@ function Mitarbeiter(props) {
                                 }
                             }}
                         >
-                            <Image src={i5} />
+                            {exercise.pages[4].done ? <Image src={i12} /> : <Image src={i5} />}
                         </Link>
                         <div style={{ position: "absolute", right: "0", top: "20px" }}>
                             <MitarbeiterPicture currentMittarbeiter={currentMittarbeiter} />
                             <Link
-                                onMouseEnter={() => setCurrentInstruction(instructions[2])}
+                                onMouseEnter={() => setCurrentInstruction(instructions[6])}
                                 onMouseLeave={() => setCurrentInstruction(instructions[0])}
                                 className="absolute hoverReveal pointer"
                                 style={pictureSet[currentMittarbeiter].armel}
@@ -126,7 +157,7 @@ function Mitarbeiter(props) {
                                 <Image src={i6} />
                             </Link>
                             <Link
-                                onMouseEnter={() => setCurrentInstruction(instructions[2])}
+                                onMouseEnter={() => setCurrentInstruction(instructions[3])}
                                 onMouseLeave={() => setCurrentInstruction(instructions[0])}
                                 className="absolute hoverReveal pointer"
                                 style={pictureSet[currentMittarbeiter].kittle}
@@ -140,7 +171,7 @@ function Mitarbeiter(props) {
                                 <Image src={i7} />
                             </Link>
                             <Link
-                                onMouseEnter={() => setCurrentInstruction(instructions[2])}
+                                onMouseEnter={() => setCurrentInstruction(instructions[4])}
                                 onMouseLeave={() => setCurrentInstruction(instructions[0])}
                                 className="absolute hoverReveal pointer"
                                 style={pictureSet[currentMittarbeiter].schuhe}
@@ -154,7 +185,7 @@ function Mitarbeiter(props) {
                                 <Image src={i10} />
                             </Link>
                             <Link
-                                onMouseEnter={() => setCurrentInstruction(instructions[2])}
+                                onMouseEnter={() => setCurrentInstruction(instructions[5])}
                                 onMouseLeave={() => setCurrentInstruction(instructions[0])}
                                 className="absolute hoverReveal pointer"
                                 style={pictureSet[currentMittarbeiter].brille}

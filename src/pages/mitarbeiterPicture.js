@@ -19,7 +19,6 @@ import i14 from "../assets/pics/7-mitarbeiter/14-aermel_kittel_schuhe.jpg"
 import i15 from "../assets/pics/7-mitarbeiter/15_alles_richtig.jpg"
 
 function MitarbeiterPicture({ currentMittarbeiter }) {
-    console.log(currentMittarbeiter)
     const pictures = [i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15]
     return (<div style={{ width: "260px", display: "flex", justifyContent: "center", alignItems: "center" }}>
         <Image src={pictures[currentMittarbeiter]} />
