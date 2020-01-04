@@ -13,7 +13,7 @@ import i7 from "../assets/pics/7-mitarbeiter/noeating_sign.png";
 import i9 from "../assets/pics/7-mitarbeiter/nosmoking_sign.png";
 import i8 from "../assets/pics/7-mitarbeiter/sidebar_brille.jpg";
 import MitarbeiterPicture from "./mitarbeiterPicture";
-import i11 from "../assets/pics/7-mitarbeiter/nosmoking_sign.png";
+import i11 from "../assets/pics/7-mitarbeiter/smoke_false_passive.jpg";
 
 function Laborbrille(props) {
     // state to go through active page
@@ -66,9 +66,16 @@ function Laborbrille(props) {
 
 
     }
+    // if exercise has been already done, go back
     useEffect(() => {
+        if (my_exercise.done)
+            document.addEventListener("mousedown", handleClickToReturnBack);
+
         setMitarbeiterPicture()
-    }, []);
+        return () => {
+            document.removeEventListener("mousedown", handleClickToReturnBack);
+        }
+    }, [])
     // parse radioButtons from aufgabe object
     const generateRadioButtons = () => {
         return aufgabe.labels.map((radioButton, i) => {
@@ -205,7 +212,7 @@ function Laborbrille(props) {
                                 style={exercise.pages[4].done ? style_smoke_true : style_smoke_false}
 
                             >
-                                {exercise.pages[4].done ? <Image src={i11} /> : <Image src={i9} />}
+                                {exercise.pages[4].done ? <Image src={i9} /> : <Image src={i11} />}
                             </div>
                             <div style={{ position: "absolute", right: "58px", top: "20px" }}>
                                 <MitarbeiterPicture currentMittarbeiter={currentMittarbeiter} />

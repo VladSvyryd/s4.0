@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Button, Checkbox, Grid, Image, Popup, Transition } from "semantic-ui-react";
 import i3 from "../assets/pics/7-mitarbeiter/food_false_active.jpg";
 import i7 from "../assets/pics/7-mitarbeiter/noeating.png";
-import i8 from "../assets/pics/7-mitarbeiter/smoke_false_active.jpg";
+
 import i11 from "../assets/pics/7-mitarbeiter/nosmoking_sign.png";
 import i9 from "../assets/pics/7-mitarbeiter/smoke_false_passive.jpg";
 import i10 from "../assets/pics/7-mitarbeiter/sidebar_essen.jpg";
@@ -70,9 +70,16 @@ function Essen_und_trinken(props) {
         if (exercise.pages[0].done && exercise.pages[1].done && exercise.pages[2].done && exercise.pages[3].done) setMitarbeiter(15)
 
     }
+    // if exercise has been already done, go back
     useEffect(() => {
+        if (my_exercise.done)
+            document.addEventListener("mousedown", handleClickToReturnBack);
+
         setMitarbeiterPicture()
-    }, []);
+        return () => {
+            document.removeEventListener("mousedown", handleClickToReturnBack);
+        }
+    }, [])
     // parse radioButtons from aufgabe object
     // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
     const generateRadioButtons = () => {

@@ -1,4 +1,4 @@
-import React, { useContext, useState, createRef, contextRef } from "react";
+import React, { useContext, useState, createRef, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Grid, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -30,7 +30,7 @@ function Ventil(props) {
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState((props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath);
+    tocState.currentExerciseByPath);
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDraggables, setFeedbackFromDraggables] = useState(false);
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -119,7 +119,13 @@ function Ventil(props) {
   const handleFailToDropItem = feedbackSuccess => {
     setFeedbackFromDraggables(!feedbackSuccess);
   };
-
+  useEffect(() => {
+    if (my_exercise.done)
+      document.addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document.removeEventListener("mousedown", handleClickToReturnBack);
+    }
+  }, [])
   const droppableStyle = {
     width: "213px",
     height: "122px",

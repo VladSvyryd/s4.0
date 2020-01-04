@@ -14,11 +14,24 @@ const Footer = props => {
   const [tocState, setTocState] = useContext(TocContext);
   // TODO: has to be changed
   const handleBackInHistory = () => {
-    if (
-      !(props.location.pathname === "/virtueles_labor/grundriss") &&
-      !(props.location.pathname === "/virtueles_labor/checklist")
-    )
-      props.history.goBack();
+    // if grundriss of checklish page do nothing
+    if (tocState.treeIdsPath.length === 0) return false
+    // copa of ids (till current page) as array, get from tocPages tree 
+    let treeIdsPathCopy = tocState.treeIdsPath
+    // root path : virtueles_labor
+    let rootPath = props.location.pathname.split("/")[1]
+    // if not a previouse page before grundriss
+    if (treeIdsPathCopy && treeIdsPathCopy.length > 1) {
+      let backPathArray = treeIdsPathCopy.map(exerciseNode => {
+        return tocState.tocPagesMap[exerciseNode].filename
+      })
+      backPathArray.reverse().pop()
+      let backPathString = `/${rootPath}/${backPathArray.join("/")}`
+      props.history.push(backPathString)
+    } else {
+      // allways come back not further as grundriss page
+      props.history.push(`/${rootPath}/grundriss`)
+    }
   };
   const button_style = {
     color: "white",

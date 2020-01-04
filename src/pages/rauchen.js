@@ -72,9 +72,17 @@ function Rauchen(props) {
 
 
     }
+
+    // if exercise has been already done, go back
     useEffect(() => {
+        if (my_exercise.done)
+            document.addEventListener("mousedown", handleClickToReturnBack);
+
         setMitarbeiterPicture()
-    }, []);
+        return () => {
+            document.removeEventListener("mousedown", handleClickToReturnBack);
+        }
+    }, [])
     // parse radioButtons from aufgabe object
     // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
     const generateRadioButtons = () => {

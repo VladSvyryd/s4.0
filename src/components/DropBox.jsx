@@ -49,7 +49,7 @@ export default class DropBox extends React.Component {
       if (
         this.props.multipleDropBitValueAnswer &&
         this.props.exerciseCurrentState ===
-          this.props.multipleDropBitValueAnswer
+        this.props.multipleDropBitValueAnswer
       )
         this.props.idDoneCallback();
 
@@ -83,7 +83,7 @@ export default class DropBox extends React.Component {
                 {this.props.withLabel && (
                   <span className="draggedLabel">{this.props.withLabel}</span>
                 )}
-                <span> </span>
+                {/* <span> </span> */}
                 <div className="draggedContext">
                   <span style={{ fontWeight: "bold" }}>{item.label}</span>
                   {item.extraText && (
