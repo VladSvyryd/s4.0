@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import "./footer.css";
-import { withRouter, NavLink, Link } from "react-router-dom";
-import { Label, Icon } from "semantic-ui-react";
-import { Progress } from 'semantic-ui-react'
+import { withRouter, NavLink } from "react-router-dom";
+import { Label, Icon, Image } from "semantic-ui-react";
 import { TocContext } from "../../util/TocProvider";
+import i2 from "../../assets/pics/grundriss-icon.png";
+import i3 from "../../assets/pics/level-up-icon.png";
+import i1 from "../../assets/pics/checklist-icon.png";
 // Footer
 
 // Deals with "<->  <<-->>"" buttons, Menu, MainMenu, Notes, Search
@@ -15,22 +17,22 @@ const Footer = props => {
   // TODO: has to be changed
   const handleBackInHistory = () => {
     // if grundriss of checklish page do nothing
-    if (tocState.treeIdsPath.length === 0) return false
-    // copa of ids (till current page) as array, get from tocPages tree 
-    let treeIdsPathCopy = tocState.treeIdsPath
+    if (tocState.treeIdsPath.length === 0) return false;
+    // copa of ids (till current page) as array, get from tocPages tree
+    let treeIdsPathCopy = tocState.treeIdsPath;
     // root path : virtueles_labor
-    let rootPath = props.location.pathname.split("/")[1]
+    let rootPath = props.location.pathname.split("/")[1];
     // if not a previouse page before grundriss
     if (treeIdsPathCopy && treeIdsPathCopy.length > 1) {
       let backPathArray = treeIdsPathCopy.map(exerciseNode => {
-        return tocState.tocPagesMap[exerciseNode].filename
-      })
-      backPathArray.reverse().pop()
-      let backPathString = `/${rootPath}/${backPathArray.join("/")}`
-      props.history.push(backPathString)
+        return tocState.tocPagesMap[exerciseNode].filename;
+      });
+      backPathArray.reverse().pop();
+      let backPathString = `/${rootPath}/${backPathArray.join("/")}`;
+      props.history.push(backPathString);
     } else {
       // allways come back not further as grundriss page
-      props.history.push(`/${rootPath}/grundriss`)
+      props.history.push(`/${rootPath}/grundriss`);
     }
   };
   const button_style = {
@@ -41,17 +43,26 @@ const Footer = props => {
     color: "#ffc21b"
   };
   const getPercentFromTotal = () => {
-    return Math.round(tocState.exercisesState.doneCount / tocState.exercisesState.totalExercisesCount * 100)
-
-  }
+    return Math.round(
+      (tocState.exercisesState.doneCount /
+        tocState.exercisesState.totalExercisesCount) *
+        100
+    );
+  };
   return (
     <div className="footer">
       <div className="left_footer">
-
-        <span style={{ fontSize: "11px", paddingBottom: "5px" }}> {tocState.exercisesState.doneCount} von {tocState.exercisesState.totalExercisesCount} Mängeln gefunden </span>
+        <span style={{ fontSize: "11px", paddingBottom: "5px" }}>
+          {" "}
+          {tocState.exercisesState.doneCount} von{" "}
+          {tocState.exercisesState.totalExercisesCount} Mängeln gefunden{" "}
+        </span>
         {/* <Progress percent={getPercentFromTotal()} size="tiny" style={{ width: "70%", margin: 0 }} color="blue" /> */}
-        <progress value={`${getPercentFromTotal()}`} max="100" style={{ width: "70%", margin: 0 }} ></progress>
-
+        <progress
+          value={`${getPercentFromTotal()}`}
+          max="100"
+          style={{ width: "70%", margin: 0 }}
+        ></progress>
       </div>
       <div className="right_footer">
         <div className="footer_buttons">
@@ -61,8 +72,7 @@ const Footer = props => {
             style={button_style}
             className="grid twoColumn alignCenter padded gap10"
           >
-            <Icon name="list alternate outline" size="large" />
-            Checklist
+            Checkliste
           </NavLink>
           <span className="divider"></span>
           <NavLink
@@ -71,7 +81,6 @@ const Footer = props => {
             className="grid twoColumn alignCenter padded gap10"
             style={button_style}
           >
-            <Icon name="briefcase" size="large" />
             <span> Grundriss/Inhalt</span>
           </NavLink>
           <span className="divider"></span>
@@ -81,8 +90,8 @@ const Footer = props => {
             style={button_style}
             className="grid twoColumn alignCenter padded gap10 pointer"
           >
-            <Icon name="undo" size="large" />
-            Zurück
+            <Image src={i3} />
+            Ebene höher
           </div>
         </div>
         <Label

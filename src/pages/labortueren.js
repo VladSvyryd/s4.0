@@ -20,7 +20,7 @@ function Labortueren(props) {
   // if this page is opened from link than it will grab exercise looking through json exerciselist
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -66,16 +66,17 @@ function Labortueren(props) {
           </Popup.Content>
         </Popup>
       ) : (
-          <Checkbox
-            key={`${radioButton}-${i}`}
-            label={radioButton}
-            value={i}
-            checked={radioGroupState === i}
-            onChange={handleChange}
-          />
-        );
+        <Checkbox
+          key={`${radioButton}-${i}`}
+          label={radioButton}
+          value={i}
+          checked={radioGroupState === i}
+          onChange={handleChange}
+        />
+      );
     });
   };
+
   // handle change of radio button,
   //set state of exercise,
   //add click event to get back to other exercise
@@ -86,12 +87,16 @@ function Labortueren(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -103,11 +108,15 @@ function Labortueren(props) {
   // set up current exercise state and set click event to reset radio button states
   const tryAgain = value => {
     setRadioGroupState(value);
-    document.addEventListener("mousedown", resetAllAnswers);
+    document
+      .getElementById("panel")
+      .addEventListener("mousedown", resetAllAnswers);
   };
   // reset click event on document
   const removeClick = () => {
-    document.removeEventListener("mousedown", resetAllAnswers);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", resetAllAnswers);
   };
   // if page refreshs go to Grundriss page
   //const path = props.location.pathname.split("/");
@@ -133,11 +142,15 @@ function Labortueren(props) {
   }
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   return (
     <>
       <div className="exerciseFrame">

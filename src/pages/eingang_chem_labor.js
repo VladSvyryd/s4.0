@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -22,7 +22,6 @@ function Ringang_chem_labor(props) {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
   console.log(tocState);
-
   // state to manage exercise object state
   const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
   const pathname = props.location.pathname;
@@ -35,12 +34,6 @@ function Ringang_chem_labor(props) {
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
 
-  // function to change state of current exercise and trigger useEffect function to save it in local storage
-  // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  //useEffect(() => {
-  //tocPages[tocState.activeMenu] = exercise;
-  //localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  //}, [exercise]);
   const introExercise = () => {
     return (
       <>
