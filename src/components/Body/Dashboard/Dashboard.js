@@ -53,6 +53,7 @@ import laborbrille from "../../../pages/laborbrille";
 import laborkittel from "../../../pages/laborkittel";
 import aermel_des_Labor from "../../../pages/aermel_des_Labor";
 import schuhe from "../../../pages/schuhe";
+import pruefungWirksamkeit from "../../../pages/pruefungWirksamkeit";
 
 // Dashboard
 // Placeholder for all internal links used in Programm
@@ -313,6 +314,11 @@ const Dashboard = props => {
         path="/virtueles_labor/sterilisationsautoklav/pers_schutz"
         exact
         component={pers_schutz}
+      />
+      <Route
+        path="/virtueles_labor/sterilisationsautoklav/pruefung_der_wirksamkeit"
+        exact
+        component={pruefungWirksamkeit}
       />
     </Switch>
   );

@@ -283,7 +283,10 @@ function Pipetten(props) {
                           einhalten. So können Sie sicher und gefahrlos
                           arbeiten.
                         </p>
-                        <ul className="ul_no_padding">
+                        <ul
+                          className="ul_no_padding"
+                          style={{ lineHeight: 1.3 }}
+                        >
                           <li style={{ padding: "5px 0" }}>
                             Die Pipettenspitze nicht mit der Hand berühren.
                           </li>
@@ -297,13 +300,6 @@ function Pipetten(props) {
                           </li>
                         </ul>
                       </div>
-                    </div>
-
-                    <div
-                      style={{ position: "absolute", top: "0", right: "0" }}
-                      onClick={() => isDone()}
-                    >
-                      Reset
                     </div>
                   </div>
                 </Transition>

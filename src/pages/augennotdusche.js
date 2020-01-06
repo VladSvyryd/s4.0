@@ -402,13 +402,6 @@ function Augennotdusche(props) {
             >
               {setUpAniationFrames()}
             </Transition.Group>
-
-            <button
-              style={{ position: "fixed", right: "50%", top: "30px" }}
-              onClick={() => isDone()}
-            >
-              PUSH
-            </button>
           </div>
         )}
       </Grid>

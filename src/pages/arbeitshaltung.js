@@ -42,8 +42,8 @@ function Arbeitshaltung(props) {
     labels: [
       "Die Schutzhandschuhe sind aufgerollt. Sie sollten über die Bündchen des Arbeitskittels gezogen werden.",
       "Das Material der Schutzhandschuhe ist für Tätigkeiten mit biologischen Arbeitsmitteln nicht geeignet.",
-      "Nur die Hände dürfen in die Sicherheitswerkbank hineinreichen.",
-      "Der Arm darf die Luftschlitze in der Sicherheitswerkbank nicht verdecken."
+      "Der Arm darf die Luftschlitze in der Sicherheitswerkbank nicht verdecken.",
+      "Nur die Hände dürfen in die Sicherheitswerkbank hineinreichen."
     ],
     answerBitValue: 5 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
@@ -291,13 +291,6 @@ function Arbeitshaltung(props) {
                           Handschuhe über das Bündchen des Kittels ziehen.
                         </p>
                       </div>
-                    </div>
-
-                    <div
-                      style={{ position: "absolute", top: "0", right: "0" }}
-                      onClick={() => isDone()}
-                    >
-                      Reset
                     </div>
                   </div>
                 </Transition>

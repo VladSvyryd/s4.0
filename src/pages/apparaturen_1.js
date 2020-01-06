@@ -23,7 +23,7 @@ function Apparaturen_1(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+      tocState.currentExerciseByPath.pages[0]
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
 

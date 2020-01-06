@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, createRef } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Image, Popup } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -13,6 +13,7 @@ import i6 from "../assets/pics/12-sterilisationsauklav/mitarbeiter_true_active.j
 import i7 from "../assets/pics/12-sterilisationsauklav/richtig2.jpg";
 import i8 from "../assets/pics/12-sterilisationsauklav/mitarbeiter_all_true_active.jpg";
 import i10 from "../assets/pics/12-sterilisationsauklav/pers_schutz_all_true_active.jpg";
+import i11 from "../assets/pics/12-sterilisationsauklav/pruefung_der_wirksamkeit_active.jpg";
 
 import i9 from "../assets/pics/achtung.png";
 
@@ -32,7 +33,8 @@ function Sterilisationsautoklav(props) {
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen und beantworten Sie die Fragen zur sicheren Arbeit mit Sterilisationsautoklaven!",
     "Persönliche Schutzausrüstung",
-    "Technische Ausstattung und autoklaviertes Gut"
+    "Technische Ausstattung und autoklaviertes Gut",
+    "Prüfung der Wirksamkeit"
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
 
@@ -59,6 +61,10 @@ function Sterilisationsautoklav(props) {
   const style_technische_ausstattung_first_true = {
     left: "233px",
     top: "352px"
+  };
+  const style_pruefung_der_wirksamkeit = {
+    left: "309px",
+    top: "237px"
   };
   const introExercise = () => {
     return (
@@ -179,6 +185,26 @@ function Sterilisationsautoklav(props) {
                 />
               </div>
             )}
+            {exercise.pages[1].done && exercise.pages[0].done ? (
+              <Link
+                onMouseEnter={() => setCurrentInstruction(instructions[3])}
+                onMouseLeave={() => setCurrentInstruction(instructions[0])}
+                className="absolute hoverReveal pointer"
+                style={
+                  exercise.pages[2].done
+                    ? style_pruefung_der_wirksamkeit
+                    : style_pruefung_der_wirksamkeit
+                }
+                to={{
+                  pathname: `${pathname}/${exercise.pages[2].filename}`,
+                  state: {
+                    currentExercise: exercise.pages[2]
+                  }
+                }}
+              >
+                <Image src={i11} />
+              </Link>
+            ) : null}
           </div>
           <div className="centered">
             <div className="textIntro" style={{ width: "250px" }}>
@@ -186,19 +212,16 @@ function Sterilisationsautoklav(props) {
                 <Image src={i9} />
                 <div>
                   <p>
-                    <b>
-                      Ansicht <br /> Waschbecken und Garderobe
-                    </b>
+                    <b>Ansicht Sterilisationsautoklav</b>
                   </p>
                   <p>
-                    Durch kontaminierte Kleidungsstücke oder Geräte können
-                    biologische Arbeitsstoffe schnell verbreitet werden und
-                    möglicherweise zu Infektionen führen.
+                    Mithilfe des Sterilisationsautoklaven werden biologische
+                    Arbeitsstoffe an Arbeitsmitteln und Abfällen inaktiviert.
+                    Der Umgang mit dem Autoklaven birgt auch einige Gefahren!
                   </p>
                   <p>
-                    Die Hygieneregeln wie das Händewaschen oder das richtige
-                    Aufbewahren der persönlichen Schutzausrüstung sind deswegen
-                    wichtig!
+                    Was müssen Sie beachten, um Verletzungen oder Infektionen zu
+                    vermeiden?
                   </p>
                 </div>
               </div>

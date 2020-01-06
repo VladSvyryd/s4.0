@@ -19,3 +19,7 @@
 .my_node .gridList {
   padding: 0 0 5px 0;
 }
+
+.my_node .evaluation {
+  align-self: center;
+}

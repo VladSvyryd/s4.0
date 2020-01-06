@@ -305,7 +305,7 @@
         kuerzel: "A 6.1",
         template_file: "",
         kapitel: 1,
-        titel: "Abzug",
+        titel: "Apparaturen",
         filename: "funk_des_Abzuges",
         printfile: "",
         verweis_titel: "",

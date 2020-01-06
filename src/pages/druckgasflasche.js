@@ -256,12 +256,6 @@ function Druckgasflasche(props) {
                       </div>
                     </div>
                     <Image src={i3} centered style={{ marginTop: "20px" }} />
-                    <div
-                      style={{ margin: "20px 30px" }}
-                      onClick={() => isDone()}
-                    >
-                      Reset
-                    </div>
                   </div>
                 </Transition>
               </div>

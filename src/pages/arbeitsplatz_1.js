@@ -264,12 +264,6 @@ function Arbeitsplatz_1(props) {
                         </p>
                       </div>
                     </div>
-                    <div
-                      style={{ position: "absolute", top: "0", right: "0" }}
-                      onClick={() => isDone()}
-                    >
-                      Reset
-                    </div>
                   </div>
                 </Transition>
               </div>

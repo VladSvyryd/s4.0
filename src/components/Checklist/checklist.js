@@ -1,16 +1,22 @@
 import React, { useContext } from "react";
-import { Grid, Icon } from "semantic-ui-react";
+import { Grid, Icon, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Toc from "../Body/Toc/Toc";
 import { TocContext } from "../../util/TocProvider";
 import { PagesContext } from "../../util/PagesProvider";
 import i1 from "../../assets/pics/notizblock_leer.png";
+import c1 from "../../assets/pics/haken1.png";
+import c2 from "../../assets/pics/haken2.png";
+import c3 from "../../assets/pics/haken3.png";
+import c4 from "../../assets/pics/haken4.png";
+import c5 from "../../assets/pics/haken5.png";
+import c6 from "../../assets/pics/haken6.png";
 import "./ckecklist.css";
 
 function Checklist(props) {
   const [tocState, setTocState] = useContext(TocContext);
   const [tocPages] = useContext(PagesContext);
-
+  const haken = [c1, c2, c3, c4, c5, c6];
   // go back in Toc Menu = set new tocState
   const handlePrevMenu = () => {
     if (tocState.activeMenu > -1)
@@ -49,30 +55,40 @@ function Checklist(props) {
               <div className="my_title">{tocPages[menuIndex].titel}</div>
             )}
             <div className="gridList three">
-              <div className="evaluation"></div>
+              <div className="evaluation">
+                <Image
+                  src={haken[Math.floor(Math.random() * haken.length)]}
+                  hidden={!section.done}
+                />
+              </div>
               <div>{"-"} </div>
               <div>{section.titel}</div>
             </div>
           </Link>
         ) : (
-            // if node has only pages(solid), create node(one link refer to node) with pages
-            <Link
-              key={"linkSection" + i}
-              to={`/virtueles_labor/${tocPages[menuIndex].filename}`}
-              className="my_node_section"
-            >
-              <div className="my_title">{section.titel}</div>{" "}
-              {section.pages.map((p, i) => {
-                return (
-                  <div key={"linkList" + i} className="gridList three">
-                    <div className="evaluation"></div>
-                    <div>{"-"} </div>
-                    {p.titel}
+          // if node has only pages(solid), create node(one link refer to node) with pages
+          <Link
+            key={"linkSection" + i}
+            to={`/virtueles_labor/${tocPages[menuIndex].filename}`}
+            className="my_node_section"
+          >
+            <div className="my_title">{section.titel}</div>{" "}
+            {section.pages.map((p, i) => {
+              return (
+                <div key={"linkList" + i} className="gridList three">
+                  <div className="evaluation">
+                    <Image
+                      src={haken[Math.floor(Math.random() * haken.length)]}
+                      hidden={!p.done}
+                    />
                   </div>
-                );
-              })}
-            </Link>
-          );
+                  <div>{"-"} </div>
+                  {p.titel}
+                </div>
+              );
+            })}
+          </Link>
+        );
       })
     );
   }

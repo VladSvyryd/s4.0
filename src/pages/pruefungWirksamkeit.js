@@ -1,25 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { TocContext } from "../util/TocProvider";
-import {
-  Grid,
-  Checkbox,
-  Popup,
-  Button,
-  Image,
-  Transition
-} from "semantic-ui-react";
+import { Grid, Checkbox, Popup, Image, Transition } from "semantic-ui-react";
 import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/9-waschbecken/garderobe.jpg";
-import i2 from "../assets/pics/9-waschbecken/garderobe_richtig.jpg";
+import i1 from "../assets/pics/12-sterilisationsauklav/drinnen.jpg";
+import i2 from "../assets/pics/12-sterilisationsauklav/drinnen_richtig.jpg";
+import i3 from "../assets/pics/12-sterilisationsauklav/drinnen_indikatoren.jpg";
 import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
-import i3 from "../assets/pics/9-waschbecken/garderobe_richtig_personal.jpg";
 import markNodeDone from "../util/externalFunctions";
 import i_q from "../assets/pics/querverweis.png";
 
-function Waschbecken_garderobe_1(props) {
+function PruefungWirksamkeit(props) {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
   // load global state of tocPages
@@ -30,24 +23,22 @@ function Waschbecken_garderobe_1(props) {
     (props.location.state && props.location.state.currentExercise) ||
       tocState.currentExerciseByPath
   );
-  const [radioGroupState, setRadioGroupState] = useState({
-    r0: false,
-    r1: false,
-    r2: false
-  });
+  const [radioGroupState, setRadioGroupState] = useState(" ");
+
   const [animationTrigger, setAnimationTrigger] = useState(false);
   const [triggerWarning, setTrigger] = useState(false);
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [
-      "Wenn ich den Laborbereich der Schutzstufe 2 verlasse, muss ich meine Schutzkleidung ablegen.",
-      "Ich bewahre die persönliche Schutzausrüstung generell getrennt von der sonstigen Kleidung auf.",
-      "Die Schutzkleidung muss sich farblich von der für die Schutzstufe 1 unterscheiden."
+      "Nach jeder Sterilisation entnehme ich zunächst ein Referenzgefäß, um es auf Rückstände zu untersuchen.",
+      "Je nach den gegebenen Hygieneanforderungen füge ich dem Sterilisationsgut Bioindikatoren bei, die anzeigen, ob der Autoklaveninhalt erfolgreich sterilisiert wurde.",
+      "Überhaupt nicht. Ich verlasse mich auf den Stand der Technik.",
+      "Der Sterilisationsautoklav wird einmal im Jahr vollständig überprüft. Das reicht aus, um die Wirkung der Sterilisation zu gewährleisten."
     ],
-    answerBitValue: 3 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
+    answerIndex: 1 /// right answer index in array of questions
   };
   const instructions = [
-    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   // if exercise has been already done, go back
@@ -63,50 +54,58 @@ function Waschbecken_garderobe_1(props) {
     };
   }, []);
   // parse radioButtons from aufgabe object
-  // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
-      return (
+      return i !== aufgabe.answerIndex ? (
+        <Popup
+          key={`${radioButton}-${i}`}
+          className="warning"
+          trigger={
+            <Checkbox
+              label={radioButton}
+              value={i}
+              onChange={handleChange}
+              checked={radioGroupState === i}
+            />
+          }
+          offset="0, 25px"
+          position="left center"
+          open={radioGroupState === i}
+        >
+          <Popup.Header as="span" className="headerPop">
+            Dieser Antwort war leider falsch!
+          </Popup.Header>
+          <Popup.Content>
+            <Image src={i6} centered />
+          </Popup.Content>
+        </Popup>
+      ) : (
         <Checkbox
-          key={`radioButton-${i}`}
-          name={"r" + i}
+          key={`${radioButton}-${i}`}
           label={radioButton}
-          value={i > 0 ? i * 2 : 1}
+          value={i}
+          checked={radioGroupState === i}
           onChange={handleChange}
-          checked={radioGroupState[`r${i}`] === (i > 0 ? i * 2 : 1)}
         />
       );
     });
   };
 
-  // check if answerBitValue match bitValue of checkbox group ->
+  // handle change of radio button,
   //set state of exercise,
   //add click event to get back to other exercise
-  const handleSubmit = () => {
-    // get sum of objects values to get bitvalue of radio button group
-    let sum = Object.values(radioGroupState).reduce(
-      (accumulator, currentValue) => accumulator + currentValue
-    );
-    if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
+  const handleChange = (e, { value }) => {
+    if (value !== aufgabe.answerIndex) {
+      tryAgain(value);
+    } else {
       isDone();
+      setRadioGroupState(value);
       setAnimationTrigger(true);
       document
         .getElementById("panel")
         .addEventListener("mousedown", handleClickToReturnBack);
-    } else {
-      tryAgain();
     }
   };
-  // handle change of radio button,
-  const handleChange = (e, { name, value }) => {
-    if (!radioGroupState[name]) {
-      setRadioGroupState(old => ({ ...old, [name]: value }));
-    } else {
-      setRadioGroupState(old => ({ ...old, [name]: false }));
-    }
-    console.log(radioGroupState);
-  };
-
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
     document
@@ -117,28 +116,18 @@ function Waschbecken_garderobe_1(props) {
 
   // reset state of current exercise
   const resetAllAnswers = () => {
-    setRadioGroupState({ r0: false, r1: false, r2: false });
-    setTrigger(false);
+    setRadioGroupState("this");
     removeClick();
   };
   // set up current exercise state and set click event to reset radio button states
   const tryAgain = value => {
-    setTrigger(true);
+    setRadioGroupState(value);
     document.addEventListener("mousedown", resetAllAnswers);
   };
   // reset click event on document
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
-
-  // check if any of radiobuttons are checked
-  function checkRadioButtonsStatus() {
-    let sum = Object.values(radioGroupState).reduce(
-      (accumulator, currentValue) => accumulator + currentValue
-    );
-    return sum > 0 ? true : false;
-  }
-
   // if page refreshs go to Grundriss page
   const path = props.location.pathname.split("/");
   path.pop();
@@ -167,7 +156,7 @@ function Waschbecken_garderobe_1(props) {
       <div className="exerciseFrame">
         <Grid style={{ width: "100%" }}>
           <Grid.Row columns="2">
-            <Grid.Column width="8" className="relative">
+            <Grid.Column width="9" className="relative">
               <Image
                 src={i1}
                 className="absolute"
@@ -183,65 +172,42 @@ function Waschbecken_garderobe_1(props) {
                 <Image src={i2} />
               </Transition>
             </Grid.Column>
-            <Grid.Column width="8">
-              <div className="relative fullHeight">
+            <Grid.Column width="7">
+              <div
+                className="relative fullHeight"
+                style={{ paddingLeft: "15px" }}
+              >
                 <Transition
                   visible={my_exercise && !my_exercise.done}
                   animation="fade"
                   duration={animationTrigger ? 700 : 0}
                 >
-                  <div className="absolute" style={{ top: "11%" }}>
-                    <div className="gridList" style={{ width: "390px" }}>
+                  <div className="absolute" style={{ top: "11%", left: "-6%" }}>
+                    <div className="gridList" style={{ width: "380px" }}>
                       <h1 className="my_title small">
-                        Was müssen Sie beim Umgang mit Ihrer persönlichen
-                        Schutzausrüstung im Labor der Schutzstufe 2 beachten?
+                        Wie und wann überprüfen Sie, ob der Inhalt des
+                        Autoklaven sterilisiert wurde?
                       </h1>
                       <Image src={i4} />
                     </div>
-                    <p>Kreuzen Sie die richtigen Antworten an.</p>
-                    <Popup
-                      className="warning"
-                      hoverable={false}
-                      trigger={
-                        <div
-                          className="exerciseContainer"
-                          style={{ width: "390px" }}
-                        >
-                          {generateRadioButtons()}
-                          <Button
-                            disabled={!checkRadioButtonsStatus()}
-                            type="submit"
-                            compact
-                            style={{ margin: "20px 30px" }}
-                            onClick={() => handleSubmit()}
-                          >
-                            Auswertung
-                          </Button>
-                        </div>
-                      }
-                      offset="0, 25px"
-                      position="left center"
-                      open={triggerWarning}
+
+                    <div
+                      className="exerciseContainer"
+                      style={{ width: "360px", marginTop: "20px" }}
                     >
-                      <Popup.Header as="span" className="headerPop">
-                        Dieser Antwort war leider falsch!
-                      </Popup.Header>
-                      <Popup.Content>
-                        <Image src={i6} centered />
-                      </Popup.Content>
-                    </Popup>
+                      {generateRadioButtons()}
+                    </div>
                     <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        der Technischen Regel Kapitel {"  "}
+                        Kapitel{" "}
                         <a
                           target="_blank"
-                          href="../../dokumente/vorschriften/trba_100.pdf"
+                          href="../../fachinformation-responsiv/kapc/sterilisationsautoklaven.htm"
                           className="externalLink"
                         >
                           <span className="linkContent">
-                            <Image src={i_q} />
-                            TRBA 100
+                            <Image src={i_q} />C 7.3.3 Sterilisationsautoklaven
                           </span>
                         </a>
                       </p>
@@ -256,27 +222,42 @@ function Waschbecken_garderobe_1(props) {
                   animation="fade"
                   duration={animationTrigger ? 700 : 0}
                 >
-                  <div className="absolute " style={{ top: "13%" }}>
+                  <div className="absolute " style={{ top: "5%", left: "-6%" }}>
+                    <div>
+                      <Image src={i3} centered />
+                      <div className="gridList" style={{ marginLeft: "80px" }}>
+                        <div style={{ width: "150px" }}>
+                          <b>gelber Farbumschlag</b>: <br />
+                          ungenügende Inaktivie&shy;rung der Keime
+                        </div>
+                        <div style={{ width: "150px" }}>
+                          <b>kein Farbumschlag</b>: <br /> erfolgreiche
+                          Inaktivie&shy;rung der Keime
+                        </div>
+                      </div>
+                    </div>
                     <div
                       className=" gridList "
-                      style={{ width: "390px", columnGap: "30px" }}
+                      style={{
+                        width: "390px",
+                        marginTop: "20px",
+                        columnGap: "30px"
+                      }}
                     >
                       <Image src={i5} />
                       <div>
-                        <span className="my_title small">Sehr gut!</span>
+                        <span className="my_title small">Richtig!</span>
                         <p style={{ marginTop: "5px" }}>
-                          Sie verhalten sich richtig, wenn Sie die persönliche
-                          Schutzausrüstung getrennt von der sonstigen Kleidung
-                          aufbewahren und die Arbeitskleidung vor dem Verlassen
-                          des Labors der Schutzstufe 2 ablegen.
+                          Bioindikatoren zeigen an, ob der Autoklaveninhalt
+                          erfolgreich sterilisiert wurde.
+                        </p>
+                        <p>
+                          Sie werden bei Bedarf, d.h. wenn die
+                          Hygieneanforderungen es erfordern, regelmäßig
+                          eingesetzt.
                         </p>
                       </div>
                     </div>
-                    <Image
-                      src={i3}
-                      centered
-                      style={{ marginTop: "24px", marginLeft: "28px" }}
-                    />
                   </div>
                 </Transition>
               </div>
@@ -295,4 +276,4 @@ function Waschbecken_garderobe_1(props) {
   );
 }
 
-export default withRouter(Waschbecken_garderobe_1);
+export default withRouter(PruefungWirksamkeit);

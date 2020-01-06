@@ -62,7 +62,7 @@ function Apparaturen(props) {
               to={{
                 pathname: `${pathname}/${exercise.pages[0].filename}`,
                 state: {
-                  currentExercise: exercise.pages[0]
+                  currentExercise: exercise.pages[0].pages[0]
                 }
               }}
             >

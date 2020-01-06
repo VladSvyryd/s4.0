@@ -23,7 +23,7 @@ function Untweisungen(props) {
   // state to manage exercise object state
   const [exercise, setExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocPages[tocState.activeMenu].pages[1]
+      tocPages[tocState.activeMenu].pages[1]
   );
   const pathname = props.location.pathname;
   const instructions = [
@@ -36,7 +36,7 @@ function Untweisungen(props) {
   // set animation to false, so go back won't activate animations
   useEffect(() => {
     localStorage.setItem("stopAllAnimations", true);
-  }, [])
+  }, []);
   const introExercise = () => {
     return (
       <>
