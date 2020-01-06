@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -30,13 +30,13 @@ function Sicherheitsschrank(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+    tocState.currentExerciseByPath
   );
   const [sibling_exercise] = useState(
     (props.location.state && props.location.state.siblingExercise) ||
-      tocPages[3].pages[0]
+    tocPages[3].pages[0]
   );
-  console.log(my_exercise);
+
   const [activeActualExercise, setActiveActualExercise] = useState(null);
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -51,7 +51,13 @@ function Sicherheitsschrank(props) {
     ],
     answerIndex: 2
   };
+  // if exercise has been already done, go back
+  useEffect(() => {
 
+    return () => {
+      document.removeEventListener("mousedown", handleClickToReturnBack);
+    }
+  }, [])
   // instructions for pictures
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
@@ -196,6 +202,8 @@ function Sicherheitsschrank(props) {
   }
 
   const actualExercise = () => {
+    if (my_exercise.done)
+      document.addEventListener("mousedown", handleClickToReturnBack);
     return (
       <>
         <div className="exerciseFrame">
@@ -217,19 +225,19 @@ function Sicherheitsschrank(props) {
                     />
                   </>
                 ) : (
-                  <>
-                    <Image
-                      src={i1}
-                      className="absolute"
-                      style={{ top: "0", left: "14px" }}
-                    />
-                    <Image
-                      src={i7}
-                      className="absolute"
-                      style={{ top: "174px", left: "226px" }}
-                    />
-                  </>
-                )}
+                    <>
+                      <Image
+                        src={i1}
+                        className="absolute"
+                        style={{ top: "0", left: "14px" }}
+                      />
+                      <Image
+                        src={i7}
+                        className="absolute"
+                        style={{ top: "174px", left: "226px" }}
+                      />
+                    </>
+                  )}
                 <Transition
                   visible={
                     animationTrigger || (my_exercise && my_exercise.done)
@@ -381,8 +389,8 @@ function Sicherheitsschrank(props) {
                     style={{ top: "0", left: "14px" }}
                   />
                 ) : (
-                  <Image src={i1} />
-                )}
+                    <Image src={i1} />
+                  )}
                 <div
                   className="absolute hoverReveal pointer"
                   style={{
@@ -406,16 +414,16 @@ function Sicherheitsschrank(props) {
                       }
                     />
                   ) : (
-                    <Image
-                      src={i7}
-                      onMouseEnter={() =>
-                        setCurrentInstruction(instructions[1])
-                      }
-                      onMouseLeave={() =>
-                        setCurrentInstruction(instructions[0])
-                      }
-                    />
-                  )}
+                      <Image
+                        src={i7}
+                        onMouseEnter={() =>
+                          setCurrentInstruction(instructions[1])
+                        }
+                        onMouseLeave={() =>
+                          setCurrentInstruction(instructions[0])
+                        }
+                      />
+                    )}
                 </div>
                 {sibling_exercise && sibling_exercise.done && (
                   <div
@@ -433,7 +441,7 @@ function Sicherheitsschrank(props) {
                         <div
                           className={`ui popup  right center  warning absolute ${
                             OpenWarning ? "visible" : null
-                          }`}
+                            }`}
                           style={{ minWidth: "252px", left: "100%" }}
                         >
                           <Popup.Header as="span" className="headerPop">

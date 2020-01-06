@@ -1,4 +1,4 @@
-import React, { useContext, useState, createRef, contextRef } from "react";
+import React, { useContext, useState, createRef, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Grid, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -69,7 +69,14 @@ function Eingang_bio_Labor(props) {
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document.addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document.removeEventListener("mousedown", handleClickToReturnBack);
+    }
+  }, [])
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
   function isDone() {

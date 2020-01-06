@@ -21,7 +21,7 @@ function Augennotdusche(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+    tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -34,6 +34,14 @@ function Augennotdusche(props) {
     ],
     answerIndex: 2
   };
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document.addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document.removeEventListener("mousedown", handleClickToReturnBack);
+    }
+  }, [])
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -61,14 +69,14 @@ function Augennotdusche(props) {
           </Popup.Content>
         </Popup>
       ) : (
-        <Checkbox
-          key={`${radioButton}-${i}`}
-          label={radioButton}
-          value={i}
-          checked={radioGroupState === i}
-          onChange={handleChange}
-        />
-      );
+          <Checkbox
+            key={`${radioButton}-${i}`}
+            label={radioButton}
+            value={i}
+            checked={radioGroupState === i}
+            onChange={handleChange}
+          />
+        );
     });
   };
   // handle change of radio button,

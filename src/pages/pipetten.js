@@ -1,4 +1,4 @@
-import React, { useContext, useState, createRef } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { TocContext } from "../util/TocProvider";
 import {
@@ -26,7 +26,7 @@ function Pipetten(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+    tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
@@ -46,7 +46,6 @@ function Pipetten(props) {
     ],
     answerBitValue: 5 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
-  let contextRef = createRef(); // reference to instructions field
   const instructions = [
     "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
@@ -124,12 +123,14 @@ function Pipetten(props) {
     );
     return sum > 0 ? true : false;
   }
-
-  // if page refreshs go to Grundriss page
-  //const path = props.location.pathname.split("/");
-  //path.pop();
-  //const r = path.join("/");
-  //if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document.addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document.removeEventListener("mousedown", handleClickToReturnBack);
+    }
+  }, [])
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage

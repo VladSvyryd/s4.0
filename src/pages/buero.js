@@ -137,7 +137,32 @@ function Buero(props) {
   };
   console.log(currentInstruction);
   useEffect(() => {
-    startSequence();
+    let stopAllAnimations = JSON.parse(localStorage.getItem("stopAllAnimations")) || false
+    if (stopAllAnimations) {
+      changeOnScreen([{
+        id: 2,
+        div: (
+          <div
+            key="1"
+            style={{
+              position: "absolute",
+              top: "0px",
+              left: "0px",
+              width: "100%",
+              height: "100%",
+              backgroundColor: "white"
+            }}
+          >
+            <div className="exerciseFrame">{main_section()}</div>
+          </div>
+        )
+      }])
+    } else {
+      startSequence();
+    }
+    return () => {
+      localStorage.setItem("stopAllAnimations", false);
+    }
   }, []);
   function main_section() {
     return (
@@ -217,9 +242,9 @@ function Buero(props) {
               overflow: "hidden"
             }}
             to={{
-              pathname: `${pathname}/${exercise.pages[0].filename}`,
+              pathname: `${pathname}/${exercise.pages[0].pages[0].filename}`,
               state: {
-                currentExercise: exercise.pages[0]
+                currentExercise: exercise.pages[0].pages[0]
               }
             }}
           >

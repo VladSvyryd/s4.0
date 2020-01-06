@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { TocContext } from "../util/TocProvider";
 import { Grid, Checkbox, Popup, Image, Transition } from "semantic-ui-react";
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/6-apparaturen/hebebühne_schema.jpg";
-import i2 from "../assets/pics/10-arbeitsplatz/fenster_zu.jpg";
+
 import i3 from "../assets/pics/6-apparaturen/hebebühne_antwort1.jpg";
 import i7 from "../assets/pics/6-apparaturen/hebebühne_antwort2.jpg";
 
@@ -22,7 +22,7 @@ function Hebebuehne(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+    tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
 
@@ -37,6 +37,14 @@ function Hebebuehne(props) {
     "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document.addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document.removeEventListener("mousedown", handleClickToReturnBack);
+    }
+  }, [])
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -64,14 +72,14 @@ function Hebebuehne(props) {
           </Popup.Content>
         </Popup>
       ) : (
-        <Checkbox
-          key={`${radioButton}-${i}`}
-          label={radioButton}
-          value={i}
-          checked={radioGroupState === i}
-          onChange={handleChange}
-        />
-      );
+          <Checkbox
+            key={`${radioButton}-${i}`}
+            label={radioButton}
+            value={i}
+            checked={radioGroupState === i}
+            onChange={handleChange}
+          />
+        );
     });
   };
 

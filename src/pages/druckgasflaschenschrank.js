@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, createRef } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Image, Popup } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -32,11 +32,7 @@ function Druckgasflaschenschrank(props) {
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
 
-  // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  //useEffect(() => {
-  //  tocPages[tocState.activeMenu] = exercise;
-  //  localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  //}, [exercise]);
+
 
   const style_as_done = {
     left: "181px",

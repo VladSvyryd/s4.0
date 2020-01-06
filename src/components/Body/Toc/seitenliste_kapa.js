@@ -14,12 +14,12 @@
     pages: [
       {
         id: 860,
-        type: 1,
+        type: 0,
         kuerzel: "A 1.1",
         template_file: "",
         kapitel: 1,
         titel: "Büro",
-        filename: "prueffristen",
+        filename: "buero-prueffristen",
         printfile: "",
         verweis_titel: "Physikalisch-technische Grundlagen - Einleitung",
         mediaquery: 0,
@@ -301,7 +301,7 @@
     pages: [
       {
         id: 882,
-        type: 1,
+        type: 0,
         kuerzel: "A 6.1",
         template_file: "",
         kapitel: 1,
@@ -330,7 +330,7 @@
 
       {
         id: 884,
-        type: 1,
+        type: 0,
         kuerzel: "A 6.2",
         template_file: "",
         kapitel: 1,

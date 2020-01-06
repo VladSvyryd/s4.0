@@ -46,6 +46,13 @@ import untweisungen from "../../../pages/untweisungen";
 import durchfuehrungen from "../../../pages/durchfuehrungen";
 import beansprungungsarten from "../../../pages/beansprungungsarten";
 import prueffristen from "../../../pages/prueffristen";
+import mitarbeiter from "../../../pages/mitarbeiter";
+import essen_und_trinken from "../../../pages/essen_und_trinken";
+import rauchen from "../../../pages/rauchen";
+import laborbrille from "../../../pages/laborbrille";
+import laborkittel from "../../../pages/laborkittel";
+import aermel_des_Labor from "../../../pages/aermel_des_Labor";
+import schuhe from "../../../pages/schuhe";
 
 // Dashboard
 // Placeholder for all internal links used in Programm
@@ -193,6 +200,41 @@ const Dashboard = props => {
         path="/virtueles_labor/apparaturen/versuch_im_Abzug/schlauchsicherung"
         exact
         component={schlauchsicherung}
+      />
+      <Route
+        path="/virtueles_labor/mitarbeiter"
+        exact
+        component={mitarbeiter}
+      />
+      <Route
+        path="/virtueles_labor/mitarbeiter/essen_und_trinken"
+        exact
+        component={essen_und_trinken}
+      />
+      <Route
+        path="/virtueles_labor/mitarbeiter/rauchen"
+        exact
+        component={rauchen}
+      />
+      <Route
+        path="/virtueles_labor/mitarbeiter/laborbrille"
+        exact
+        component={laborbrille}
+      />
+      <Route
+        path="/virtueles_labor/mitarbeiter/laborkittel"
+        exact
+        component={laborkittel}
+      />
+      <Route
+        path="/virtueles_labor/mitarbeiter/aermel_des_Labor"
+        exact
+        component={aermel_des_Labor}
+      />
+      <Route
+        path="/virtueles_labor/mitarbeiter/schuhe"
+        exact
+        component={schuhe}
       />
 
       <Route

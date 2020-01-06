@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -23,7 +23,7 @@ function Untweisungen(props) {
   // state to manage exercise object state
   const [exercise, setExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocPages[tocState.activeMenu].pages[1]
+    tocPages[tocState.activeMenu].pages[1]
   );
   const pathname = props.location.pathname;
   const instructions = [
@@ -33,12 +33,10 @@ function Untweisungen(props) {
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
 
-  // function to change state of current exercise and trigger useEffect function to save it in local storage
-  // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  //useEffect(() => {
-  //tocPages[tocState.activeMenu] = exercise;
-  //localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  //}, [exercise]);
+  // set animation to false, so go back won't activate animations
+  useEffect(() => {
+    localStorage.setItem("stopAllAnimations", true);
+  }, [])
   const introExercise = () => {
     return (
       <>

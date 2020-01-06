@@ -55,24 +55,24 @@ function Checklist(props) {
             </div>
           </Link>
         ) : (
-          // if node has only pages(solid), create node(one link refer to node) with pages
-          <Link
-            key={"linkSection" + i}
-            to={`/virtueles_labor/${section.filename}`}
-            className="my_node_section"
-          >
-            <div className="my_title">{section.titel}</div>{" "}
-            {section.pages.map((p, i) => {
-              return (
-                <div key={"linkList" + i} className="gridList three">
-                  <div className="evaluation"></div>
-                  <div>{"-"} </div>
-                  {p.titel}
-                </div>
-              );
-            })}
-          </Link>
-        );
+            // if node has only pages(solid), create node(one link refer to node) with pages
+            <Link
+              key={"linkSection" + i}
+              to={`/virtueles_labor/${tocPages[menuIndex].filename}`}
+              className="my_node_section"
+            >
+              <div className="my_title">{section.titel}</div>{" "}
+              {section.pages.map((p, i) => {
+                return (
+                  <div key={"linkList" + i} className="gridList three">
+                    <div className="evaluation"></div>
+                    <div>{"-"} </div>
+                    {p.titel}
+                  </div>
+                );
+              })}
+            </Link>
+          );
       })
     );
   }

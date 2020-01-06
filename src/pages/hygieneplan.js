@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Grid, Image, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -26,7 +26,7 @@ function Hygieneplan(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+    tocState.currentExerciseByPath
   );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDropBox, setFeedbackFromDropBox] = useState(0);
@@ -40,7 +40,14 @@ function Hygieneplan(props) {
   const [currentInstruction, setCurrentInstruction] = useState(
     my_exercise && my_exercise.done ? instructions[2] : instructions[1]
   );
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document.addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document.removeEventListener("mousedown", handleClickToReturnBack);
+    }
+  }, [])
   // handle change of exerciseCurrentState,
   //set state of exercise,
   //add click event to get back to other exercise

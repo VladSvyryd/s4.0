@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Grid, Image, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -24,12 +24,12 @@ function Prueffristen(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+    tocState.currentExerciseByPath
   );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDropBox, setFeedbackFromDropBox] = useState(0);
   const [animationTrigger, setAnimationTrigger] = useState(false);
-
+  console.log(my_exercise)
   const instructions = [
     "Diese Zuordnung war falsch!",
     "Ordnen Sie die Laborgeräte den empfohlenen Prüffristen zu, indem Sie die Begriffe in die jeweilige Spalte ziehen.",
@@ -38,7 +38,16 @@ function Prueffristen(props) {
   const [currentInstruction, setCurrentInstruction] = useState(
     my_exercise && my_exercise.done ? instructions[2] : instructions[1]
   );
+  // if exercise has been already done, go back
+  useEffect(() => {
+    localStorage.setItem("stopAllAnimations", true);
+    if (my_exercise.done)
+      document.addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document.removeEventListener("mousedown", handleClickToReturnBack);
+    }
 
+  }, [])
   // handle change of exerciseCurrentState,
   //set state of exercise,
   //add click event to get back to other exercise

@@ -1,4 +1,4 @@
-import React, { useContext, useState, createRef, contextRef } from "react";
+import React, { useContext, useState, createRef, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Grid, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -31,7 +31,7 @@ function Rundkolben(props) {
   // recieved exercise  only in this case as static object from array of exercises
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+    tocState.currentExerciseByPath
   );
   console.log(my_exercise);
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
@@ -44,7 +44,14 @@ function Rundkolben(props) {
   ];
   // refference fro warning popoup
   const contextRef = createRef();
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document.addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document.removeEventListener("mousedown", handleClickToReturnBack);
+    }
+  }, [])
   // handle change of exerciseCurrentState,
   //set state of exercise,
   //add click event to get back to other exercise

@@ -1,4 +1,4 @@
-import React, { useContext, useState, createRef } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -20,7 +20,7 @@ function Schlauchsicherung(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-      tocState.currentExerciseByPath
+    tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -34,12 +34,19 @@ function Schlauchsicherung(props) {
     ],
     answerIndex: 2
   };
-  let contextRef = createRef(); // reference to instructions field
+
   const instructions = [
     "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document.addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document.removeEventListener("mousedown", handleClickToReturnBack);
+    }
+  }, [])
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -67,14 +74,14 @@ function Schlauchsicherung(props) {
           </Popup.Content>
         </Popup>
       ) : (
-        <Checkbox
-          key={`${radioButton}-${i}`}
-          label={radioButton}
-          value={i}
-          checked={radioGroupState === i}
-          onChange={handleChange}
-        />
-      );
+          <Checkbox
+            key={`${radioButton}-${i}`}
+            label={radioButton}
+            value={i}
+            checked={radioGroupState === i}
+            onChange={handleChange}
+          />
+        );
     });
   };
   // handle change of radio button,
