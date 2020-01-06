@@ -16,6 +16,7 @@ import i11 from "../assets/pics/6-apparaturen/rundkolben_antwort2.jpg";
 import DropBox from "../components/DropBox";
 import markNodeDone from "../util/externalFunctions";
 import DraggableItem from "../components/DraggableItem";
+import i_q from "../assets/pics/querverweis.png";
 
 // to create drag and drop component used external library  react-drag-drop-container
 // https://github.com/peterh32/react-drag-drop-container <---- this is github page with instructions
@@ -31,7 +32,7 @@ function Rundkolben(props) {
   // recieved exercise  only in this case as static object from array of exercises
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   console.log(my_exercise);
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
@@ -47,22 +48,30 @@ function Rundkolben(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // handle change of exerciseCurrentState,
   //set state of exercise,
   //add click event to get back to other exercise
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document.addEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -219,12 +228,21 @@ function Rundkolben(props) {
                     <div
                       style={{
                         marginTop: "20px",
-                        width: "300px"
+                        width: "270px"
                       }}
                     >
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapc/evakuieren_glasgeraete.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />C 4.3 Evakuieren von Glasgeräten
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -255,12 +273,6 @@ function Rundkolben(props) {
                         <p style={{ marginTop: "5px" }}>
                           Rundkolben sind zum Evakuieren geeignet.
                         </p>
-                        <button
-                          onClick={() => isDone()}
-                          style={{ background: "red" }}
-                        >
-                          RESET
-                        </button>
                       </div>
                     </div>
                   </div>

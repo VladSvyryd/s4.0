@@ -17,6 +17,7 @@ import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import i3 from "../assets/pics/5-druckgasflaschenschrank/finish_1.jpg";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 function Druckgasflasche(props) {
   // state to go through active page
@@ -27,7 +28,7 @@ function Druckgasflasche(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
@@ -51,13 +52,16 @@ function Druckgasflasche(props) {
   ];
   // if exercise has been already done, go back
   useEffect(() => {
-
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -83,7 +87,9 @@ function Druckgasflasche(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       setTrigger(true);
     }
@@ -99,7 +105,9 @@ function Druckgasflasche(props) {
 
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -205,10 +213,20 @@ function Druckgasflasche(props) {
                         <Image src={i6} centered />
                       </Popup.Content>
                     </Popup>
-                    <div style={{ marginTop: "20px", width: "330px" }}>
+                    <div style={{ marginTop: "20px", width: "270px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapc/allgemeines_druck_aufstellen.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />C 6.2.1 Druckgasflaschen
+                            aufstellen
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -221,7 +239,7 @@ function Druckgasflasche(props) {
                   animation="fade"
                   duration={animationTrigger ? 700 : 0}
                 >
-                  <div className="absolute " style={{ top: "13%" }}>
+                  <div className="absolute " style={{ top: "13%", left: "4%" }}>
                     <div
                       className=" gridList "
                       style={{ width: "270px", columnGap: "30px" }}
@@ -247,9 +265,6 @@ function Druckgasflasche(props) {
                   </div>
                 </Transition>
               </div>
-              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                RESET
-              </button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

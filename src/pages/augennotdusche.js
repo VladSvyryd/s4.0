@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useReducer } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
@@ -11,6 +11,7 @@ import i5 from "../assets/pics/2-chemielaboreingang/monteur_comes.png";
 import i7 from "../assets/pics/2-chemielaboreingang/monteur.png";
 import i8 from "../assets/pics/achtung_gruen.png";
 import i6 from "../assets/pics/2-chemielaboreingang/ventil_bild_richtig.jpg";
+import i_q from "../assets/pics/querverweis.png";
 
 function Augennotdusche(props) {
   // state to go through active page
@@ -21,7 +22,7 @@ function Augennotdusche(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -37,11 +38,15 @@ function Augennotdusche(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -69,14 +74,14 @@ function Augennotdusche(props) {
           </Popup.Content>
         </Popup>
       ) : (
-          <Checkbox
-            key={`${radioButton}-${i}`}
-            label={radioButton}
-            value={i}
-            checked={radioGroupState === i}
-            onChange={handleChange}
-          />
-        );
+        <Checkbox
+          key={`${radioButton}-${i}`}
+          label={radioButton}
+          value={i}
+          checked={radioGroupState === i}
+          onChange={handleChange}
+        />
+      );
     });
   };
   // handle change of radio button,
@@ -90,12 +95,16 @@ function Augennotdusche(props) {
       setRadioGroupState(value);
       setAnimationTrigger(true);
       startSequence();
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -358,8 +367,16 @@ function Augennotdusche(props) {
             >
               <p>
                 Weitere Informationen zu dieser Frage erhalten Sie im Kapitel
-                <br />
-                LINKKKKK
+                {"  "}
+                <a
+                  target="_blank"
+                  href="../../fachinformation-responsiv/kapb/koerpernotduschen.htm"
+                  className="externalLink"
+                >
+                  <span className="linkContent">
+                    <Image src={i_q} />B 4.6.2 Körpernotduschen
+                  </span>
+                </a>
               </p>
             </div>
           </Grid.Column>

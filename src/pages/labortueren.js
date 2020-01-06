@@ -9,6 +9,7 @@ import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 function Labortueren(props) {
   // state to go through active page
@@ -108,15 +109,11 @@ function Labortueren(props) {
   // set up current exercise state and set click event to reset radio button states
   const tryAgain = value => {
     setRadioGroupState(value);
-    document
-      .getElementById("panel")
-      .addEventListener("mousedown", resetAllAnswers);
+    document.addEventListener("mousedown", resetAllAnswers);
   };
   // reset click event on document
   const removeClick = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", resetAllAnswers);
+    document.removeEventListener("mousedown", resetAllAnswers);
   };
   // if page refreshs go to Grundriss page
   //const path = props.location.pathname.split("/");
@@ -199,9 +196,18 @@ function Labortueren(props) {
                         eigenen Sicherheit bestimmte bauliche Maßnahmen bei der
                         Einrichtung eines Laborraums vor.
                       </p>
-                      <p>
+                      <p style={{ width: "270px" }}>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapb/raumgestaltung.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />B 6.2 Raumgestaltung
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -231,9 +237,6 @@ function Labortueren(props) {
                   </div>
                 </Transition>
               </div>
-              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                RESET
-              </button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

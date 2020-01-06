@@ -130,39 +130,40 @@ function Buero(props) {
   };
   const handleHoverLeave = e => {
     setCurrentInstruction(instructions[0]);
-    console.log(e.target);
     if (e.target.parentNode.style.overflow === "visible") {
       e.target.parentNode.style.overflow = "hidden";
     }
   };
-  console.log(currentInstruction);
   useEffect(() => {
-    let stopAllAnimations = JSON.parse(localStorage.getItem("stopAllAnimations")) || false
+    let stopAllAnimations =
+      JSON.parse(localStorage.getItem("stopAllAnimations")) || false;
     if (stopAllAnimations) {
-      changeOnScreen([{
-        id: 2,
-        div: (
-          <div
-            key="1"
-            style={{
-              position: "absolute",
-              top: "0px",
-              left: "0px",
-              width: "100%",
-              height: "100%",
-              backgroundColor: "white"
-            }}
-          >
-            <div className="exerciseFrame">{main_section()}</div>
-          </div>
-        )
-      }])
+      changeOnScreen([
+        {
+          id: 2,
+          div: (
+            <div
+              key="1"
+              style={{
+                position: "absolute",
+                top: "0px",
+                left: "0px",
+                width: "100%",
+                height: "100%",
+                backgroundColor: "white"
+              }}
+            >
+              <div className="exerciseFrame">{main_section()}</div>
+            </div>
+          )
+        }
+      ]);
     } else {
       startSequence();
     }
     return () => {
       localStorage.setItem("stopAllAnimations", false);
-    }
+    };
   }, []);
   function main_section() {
     return (

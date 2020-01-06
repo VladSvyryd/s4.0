@@ -16,6 +16,7 @@ import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 function Arbeitsplatz_1(props) {
   // state to go through active page
@@ -26,7 +27,7 @@ function Arbeitsplatz_1(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
 
@@ -43,17 +44,21 @@ function Arbeitsplatz_1(props) {
     answerIndex: 1 /// right answer index in array of questions
   };
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -81,14 +86,14 @@ function Arbeitsplatz_1(props) {
           </Popup.Content>
         </Popup>
       ) : (
-          <Checkbox
-            key={`${radioButton}-${i}`}
-            label={radioButton}
-            value={i}
-            checked={radioGroupState === i}
-            onChange={handleChange}
-          />
-        );
+        <Checkbox
+          key={`${radioButton}-${i}`}
+          label={radioButton}
+          value={i}
+          checked={radioGroupState === i}
+          onChange={handleChange}
+        />
+      );
     });
   };
 
@@ -102,12 +107,16 @@ function Arbeitsplatz_1(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -180,7 +189,7 @@ function Arbeitsplatz_1(props) {
                   duration={animationTrigger ? 700 : 0}
                 >
                   <div className="absolute" style={{ top: "11%" }}>
-                    <div className="gridList" style={{ width: "390px" }}>
+                    <div className="gridList" style={{ width: "380px" }}>
                       <h1 className="my_title small">
                         Dürfen Sie in einem Labor der Schutzstufe 2 die Fenster
                         öffnen?
@@ -199,7 +208,28 @@ function Arbeitsplatz_1(props) {
                     <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
                         Hier erhalten Sie weitere Informationen zur Frage:
-                        ÄNDERN!!!!
+                        {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapc/mikro_grundregeln.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />C 2.9 Mikrobiologische
+                            Grundregeln
+                          </span>
+                        </a>
+                        <br />
+                        <a
+                          target="_blank"
+                          href="../../dokumente/vorschriften/trba_100.pdf"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />
+                            TRBA 100
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -243,9 +273,6 @@ function Arbeitsplatz_1(props) {
                   </div>
                 </Transition>
               </div>
-              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                RESET
-              </button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

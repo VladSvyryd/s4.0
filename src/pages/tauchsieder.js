@@ -10,6 +10,7 @@ import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 function Tauchsieder(props) {
   // state to go through active page
@@ -20,7 +21,7 @@ function Tauchsieder(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
 
@@ -41,11 +42,15 @@ function Tauchsieder(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -73,14 +78,14 @@ function Tauchsieder(props) {
           </Popup.Content>
         </Popup>
       ) : (
-          <Checkbox
-            key={`${radioButton}-${i}`}
-            label={radioButton}
-            value={i}
-            checked={radioGroupState === i}
-            onChange={handleChange}
-          />
-        );
+        <Checkbox
+          key={`${radioButton}-${i}`}
+          label={radioButton}
+          value={i}
+          checked={radioGroupState === i}
+          onChange={handleChange}
+        />
+      );
     });
   };
 
@@ -94,12 +99,16 @@ function Tauchsieder(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -196,10 +205,19 @@ function Tauchsieder(props) {
                     >
                       {generateRadioButtons()}
                     </div>
-                    <div style={{ marginTop: "20px", width: "330px" }}>
+                    <div style={{ marginTop: "20px", width: "270px" }}>
                       <p>
                         Weitere Informationen zur dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapb/betrieb_von_elektrogeraeten.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />B 11.4 Betrieb von Elektrogeräten
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -235,9 +253,6 @@ function Tauchsieder(props) {
                   </div>
                 </Transition>
               </div>
-              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                RESET
-              </button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

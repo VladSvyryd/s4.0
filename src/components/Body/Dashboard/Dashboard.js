@@ -96,12 +96,12 @@ const Dashboard = props => {
         component={labortueren}
       />
       <Route
-        path="/virtueles_labor/eingang_chem_labor/augennotdusche"
+        path="/virtueles_labor/eingang_chem_labor/koerpernotdusche"
         exact
         component={augennotdusche}
       />
       <Route
-        path="/virtueles_labor/eingang_chem_labor/koerpernotdusche"
+        path="/virtueles_labor/eingang_chem_labor/augennotdusche"
         exact
         component={koerpernotdusche}
       />

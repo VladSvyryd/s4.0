@@ -15,6 +15,7 @@ import i2 from "../assets/pics/1_buero/unterweisung_loesung.jpg";
 import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
+import i_q from "../assets/pics/querverweis.png";
 import markNodeDone from "../util/externalFunctions";
 
 function Durchfuehrungen(props) {
@@ -26,7 +27,7 @@ function Durchfuehrungen(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
@@ -51,11 +52,15 @@ function Durchfuehrungen(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -81,7 +86,9 @@ function Durchfuehrungen(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       setTrigger(true);
     }
@@ -103,7 +110,9 @@ function Durchfuehrungen(props) {
   }
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -218,10 +227,19 @@ function Durchfuehrungen(props) {
                         <Image src={i3} centered />
                       </Popup.Content>
                     </Popup>
-                    <div style={{ marginTop: "20px", width: "330px" }}>
+                    <div style={{ marginTop: "0px", width: "270px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel{" "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapb/unterweisung.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />B 1.3.2 Unterweisungen
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -258,9 +276,6 @@ function Durchfuehrungen(props) {
                   </div>
                 </Transition>
               </div>
-              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                RESET
-              </button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

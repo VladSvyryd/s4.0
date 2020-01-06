@@ -8,6 +8,7 @@ import i5 from "../assets/pics/achtung_gruen.png";
 import DropBox from "../components/DropBox";
 import DraggableItem from "../components/DraggableItem";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 // to create drag and drop component used external library  react-drag-drop-container
 // https://github.com/peterh32/react-drag-drop-container <---- this is github page with instructions
@@ -24,12 +25,12 @@ function Prueffristen(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDropBox, setFeedbackFromDropBox] = useState(0);
   const [animationTrigger, setAnimationTrigger] = useState(false);
-  console.log(my_exercise)
+  console.log(my_exercise);
   const instructions = [
     "Diese Zuordnung war falsch!",
     "Ordnen Sie die Laborgeräte den empfohlenen Prüffristen zu, indem Sie die Begriffe in die jeweilige Spalte ziehen.",
@@ -42,23 +43,30 @@ function Prueffristen(props) {
   useEffect(() => {
     localStorage.setItem("stopAllAnimations", true);
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // handle change of exerciseCurrentState,
   //set state of exercise,
   //add click event to get back to other exercise
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document.addEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -234,13 +242,6 @@ function Prueffristen(props) {
                         einwandfreie Funktion überprüft.
                       </p>
                     </div>
-                    <button
-                      onClick={() => isDone()}
-                      className="absolute"
-                      style={{ top: "10%", left: "9%" }}
-                    >
-                      RESET
-                    </button>
                   </div>
                   <div
                     className="relative"
@@ -349,7 +350,16 @@ function Prueffristen(props) {
               >
                 <p>
                   Weitere Informationen zu dieser Frage erhalten Sie in Kapitel
-                  ÄNDERN!!!!
+                  {"  "}
+                  <a
+                    target="_blank"
+                    href="../../fachinformation-responsiv/kapb/prueffristen.htm"
+                    className="externalLink"
+                  >
+                    <span className="linkContent">
+                      <Image src={i_q} />B 12.3.1 Prüffristen
+                    </span>
+                  </a>
                 </p>
               </div>
             </div>

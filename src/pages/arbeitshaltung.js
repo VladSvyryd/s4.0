@@ -16,6 +16,7 @@ import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import i3 from "../assets/pics/11-sicherheitswerkbank/handschuhe_ok.jpg";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 function Arbeitshaltung(props) {
   // state to go through active page
@@ -26,7 +27,7 @@ function Arbeitshaltung(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
@@ -53,11 +54,15 @@ function Arbeitshaltung(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
   const generateRadioButtons = () => {
@@ -86,7 +91,9 @@ function Arbeitshaltung(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       tryAgain();
     }
@@ -102,7 +109,9 @@ function Arbeitshaltung(props) {
 
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -236,7 +245,16 @@ function Arbeitshaltung(props) {
                     <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
                         Hier erhalten Sie weitere Informationen zur Frage:
-                        ÄNDERN!!!!
+                        {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapc/allgemeines_sicherheitswerk.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />C 2.10.1 Sicherheitswerkbänke
+                          </span>
+                        </a>
                       </p>
                       <p>
                         Merkblatt B 011 Sicheres Arbeiten an mikrobiologischen
@@ -284,9 +302,6 @@ function Arbeitshaltung(props) {
                   </div>
                 </Transition>
               </div>
-              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                RESET
-              </button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -17,6 +17,8 @@ import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import i3 from "../assets/pics/3-rettungseinrichtungen/verbandkasten_leosung.png";
+import i_q from "../assets/pics/querverweis.png";
+
 function Verbandkasten(props) {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
@@ -76,7 +78,9 @@ function Verbandkasten(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       tryAgain();
     }
@@ -93,7 +97,9 @@ function Verbandkasten(props) {
 
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -229,7 +235,16 @@ function Verbandkasten(props) {
                     <div>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        der Technischen Regel Kapitel ÄNDERN!!!!
+                        der Technischen Regel Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapb/erste_hilfe_einrichtungen.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />B 4.5 Erste-Hilfe-Einrichtungen
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -255,9 +270,6 @@ function Verbandkasten(props) {
                     </div>
                   </div>
                 </Transition>
-                <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                  RESET
-                </button>
               </div>
             </Grid.Column>
           </Grid.Row>

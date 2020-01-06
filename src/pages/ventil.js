@@ -13,6 +13,7 @@ import i8 from "../assets/pics/2-chemielaboreingang/ventile_symbol_2.png";
 import i9 from "../assets/pics/2-chemielaboreingang/ventile_symbol_3.png";
 import i10 from "../assets/pics/2-chemielaboreingang/kennzeichnung_richtig.jpg";
 import DropBox from "../components/DropBox";
+import i_q from "../assets/pics/querverweis.png";
 
 import DraggableItem from "../components/DraggableItem";
 
@@ -29,8 +30,10 @@ function Ventil(props) {
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
-  const [my_exercise, setMyExercise] = useState((props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath);
+  const [my_exercise, setMyExercise] = useState(
+    (props.location.state && props.location.state.currentExercise) ||
+      tocState.currentExerciseByPath
+  );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDraggables, setFeedbackFromDraggables] = useState(false);
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -48,11 +51,15 @@ function Ventil(props) {
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document.addEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -121,11 +128,15 @@ function Ventil(props) {
   };
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   const droppableStyle = {
     width: "213px",
     height: "122px",
@@ -206,7 +217,7 @@ function Ventil(props) {
                 >
                   <div
                     className="absolute"
-                    style={{ top: "18%", width: "320px" }}
+                    style={{ top: "11%", width: "320px" }}
                   >
                     <div className="gridList">
                       <div>
@@ -237,10 +248,19 @@ function Ventil(props) {
                         ))}
                       </div>
                     </div>
-                    <div style={{ marginTop: "20px", width: "330px" }}>
+                    <div style={{ marginTop: "30px", width: "270px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapb/massnahmen_notduschen.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />B 4.6.1 Maßnahmen im Überblick
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -265,12 +285,6 @@ function Ventil(props) {
                           Die Öffnungsrichtung des Ventils von Körpernotduschen
                           muss eindeutig gekennzeichnet sein.
                         </p>
-                        <button
-                          onClick={() => isDone()}
-                          style={{ background: "red" }}
-                        >
-                          RESET
-                        </button>
                       </div>
                     </div>
                   </div>

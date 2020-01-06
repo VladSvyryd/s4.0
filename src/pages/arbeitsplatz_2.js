@@ -7,6 +7,7 @@ import i1 from "../assets/pics/10-arbeitsplatz/schuettler_ohne.jpg";
 import i2 from "../assets/pics/10-arbeitsplatz/schuettler_mit.jpg";
 import i6 from "../assets/pics/10-arbeitsplatz/gefaess_mit.jpg";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
@@ -21,7 +22,7 @@ function Arbeitsplatz_2(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -37,17 +38,21 @@ function Arbeitsplatz_2(props) {
   };
   let contextRef = createRef(); // reference to instructions field
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -75,14 +80,14 @@ function Arbeitsplatz_2(props) {
           </Popup.Content>
         </Popup>
       ) : (
-          <Checkbox
-            key={`${radioButton}-${i}`}
-            label={radioButton}
-            value={i}
-            checked={radioGroupState === i}
-            onChange={handleChange}
-          />
-        );
+        <Checkbox
+          key={`${radioButton}-${i}`}
+          label={radioButton}
+          value={i}
+          checked={radioGroupState === i}
+          onChange={handleChange}
+        />
+      );
     });
   };
   // handle change of radio button,
@@ -95,12 +100,16 @@ function Arbeitsplatz_2(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -179,7 +188,7 @@ function Arbeitsplatz_2(props) {
                   animation="fade"
                   duration={animationTrigger ? 700 : 0}
                 >
-                  <div className="absolute" style={{ top: "13%" }}>
+                  <div className="absolute" style={{ top: "10%" }}>
                     <div className="gridList" style={{ width: "250px" }}>
                       <h1 className="my_title small">
                         Kreuzen Sie an, was an diesem Arbeitsplatz nicht stimmt!
@@ -192,10 +201,30 @@ function Arbeitsplatz_2(props) {
                     >
                       {generateRadioButtons()}
                     </div>
-                    <div style={{ marginTop: "20px", width: "330px" }}>
+                    <div style={{ marginTop: "20px", width: "230px" }}>
                       <p>
                         Hier erhalten Sie weitere Informationen zur Frage
-                        ÄNDERN!!!!
+                        <br />
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapc/schutzstufe_2.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />C 2.5.5 Schutzstufe 2
+                          </span>
+                        </a>
+                        <br />
+                        <a
+                          target="_blank"
+                          href="../../dokumente/vorschriften/trba_100.pdf"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />
+                            TRBA 100
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -227,12 +256,6 @@ function Arbeitsplatz_2(props) {
                             Alle Gefäße mit biologischen Arbeitsstoffen der
                             Risikogruppe 2 sollten in der
                             Sicherheits&shy;werkbank geöffnet werden.
-                            <button
-                              onClick={() => isDone()}
-                              style={{ background: "red" }}
-                            >
-                              RESET
-                            </button>
                           </p>
                         </div>
                       </div>
@@ -248,9 +271,6 @@ function Arbeitsplatz_2(props) {
                   </div>
                 </Transition>
               </div>
-              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                RESET
-              </button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

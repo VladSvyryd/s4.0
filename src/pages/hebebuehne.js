@@ -12,6 +12,7 @@ import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 function Hebebuehne(props) {
   // state to go through active page
@@ -22,7 +23,7 @@ function Hebebuehne(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
 
@@ -34,17 +35,21 @@ function Hebebuehne(props) {
     answerIndex: 0 /// right answer index in array of questions
   };
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Wählen Sie die Befestigung des Heiztopfes, die Ihrer Meinung nach richtig ist!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -72,14 +77,14 @@ function Hebebuehne(props) {
           </Popup.Content>
         </Popup>
       ) : (
-          <Checkbox
-            key={`${radioButton}-${i}`}
-            label={radioButton}
-            value={i}
-            checked={radioGroupState === i}
-            onChange={handleChange}
-          />
-        );
+        <Checkbox
+          key={`${radioButton}-${i}`}
+          label={radioButton}
+          value={i}
+          checked={radioGroupState === i}
+          onChange={handleChange}
+        />
+      );
     });
   };
 
@@ -93,12 +98,16 @@ function Hebebuehne(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -166,7 +175,25 @@ function Hebebuehne(props) {
                 <div style={{ marginTop: "20px", width: "200px" }}>
                   <p>
                     Weitere Informationen zu dieser Frage erhalten Sie in
-                    Kapitel ÄNDERN!!!!
+                    Kapitel {"  "}
+                    <a
+                      target="_blank"
+                      href="../../fachinformation-responsiv/kapc/einleitung_apparaturen.htm"
+                      className="externalLink"
+                    >
+                      <span className="linkContent">
+                        <Image src={i_q} />C 3.1 Aufbau von Apparaturen
+                      </span>
+                    </a>
+                    <a
+                      target="_blank"
+                      href="../../fachinformation-responsiv/kapc/beheizen_apparaturen.htm"
+                      className="externalLink"
+                    >
+                      <span className="linkContent">
+                        <Image src={i_q} />C 5.2.2 Beheizen von Apparaturen
+                      </span>
+                    </a>
                   </p>
                 </div>
               </div>
@@ -249,12 +276,7 @@ function Hebebuehne(props) {
                     style={{ top: "13%", left: "33%" }}
                   >
                     <Image src={i3} />
-                    <button
-                      onClick={() => isDone()}
-                      style={{ marginTop: "20px" }}
-                    >
-                      RESET
-                    </button>
+
                     <div
                       style={{ position: "absolute", top: "0", right: "0" }}
                       onClick={() => isDone()}

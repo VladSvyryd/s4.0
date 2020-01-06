@@ -21,9 +21,13 @@
   font-size: 14px;
   color: black;
 }
+.ui.vertical.menu .item:before {
+  height: 0;
+}
 
 .toc.ui.vertical.menu {
-  width: 17rem;
+  box-shadow: inherit;
+  width: 20rem;
 }
 
 .toc.ui.menu,

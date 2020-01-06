@@ -93,13 +93,15 @@ function Grundriss(props) {
         <Grid.Column
           width="11"
           style={{
-            backgroundImage: `url('${i1}')`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "40px center",
             marginLeft: "0",
-            position: "realtive"
+            position: "realtive",
+            maxWidth: "702px"
           }}
         >
+          <Image
+            src={i1}
+            style={{ position: "absolute", left: "40px", top: " 90px" }}
+          />
           <div
             id="obj-0"
             onMouseEnter={toggleHover}

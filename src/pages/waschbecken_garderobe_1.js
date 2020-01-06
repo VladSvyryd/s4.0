@@ -17,6 +17,7 @@ import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import i3 from "../assets/pics/9-waschbecken/garderobe_richtig_personal.jpg";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 function Waschbecken_garderobe_1(props) {
   // state to go through active page
@@ -27,7 +28,7 @@ function Waschbecken_garderobe_1(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
@@ -52,11 +53,15 @@ function Waschbecken_garderobe_1(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
   const generateRadioButtons = () => {
@@ -85,7 +90,9 @@ function Waschbecken_garderobe_1(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       tryAgain();
     }
@@ -102,7 +109,9 @@ function Waschbecken_garderobe_1(props) {
 
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -224,7 +233,17 @@ function Waschbecken_garderobe_1(props) {
                     <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        der Technischen Regel Kapitel ÄNDERN!!!!
+                        der Technischen Regel Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../dokumente/vorschriften/trba_100.pdf"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />
+                            TRBA 100
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -267,9 +286,6 @@ function Waschbecken_garderobe_1(props) {
                   </div>
                 </Transition>
               </div>
-              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                RESET
-              </button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

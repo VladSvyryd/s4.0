@@ -9,6 +9,7 @@ import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 function Waschbecken_garderobe_2(props) {
   // state to go through active page
@@ -19,7 +20,7 @@ function Waschbecken_garderobe_2(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -35,17 +36,21 @@ function Waschbecken_garderobe_2(props) {
     answerIndex: 1
   };
   const instructions = [
-    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -73,14 +78,14 @@ function Waschbecken_garderobe_2(props) {
           </Popup.Content>
         </Popup>
       ) : (
-          <Checkbox
-            key={`${radioButton}-${i}`}
-            label={radioButton}
-            value={i}
-            checked={radioGroupState === i}
-            onChange={handleChange}
-          />
-        );
+        <Checkbox
+          key={`${radioButton}-${i}`}
+          label={radioButton}
+          value={i}
+          checked={radioGroupState === i}
+          onChange={handleChange}
+        />
+      );
     });
   };
   // handle change of radio button,
@@ -93,12 +98,16 @@ function Waschbecken_garderobe_2(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -180,10 +189,20 @@ function Waschbecken_garderobe_2(props) {
                     >
                       {generateRadioButtons()}
                     </div>
-                    <div style={{ marginTop: "20px", width: "330px" }}>
+                    <div style={{ marginTop: "30px", width: "270px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapc/mikro_grundregeln.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />C 2.9 Mikrobiologische
+                            Grundregeln
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -213,21 +232,12 @@ function Waschbecken_garderobe_2(props) {
                           Innerhalb des Labors müssen entzündbare Flüssigkeiten
                           über 1 | Nennvolumen an geschützter Stelle (im
                           Sicherheitsschrank) gelagert werden.
-                          <button
-                            onClick={() => isDone()}
-                            style={{ background: "red" }}
-                          >
-                            RESET
-                          </button>
                         </p>
                       </div>
                     </div>
                   </div>
                 </Transition>
               </div>
-              <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                RESET
-              </button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

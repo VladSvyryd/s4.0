@@ -9,6 +9,7 @@ import i3 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 function Beansprungungsarten(props) {
   // state to go through active page
@@ -20,7 +21,7 @@ function Beansprungungsarten(props) {
   // if this page is opened from link than it will grab exercise looking through json exerciselist
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -39,11 +40,15 @@ function Beansprungungsarten(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -72,14 +77,14 @@ function Beansprungungsarten(props) {
           </Popup.Content>
         </Popup>
       ) : (
-          <Checkbox
-            key={`${radioButton}-${i}`}
-            label={radioButton}
-            value={i}
-            checked={radioGroupState === i}
-            onChange={handleChange}
-          />
-        );
+        <Checkbox
+          key={`${radioButton}-${i}`}
+          label={radioButton}
+          value={i}
+          checked={radioGroupState === i}
+          onChange={handleChange}
+        />
+      );
     });
   };
   // handle change of radio button,
@@ -92,12 +97,16 @@ function Beansprungungsarten(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -197,7 +206,16 @@ function Beansprungungsarten(props) {
                 >
                   <p>
                     Weitere Informationen zu dieser Frage erhalten Sie in
-                    Kapitel ÄNDERN!!!!
+                    Kapitel {"  "}
+                    <a
+                      target="_blank"
+                      href="../../fachinformation-responsiv/kapb/unterweisung.htm"
+                      className="externalLink"
+                    >
+                      <span className="linkContent">
+                        <Image src={i_q} />B 1.3.2 Unterweisungen
+                      </span>
+                    </a>
                   </p>
                 </div>
               )}
@@ -234,16 +252,6 @@ function Beansprungungsarten(props) {
                   </p>
                 </div>
               </div>
-              <button
-                onClick={() => isDone()}
-                style={{
-                  marginTop: "20px",
-                  position: "absolute",
-                  right: "20px"
-                }}
-              >
-                RESET
-              </button>
             </div>
           </Transition>
         </div>

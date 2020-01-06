@@ -44,7 +44,11 @@ function Rett_einrichtung(props) {
   };
 
   // recursive find all connectiog nodes and final node , return id of them as array last->first
-  let exercisesState = { allExercises: [], doneCount: 0, totalExercisesCount: 0 };
+  let exercisesState = {
+    allExercises: [],
+    doneCount: 0,
+    totalExercisesCount: 0
+  };
   function checkNodeArrays(page) {
     for (let index = 0; index < page.length; index++) {
       const element = page[index];
@@ -52,14 +56,14 @@ function Rett_einrichtung(props) {
         // push in array
         //console.log(element);
         exercisesState.allExercises.push(element);
-        if (element.done) exercisesState.doneCount++
+        if (element.done) exercisesState.doneCount++;
       } else {
         if (element.pages) {
           checkNodeArrays(element.pages);
         }
       }
     }
-    exercisesState.totalExercisesCount = exercisesState.allExercises.length
+    exercisesState.totalExercisesCount = exercisesState.allExercises.length;
     console.log(exercisesState);
 
     return exercisesState;
@@ -104,56 +108,56 @@ function Rett_einrichtung(props) {
                 {exercise.pages[0].done ? (
                   <Image src={i5} />
                 ) : (
-                    <Image src={i2} />
-                  )}
+                  <Image src={i2} />
+                )}
               </Link>
             ) : (
-                <div
-                  onMouseEnter={() => setCurrentInstruction(instructions[2])}
-                  onMouseLeave={() => setCurrentInstruction(instructions[0])}
-                  className="absolute hoverReveal pointer"
-                  style={style_verbandkasten}
-                  onClick={() => setWarningState1(true)}
-                >
-                  <Popup
-                    open={warningState1}
-                    trigger={<Image src={i2} />}
-                    position="top center"
-                    basic
-                    content={
-                      <div className="">
-                        <Popup.Header as="span">
-                          <div
-                            className="headerPop "
-                            style={{
-                              textAlign: "center",
-                              fontWeight: "bold",
-                              color: "rgb(122,122,122)"
-                            }}
-                          >
-                            Hinweis
-                        </div>
-                        </Popup.Header>
-                        <Popup.Content
-                          style={{ paddingLeft: "7px", paddingTop: "10px" }}
+              <div
+                onMouseEnter={() => setCurrentInstruction(instructions[2])}
+                onMouseLeave={() => setCurrentInstruction(instructions[0])}
+                className="absolute hoverReveal pointer"
+                style={style_verbandkasten}
+                onClick={() => setWarningState1(true)}
+              >
+                <Popup
+                  open={warningState1}
+                  trigger={<Image src={i2} />}
+                  position="top center"
+                  basic
+                  content={
+                    <div className="">
+                      <Popup.Header as="span">
+                        <div
+                          className="headerPop "
+                          style={{
+                            textAlign: "center",
+                            fontWeight: "bold",
+                            color: "rgb(122,122,122)"
+                          }}
                         >
-                          <div
-                            className="gridList"
-                            style={{ alignItems: "center" }}
-                          >
-                            <Image src={i4} />
-                            <span>
-                              An den Verbandkasten kommen Sie nicht heran, da er
-                              von dem Flipchart verstellt ist.
+                          Hinweis
+                        </div>
+                      </Popup.Header>
+                      <Popup.Content
+                        style={{ paddingLeft: "7px", paddingTop: "10px" }}
+                      >
+                        <div
+                          className="gridList"
+                          style={{ alignItems: "center" }}
+                        >
+                          <Image src={i4} />
+                          <span>
+                            An den Verbandkasten kommen Sie nicht heran, da er
+                            von dem Flipchart verstellt ist.
                           </span>
-                          </div>
-                        </Popup.Content>
-                      </div>
-                    }
-                    onClose={warningState1 ? () => setWarningState1(false) : null}
-                  />
-                </div>
-              )}
+                        </div>
+                      </Popup.Content>
+                    </div>
+                  }
+                  onClose={warningState1 ? () => setWarningState1(false) : null}
+                />
+              </div>
+            )}
             {exercise.pages[0].done ? (
               <Link
                 onMouseEnter={() => setCurrentInstruction(instructions[2])}
@@ -176,62 +180,62 @@ function Rett_einrichtung(props) {
                 {exercise.pages[0].done ? (
                   <Image src={i10} />
                 ) : (
-                    <Image src={i3} />
-                  )}
+                  <Image src={i3} />
+                )}
               </Link>
             ) : (
-                <div
-                  onMouseEnter={() => setCurrentInstruction(instructions[2])}
-                  onMouseLeave={() => setCurrentInstruction(instructions[0])}
-                  className="absolute hoverReveal pointer"
-                  style={
-                    exercise.pages[1].done
-                      ? exercise.pages[0].done
-                        ? style_feuerleoscher
-                        : style_flipchart
-                      : style_feuerleoscher
-                  }
-                  onClick={handleWarning}
-                >
-                  <Popup
-                    open={warningState}
-                    trigger={<Image src={i3} />}
-                    position="top center"
-                    basic
-                    content={
-                      <div className="">
-                        <Popup.Header as="span">
-                          <div
-                            className="headerPop "
-                            style={{
-                              textAlign: "center",
-                              fontWeight: "bold",
-                              color: "rgb(122,122,122)"
-                            }}
-                          >
-                            Hinweis
-                        </div>
-                        </Popup.Header>
-                        <Popup.Content
-                          style={{ paddingLeft: "7px", paddingTop: "10px" }}
+              <div
+                onMouseEnter={() => setCurrentInstruction(instructions[2])}
+                onMouseLeave={() => setCurrentInstruction(instructions[0])}
+                className="absolute hoverReveal pointer"
+                style={
+                  exercise.pages[1].done
+                    ? exercise.pages[0].done
+                      ? style_feuerleoscher
+                      : style_flipchart
+                    : style_feuerleoscher
+                }
+                onClick={handleWarning}
+              >
+                <Popup
+                  open={warningState}
+                  trigger={<Image src={i3} />}
+                  position="top center"
+                  basic
+                  content={
+                    <div className="">
+                      <Popup.Header as="span">
+                        <div
+                          className="headerPop "
+                          style={{
+                            textAlign: "center",
+                            fontWeight: "bold",
+                            color: "rgb(122,122,122)"
+                          }}
                         >
-                          <div
-                            className="gridList"
-                            style={{ alignItems: "center" }}
-                          >
-                            <Image src={i4} />
-                            <span>
-                              An den Feuerlöscher kommen Sie nicht heran, da er
-                              von dem Flipchart verstellt ist.
+                          Hinweis
+                        </div>
+                      </Popup.Header>
+                      <Popup.Content
+                        style={{ paddingLeft: "7px", paddingTop: "10px" }}
+                      >
+                        <div
+                          className="gridList"
+                          style={{ alignItems: "center" }}
+                        >
+                          <Image src={i4} />
+                          <span>
+                            An den Feuerlöscher kommen Sie nicht heran, da er
+                            von dem Flipchart verstellt ist.
                           </span>
-                          </div>
-                        </Popup.Content>
-                      </div>
-                    }
-                    onClose={warningState ? handleWarning : null}
-                  />
-                </div>
-              )}
+                        </div>
+                      </Popup.Content>
+                    </div>
+                  }
+                  onClose={warningState ? handleWarning : null}
+                />
+              </div>
+            )}
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[3])}
               onMouseLeave={() => setCurrentInstruction(instructions[0])}

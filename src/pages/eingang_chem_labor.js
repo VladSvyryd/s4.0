@@ -70,9 +70,9 @@ function Ringang_chem_labor(props) {
                 top: "18px"
               }}
               to={{
-                pathname: `${pathname}/${exercise.pages[1].filename}`,
+                pathname: `${pathname}/${exercise.pages[2].filename}`,
                 state: {
-                  currentExercise: exercise.pages[1]
+                  currentExercise: exercise.pages[2]
                 }
               }}
             >
@@ -85,13 +85,13 @@ function Ringang_chem_labor(props) {
               style={{
                 right: "160px",
                 top: "252px",
-                backgroundImage: `url('${exercise.pages[2].done && i13}')`,
+                backgroundImage: `url('${exercise.pages[1].done && i13}')`,
                 backgroundRepeat: "no-repeat"
               }}
               to={{
-                pathname: `${pathname}/${exercise.pages[2].filename}`,
+                pathname: `${pathname}/${exercise.pages[1].filename}`,
                 state: {
-                  currentExercise: exercise.pages[2]
+                  currentExercise: exercise.pages[1]
                 }
               }}
             >

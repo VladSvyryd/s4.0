@@ -1,14 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { TocContext } from "../util/TocProvider";
-import {
-  Grid,
-  Checkbox,
-  Popup,
-  Button,
-  Image,
-  Transition
-} from "semantic-ui-react";
+import { Grid, Checkbox, Popup, Image, Transition } from "semantic-ui-react";
 import markNodeDone from "../util/externalFunctions";
 
 import { PagesContext } from "../util/PagesProvider";
@@ -17,6 +10,7 @@ import i2 from "../assets/pics/3-rettungseinrichtungen/feuerloescher_loesung.png
 import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
+import i_q from "../assets/pics/querverweis.png";
 
 function Feuerloescher(props) {
   // state to go through active page
@@ -27,7 +21,7 @@ function Feuerloescher(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
 
@@ -45,11 +39,15 @@ function Feuerloescher(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -77,14 +75,14 @@ function Feuerloescher(props) {
           </Popup.Content>
         </Popup>
       ) : (
-          <Checkbox
-            key={`${radioButton}-${i}`}
-            label={radioButton}
-            value={i}
-            checked={radioGroupState === i}
-            onChange={handleChange}
-          />
-        );
+        <Checkbox
+          key={`${radioButton}-${i}`}
+          label={radioButton}
+          value={i}
+          checked={radioGroupState === i}
+          onChange={handleChange}
+        />
+      );
     });
   };
 
@@ -98,12 +96,16 @@ function Feuerloescher(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -196,7 +198,16 @@ function Feuerloescher(props) {
                     <div style={{ marginTop: "200px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapb/prueffristen.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />B 12.3.1 Prüffristen
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -226,9 +237,6 @@ function Feuerloescher(props) {
                     </div>
                   </div>
                 </Transition>
-                <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                  RESET
-                </button>
               </div>
             </Grid.Column>
           </Grid.Row>

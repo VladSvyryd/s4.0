@@ -19,6 +19,7 @@ import aceton_1 from "../assets/pics/4-chemiekalienschrank/aceton_1.png";
 import aceton_2 from "../assets/pics/4-chemiekalienschrank/aceton_2.png";
 import aceton_3 from "../assets/pics/4-chemiekalienschrank/aceton_3.png";
 import aceton_4 from "../assets/pics/4-chemiekalienschrank/aceton_4.png";
+import i_q from "../assets/pics/querverweis.png";
 
 function Sicherheitsschrank(props) {
   const popup_array = [aceton_1, aceton_2, aceton_3, aceton_4];
@@ -30,11 +31,11 @@ function Sicherheitsschrank(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [sibling_exercise] = useState(
     (props.location.state && props.location.state.siblingExercise) ||
-    tocPages[3].pages[0]
+      tocPages[3].pages[0]
   );
 
   const [activeActualExercise, setActiveActualExercise] = useState(null);
@@ -53,11 +54,12 @@ function Sicherheitsschrank(props) {
   };
   // if exercise has been already done, go back
   useEffect(() => {
-
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // instructions for pictures
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
@@ -120,12 +122,16 @@ function Sicherheitsschrank(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -203,7 +209,9 @@ function Sicherheitsschrank(props) {
 
   const actualExercise = () => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return (
       <>
         <div className="exerciseFrame">
@@ -225,19 +233,19 @@ function Sicherheitsschrank(props) {
                     />
                   </>
                 ) : (
-                    <>
-                      <Image
-                        src={i1}
-                        className="absolute"
-                        style={{ top: "0", left: "14px" }}
-                      />
-                      <Image
-                        src={i7}
-                        className="absolute"
-                        style={{ top: "174px", left: "226px" }}
-                      />
-                    </>
-                  )}
+                  <>
+                    <Image
+                      src={i1}
+                      className="absolute"
+                      style={{ top: "0", left: "14px" }}
+                    />
+                    <Image
+                      src={i7}
+                      className="absolute"
+                      style={{ top: "174px", left: "226px" }}
+                    />
+                  </>
+                )}
                 <Transition
                   visible={
                     animationTrigger || (my_exercise && my_exercise.done)
@@ -300,7 +308,17 @@ function Sicherheitsschrank(props) {
                       <div style={{ marginTop: "20px", width: "330px" }}>
                         <p>
                           Weitere Informationen zu dieser Frage erhalten Sie in
-                          Kapitel ÄNDERN!!!!
+                          Kapitel {"  "}
+                          <a
+                            target="_blank"
+                            href="../../fachinformation-responsiv/kapb/vereinfachte_kennzeichnung.htm"
+                            className="externalLink"
+                          >
+                            <span className="linkContent">
+                              <Image src={i_q} />B 7.8.6 Vereinfachte
+                              Kennzeichnung
+                            </span>
+                          </a>
                         </p>
                       </div>
                     </div>
@@ -349,12 +367,6 @@ function Sicherheitsschrank(props) {
                             Notwendige Details können in den
                             Sicherheitsdatenblättern und Betriebsanweisungen
                             nachgeschlagen werden.
-                            <button
-                              onClick={() => isDone()}
-                              style={{ background: "grey" }}
-                            >
-                              RESET
-                            </button>
                           </p>
                         </div>
                       </div>
@@ -389,8 +401,8 @@ function Sicherheitsschrank(props) {
                     style={{ top: "0", left: "14px" }}
                   />
                 ) : (
-                    <Image src={i1} />
-                  )}
+                  <Image src={i1} />
+                )}
                 <div
                   className="absolute hoverReveal pointer"
                   style={{
@@ -414,16 +426,16 @@ function Sicherheitsschrank(props) {
                       }
                     />
                   ) : (
-                      <Image
-                        src={i7}
-                        onMouseEnter={() =>
-                          setCurrentInstruction(instructions[1])
-                        }
-                        onMouseLeave={() =>
-                          setCurrentInstruction(instructions[0])
-                        }
-                      />
-                    )}
+                    <Image
+                      src={i7}
+                      onMouseEnter={() =>
+                        setCurrentInstruction(instructions[1])
+                      }
+                      onMouseLeave={() =>
+                        setCurrentInstruction(instructions[0])
+                      }
+                    />
+                  )}
                 </div>
                 {sibling_exercise && sibling_exercise.done && (
                   <div
@@ -441,7 +453,7 @@ function Sicherheitsschrank(props) {
                         <div
                           className={`ui popup  right center  warning absolute ${
                             OpenWarning ? "visible" : null
-                            }`}
+                          }`}
                           style={{ minWidth: "252px", left: "100%" }}
                         >
                           <Popup.Header as="span" className="headerPop">

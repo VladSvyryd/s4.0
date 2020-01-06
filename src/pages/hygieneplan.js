@@ -10,6 +10,7 @@ import i5 from "../assets/pics/achtung_gruen.png";
 import DropBox from "../components/DropBox";
 import DraggableItem from "../components/DraggableItem";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 // to create drag and drop component used external library  react-drag-drop-container
 // https://github.com/peterh32/react-drag-drop-container <---- this is github page with instructions
@@ -26,7 +27,7 @@ function Hygieneplan(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDropBox, setFeedbackFromDropBox] = useState(0);
@@ -43,22 +44,30 @@ function Hygieneplan(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // handle change of exerciseCurrentState,
   //set state of exercise,
   //add click event to get back to other exercise
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document.addEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -249,10 +258,29 @@ function Hygieneplan(props) {
                         ))}
                       </div>
                     </div>
-                    <div style={{ marginTop: "10px", width: "330px" }}>
+                    <div style={{ marginTop: "10px", width: "420px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapc/schutzstufe_2.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />C 2.5.5 Schutzstufe 2
+                          </span>
+                        </a>{" "}
+                        und{" "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapc/schutzstufe_3_4.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />C 2.5.6 Schutzstufen 3-4
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -293,13 +321,6 @@ function Hygieneplan(props) {
                         </div>
                       </div>
                     </div>
-                    <button
-                      onClick={() => isDone()}
-                      className="absolute"
-                      style={{ top: "-10%", left: "9%" }}
-                    >
-                      RESET
-                    </button>
                   </div>
                 </Transition>
               </div>

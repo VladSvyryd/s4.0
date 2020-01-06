@@ -15,6 +15,7 @@ import i9 from "../assets/pics/2-chemielaboreingang/augen_symbol_3.png";
 import i10 from "../assets/pics/2-chemielaboreingang/augendusche_loesung.jpg";
 import DropBox from "../components/DropBox";
 import DraggableItem from "../components/DraggableItem";
+import i_q from "../assets/pics/querverweis.png";
 
 // to create drag and drop component used external library  react-drag-drop-container
 // https://github.com/peterh32/react-drag-drop-container <---- this is github page with instructions
@@ -31,7 +32,7 @@ function Koerpernotdusche(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDraggables, setFeedbackFromDraggables] = useState(false);
@@ -50,11 +51,15 @@ function Koerpernotdusche(props) {
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document.addEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -96,11 +101,15 @@ function Koerpernotdusche(props) {
   };
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   const droppableStyle = {
     width: "213px",
     height: "198px",
@@ -210,10 +219,19 @@ function Koerpernotdusche(props) {
                         ))}
                       </div>
                     </div>
-                    <div style={{ marginTop: "20px", width: "330px" }}>
+                    <div style={{ marginTop: "100px", width: "270px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapb/koerpernotduschen.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />B 4.6.3 Augennotduschen
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -239,12 +257,6 @@ function Koerpernotdusche(props) {
                           Sicherheitseinrichtung im Labor. Sie muss richtig
                           gekennzeichnet sein.
                         </p>
-                        <button
-                          onClick={() => isDone()}
-                          style={{ background: "red" }}
-                        >
-                          RESET
-                        </button>
                       </div>
                     </div>
                   </div>

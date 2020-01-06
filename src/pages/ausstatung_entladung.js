@@ -10,6 +10,7 @@ import i5 from "../assets/pics/achtung_gruen.png";
 import DropBox from "../components/DropBox";
 import DraggableItem from "../components/DraggableItem";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 // to create drag and drop component used external library  react-drag-drop-container
 // https://github.com/peterh32/react-drag-drop-container <---- this is github page with instructions
@@ -26,7 +27,7 @@ function Ausstatung_entladung(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDropBox, setFeedbackFromDropBox] = useState(0);
@@ -47,11 +48,15 @@ function Ausstatung_entladung(props) {
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document.addEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -68,11 +73,15 @@ function Ausstatung_entladung(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
@@ -202,10 +211,19 @@ function Ausstatung_entladung(props) {
                         ))}
                       </div>
                     </div>
-                    <div style={{ marginTop: "20px", width: "330px" }}>
+                    <div style={{ marginTop: "20px", width: "270px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel{" "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapc/sterilisationsautoklaven.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />C 7.3.3 Sterilisationsautoklaven
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -231,12 +249,6 @@ function Ausstatung_entladung(props) {
                           das sterilisierte Gut sicher aus dem Autoklaven
                           nehmen.
                         </p>
-                        <button
-                          onClick={() => isDone()}
-                          style={{ background: "red" }}
-                        >
-                          RESET
-                        </button>
                       </div>
                     </div>
                   </div>

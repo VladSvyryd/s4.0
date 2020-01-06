@@ -47,6 +47,20 @@ input[type="submit"] {
   outline: inherit;
   padding: 0;
 }
+.externalLink {
+  display: inline-block;
+}
+.externalLink.inline {
+  display: inline;
+}
+.externalLink .linkContent {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: flex-start;
+  column-gap: 5px;
+  align-items: baseline;
+}
+
 .font16 {
   font-size: 16px;
 }
@@ -257,25 +271,21 @@ MAIN MENU CONTAINER (GRUNDRISS; CHECKLIST
   visibility: visible;
 }
 
-progress[value]{
+progress[value] {
   -webkit-appearance: none;
   -moz-appearance: none;
-       appearance: none;
-   height: 7px;
-   transition: all;
-  
-  
+  appearance: none;
+  height: 7px;
+  transition: all;
 }
 progress[value]::-webkit-progress-bar {
   box-shadow: none;
-  background: rgba(255,255,255,1);
+  background: rgba(255, 255, 255, 1);
   padding: 0;
- border-radius: .1em;
-    
-    
+  border-radius: 0.1em;
 }
 progress[value]::-webkit-progress-value {
- background: #2185d0;
- border-radius: .1em;
- transition: all;
+  background: #2185d0;
+  border-radius: 0.1em;
+  transition: all;
 }

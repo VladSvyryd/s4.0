@@ -15,6 +15,7 @@ import i10 from "../assets/pics/8-biolaboreingang/tuer_richtig.jpg";
 import i11 from "../assets/pics/8-biolaboreingang/bio_gross.jpg";
 import DropBox from "../components/DropBox";
 import markNodeDone from "../util/externalFunctions";
+import i_q from "../assets/pics/querverweis.png";
 
 import DraggableItem from "../components/DraggableItem";
 
@@ -51,11 +52,15 @@ function Eingang_bio_Labor(props) {
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document.addEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -72,11 +77,15 @@ function Eingang_bio_Labor(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
   function isDone() {
@@ -222,7 +231,17 @@ function Eingang_bio_Labor(props) {
                     >
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
-                        Kapitel ÄNDERN!!!!
+                        Kapitel {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapc/bio_arbeitsstoffe_begriffsbestimmung.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />
+                            Biostoffverordnung
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -247,12 +266,6 @@ function Eingang_bio_Labor(props) {
                           Die Eingangstür muss mit dem Warnschild
                           „Biogefährdung“ gekennzeichnet sein.
                         </p>
-                        <button
-                          onClick={() => isDone()}
-                          style={{ background: "red" }}
-                        >
-                          RESET
-                        </button>
                       </div>
                     </div>
                     <Image src={i11} centered style={{ marginTop: "40px" }} />

@@ -9,6 +9,7 @@ import i2 from "../assets/pics/3-rettungseinrichtungen/flipchart_loesung.png";
 import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
+import i_q from "../assets/pics/querverweis.png";
 
 function Zugaenglichkeit(props) {
   // state to go through active page
@@ -19,7 +20,7 @@ function Zugaenglichkeit(props) {
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
-    tocState.currentExerciseByPath
+      tocState.currentExerciseByPath
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
 
@@ -43,11 +44,15 @@ function Zugaenglichkeit(props) {
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     return () => {
-      document.removeEventListener("mousedown", handleClickToReturnBack);
-    }
-  }, [])
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -75,14 +80,14 @@ function Zugaenglichkeit(props) {
           </Popup.Content>
         </Popup>
       ) : (
-          <Checkbox
-            key={`${radioButton}-${i}`}
-            label={radioButton}
-            value={i}
-            checked={radioGroupState === i}
-            onChange={handleChange}
-          />
-        );
+        <Checkbox
+          key={`${radioButton}-${i}`}
+          label={radioButton}
+          value={i}
+          checked={radioGroupState === i}
+          onChange={handleChange}
+        />
+      );
     });
   };
 
@@ -96,12 +101,16 @@ function Zugaenglichkeit(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document.addEventListener("mousedown", handleClickToReturnBack);
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document.removeEventListener("mousedown", handleClickToReturnBack);
+    document
+      .getElementById("panel")
+      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -195,10 +204,30 @@ function Zugaenglichkeit(props) {
                     >
                       {generateRadioButtons()}
                     </div>
-                    <div style={{ marginTop: "20px", width: "330px" }}>
+                    <div style={{ marginTop: "20px", width: "270px" }}>
                       <p>
-                        Hier erhalten Sie weitere Informationen zur Frage:
-                        ÄNDERN!!!!
+                        Weitere Informationen zu dieser Frage erhalten Sie in
+                        den Kapiteln
+                        {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapb/feuerloescheinrichtungen.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />B 5.4 Feuerlöscheinrichtungen
+                          </span>
+                        </a>
+                        {"  "}
+                        <a
+                          target="_blank"
+                          href="../../fachinformation-responsiv/kapb/flucht_rettungswege.htm"
+                          className="externalLink"
+                        >
+                          <span className="linkContent">
+                            <Image src={i_q} />B 6.3.2 Flucht- und Rettungswege
+                          </span>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -227,9 +256,6 @@ function Zugaenglichkeit(props) {
                     </div>
                   </div>
                 </Transition>
-                <button onClick={() => isDone()} style={{ marginTop: "20px" }}>
-                  RESET
-                </button>
               </div>
             </Grid.Column>
           </Grid.Row>
