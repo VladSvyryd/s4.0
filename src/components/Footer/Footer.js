@@ -1,7 +1,10 @@
 import React from "react";
 import "./footer.css";
-import { withRouter, NavLink, Link } from "react-router-dom";
-import { Label, Icon } from "semantic-ui-react";
+import { withRouter, NavLink } from "react-router-dom";
+import { Label, Icon, Image } from "semantic-ui-react";
+import i1 from "../../assets/pics/grundriss-icon.png";
+import i2 from "../../assets/pics/level-up-icon.png";
+import i3 from "../../assets/pics/checklist-icon.png";
 
 // Footer
 
@@ -37,7 +40,7 @@ const Footer = props => {
             style={button_style}
             className="grid twoColumn alignCenter padded gap10"
           >
-            <Icon name="list alternate outline" size="large" />
+            <Image src={i3} />
             Checklist
           </NavLink>
           <span className="divider"></span>
@@ -47,7 +50,8 @@ const Footer = props => {
             className="grid twoColumn alignCenter padded gap10"
             style={button_style}
           >
-            <Icon name="briefcase" size="large" />
+            <Image src={i1} />
+
             <span> Grundriss/Inhalt</span>
           </NavLink>
           <span className="divider"></span>
@@ -57,7 +61,7 @@ const Footer = props => {
             style={button_style}
             className="grid twoColumn alignCenter padded gap10 pointer"
           >
-            <Icon name="undo" size="large" />
+            <Image src={i2} />
             Zurück
           </div>
         </div>
