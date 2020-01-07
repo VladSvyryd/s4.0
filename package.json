@@ -10,7 +10,6 @@
   "dependencies": {
     "electron-is-dev": "^1.1.0",
     "moment": "^2.24.0",
-    "rc-menu": "^7.5.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-drag-drop-container": "^6.1.1",
@@ -19,7 +18,6 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.0",
     "react-spring": "^8.0.27",
-    "redux": "^4.0.5",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.3",
     "video-react": "^0.14.1",

@@ -225,7 +225,7 @@ function Durchfuehrungen(props) {
                         Kapitel{" "}
                         <a
                           target="_blank"
-                          href="../../fachinformation-responsiv/kapb/unterweisung.htm"
+                          href="../../fachinformation-responsiv/kapb/unterweisungen.htm"
                           className="externalLink"
                         >
                           <span className="linkContent">

@@ -93,15 +93,15 @@ const Footer = props => {
           </div>
         </div>
         <Label
-          as={NavLink}
-          to="/home"
+          as="a"
+          href="../../hauptmenu/labor.htm"
           style={{
             backgroundColor: "transparent",
             marginLeft: "auto",
             color: "white"
           }}
         >
-          Home
+          Hauptmenü
         </Label>
       </div>
     </div>

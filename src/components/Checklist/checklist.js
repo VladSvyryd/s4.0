@@ -101,7 +101,8 @@ function Checklist(props) {
             backgroundImage: `url('${i1}')`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "left 26px",
-            marginLeft: "0"
+            marginLeft: "0",
+            maxWidth: "702px"
           }}
         >
           <Grid columns="2" className="fullHeight">

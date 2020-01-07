@@ -15,7 +15,7 @@ function Beansprungungsarten(props) {
   // state to go through active page
   const [tocState] = useContext(TocContext);
   // load global state of tocPages
-  const [setTocPages] = useContext(PagesContext);
+  const [, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   // if this page is opened from link than it will grab exercise looking through json exerciselist
@@ -209,7 +209,7 @@ function Beansprungungsarten(props) {
                     Kapitel {"  "}
                     <a
                       target="_blank"
-                      href="../../fachinformation-responsiv/kapb/unterweisung.htm"
+                      href="../../fachinformation-responsiv/kapb/unterweisungen.htm"
                       className="externalLink"
                     >
                       <span className="linkContent">

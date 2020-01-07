@@ -1,5 +1,4 @@
 import React from "react";
-import "rc-menu/assets/index.css";
 import { Route, Switch, Redirect } from "react-router-dom";
 import grundriss from "../../GrundRiss/grundriss";
 import checklist from "../../Checklist/checklist";

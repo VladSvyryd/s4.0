@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Menu } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import "./toc.css";
-import "rc-menu/assets/index.css";
 import { withRouter } from "react-router-dom";
 import { TocContext } from "../../../util/TocProvider";
 import { PagesContext } from "../../../util/PagesProvider";
