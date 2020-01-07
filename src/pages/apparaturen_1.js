@@ -16,9 +16,9 @@ import i_q from "../assets/pics/querverweis.png";
 
 function Apparaturen_1(props) {
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
   // load global state of tocPages
-  const [tocPages, setTocPages] = useContext(PagesContext);
+  const [, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
@@ -28,7 +28,6 @@ function Apparaturen_1(props) {
   const [radioGroupState, setRadioGroupState] = useState(" ");
 
   const [animationTrigger, setAnimationTrigger] = useState(false);
-  const [triggerWarning, setTrigger] = useState(false);
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [
@@ -54,6 +53,7 @@ function Apparaturen_1(props) {
         .getElementById("panel")
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // parse radioButtons from aufgabe object

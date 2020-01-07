@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Image, Transition, Visibility } from "semantic-ui-react";
+import { Image, Transition } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
@@ -14,19 +14,16 @@ import i6 from "../assets/pics/1_buero/zettel.jpg";
 
 function Buero(props) {
   const [tocPages] = useContext(PagesContext);
-  const [tocState, setTocState] = useContext(TocContext);
-  const [exercise, saveExerciseState] = useState(tocPages[tocState.activeMenu]);
-  const [animationTrigger, setAnimationTrigger] = useState(true);
+  const [tocState] = useContext(TocContext);
+  const [exercise] = useState(tocPages[tocState.activeMenu]);
+  const [animationTrigger] = useState(true);
   const instructions = [
     "Klicken Sie auf einzelne Ordner, um sie zu öffnen!",
     "In diesem Ordner sind Unterweisungen abgelegt. Überprüfen Sie die Unterweisung zum Thema „Gefährliche Eigenschaften von Stoffen“.",
     "Klicken Sie auf diesen Ordner, um die Prüffristen der Laborgeräte zu untersuchen."
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
-  const [showDetails, setShowDetails] = useState(true);
   const [onScreen, changeOnScreen] = useState([]);
-  const [unterweisungPopup, setUnterweisungPopup] = useState(false);
-  const [pruefPopup, setPruefPopup] = useState(false);
   const pathname = props.location.pathname;
 
   const [slides, setSlides] = useState(
@@ -164,6 +161,7 @@ function Buero(props) {
     return () => {
       localStorage.setItem("stopAllAnimations", false);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   function main_section() {
     return (

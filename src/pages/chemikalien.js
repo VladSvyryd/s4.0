@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -14,10 +14,10 @@ function Chemikalien(props) {
   // global state of pages
   const [tocPages] = useContext(PagesContext);
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
 
   // state to manage exercise object state
-  const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
+  const [exercise] = useState(tocPages[tocState.activeMenu]);
   // for internal linking to exercises on this page
   const pathname = props.location.pathname;
 

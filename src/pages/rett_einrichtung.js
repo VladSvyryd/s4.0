@@ -1,15 +1,13 @@
-import React, { useContext, useState, useEffect, createRef } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Image, Popup } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
-
 import i1 from "../assets/pics/3-rettungseinrichtungen/Startbild_mit_Chart.png";
 import i2 from "../assets/pics/3-rettungseinrichtungen/Verbandkasten_aktiv_blockiert.png";
 import i3 from "../assets/pics/3-rettungseinrichtungen/feuerleoscher_blockiert.png";
 import i4 from "../assets/pics/achtung_rot.png";
 import i5 from "../assets/pics/3-rettungseinrichtungen/verbandkasten_aktiv.png";
-import i7 from "../assets/pics/12-sterilisationsauklav/richtig2.jpg";
 import i8 from "../assets/pics/3-rettungseinrichtungen/Startbild_ohne_Chart.png";
 import i10 from "../assets/pics/3-rettungseinrichtungen/feuerleoscher_aktiv.png";
 import i11 from "../assets/pics/3-rettungseinrichtungen/Flipchart_aktiv.png";
@@ -20,10 +18,10 @@ function Rett_einrichtung(props) {
   // global state of pages
   const [tocPages] = useContext(PagesContext);
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
 
   // state to manage exercise object state
-  const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
+  const [exercise] = useState(tocPages[tocState.activeMenu]);
 
   const [warningState, setWarningState] = useState(false);
   const [warningState1, setWarningState1] = useState(false);
@@ -64,16 +62,10 @@ function Rett_einrichtung(props) {
       }
     }
     exercisesState.totalExercisesCount = exercisesState.allExercises.length;
-    console.log(exercisesState);
 
     return exercisesState;
   }
-  // function to change state of current exercise and trigger useEffect function to save it in local storage
-  // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  useEffect(() => {
-    tocPages[tocState.activeMenu] = exercise;
-    localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  }, [exercise]);
+
   const style_verbandkasten = {
     left: "261px",
     top: "110px"

@@ -22,9 +22,9 @@ import i_q from "../assets/pics/querverweis.png";
 
 function Pers_schutz(props) {
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
   // load global state of tocPages
-  const [tocPages, setTocPages] = useContext(PagesContext);
+  const [, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
@@ -62,6 +62,7 @@ function Pers_schutz(props) {
         .getElementById("panel")
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // parse radioButtons from aufgabe object
   // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons

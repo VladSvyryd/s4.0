@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { withRouter, Link } from "react-router-dom";
-import { Grid, Image, Transition } from "semantic-ui-react";
+import { Grid, Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/6-apparaturen/apparaturen_schema.jpg";
@@ -28,10 +28,10 @@ function Versuch_im_Abzug(props) {
   // global state of pages
   const [tocPages] = useContext(PagesContext);
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
 
   // each Link to my_exercise has such params
-  const [my_exercise, setMy_exercise] = useState(
+  const [my_exercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
       tocPages[tocState.activeMenu].pages[1]
   );

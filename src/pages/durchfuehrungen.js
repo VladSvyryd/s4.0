@@ -20,9 +20,9 @@ import markNodeDone from "../util/externalFunctions";
 
 function Durchfuehrungen(props) {
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
   // load global state of tocPages
-  const [tocPages, setTocPages] = useContext(PagesContext);
+  const [, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
@@ -60,6 +60,7 @@ function Durchfuehrungen(props) {
         .getElementById("panel")
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
@@ -121,20 +122,11 @@ function Durchfuehrungen(props) {
     setRadioGroupState("this");
     removeClick();
   };
-  // set up current exercise state and set click event to reset radio button states
-  const tryAgain = value => {
-    setRadioGroupState(value);
-    document.addEventListener("mousedown", resetAllAnswers);
-  };
+
   // reset click event on document
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
-  // if page refreshs go to Grundriss page
-  const path = props.location.pathname.split("/");
-  path.pop();
-  const r = path.join("/");
-  if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage

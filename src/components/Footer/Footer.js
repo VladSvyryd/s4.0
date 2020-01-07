@@ -11,7 +11,7 @@ import i3 from "../../assets/pics/level-up-icon.png";
 
 const Footer = props => {
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
   //  has to be changed
   const handleBackInHistory = () => {
     // if grundriss of checklish page do nothing

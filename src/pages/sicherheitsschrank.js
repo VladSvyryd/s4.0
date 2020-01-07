@@ -24,7 +24,7 @@ import i_q from "../assets/pics/querverweis.png";
 function Sicherheitsschrank(props) {
   const popup_array = [aceton_1, aceton_2, aceton_3, aceton_4];
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
   // load global state of tocPages
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
@@ -59,6 +59,7 @@ function Sicherheitsschrank(props) {
         .getElementById("panel")
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // instructions for pictures
   const instructions = [
@@ -151,11 +152,6 @@ function Sicherheitsschrank(props) {
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
-  // if page refreshs go to Grundriss page
-  const path = props.location.pathname.split("/");
-  path.pop();
-  const r = path.join("/");
-  if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage

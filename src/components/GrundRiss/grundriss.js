@@ -4,7 +4,6 @@ import { Image, Grid } from "semantic-ui-react";
 import Toc from "../Body/Toc/Toc";
 import { TocContext } from "../../util/TocProvider";
 import { PagesContext } from "../../util/PagesProvider";
-
 import i1 from "../../assets/pics/grundriss.png";
 import i2 from "../../assets/pics/Grundriss/Buero_aktiv1.png";
 import i3 from "../../assets/pics/Grundriss/eingang_aktiv_1.png";
@@ -23,7 +22,7 @@ import i14 from "../../assets/pics/Grundriss/sterilisationsautoklav_aktiv.png";
 function Grundriss(props) {
   const [tocState, setTocState] = useContext(TocContext);
   const [tocPages] = useContext(PagesContext);
-  const [activeSection, setActiveSection] = useState(-2);
+  const [, setActiveSection] = useState(-2);
   const instructions = [
     "Klicken Sie auf einzelne Bereiche im Grundriss oder auf die Begriffe, um in die jeweilige Ansicht zu gelangen!",
     "Hier gelangen Sie in das Büro des Labors.",
@@ -43,7 +42,6 @@ function Grundriss(props) {
   const toggleHover = e => {
     // look at current Element id, split string and take last element as Integer
     let permanentActiveMenu = e.currentTarget.id.split("-")[1];
-    let instructionIndex = parseInt(permanentActiveMenu) + 1;
     // setActiveMenu Index to this number to highlight it in Toc Component
     setTocState(actualPage => ({
       ...actualPage,
@@ -85,6 +83,7 @@ function Grundriss(props) {
     return () => {
       setCurrentInstruction(instructions[0]);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tocState.activeMenu]);
 
   return (

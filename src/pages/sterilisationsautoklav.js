@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Image, Popup } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
-
 import i1 from "../assets/pics/12-sterilisationsauklav/falsch.jpg";
 import i2 from "../assets/pics/12-sterilisationsauklav/mitarbeiter_false_active.jpg";
 import i3 from "../assets/pics/12-sterilisationsauklav/pers_schutz_false_active.jpg";
@@ -21,10 +20,10 @@ function Sterilisationsautoklav(props) {
   // global state of pages
   const [tocPages] = useContext(PagesContext);
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
 
   // state to manage exercise object state
-  const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
+  const [exercise] = useState(tocPages[tocState.activeMenu]);
 
   const [warningState, setWarningState] = useState(false);
   const pathname = props.location.pathname;
@@ -42,13 +41,6 @@ function Sterilisationsautoklav(props) {
   const handleWarning = () => {
     setWarningState(old => (old = !old));
   };
-
-  // function to change state of current exercise and trigger useEffect function to save it in local storage
-  // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  //useEffect(() => {
-  // tocPages[tocState.activeMenu] = exercise;
-  // localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  //}, [exercise]);
 
   const style_technische_ausstattung = {
     left: "234px",

@@ -15,19 +15,6 @@ export const PagesProvider = props => {
     JSON.parse(localStorage.getItem("pagesList")) || mutateTocPages()
   );
 
-  function getPagesFromNode(nodes) {
-    return !nodes.pages
-      ? { thirdPages: nodes, done: false }
-      : nodes.pages.map(node => ({
-          secondLayer: node,
-          secondPages:
-            (node.pages &&
-              node.pages.map(page => ({ thirdLayer: page, done: false }))) ||
-            false,
-          done: false
-        }));
-  }
-
   function mutateTocPages(pages = pagesA) {
     let arr = pages;
     arr.forEach(e => {

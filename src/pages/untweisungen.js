@@ -17,11 +17,10 @@ function Untweisungen(props) {
   // global state of pages
   const [tocPages] = useContext(PagesContext);
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
 
-  console.log(tocPages[tocState.activeMenu].pages[1]);
   // state to manage exercise object state
-  const [exercise, setExercise] = useState(
+  const [exercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
       tocPages[tocState.activeMenu].pages[1]
   );

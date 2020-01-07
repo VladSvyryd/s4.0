@@ -21,9 +21,9 @@ import i_q from "../assets/pics/querverweis.png";
 
 function Verbandkasten(props) {
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
   // load global state of tocPages
-  const [tocPages, setTocPages] = useContext(PagesContext);
+  const [, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
@@ -126,12 +126,6 @@ function Verbandkasten(props) {
     );
     return sum > 0 ? true : false;
   }
-
-  // if page refreshs go to Grundriss page
-  const path = props.location.pathname.split("/");
-  path.pop();
-  const r = path.join("/");
-  if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage

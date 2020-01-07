@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect, createRef } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { Image, Popup } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/9-waschbecken/sanitaer.jpg";
@@ -14,13 +14,12 @@ function Waschbecken_garderobe(props) {
   // global state of pages
   const [tocPages] = useContext(PagesContext);
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
 
   // state to manage exercise object state
-  const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
+  const [exercise] = useState(tocPages[tocState.activeMenu]);
 
   const pathname = props.location.pathname;
-  console.log(exercise);
 
   // instructions for pictures
   const instructions = [
@@ -29,12 +28,6 @@ function Waschbecken_garderobe(props) {
     "Garderobe für Arbeitskleidung"
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
-
-  // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  // useEffect(() => {
-  //   tocPages[tocState.activeMenu] = exercise;
-  //   localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  //}, [exercise]);
 
   const style_garderobe = {
     left: "296px",

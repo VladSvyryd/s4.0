@@ -20,9 +20,9 @@ import i_q from "../assets/pics/querverweis.png";
 
 function Hygieneplan(props) {
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
   // load global state of tocPages
-  const [tocPages, setTocPages] = useContext(PagesContext);
+  const [, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
@@ -30,7 +30,6 @@ function Hygieneplan(props) {
       tocState.currentExerciseByPath
   );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
-  const [feedbackFromDropBox, setFeedbackFromDropBox] = useState(0);
   const [animationTrigger, setAnimationTrigger] = useState(false);
 
   const instructions = [
@@ -52,6 +51,7 @@ function Hygieneplan(props) {
         .getElementById("panel")
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // handle change of exerciseCurrentState,
   //set state of exercise,

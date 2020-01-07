@@ -26,15 +26,14 @@ import i_q from "../assets/pics/querverweis.png";
 
 function Rundkolben(props) {
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
   // load global state of tocPages
-  const [tocPages, setTocPages] = useContext(PagesContext);
+  const [, setTocPages] = useContext(PagesContext);
   // recieved exercise  only in this case as static object from array of exercises
   const [my_exercise, setMyExercise] = useState(
     (props.location.state && props.location.state.currentExercise) ||
       tocState.currentExerciseByPath
   );
-  console.log(my_exercise);
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
   const [feedbackFromDraggables, setFeedbackFromDraggables] = useState(false);
   const [animationTrigger, setAnimationTrigger] = useState(false);
@@ -56,6 +55,7 @@ function Rundkolben(props) {
         .getElementById("panel")
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // handle change of exerciseCurrentState,
   //set state of exercise,

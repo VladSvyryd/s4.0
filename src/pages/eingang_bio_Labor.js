@@ -27,7 +27,7 @@ import DraggableItem from "../components/DraggableItem";
 
 function Eingang_bio_Labor(props) {
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
   // load global state of tocPages
   const [tocPages, setTocPages] = useContext(PagesContext);
   // recieved exercise  only in this case as static object from array of exercises
@@ -85,6 +85,7 @@ function Eingang_bio_Labor(props) {
         .getElementById("panel")
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage

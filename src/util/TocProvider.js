@@ -110,7 +110,7 @@ export const TocProvider = props => {
   function findNode(currentPath, currentNode) {
     var i, currentChild, result;
 
-    if (currentPath == currentNode.filename) {
+    if (currentPath === currentNode.filename) {
       return currentNode;
     } else {
       // Use a for loop instead of forEach to avoid nested functions
@@ -136,16 +136,6 @@ export const TocProvider = props => {
     }
   }
 
-  function findActiveMenuByPath() {
-    return tocPages.findIndex(node => {
-      return node.node.filename === path;
-    });
-  }
-  // if it is normal page, else if it is an accordion, or if this is first start of the programm
-  function setActivePage() {
-    return tocPages.find(e => e.node.filename === path);
-  }
-
   useEffect(() => {
     let s = getRootPages(tocPages);
     setTocState(oldState => ({
@@ -155,7 +145,7 @@ export const TocProvider = props => {
       exercisesState: getExercisesState().exercisesState,
       treeIdsPath: getTreePath()
     }));
-    console.log(tocState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.location.pathname, tocState.activeMenu]);
 
   return (

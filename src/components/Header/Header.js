@@ -34,7 +34,7 @@ const Header = props => {
         );
         break;
     }
-    console.log("now");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.location.pathname]);
   return (
     <div className="main_header">

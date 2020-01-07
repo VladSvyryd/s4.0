@@ -18,9 +18,9 @@ import i_q from "../assets/pics/querverweis.png";
 
 function Prueffristen(props) {
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
   // load global state of tocPages
-  const [tocPages, setTocPages] = useContext(PagesContext);
+  const [, setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   const [my_exercise, setMyExercise] = useState(
@@ -28,9 +28,7 @@ function Prueffristen(props) {
       tocState.currentExerciseByPath
   );
   const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
-  const [feedbackFromDropBox, setFeedbackFromDropBox] = useState(0);
   const [animationTrigger, setAnimationTrigger] = useState(false);
-  console.log(my_exercise);
   const instructions = [
     "Diese Zuordnung war falsch!",
     "Ordnen Sie die Laborgeräte den empfohlenen Prüffristen zu, indem Sie die Begriffe in die jeweilige Spalte ziehen.",
@@ -51,6 +49,7 @@ function Prueffristen(props) {
         .getElementById("panel")
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // handle change of exerciseCurrentState,
   //set state of exercise,
@@ -80,11 +79,6 @@ function Prueffristen(props) {
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
-  // if page refreshs go to Grundriss page
-  //const path = props.location.pathname.split("/");
-  //path.pop();
-  //const r = path.join("/");
-  //if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
@@ -102,15 +96,7 @@ function Prueffristen(props) {
       done: !old.done
     }));
   }
-  const droppableStyle_done = {
-    width: "385px",
-    display: "flex",
-    flexDirection: "column",
-    borderRadius: "15px",
-    background: "rgba(255,255,255,.9)",
-    boxShadow: "0px 0px 10px rgba(0,0,0,.4)",
-    padding: "10px"
-  };
+
   const droppableStyle = {
     width: "165px",
     height: "196px",

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, createRef } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -12,10 +12,10 @@ function Apparaturen(props) {
   // global state of pages
   const [tocPages] = useContext(PagesContext);
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
 
   // state to manage exercise object state
-  const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
+  const [exercise] = useState(tocPages[tocState.activeMenu]);
   // for internal linking to exercises on this page
   const pathname = props.location.pathname;
   // instructions for pictures
@@ -26,22 +26,15 @@ function Apparaturen(props) {
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
 
-  // function to change state of current exercise and trigger useEffect function to save it in local storage
-  // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  useEffect(() => {
-    tocPages[tocState.activeMenu] = exercise;
-    localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  }, [exercise]);
-  const [currentViewIndex, set_CurrentViewIndex] = useState(0);
+  const [currentViewIndex] = useState(0);
   const changeView = (viewIndex = currentViewIndex) => {
     switch (viewIndex) {
       case 1:
+        // eslint-disable-next-line react/jsx-pascal-case
         return <Versuch_im_Abzug_hebebuehne />;
-        break;
 
       default:
         return introExercise();
-        break;
     }
   };
 

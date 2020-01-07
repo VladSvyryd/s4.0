@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
@@ -17,10 +17,10 @@ function Arbeitsplatz(props) {
   // global state of pages
   const [tocPages] = useContext(PagesContext);
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
 
   // state to manage exercise object state
-  const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
+  const [exercise] = useState(tocPages[tocState.activeMenu]);
 
   // instructions for pictures
   const instructions = [
@@ -32,12 +32,6 @@ function Arbeitsplatz(props) {
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
 
   const pathname = props.location.pathname;
-
-  // callback function to trigger save of exercise in localStorage each time exercise state has been changed
-  useEffect(() => {
-    tocPages[tocState.activeMenu] = exercise;
-    localStorage.setItem("pagesList", JSON.stringify(tocPages));
-  }, [exercise]);
 
   const style_1 = {
     left: "50px",

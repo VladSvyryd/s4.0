@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { Image, Popup } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/5-druckgasflaschenschrank/startbild_sw_mit_flasche.jpg";
@@ -14,16 +14,14 @@ function Druckgasflaschenschrank(props) {
   // global state of pages
   const [tocPages] = useContext(PagesContext);
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
 
   // state to manage exercise object state
-  const [exercise, setExercise] = useState(tocPages[tocState.activeMenu]);
+  const [exercise] = useState(tocPages[tocState.activeMenu]);
 
   const pathname = props.location.pathname;
-  console.log(exercise);
 
   // state to show default instructions
-  const [defaultInstruction, setdefaultInstruction] = useState(true);
   // instructions for pictures
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
@@ -31,8 +29,6 @@ function Druckgasflaschenschrank(props) {
     "Druckgasflaschenschrank"
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
-
-
 
   const style_as_done = {
     left: "181px",

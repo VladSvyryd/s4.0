@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { Grid, Checkbox, Image, Popup, Transition } from "semantic-ui-react";
+import { Checkbox, Image, Popup, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/1_buero/teilnahme_loesung.jpg";
@@ -13,9 +13,9 @@ import i_q from "../assets/pics/querverweis.png";
 
 function Beansprungungsarten(props) {
   // state to go through active page
-  const [tocState, setTocState] = useContext(TocContext);
+  const [tocState] = useContext(TocContext);
   // load global state of tocPages
-  const [tocPages, setTocPages] = useContext(PagesContext);
+  const [setTocPages] = useContext(PagesContext);
   // recieved exercise object as state from page with exercises
   // each Link to exercise has such params
   // if this page is opened from link than it will grab exercise looking through json exerciselist
@@ -25,7 +25,6 @@ function Beansprungungsarten(props) {
   );
   const [radioGroupState, setRadioGroupState] = useState(" ");
   const [animationTrigger, setAnimationTrigger] = useState(false);
-  console.log(my_exercise);
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: ["Halbjährlich", "Jährlich", "Zweijährlich"],
@@ -48,6 +47,7 @@ function Beansprungungsarten(props) {
         .getElementById("panel")
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
