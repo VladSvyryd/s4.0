@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Header from "../../components/Header/Header";
 import Body from "../../components/Body/Body";
@@ -18,9 +18,9 @@ import "./shell.css";
 const Shell = props => {
   return (
     <div className="shell">
-      <Header />
       <PagesProvider {...props}>
         <TocProvider {...props}>
+          <Header {...props} />
           <Body {...props} />
           <Footer />
         </TocProvider>

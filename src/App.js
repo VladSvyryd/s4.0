@@ -26,6 +26,10 @@ const App = props => {
                 path="/virtueles_labor"
                 render={props => <Shell path={1} {...props} />}
               />
+              {
+                // needed to control 404 page on Intro page
+              }
+              <Route path="/" component={CheckPage} />
             </Switch>
           </HashRouter>
         </AuthProvider>

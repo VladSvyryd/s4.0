@@ -43,20 +43,6 @@ export const PagesProvider = props => {
     return arr;
   }
 
-  function parseNodesNewWay(pages = pagesA) {
-    let pagesList = pages.map(
-      (cursor, i) =>
-        cursor.pages && {
-          node: cursor,
-          firstLayer: getPagesFromNode(cursor),
-          done: false
-        }
-    );
-    localStorage.setItem("pagesList", JSON.stringify(pagesList));
-
-    return pagesList;
-  }
-
   useEffect(() => {
     localStorage.setItem("pagesList", JSON.stringify(tocPages));
   }, [tocPages]);

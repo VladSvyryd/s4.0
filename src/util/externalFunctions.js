@@ -1,7 +1,7 @@
 export default function findNode(currentExerciseId, currentNode) {
   var i, currentChild, result;
 
-  if (currentExerciseId == currentNode.id) {
+  if (currentExerciseId === currentNode.id) {
     currentNode.done = !currentNode.done;
   } else {
     // Use a for loop instead of forEach to avoid nested functions

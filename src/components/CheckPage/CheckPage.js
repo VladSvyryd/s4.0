@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Button, Image, Grid } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 import "./checkpage.css";
-import Header from "./../Header/Header";
 import i1 from "../../assets/pics/laborleiter_tuer_ohne_markierung.jpg";
 import i2 from "../../assets/pics/raumplan.png";
 import i3 from "../../assets/pics/laborleiter_tuer_mit_markierung.jpg";
 import i4 from "../../assets/pics/laborleiter_checkliste.png";
 import i5 from "../../assets/pics/checkliste.png";
+import i6 from "../../assets/pics/bgrci.png";
 
 // CheckPage
 // First Page that user sees, with 2 further pages as instractions or skip to Grundriss page
@@ -119,7 +119,14 @@ function CheckPage(props) {
   }
   return (
     <div className="content checkPageBck">
-      <Header />
+      <div className="main_header">
+        <div className="left_side">
+          <Image src={i6} height="36" />
+        </div>
+        <div className="right_side">
+          <h1>Virtuelles Labor - Intro</h1>
+        </div>
+      </div>
       <Grid className="fullHeight">
         <Grid.Row columns="2">
           <Grid.Column

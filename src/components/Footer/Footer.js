@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
 import "./footer.css";
 import { withRouter, NavLink } from "react-router-dom";
-import { Label, Icon, Image } from "semantic-ui-react";
+import { Label, Image } from "semantic-ui-react";
 import { TocContext } from "../../util/TocProvider";
-import i2 from "../../assets/pics/grundriss-icon.png";
 import i3 from "../../assets/pics/level-up-icon.png";
-import i1 from "../../assets/pics/checklist-icon.png";
 // Footer
 
 // Deals with "<->  <<-->>"" buttons, Menu, MainMenu, Notes, Search
@@ -14,7 +12,7 @@ import i1 from "../../assets/pics/checklist-icon.png";
 const Footer = props => {
   // state to go through active page
   const [tocState, setTocState] = useContext(TocContext);
-  // TODO: has to be changed
+  //  has to be changed
   const handleBackInHistory = () => {
     // if grundriss of checklish page do nothing
     if (tocState.treeIdsPath.length === 0) return false;

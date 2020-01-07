@@ -1,14 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { TocContext } from "../util/TocProvider";
-import {
-  Grid,
-  Checkbox,
-  Popup,
-  Button,
-  Image,
-  Transition
-} from "semantic-ui-react";
+import { Grid, Checkbox, Popup, Image, Transition } from "semantic-ui-react";
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/10-arbeitsplatz/fenster_auf.jpg";
 import i2 from "../assets/pics/10-arbeitsplatz/fenster_zu.jpg";
