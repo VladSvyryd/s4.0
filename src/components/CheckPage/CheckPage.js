@@ -19,7 +19,7 @@ function CheckPage(props) {
     setPageSet(lastState => lastState + 1);
   };
   const handleRedirectToMainMenu = () => {
-    props.history.push("/virtueles_labor/grundriss");
+    props.history.push("/virtuelles_labor/grundriss");
   };
   function picture(state) {
     switch (state) {

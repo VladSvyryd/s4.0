@@ -63,7 +63,7 @@ function Versuch_im_Abzug(props) {
   //const path = props.location.pathname.split("/");
   //path.pop();
   //const r = path.join("/");
-  //if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
+  //if (!my_exercise) props.history.push("/virtuelles_labor/grundriss");
 
   const handleHover = index => {
     setCurrentInstruction(instructions[index]);

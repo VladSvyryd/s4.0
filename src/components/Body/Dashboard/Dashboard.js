@@ -61,261 +61,261 @@ import pruefungWirksamkeit from "../../../pages/pruefungWirksamkeit";
 const Dashboard = props => {
   return (
     <Switch>
-      <Route path="/virtueles_labor/grundriss" exact component={grundriss} />
-      <Route path="/virtueles_labor/checklist" exact component={checklist} />
-      <Route path="/virtueles_labor/buero" exact component={buero} />
+      <Route path="/virtuelles_labor/grundriss" exact component={grundriss} />
+      <Route path="/virtuelles_labor/checklist" exact component={checklist} />
+      <Route path="/virtuelles_labor/buero" exact component={buero} />
       <Route
-        path="/virtueles_labor/buero/untweisungen"
+        path="/virtuelles_labor/buero/untweisungen"
         exact
         component={untweisungen}
       />
       <Route
-        path="/virtueles_labor/buero/untweisungen/durchfuehrungen"
+        path="/virtuelles_labor/buero/untweisungen/durchfuehrungen"
         exact
         component={durchfuehrungen}
       />
       <Route
-        path="/virtueles_labor/buero/untweisungen/beansprungungsarten"
+        path="/virtuelles_labor/buero/untweisungen/beansprungungsarten"
         exact
         component={beansprungungsarten}
       />
       <Route
-        path="/virtueles_labor/buero/prueffristen"
+        path="/virtuelles_labor/buero/prueffristen"
         exact
         component={prueffristen}
       />
 
       <Route
-        path="/virtueles_labor/eingang_chem_labor"
+        path="/virtuelles_labor/eingang_chem_labor"
         exact
         component={eingang_chem_labor}
       />
       <Route
-        path="/virtueles_labor/eingang_chem_labor/labortueren"
+        path="/virtuelles_labor/eingang_chem_labor/labortueren"
         exact
         component={labortueren}
       />
       <Route
-        path="/virtueles_labor/eingang_chem_labor/koerpernotdusche"
+        path="/virtuelles_labor/eingang_chem_labor/koerpernotdusche"
         exact
         component={augennotdusche}
       />
       <Route
-        path="/virtueles_labor/eingang_chem_labor/augennotdusche"
+        path="/virtuelles_labor/eingang_chem_labor/augennotdusche"
         exact
         component={koerpernotdusche}
       />
       <Route
-        path="/virtueles_labor/eingang_chem_labor/ventil"
+        path="/virtuelles_labor/eingang_chem_labor/ventil"
         exact
         component={ventil}
       />
       <Route
-        path="/virtueles_labor/rett_einrichtung"
+        path="/virtuelles_labor/rett_einrichtung"
         exact
         component={rett_einrichtung}
       />
       <Route
-        path="/virtueles_labor/rett_einrichtung/zugaenglichkeit"
+        path="/virtuelles_labor/rett_einrichtung/zugaenglichkeit"
         exact
         component={zugaenglichkeit}
       />
       <Route
-        path="/virtueles_labor/rett_einrichtung/feuerloescher"
+        path="/virtuelles_labor/rett_einrichtung/feuerloescher"
         exact
         component={feuerloescher}
       />
       <Route
-        path="/virtueles_labor/rett_einrichtung/verbandkasten"
+        path="/virtuelles_labor/rett_einrichtung/verbandkasten"
         exact
         component={verbandkasten}
       />
 
       <Route
-        path="/virtueles_labor/chemikalien"
+        path="/virtuelles_labor/chemikalien"
         exact
         component={chemikalien}
       />
       <Route
-        path="/virtueles_labor/chemikalien/regal"
+        path="/virtuelles_labor/chemikalien/regal"
         exact
         component={regal}
       />
       <Route
-        path="/virtueles_labor/chemikalien/sicherheitsschrank"
+        path="/virtuelles_labor/chemikalien/sicherheitsschrank"
         exact
         component={sicherheitsschrank}
       />
       <Route
-        path="/virtueles_labor/druckgasflaschenschrank"
+        path="/virtuelles_labor/druckgasflaschenschrank"
         exact
         component={druckgasflaschenschrank}
       />
       <Route
-        path="/virtueles_labor/druckgasflaschenschrank/druckgasflasche"
+        path="/virtuelles_labor/druckgasflaschenschrank/druckgasflasche"
         exact
         component={druckgasflasche}
       />
       <Route
-        path="/virtueles_labor/apparaturen"
+        path="/virtuelles_labor/apparaturen"
         exact
         component={apparaturen}
       />
       <Route
-        path="/virtueles_labor/apparaturen/funk_des_Abzuges"
+        path="/virtuelles_labor/apparaturen/funk_des_Abzuges"
         exact
         component={apparaturen_1}
       />
       <Route
-        path="/virtueles_labor/apparaturen/versuch_im_Abzug"
+        path="/virtuelles_labor/apparaturen/versuch_im_Abzug"
         exact
         component={versuch_im_Abzug}
       />
       <Route
-        path="/virtueles_labor/apparaturen/versuch_im_Abzug/hebebuehne"
+        path="/virtuelles_labor/apparaturen/versuch_im_Abzug/hebebuehne"
         exact
         component={hebebuehne}
       />
       <Route
-        path="/virtueles_labor/apparaturen/versuch_im_Abzug/tauchsieder"
+        path="/virtuelles_labor/apparaturen/versuch_im_Abzug/tauchsieder"
         exact
         component={tauchsieder}
       />
       <Route
-        path="/virtueles_labor/apparaturen/versuch_im_Abzug/statische_sicherung"
+        path="/virtuelles_labor/apparaturen/versuch_im_Abzug/statische_sicherung"
         exact
         component={statische_sicherung}
       />
       <Route
-        path="/virtueles_labor/apparaturen/versuch_im_Abzug/schliffsicherung"
+        path="/virtuelles_labor/apparaturen/versuch_im_Abzug/schliffsicherung"
         exact
         component={schliffsicherung}
       />
       <Route
-        path="/virtueles_labor/apparaturen/versuch_im_Abzug/rundkolben"
+        path="/virtuelles_labor/apparaturen/versuch_im_Abzug/rundkolben"
         exact
         component={rundkolben}
       />
       <Route
-        path="/virtueles_labor/apparaturen/versuch_im_Abzug/schlauchsicherung"
+        path="/virtuelles_labor/apparaturen/versuch_im_Abzug/schlauchsicherung"
         exact
         component={schlauchsicherung}
       />
       <Route
-        path="/virtueles_labor/mitarbeiter"
+        path="/virtuelles_labor/mitarbeiter"
         exact
         component={mitarbeiter}
       />
       <Route
-        path="/virtueles_labor/mitarbeiter/essen_und_trinken"
+        path="/virtuelles_labor/mitarbeiter/essen_und_trinken"
         exact
         component={essen_und_trinken}
       />
       <Route
-        path="/virtueles_labor/mitarbeiter/rauchen"
+        path="/virtuelles_labor/mitarbeiter/rauchen"
         exact
         component={rauchen}
       />
       <Route
-        path="/virtueles_labor/mitarbeiter/laborbrille"
+        path="/virtuelles_labor/mitarbeiter/laborbrille"
         exact
         component={laborbrille}
       />
       <Route
-        path="/virtueles_labor/mitarbeiter/laborkittel"
+        path="/virtuelles_labor/mitarbeiter/laborkittel"
         exact
         component={laborkittel}
       />
       <Route
-        path="/virtueles_labor/mitarbeiter/aermel_des_Labor"
+        path="/virtuelles_labor/mitarbeiter/aermel_des_Labor"
         exact
         component={aermel_des_Labor}
       />
       <Route
-        path="/virtueles_labor/mitarbeiter/schuhe"
+        path="/virtuelles_labor/mitarbeiter/schuhe"
         exact
         component={schuhe}
       />
 
       <Route
-        path="/virtueles_labor/eingang_bio_Labor"
+        path="/virtuelles_labor/eingang_bio_Labor"
         exact
         component={eingang_bio_Labor}
       />
 
       <Route
-        path="/virtueles_labor/waschbecken_garderobe"
+        path="/virtuelles_labor/waschbecken_garderobe"
         exact
         component={waschbecken_garderobe}
       />
       <Route
-        path="/virtueles_labor/waschbecken_garderobe/haendewaschen"
+        path="/virtuelles_labor/waschbecken_garderobe/haendewaschen"
         exact
         component={waschbecken_garderobe_1}
       />
       <Route
-        path="/virtueles_labor/waschbecken_garderobe/pers_ausruestung"
+        path="/virtuelles_labor/waschbecken_garderobe/pers_ausruestung"
         exact
         component={waschbecken_garderobe_2}
       />
       <Route
-        path="/virtueles_labor/arbeitsplatz"
+        path="/virtuelles_labor/arbeitsplatz"
         exact
         component={arbeitsplatz}
       />
       <Route
-        path="/virtueles_labor/arbeitsplatz/belueftung"
+        path="/virtuelles_labor/arbeitsplatz/belueftung"
         exact
         component={arbeitsplatz_1}
       />
       <Route
-        path="/virtueles_labor/arbeitsplatz/arbeitsorganisation"
+        path="/virtuelles_labor/arbeitsplatz/arbeitsorganisation"
         exact
         component={arbeitsplatz_2}
       />
       <Route
-        path="/virtueles_labor/arbeitsplatz/hygieneplan"
+        path="/virtuelles_labor/arbeitsplatz/hygieneplan"
         exact
         component={hygieneplan}
       />
 
       <Route
-        path="/virtueles_labor/mikrobiologische"
+        path="/virtuelles_labor/mikrobiologische"
         exact
         component={mikrobiologische}
       />
       <Route
-        path="/virtueles_labor/mikrobiologische/arbeitsmittel"
+        path="/virtuelles_labor/mikrobiologische/arbeitsmittel"
         exact
         component={arbeitsmittel}
       />
       <Route
-        path="/virtueles_labor/mikrobiologische/pipetten"
+        path="/virtuelles_labor/mikrobiologische/pipetten"
         exact
         component={pipetten}
       />
       <Route
-        path="/virtueles_labor/mikrobiologische/arbeitshaltung"
+        path="/virtuelles_labor/mikrobiologische/arbeitshaltung"
         exact
         component={arbeitshaltung}
       />
       <Route
-        path="/virtueles_labor/sterilisationsautoklav"
+        path="/virtuelles_labor/sterilisationsautoklav"
         exact
         component={sterilisationsautoklav}
       />
       <Route
-        path="/virtueles_labor/sterilisationsautoklav/ausstatung_entladung"
+        path="/virtuelles_labor/sterilisationsautoklav/ausstatung_entladung"
         exact
         component={ausstatung_entladung}
       />
       <Route
-        path="/virtueles_labor/sterilisationsautoklav/pers_schutz"
+        path="/virtuelles_labor/sterilisationsautoklav/pers_schutz"
         exact
         component={pers_schutz}
       />
       <Route
-        path="/virtueles_labor/sterilisationsautoklav/pruefung_der_wirksamkeit"
+        path="/virtuelles_labor/sterilisationsautoklav/pruefung_der_wirksamkeit"
         exact
         component={pruefungWirksamkeit}
       />

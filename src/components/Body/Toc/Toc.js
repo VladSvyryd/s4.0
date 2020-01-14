@@ -61,7 +61,7 @@ const Toc = props => {
         index={index}
         active={tocState.activeMenu === index}
         as={NavLink}
-        to={`/virtueles_labor/${tocPages[index].filename}`}
+        to={`/virtuelles_labor/${tocPages[index].filename}`}
         onMouseEnter={() => handleHover(index)}
         onMouseLeave={() => handleHoverOff()}
         style={{

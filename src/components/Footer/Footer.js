@@ -18,7 +18,7 @@ const Footer = props => {
     if (tocState.treeIdsPath.length === 0) return false;
     // copa of ids (till current page) as array, get from tocPages tree
     let treeIdsPathCopy = tocState.treeIdsPath;
-    // root path : virtueles_labor
+    // root path : virtuelles_labor
     let rootPath = props.location.pathname.split("/")[1];
     // if not a previouse page before grundriss
     if (treeIdsPathCopy && treeIdsPathCopy.length > 1) {
@@ -65,7 +65,7 @@ const Footer = props => {
       <div className="right_footer">
         <div className="footer_buttons">
           <NavLink
-            to="/virtueles_labor/checklist"
+            to="/virtuelles_labor/checklist"
             activeStyle={active_style}
             style={button_style}
             className="grid twoColumn alignCenter padded gap10"
@@ -75,7 +75,7 @@ const Footer = props => {
           <span className="divider"></span>
           <NavLink
             activeStyle={active_style}
-            to="/virtueles_labor/grundriss"
+            to="/virtuelles_labor/grundriss"
             className="grid twoColumn alignCenter padded gap10"
             style={button_style}
           >

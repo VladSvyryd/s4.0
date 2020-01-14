@@ -48,7 +48,7 @@ function Checklist(props) {
         // if node has children nodes(width Link to each of them) than create childnodes with it's pages
         return !section.pages ? (
           <Link
-            to={`/virtueles_labor/${tocPages[menuIndex].filename}`}
+            to={`/virtuelles_labor/${tocPages[menuIndex].filename}`}
             key={"linkSection" + i}
           >
             {i <= 0 && (
@@ -69,7 +69,7 @@ function Checklist(props) {
           // if node has only pages(solid), create node(one link refer to node) with pages
           <Link
             key={"linkSection" + i}
-            to={`/virtueles_labor/${tocPages[menuIndex].filename}`}
+            to={`/virtuelles_labor/${tocPages[menuIndex].filename}`}
             className="my_node_section"
           >
             <div className="my_title">{section.titel}</div>{" "}

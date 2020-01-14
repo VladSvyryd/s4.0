@@ -20,7 +20,27 @@ create electron.js in the "/public" folder and insert code for this worker from 
 
 # Compile
 
-After operations in package.json we can work in this directory, either with Web Version or Native and with a command "npm run electron-pack" code will be compiled in "/build" folder for Web, "/dist" for Native. /build can be deployed on server, Dist folder has install.exe(win) file to install app
+After operations in package.json we can work in this directory, either with Web Version or Native.
+With a command "npm run electron-pack" code will be compiled in "/build" folder for Web, "/dist" for Native. /build can be deployed on server, Dist folder has install.exe(win) file to install app
+
+# WICHTIG
+
+main.js is a script for building electron-app
+in package.json under ' "electron-pack": "electron-builder -c.extraMetadata.main=build/main.js"' is a path of its location(it could be wherever you wish)
+This represents path to file(page) that will be first page:
+
+```javascript
+ mainWindow.loadURL(
+    isDev
+      ? "http://localhost:3000"
+      : `file://${path.join(__dirname, "./hauptmenu/index.htm")}`
+  );
+  mainWindow.on("closed", () => (mainWindow = null));
+}
+```
+
+keep in mind that is all your files are in the "build" directory it will create the same directory after installing app and the sctructure will be the same,
+so if first page located as "buils/index.html" then use "./index.html" as path in main.js
 
 # Start
 
@@ -32,7 +52,7 @@ in devMode just use "npm start" it runs server and react on it
 
 (deprecated)P.S. if you have some issues with images, add into public/index.html before using electron-pack
 
-# LInks
+# Links
 
 Some links, that can help if you get into trable: [https://medium.com/@badbrotherblake/great-article-thanks-heaps-in-case-it-helps-anyone-i-had-to-add-this-to-my-package-json-scripts-aa49657f8abd](https://medium.com/@badbrotherblake/great-article-thanks-heaps-in-case-it-helps-anyone-i-had-to-add-this-to-my-package-json-scripts-aa49657f8abd)[https://medium.com/p/e93f9761f86f/responses/show](https://medium.com/p/e93f9761f86f/responses/show) [https://medium.com/@kitze/%EF%B8%8F-from-react-to-an-electron-app-ready-for-production-a0468ecb1da3](https://medium.com/@kitze/%EF%B8%8F-from-react-to-an-electron-app-ready-for-production-a0468ecb1da3)
 

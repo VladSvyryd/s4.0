@@ -23,7 +23,7 @@ const App = props => {
             <Switch>
               <Route path="/" exact component={CheckPage} />
               <Route
-                path="/virtueles_labor"
+                path="/virtuelles_labor"
                 render={props => <Shell path={1} {...props} />}
               />
               {

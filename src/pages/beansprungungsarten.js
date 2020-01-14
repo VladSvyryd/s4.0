@@ -128,7 +128,7 @@ function Beansprungungsarten(props) {
   //const path = props.location.pathname.split("/");
   //path.pop();
   //const r = path.join("/");
-  //if (!my_exercise) props.history.push("/virtueles_labor/grundriss");
+  //if (!my_exercise) props.history.push("/virtuelles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage

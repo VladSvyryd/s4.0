@@ -69,7 +69,7 @@ function Grundriss(props) {
     }));
     // look in tocPages array, node with the same index as right now is hovered and push it in browser history to redirect
     props.history.push(
-      `/virtueles_labor/${tocPages[tocState.activeMenu].filename}`
+      `/virtuelles_labor/${tocPages[tocState.activeMenu].filename}`
     );
   };
 
