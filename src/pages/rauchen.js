@@ -111,21 +111,6 @@ function Rauchen(props) {
       setMitarbeiter(15);
   };
 
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-
-    setMitarbeiterPicture();
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   // parse radioButtons from aufgabe object
   // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
   const generateRadioButtons = () => {
@@ -155,9 +140,6 @@ function Rauchen(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       tryAgain();
     }
@@ -174,9 +156,6 @@ function Rauchen(props) {
 
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -203,12 +182,6 @@ function Rauchen(props) {
     );
     return sum > 0 ? true : false;
   }
-
-  // if page refreshs go to Grundriss page
-  //const path = props.location.pathname.split("/");
-  //path.pop();
-  //const r = path.join("/");
-  // if (!my_exercise) props.history.push("/virtuelles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
@@ -241,6 +214,21 @@ function Rauchen(props) {
     left: "136px",
     top: "302px"
   };
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+
+    setMitarbeiterPicture();
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">
@@ -337,7 +325,7 @@ function Rauchen(props) {
                       open={triggerWarning}
                     >
                       <Popup.Header as="span" className="headerPop">
-                        Dieser Antwort war leider falsch!
+                        Diese Antwort war leider falsch!
                       </Popup.Header>
                       <Popup.Content>
                         <Image src={i6} centered />
@@ -388,13 +376,6 @@ function Rauchen(props) {
                           }}
                         />
                       </div>
-                    </div>
-
-                    <div
-                      style={{ position: "absolute", top: "0", right: "0" }}
-                      onClick={() => isDone()}
-                    >
-                      Reset
                     </div>
                   </div>
                 </Transition>

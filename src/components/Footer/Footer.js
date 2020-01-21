@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./footer.css";
 import { withRouter, NavLink } from "react-router-dom";
-import { Label, Image } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import { TocContext } from "../../util/TocProvider";
 import i3 from "../../assets/pics/level-up-icon.png";
 // Footer
@@ -87,13 +87,15 @@ const Footer = props => {
             onClick={handleBackInHistory}
             style={button_style}
             className="grid twoColumn alignCenter padded gap10 pointer"
+            id="goBack"
           >
             <Image src={i3} />
-            Ebene höher
+            <span>
+              <b>Ebene höher</b>
+            </span>
           </div>
         </div>
-        <Label
-          as="a"
+        <a
           href="../../hauptmenu/labor.htm"
           style={{
             backgroundColor: "transparent",
@@ -101,8 +103,8 @@ const Footer = props => {
             color: "white"
           }}
         >
-          Hauptmenü
-        </Label>
+          <span>Hauptmenü</span>
+        </a>
       </div>
     </div>
   );

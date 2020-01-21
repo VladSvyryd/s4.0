@@ -51,19 +51,7 @@ function Arbeitsmittel(props) {
     "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // parse radioButtons from aufgabe object
   // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
   const generateRadioButtons = () => {
@@ -92,9 +80,6 @@ function Arbeitsmittel(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       tryAgain();
     }
@@ -111,9 +96,6 @@ function Arbeitsmittel(props) {
 
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -163,7 +145,19 @@ function Arbeitsmittel(props) {
       done: !old.done
     }));
   }
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">
@@ -241,7 +235,7 @@ function Arbeitsmittel(props) {
                       open={triggerWarning}
                     >
                       <Popup.Header as="span" className="headerPop">
-                        Dieser Antwort war leider falsch!
+                        Diese Antwort war leider falsch!
                       </Popup.Header>
                       <Popup.Content>
                         <Image src={i6} centered />
@@ -274,7 +268,7 @@ function Arbeitsmittel(props) {
                 >
                   <div
                     className="absolute "
-                    style={{ top: "9%", left: "-370px" }}
+                    style={{ top: "12%", left: "-370px" }}
                   >
                     <div
                       className=" gridList "

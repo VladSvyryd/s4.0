@@ -52,7 +52,11 @@ function Arbeitsplatz(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            {exercise.pages[0].done ? <Image src={i2} /> : <Image src={i1} />}
+            {exercise.pages[0].done ? (
+              <Image src={i2} style={{ width: "591px" }} />
+            ) : (
+              <Image src={i1} style={{ width: "591px" }} />
+            )}
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[1])}
               onMouseLeave={() => setCurrentInstruction(instructions[0])}

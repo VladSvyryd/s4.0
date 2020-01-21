@@ -40,19 +40,7 @@ function Arbeitsplatz_2(props) {
     "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -73,7 +61,7 @@ function Arbeitsplatz_2(props) {
           open={radioGroupState === i}
         >
           <Popup.Header as="span" className="headerPop">
-            Dieser Antwort war leider falsch!
+            Diese Antwort war leider falsch!
           </Popup.Header>
           <Popup.Content>
             <Image src={i3} centered />
@@ -100,16 +88,10 @@ function Arbeitsplatz_2(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -144,7 +126,19 @@ function Arbeitsplatz_2(props) {
       done: !old.done
     }));
   }
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">
@@ -255,14 +249,16 @@ function Arbeitsplatz_2(props) {
                         </div>
                       </div>
                     </div>
-                    <Image
-                      src={i6}
+                    <span
                       style={{
                         position: "absolute",
-                        bottom: "-163px",
-                        right: "-98px"
+                        bottom: "-151px",
+                        right: "-108px",
+                        border: "2px solid #348827"
                       }}
-                    />
+                    >
+                      <Image src={i6} />
+                    </span>
                   </div>
                 </Transition>
               </div>

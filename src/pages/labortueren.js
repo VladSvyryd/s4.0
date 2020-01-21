@@ -60,7 +60,7 @@ function Labortueren(props) {
           open={radioGroupState === i}
         >
           <Popup.Header as="span" className="headerPop">
-            Dieser Antwort war leider falsch!
+            Diese Antwort war leider falsch!
           </Popup.Header>
           <Popup.Content>
             <Image src={i3} centered />
@@ -88,16 +88,21 @@ function Labortueren(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
+      // document
+      //  .getElementById("panel")
+      //  .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
-  const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
+  const handleClickToReturnBack = event => {
+    // if there is a bug with go back in history, you can use this method to disable click on back
+    //var noRedirect = "#goBack, .parent-div-class *";
+    // if (!event.target.matches(noRedirect)) {
+    //  props.history.goBack();
+    // }
+    // document
+    //   .getElementById("panel")
+    //   .addEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -115,11 +120,6 @@ function Labortueren(props) {
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
-  // if page refreshs go to Grundriss page
-  //const path = props.location.pathname.split("/");
-  //path.pop();
-  //const r = path.join("/");
-  //if (!my_exercise) props.history.push("/virtuelles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
@@ -138,17 +138,17 @@ function Labortueren(props) {
     }));
   }
   useEffect(() => {
-    if (my_exercise.done)
+    if (my_exercise.done) {
       document
         .getElementById("panel")
         .addEventListener("mousedown", handleClickToReturnBack);
+    }
     return () => {
       document
         .getElementById("panel")
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">
@@ -192,9 +192,10 @@ function Labortueren(props) {
                     </div>
                     <div style={{ marginTop: "20px", width: "330px" }}>
                       <p>
-                        Die TRGS 526 „Laboratorien“ und die BGI/GUV-I 850-0
-                        „Sicheres Arbeiten in Laboratorien“ schreiben zu Ihrer
-                        eigenen Sicherheit bestimmte bauliche Maßnahmen bei der
+                        Die TRGS 526 „Laboratorien“ und die DGUV Information
+                        213-850 "Sicheres Arbeiten in Laboratorien - Grundlagen
+                        und Handlungshilfen" schreiben zu Ihrer eigenen
+                        Sicherheit bestimmte bauliche Maßnahmen bei der
                         Einrichtung eines Laborraums vor.
                       </p>
                       <p style={{ width: "270px" }}>

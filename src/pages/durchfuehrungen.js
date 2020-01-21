@@ -49,19 +49,7 @@ function Durchfuehrungen(props) {
     "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -87,9 +75,6 @@ function Durchfuehrungen(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       setTrigger(true);
     }
@@ -111,9 +96,6 @@ function Durchfuehrungen(props) {
   }
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -144,7 +126,19 @@ function Durchfuehrungen(props) {
       done: !old.done
     }));
   }
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">
@@ -213,7 +207,7 @@ function Durchfuehrungen(props) {
                       open={triggerWarning}
                     >
                       <Popup.Header as="span" className="headerPop">
-                        Dieser Antwort war leider falsch!
+                        Diese Antwort war leider falsch!
                       </Popup.Header>
                       <Popup.Content>
                         <Image src={i3} centered />
@@ -258,12 +252,6 @@ function Durchfuehrungen(props) {
                           Unterschrift des Teilnehmers bestätigen lassen.
                         </p>
                       </div>
-                    </div>
-                    <div
-                      style={{ margin: "20px 30px" }}
-                      onClick={() => isDone()}
-                    >
-                      Reset
                     </div>
                   </div>
                 </Transition>

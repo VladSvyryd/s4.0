@@ -220,7 +220,7 @@ function Verbandkasten(props) {
                       open={triggerWarning}
                     >
                       <Popup.Header as="span" className="headerPop">
-                        Dieser Antwort war leider falsch!
+                        Diese Antwort war leider falsch!
                       </Popup.Header>
                       <Popup.Content>
                         <Image src={i6} centered />

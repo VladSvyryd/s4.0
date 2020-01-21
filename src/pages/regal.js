@@ -36,21 +36,9 @@ function Regal(props) {
   };
   const instructions = [
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen.",
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft"
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft."
   ];
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -71,7 +59,7 @@ function Regal(props) {
           open={radioGroupState === i}
         >
           <Popup.Header as="span" className="headerPop">
-            Dieser Antwort war leider falsch!
+            Diese Antwort war leider falsch!
           </Popup.Header>
           <Popup.Content>
             <Image src={i3} centered />
@@ -98,16 +86,10 @@ function Regal(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -142,7 +124,19 @@ function Regal(props) {
       done: !old.done
     }));
   }
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">
@@ -224,7 +218,7 @@ function Regal(props) {
                         </p>
                         <p>
                           Innerhalb des Labors müssen entzündbare Flüssigkeiten
-                          über 1 | Nennvolumen an geschützter Stelle (im
+                          über 1 L Nennvolumen an geschützter Stelle (im
                           Sicherheitsschrank) gelagert werden.
                         </p>
                       </div>

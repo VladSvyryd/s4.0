@@ -37,35 +37,16 @@ function Prueffristen(props) {
   const [currentInstruction, setCurrentInstruction] = useState(
     my_exercise && my_exercise.done ? instructions[2] : instructions[1]
   );
-  // if exercise has been already done, go back
-  useEffect(() => {
-    localStorage.setItem("stopAllAnimations", true);
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // handle change of exerciseCurrentState,
   //set state of exercise,
   //add click event to get back to other exercise
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document
-      .getElementById("panel")
-      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -125,7 +106,7 @@ function Prueffristen(props) {
       {
         id: 16,
         text: "Sicherheitsschrank",
-        extraText: "entzündgaber Flüssigkeiten"
+        extraText: "entzündbare Flüssigkeiten"
       },
       { id: 32, text: "Feuerlöscher" },
       {
@@ -167,6 +148,20 @@ function Prueffristen(props) {
         : setCurrentInstruction(instructions[0]);
     }
   };
+  // if exercise has been already done, go back
+  useEffect(() => {
+    localStorage.setItem("stopAllAnimations", true);
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div
@@ -482,7 +477,7 @@ function Prueffristen(props) {
                       display: "flex",
                       flexDirection: "row",
                       flexWrap: "wrap",
-                      width: "731px",
+                      width: "729px",
                       margin: "auto",
                       justifyContent: "space-evenly"
                     }}

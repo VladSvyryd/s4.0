@@ -52,15 +52,9 @@ function Eingang_bio_Labor(props) {
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document
-      .getElementById("panel")
-      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -74,19 +68,7 @@ function Eingang_bio_Labor(props) {
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
   function isDone() {
@@ -136,6 +118,19 @@ function Eingang_bio_Labor(props) {
   const itemsStyle = {
     width: "132px"
   };
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame ausstatung_entladung">
@@ -292,7 +287,7 @@ function Eingang_bio_Labor(props) {
         open={feedbackFromDraggables}
       >
         <Popup.Header as="span" className="headerPop">
-          Dieser Antwort war leider falsch!
+          Diese Antwort war leider falsch!
         </Popup.Header>
         <Popup.Content>
           <Image src={i3} centered />

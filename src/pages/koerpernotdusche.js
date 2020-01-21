@@ -51,15 +51,9 @@ function Koerpernotdusche(props) {
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document
-      .getElementById("panel")
-      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -73,11 +67,6 @@ function Koerpernotdusche(props) {
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
-  // if page refreshs go to Grundriss page
-  //const path = props.location.pathname.split("/");
-  //path.pop();
-  //const r = path.join("/");
-  //if (!my_exercise) props.history.push("/virtuelles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
@@ -110,7 +99,7 @@ function Koerpernotdusche(props) {
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleClickToReturnBack]);
   const droppableStyle = {
     width: "213px",
     height: "198px",
@@ -226,7 +215,7 @@ function Koerpernotdusche(props) {
                         Kapitel {"  "}
                         <a
                           target="_blank"
-                          href="../../fachinformation-responsiv/kapb/koerpernotduschen.htm"
+                          href="../../fachinformation-responsiv/kapb/augennotduschen.htm"
                           className="externalLink"
                         >
                           <span className="linkContent">
@@ -282,7 +271,7 @@ function Koerpernotdusche(props) {
         open={feedbackFromDraggables}
       >
         <Popup.Header as="span" className="headerPop">
-          Dieser Antwort war leider falsch!
+          Diese Antwort war leider falsch!
         </Popup.Header>
         <Popup.Content>
           <Image src={i3} centered />

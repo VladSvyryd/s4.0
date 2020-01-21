@@ -44,34 +44,16 @@ function Rundkolben(props) {
   ];
   // refference fro warning popoup
   const contextRef = createRef();
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // handle change of exerciseCurrentState,
   //set state of exercise,
   //add click event to get back to other exercise
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document
-      .getElementById("panel")
-      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -135,6 +117,20 @@ function Rundkolben(props) {
   const itemsStyle = {
     width: "auto"
   };
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
+
   return (
     <>
       <div className="exerciseFrame ausstatung_entladung">
@@ -297,7 +293,7 @@ function Rundkolben(props) {
         open={feedbackFromDraggables}
       >
         <Popup.Header as="span" className="headerPop">
-          Dieser Antwort war leider falsch!
+          Diese Antwort war leider falsch!
         </Popup.Header>
         <Popup.Content>
           <Image src={i3} centered />

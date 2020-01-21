@@ -251,12 +251,12 @@ const Dashboard = props => {
       <Route
         path="/virtuelles_labor/waschbecken_garderobe/haendewaschen"
         exact
-        component={waschbecken_garderobe_1}
+        component={waschbecken_garderobe_2}
       />
       <Route
         path="/virtuelles_labor/waschbecken_garderobe/pers_ausruestung"
         exact
-        component={waschbecken_garderobe_2}
+        component={waschbecken_garderobe_1}
       />
       <Route
         path="/virtuelles_labor/arbeitsplatz"

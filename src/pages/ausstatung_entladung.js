@@ -47,15 +47,9 @@ function Ausstatung_entladung(props) {
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document
-      .getElementById("panel")
-      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -69,19 +63,6 @@ function Ausstatung_entladung(props) {
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
@@ -121,7 +102,7 @@ function Ausstatung_entladung(props) {
       { id: 4, text: "Chemikalienhandschuhe" },
       { id: 8, text: "Hitzehandschuhe" },
       { id: 16, text: "Latexhandschuhe" },
-      { id: 32, text: "Gummierte" }
+      { id: 32, text: "Gummierte Schürze" }
     ],
     bitValueAnswer: 10
   };
@@ -142,6 +123,19 @@ function Ausstatung_entladung(props) {
         : setCurrentInstruction(instructions[0]);
     }
   };
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame ausstatung_entladung">

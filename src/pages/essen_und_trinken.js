@@ -109,21 +109,7 @@ function Essen_und_trinken(props) {
     )
       setMitarbeiter(15);
   };
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
 
-    setMitarbeiterPicture();
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   // parse radioButtons from aufgabe object
   // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
   const generateRadioButtons = () => {
@@ -152,9 +138,6 @@ function Essen_und_trinken(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       tryAgain();
     }
@@ -171,9 +154,6 @@ function Essen_und_trinken(props) {
 
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -238,6 +218,21 @@ function Essen_und_trinken(props) {
     left: "38px",
     top: "38px"
   };
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+
+    setMitarbeiterPicture();
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">
@@ -334,7 +329,7 @@ function Essen_und_trinken(props) {
                       open={triggerWarning}
                     >
                       <Popup.Header as="span" className="headerPop">
-                        Dieser Antwort war leider falsch!
+                        Diese Antwort war leider falsch!
                       </Popup.Header>
                       <Popup.Content>
                         <Image src={i6} centered />
@@ -386,13 +381,6 @@ function Essen_und_trinken(props) {
                           }}
                         />
                       </div>
-                    </div>
-
-                    <div
-                      style={{ position: "absolute", top: "0", right: "0" }}
-                      onClick={() => isDone()}
-                    >
-                      Reset
                     </div>
                   </div>
                 </Transition>

@@ -94,7 +94,7 @@ function Ringang_chem_labor(props) {
                 }
               }}
             >
-              {exercise.pages[2].done ? <Image src={i7} /> : <Image src={i6} />}
+              {exercise.pages[1].done ? <Image src={i7} /> : <Image src={i6} />}
             </Link>
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[4])}

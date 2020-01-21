@@ -18,6 +18,7 @@ import i5 from "../assets/pics/achtung_gruen.png";
 import i3 from "../assets/pics/5-druckgasflaschenschrank/finish_1.jpg";
 import markNodeDone from "../util/externalFunctions";
 import i_q from "../assets/pics/querverweis.png";
+import LazyImage from "../components/LazyImage/LazyImage";
 
 function Druckgasflasche(props) {
   // state to go through active page
@@ -50,19 +51,7 @@ function Druckgasflasche(props) {
     "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -88,9 +77,6 @@ function Druckgasflasche(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       setTrigger(true);
     }
@@ -106,9 +92,6 @@ function Druckgasflasche(props) {
 
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -139,15 +122,28 @@ function Druckgasflasche(props) {
       done: !old.done
     }));
   }
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">
         <Grid style={{ width: "100%" }}>
           <Grid.Row columns="2">
             <Grid.Column width="9" className="relative">
-              <Image
+              <LazyImage
                 src={i1}
+                size="mini"
                 className="absolute"
                 style={{ top: "0", left: "15px" }}
                 floated="left"
@@ -199,7 +195,7 @@ function Druckgasflasche(props) {
                       open={triggerWarning}
                     >
                       <Popup.Header as="span" className="headerPop">
-                        Dieser Antwort war leider falsch!
+                        Diese Antwort war leider falsch!
                       </Popup.Header>
                       <Popup.Content>
                         <Image src={i6} centered />

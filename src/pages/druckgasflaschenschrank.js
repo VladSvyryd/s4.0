@@ -47,7 +47,11 @@ function Druckgasflaschenschrank(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            {exercise.pages[0].done ? <Image src={i2} /> : <Image src={i1} />}
+            {exercise.pages[0].done ? (
+              <Image src={i2} style={{ width: "513px" }} />
+            ) : (
+              <Image src={i1} style={{ width: "513px" }} />
+            )}
             <Link
               onMouseEnter={() =>
                 exercise.pages[0].done

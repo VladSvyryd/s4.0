@@ -52,23 +52,15 @@ function Sicherheitsschrank(props) {
     ],
     answerIndex: 2
   };
-  // if exercise has been already done, go back
-  useEffect(() => {
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // instructions for pictures
   const instructions = [
     "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
     "Behälter mit unkenntlichem Etikett",
     "Flasche mit einer leicht entzündbaren Flüssigkeit.",
     "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft!",
-    "Behälter mit Kennzeichnung",
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Behälter mit vereinfachter Kennzeichnung",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
@@ -133,7 +125,7 @@ function Sicherheitsschrank(props) {
     document
       .getElementById("panel")
       .removeEventListener("mousedown", handleClickToReturnBack);
-    props.history.goBack();
+    window.location.reload();
   };
 
   // reset state of current exercise
@@ -169,7 +161,16 @@ function Sicherheitsschrank(props) {
       done: !old.done
     }));
   }
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
+  console.log(my_exercise);
   function Notification(state) {
     switch (state) {
       case 0:
@@ -293,7 +294,7 @@ function Sicherheitsschrank(props) {
                           <Image src={i3} centered />
                           <div>
                             <Popup.Header as="span" className="headerPop">
-                              Dieser Antwort war leider falsch!
+                              Diese Antwort war leider falsch!
                             </Popup.Header>
                             <Popup.Content style={{ marginTop: "10px" }}>
                               {Notification(radioGroupState)}
@@ -415,7 +416,7 @@ function Sicherheitsschrank(props) {
                     <Image
                       src={i11}
                       onMouseEnter={() =>
-                        setCurrentInstruction(instructions[5])
+                        setCurrentInstruction(instructions[4])
                       }
                       onMouseLeave={() =>
                         setCurrentInstruction(instructions[0])

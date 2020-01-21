@@ -162,11 +162,11 @@ function Buero(props) {
       localStorage.setItem("stopAllAnimations", false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [localStorage]);
   function main_section() {
     return (
       <>
-        <div className="relative">
+        <div className="relative" style={{ width: "544px" }}>
           <Image src={i3} />
           <Link
             onMouseEnter={e => handleHoverEnter(e, instructions[1])}

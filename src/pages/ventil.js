@@ -51,15 +51,9 @@ function Ventil(props) {
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document
-      .getElementById("panel")
-      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -121,18 +115,7 @@ function Ventil(props) {
   const handleFailToDropItem = feedbackSuccess => {
     setFeedbackFromDraggables(!feedbackSuccess);
   };
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   const droppableStyle = {
     width: "213px",
     height: "122px",
@@ -162,6 +145,19 @@ function Ventil(props) {
   const itemsStyle = {
     boxShadow: "3px 3px 7px #0000003d"
   };
+
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame ausstatung_entladung">
@@ -305,7 +301,7 @@ function Ventil(props) {
         open={feedbackFromDraggables}
       >
         <Popup.Header as="span" className="headerPop">
-          Dieser Antwort war leider falsch!
+          Diese Antwort war leider falsch!
         </Popup.Header>
         <Popup.Content>
           <Image src={i3} centered />

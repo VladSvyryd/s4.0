@@ -51,19 +51,7 @@ function Pers_schutz(props) {
     "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // parse radioButtons from aufgabe object
   // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
   const generateRadioButtons = () => {
@@ -92,9 +80,6 @@ function Pers_schutz(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       tryAgain();
     }
@@ -110,9 +95,6 @@ function Pers_schutz(props) {
 
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -140,12 +122,6 @@ function Pers_schutz(props) {
     return sum > 0 ? true : false;
   }
 
-  // if page refreshs go to Grundriss page
-  //const path = props.location.pathname.split("/");
-  //path.pop();
-  //const r = path.join("/");
-  //if (!my_exercise) props.history.push("/virtuelles_labor/grundriss");
-
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
   function isDone() {
@@ -162,7 +138,19 @@ function Pers_schutz(props) {
       done: !old.done
     }));
   }
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">
@@ -198,7 +186,10 @@ function Pers_schutz(props) {
                   <div className="absolute" style={{ top: "4%", left: "4%" }}>
                     <div
                       className="gridList"
-                      style={{ gridTemplateColumns: "auto auto" }}
+                      style={{
+                        gridTemplateColumns: "auto auto",
+                        marginBottom: "15px"
+                      }}
                     >
                       <div>
                         <Image src={i2} />
@@ -250,7 +241,7 @@ function Pers_schutz(props) {
                       open={triggerWarning}
                     >
                       <Popup.Header as="span" className="headerPop">
-                        Dieser Antwort war leider falsch!
+                        Diese Antwort war leider falsch!
                       </Popup.Header>
                       <Popup.Content>
                         <Image src={i6} centered />

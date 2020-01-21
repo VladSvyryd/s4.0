@@ -5,8 +5,8 @@ import { Grid, Checkbox, Popup, Image, Transition } from "semantic-ui-react";
 import markNodeDone from "../util/externalFunctions";
 
 import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/3-rettungseinrichtungen/feuerloescher_frage.png";
-import i2 from "../assets/pics/3-rettungseinrichtungen/feuerloescher_loesung.png";
+import i1 from "../assets/pics/3-rettungseinrichtungen/feuerloescher_frage.jpg";
+import i2 from "../assets/pics/3-rettungseinrichtungen/feuerloescher_loesung.jpg";
 import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
@@ -28,26 +28,14 @@ function Feuerloescher(props) {
   const [animationTrigger, setAnimationTrigger] = useState(false);
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
-    labels: ["Im Oktober 2010", "Im Oktober 2011", "Im Oktober 2012"],
+    labels: ["Im Oktober 2020", "Im Oktober 2021", "Im Oktober 2022"],
     answerIndex: 2 /// right answer index in array of questions
   };
   const instructions = [
     "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -68,7 +56,7 @@ function Feuerloescher(props) {
           open={radioGroupState === i}
         >
           <Popup.Header as="span" className="headerPop">
-            Dieser Antwort war leider falsch!
+            Diese Antwort war leider falsch!
           </Popup.Header>
           <Popup.Content>
             <Image src={i6} centered />
@@ -96,16 +84,10 @@ function Feuerloescher(props) {
       isDone();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -140,7 +122,19 @@ function Feuerloescher(props) {
       done: !old.done
     }));
   }
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">

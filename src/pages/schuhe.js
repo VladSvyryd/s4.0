@@ -96,21 +96,7 @@ function Schuhe(props) {
     )
       setMitarbeiter(15);
   };
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
 
-    setMitarbeiterPicture();
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -131,7 +117,7 @@ function Schuhe(props) {
           open={radioGroupState === i}
         >
           <Popup.Header as="span" className="headerPop">
-            Dieser Antwort war leider falsch!
+            Diese Antwort war leider falsch!
           </Popup.Header>
           <Popup.Content>
             <Image src={i6} centered />
@@ -160,16 +146,10 @@ function Schuhe(props) {
       setMitarbeiterPicture();
       setRadioGroupState(value);
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     }
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -224,6 +204,22 @@ function Schuhe(props) {
     left: "38px",
     top: "38px"
   };
+
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+
+    setMitarbeiterPicture();
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">
@@ -332,8 +328,8 @@ function Schuhe(props) {
                       <div>
                         <span className="my_title small">Richtig!</span>
                         <p style={{ marginTop: "5px" }}>
-                          Die Ärmel am Laborkittel dürfen niemals hochgekrempelt
-                          werden.
+                          Nur mit festem, trittsicherem und geschlossenem
+                          Schuhwerk sind Sie im Labor ausreichend geschützt.
                         </p>
                         <Image
                           src={i8}

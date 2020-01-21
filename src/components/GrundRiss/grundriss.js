@@ -327,7 +327,11 @@ function Grundriss(props) {
             {tocState.activeMenu === 11 && <Image src={i14} />}
           </div>
         </Grid.Column>
-        <Grid.Column width="5" verticalAlign="middle">
+        <Grid.Column
+          width="5"
+          verticalAlign="middle"
+          style={{ marginTop: "-24px" }}
+        >
           <Grid>
             <Grid.Row>
               <div style={{ margin: "0 auto" }}>

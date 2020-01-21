@@ -40,34 +40,16 @@ function Hygieneplan(props) {
   const [currentInstruction, setCurrentInstruction] = useState(
     my_exercise && my_exercise.done ? instructions[2] : instructions[1]
   );
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // handle change of exerciseCurrentState,
   //set state of exercise,
   //add click event to get back to other exercise
   const handleExerciseIsDone = () => {
     setAnimationTrigger(true);
     isDone();
-    document
-      .getElementById("panel")
-      .addEventListener("mousedown", handleClickToReturnBack);
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -81,11 +63,6 @@ function Hygieneplan(props) {
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
-  // if page refreshs go to Grundriss page
-  //const path = props.location.pathname.split("/");
-  //path.pop();
-  //const r = path.join("/");
-  //if (!my_exercise) props.history.push("/virtuelles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
@@ -127,7 +104,7 @@ function Hygieneplan(props) {
   const draggableSet = {
     display: "flex",
     flexDirection: "column",
-    width: "380px"
+    width: "400px"
   };
 
   const exercise = {
@@ -170,6 +147,20 @@ function Hygieneplan(props) {
         : setCurrentInstruction(instructions[0]);
     }
   };
+
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame ausstatung_entladung">
@@ -229,16 +220,15 @@ function Hygieneplan(props) {
                 >
                   <div
                     className="absolute"
-                    style={{ top: "4%", width: "450px" }}
+                    style={{ top: "2%", width: "450px" }}
                   >
                     <div className="gridList">
                       <h1
                         className="my_title small"
                         style={{ paddingBottom: "0" }}
                       >
-                        Welche persönliche Schutzausrüstung muss Ihr Kollege
-                        zusätzlich tragen, um autoklaviertes Gut sicher aus dem
-                        Sterilisationsautoklaven entnehmen zu können?
+                        Welche Geräte und Materialien dürfen sich während der
+                        Arbeit in der Sicherheitswerkbank befinden?
                       </h1>
                       <Image src={i4} />
                     </div>

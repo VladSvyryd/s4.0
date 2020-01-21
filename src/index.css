@@ -158,7 +158,12 @@ input[type="submit"] {
   border: 0;
   max-width: 100%;
 }
-
+.ui.menu {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+.ui.menu .item {
+  line-height: normal !important;
+}
 .toc.ui.vertical.menu .item .menu .active.item {
   font-weight: normal !important;
 }

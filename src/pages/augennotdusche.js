@@ -30,10 +30,14 @@ function Augennotdusche(props) {
   const aufgabe = {
     labels: [
       "Wenn im Labor noch eine zweite Notdusche montiert ist, brauche ich gar nichts zu unternehmen. ",
-      "Wenn im Labor noch eine zweite Notdusche montiert ist, brauche ich gar nichts zu unternehmen. ",
+      "Ich hole den Werkzeugkasten und repariere das Ventil. ",
       "Ich verständige den Vorgesetzten und sorge dafür, dass eine Reparatur veranlasst wird und entsprechend gefährliche Arbeiten unterbleiben."
     ],
     answerIndex: 2
+  };
+  // add click event to document to return to other exercises and reset click events
+  const handleClickToReturnBack = () => {
+    props.history.goBack();
   };
   // if exercise has been already done, go back
   useEffect(() => {
@@ -47,7 +51,7 @@ function Augennotdusche(props) {
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleClickToReturnBack]);
   // parse radioButtons from aufgabe object
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
@@ -68,7 +72,7 @@ function Augennotdusche(props) {
           open={radioGroupState === i}
         >
           <Popup.Header as="span" className="headerPop">
-            Dieser Antwort war leider falsch!
+            Diese Antwort war leider falsch!
           </Popup.Header>
           <Popup.Content>
             <Image src={i3} centered />
@@ -96,17 +100,7 @@ function Augennotdusche(props) {
       setRadioGroupState(value);
       setAnimationTrigger(true);
       startSequence();
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     }
-  };
-  // add click event to document to return to other exercises and reset click events
-  const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
-    props.history.goBack();
   };
 
   // reset state of current exercise

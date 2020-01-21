@@ -23,7 +23,7 @@ function Chemikalien(props) {
 
   // instructions for pictures
   const instructions = [
-    "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie ob alles in Ordnung ist!",
+    "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie, ob alles in Ordnung ist!",
     "Sicherheitsschrank",
     "Regal mit Chemikalien"
   ];
@@ -88,7 +88,7 @@ function Chemikalien(props) {
                   </p>
                   <p>
                     Dies ist notwendig, damit weder Sie noch die Umwelt im
-                    Brandfall gefährdet werden können
+                    Brandfall gefährdet werden können.
                   </p>
                 </div>
               </div>

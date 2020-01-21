@@ -300,19 +300,18 @@ function Mikrobiologische(props) {
                 <Image src={i9} />
                 <div>
                   <p>
-                    <b>
-                      Ansicht <br /> Waschbecken und Garderobe
-                    </b>
+                    <b>Ansicht mikrobiologische Sicherheitswerkbank</b>
                   </p>
                   <p>
-                    Durch kontaminierte Kleidungsstücke oder Geräte können
-                    biologische Arbeitsstoffe schnell verbreitet werden und
-                    möglicherweise zu Infektionen führen.
+                    Ab der Schutzstufe 2 müssen Sicherheitswerkbänke eingesetzt
+                    werden. Sie schützen die Beschäftigten vor Partikeln und
+                    Aerosolen, die z.B. beim Pipettieren von Flüssigkeiten
+                    entstehen können.
                   </p>
                   <p>
-                    Die Hygieneregeln wie das Händewaschen oder das richtige
-                    Aufbewahren der persönlichen Schutzausrüstung sind deswegen
-                    wichtig!
+                    Dies gelingt aber nur dann, wenn die Sicherheitswerkbänke
+                    vorschriftsmäßig betrieben und alle Schutzmaßnahmen
+                    eingehalten werden!
                   </p>
                 </div>
               </div>

@@ -33,7 +33,8 @@ function Waschbecken_garderobe_1(props) {
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
     r1: false,
-    r2: false
+    r2: false,
+    r3: false
   });
   const [animationTrigger, setAnimationTrigger] = useState(false);
   const [triggerWarning, setTrigger] = useState(false);
@@ -47,22 +48,10 @@ function Waschbecken_garderobe_1(props) {
     answerBitValue: 3 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
   const instructions = [
-    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
+    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
-  // if exercise has been already done, go back
-  useEffect(() => {
-    if (my_exercise.done)
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
-    return () => {
-      document
-        .getElementById("panel")
-        .removeEventListener("mousedown", handleClickToReturnBack);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   // parse radioButtons from aufgabe object
   // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
   const generateRadioButtons = () => {
@@ -91,9 +80,6 @@ function Waschbecken_garderobe_1(props) {
     if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
-      document
-        .getElementById("panel")
-        .addEventListener("mousedown", handleClickToReturnBack);
     } else {
       tryAgain();
     }
@@ -110,9 +96,6 @@ function Waschbecken_garderobe_1(props) {
 
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    document
-      .getElementById("panel")
-      .removeEventListener("mousedown", handleClickToReturnBack);
     props.history.goBack();
   };
 
@@ -156,7 +139,19 @@ function Waschbecken_garderobe_1(props) {
       done: !old.done
     }));
   }
-
+  // if exercise has been already done, go back
+  useEffect(() => {
+    if (my_exercise.done)
+      document
+        .getElementById("panel")
+        .addEventListener("mousedown", handleClickToReturnBack);
+    return () => {
+      document
+        .getElementById("panel")
+        .removeEventListener("mousedown", handleClickToReturnBack);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClickToReturnBack]);
   return (
     <>
       <div className="exerciseFrame">
@@ -219,7 +214,7 @@ function Waschbecken_garderobe_1(props) {
                       open={triggerWarning}
                     >
                       <Popup.Header as="span" className="headerPop">
-                        Dieser Antwort war leider falsch!
+                        Diese Antwort war leider falsch!
                       </Popup.Header>
                       <Popup.Content>
                         <Image src={i6} centered />
