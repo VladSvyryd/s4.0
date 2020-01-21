@@ -223,7 +223,7 @@ function Schuhe(props) {
   return (
     <>
       <div className="exerciseFrame">
-        <Grid style={{ width: "100%" }} padded="horizontally">
+        <Grid style={{ width: "100%", margin: "-13px 0" }}>
           <Grid.Row columns="2">
             <Grid.Column width="11" className="relative">
               <div

@@ -148,7 +148,7 @@ function Labortueren(props) {
         .getElementById("panel")
         .removeEventListener("mousedown", handleClickToReturnBack);
     };
-  }, [handleClickToReturnBack]);
+  }, [handleClickToReturnBack, my_exercise.done]);
   return (
     <>
       <div className="exerciseFrame">

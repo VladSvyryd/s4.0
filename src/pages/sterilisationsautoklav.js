@@ -65,12 +65,12 @@ function Sterilisationsautoklav(props) {
           <div className="relative">
             {exercise.pages[1].done ? (
               exercise.pages[0].done ? (
-                <Image src={i7} />
+                <Image src={i7} style={{ width: "542px" }} />
               ) : (
-                <Image src={i5} />
+                <Image src={i5} style={{ width: "542px" }} />
               )
             ) : (
-              <Image src={i1} />
+              <Image src={i1} style={{ width: "542px" }} />
             )}
             <Link
               className="absolute hoverReveal pointer"

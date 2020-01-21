@@ -41,7 +41,7 @@ function Untweisungen(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            <Image src={i4} />
+            <Image src={i4} style={{ width: "559px" }} />
 
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[2])}

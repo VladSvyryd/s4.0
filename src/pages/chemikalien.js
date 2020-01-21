@@ -34,7 +34,7 @@ function Chemikalien(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            <Image src={i4} />
+            <Image src={i4} style={{ width: "531px" }} />
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[2])}
               onMouseLeave={() => setCurrentInstruction(instructions[0])}

@@ -94,7 +94,7 @@ function Apparaturen_1(props) {
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    props.history.goBack();
+    //props.history.goBack();
   };
 
   // reset state of current exercise
@@ -111,11 +111,6 @@ function Apparaturen_1(props) {
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
-  // if page refreshs go to Grundriss page
-  //const path = props.location.pathname.split("/");
-  //path.pop();
-  //const r = path.join("/");
-  //if (!my_exercise) props.history.push("/virtuelles_labor/grundriss");
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage

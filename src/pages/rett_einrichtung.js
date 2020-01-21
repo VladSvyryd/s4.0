@@ -83,7 +83,11 @@ function Rett_einrichtung(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            {exercise.pages[0].done ? <Image src={i8} /> : <Image src={i1} />}
+            {exercise.pages[0].done ? (
+              <Image src={i8} style={{ width: "554px" }} />
+            ) : (
+              <Image src={i1} style={{ width: "554px" }} />
+            )}
             {exercise.pages[0].done ? (
               <Link
                 className="absolute hoverReveal pointer"

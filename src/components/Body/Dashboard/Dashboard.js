@@ -162,7 +162,7 @@ const Dashboard = props => {
         component={apparaturen}
       />
       <Route
-        path="/virtuelles_labor/apparaturen/funk_des_Abzuges"
+        path="/virtuelles_labor/apparaturen/funk_des_Abzugs"
         exact
         component={apparaturen_1}
       />

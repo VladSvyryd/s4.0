@@ -249,7 +249,10 @@ function Mikrobiologische(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            <Image src={switchBackgroundImageByExerciseState()} />
+            <Image
+              src={switchBackgroundImageByExerciseState()}
+              style={{ width: "573px" }}
+            />
 
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[1])}

@@ -38,7 +38,7 @@ function Ringang_chem_labor(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            <Image src={i4} />
+            <Image src={i4} style={{ width: "544px" }} />
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[1])}
               onMouseLeave={() => setCurrentInstruction(instructions[0])}

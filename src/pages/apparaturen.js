@@ -37,13 +37,13 @@ function Apparaturen(props) {
         return introExercise();
     }
   };
-
+  console.log(exercise);
   const introExercise = () => {
     return (
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            <Image src={i4} />
+            <Image src={i4} style={{ width: "578px" }} />
             <Link
               onMouseEnter={() => setCurrentInstruction(instructions[2])}
               onMouseLeave={() => setCurrentInstruction(instructions[0])}
@@ -74,8 +74,7 @@ function Apparaturen(props) {
               to={{
                 pathname: `${pathname}/${exercise.pages[1].filename}`,
                 state: {
-                  currentExercise: exercise.pages[1],
-                  siblingExercise: exercise.pages[0]
+                  currentExercise: exercise.pages[1]
                 }
               }}
             >
