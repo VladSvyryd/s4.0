@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./footer.css";
 import { withRouter, NavLink } from "react-router-dom";
-import { Image } from "semantic-ui-react";
+import { Image, Confirm } from "semantic-ui-react";
 import { TocContext } from "../../util/TocProvider";
 import i3 from "../../assets/pics/level-up-icon.png";
+import i4 from "../../assets/pics/trash.svg";
 // Footer
 
 // Deals with "<->  <<-->>"" buttons, Menu, MainMenu, Notes, Search
@@ -47,20 +48,53 @@ const Footer = props => {
         100
     );
   };
+  const [deleteState, setDeleteState] = useState({
+    open: false,
+    result: "show the modal to capture a result"
+  });
+
+  const show = () => setDeleteState(oldState => ({ ...oldState, open: true }));
+  const handleConfirm = () => {
+    localStorage.removeItem("pagesList");
+    window.location.reload();
+    setDeleteState(oldState => ({ result: "confirmed", open: false }));
+  };
+  const handleCancel = () =>
+    setDeleteState(oldState => ({ result: "cancelled", open: false }));
+
   return (
     <div className="footer">
-      <div className="left_footer">
-        <span style={{ fontSize: "11px", paddingBottom: "5px" }}>
-          {" "}
-          {tocState.exercisesState.doneCount} von{" "}
-          {tocState.exercisesState.totalExercisesCount} Mängeln gefunden{" "}
-        </span>
-        {/* <Progress percent={getPercentFromTotal()} size="tiny" style={{ width: "70%", margin: 0 }} color="blue" /> */}
-        <progress
-          value={`${getPercentFromTotal()}`}
-          max="100"
-          style={{ width: "70%", margin: 0 }}
-        ></progress>
+      <div style={{ display: "flex", background: " rgba(222, 222, 222, 1)" }}>
+        <div className="left_footer">
+          <span style={{ fontSize: "11px", paddingBottom: "5px" }}>
+            {" "}
+            {tocState.exercisesState.doneCount} von{" "}
+            {tocState.exercisesState.totalExercisesCount} Mängeln gefunden{" "}
+          </span>
+          {/* <Progress percent={getPercentFromTotal()} size="tiny" style={{ width: "70%", margin: 0 }} color="blue" /> */}
+          <progress
+            value={`${getPercentFromTotal()}`}
+            max="100"
+            style={{ width: "90%", margin: 0 }}
+          ></progress>
+        </div>
+        <div
+          as="button"
+          onClick={show}
+          className="pointer"
+          style={{ width: "24px", margin: "auto", marginRight: "12px" }}
+        >
+          <Image src={i4} />
+        </div>
+        <Confirm
+          open={deleteState.open}
+          size="mini"
+          content="Wollen Sie Ihren Bearbeitungsstand löschen?"
+          cancelButton="Abbrechen"
+          confirmButton="Ja"
+          onCancel={handleCancel}
+          onConfirm={handleConfirm}
+        />
       </div>
       <div className="right_footer">
         <div className="footer_buttons">
@@ -91,7 +125,7 @@ const Footer = props => {
           >
             <Image src={i3} />
             <span>
-              <b>Ebene höher</b>
+              <b style={{ letterSpacing: "1px" }}>Ebene höher</b>
             </span>
           </div>
         </div>

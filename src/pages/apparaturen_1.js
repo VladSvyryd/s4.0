@@ -94,7 +94,7 @@ function Apparaturen_1(props) {
   };
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
-    //props.history.goBack();
+    props.history.goBack();
   };
 
   // reset state of current exercise
