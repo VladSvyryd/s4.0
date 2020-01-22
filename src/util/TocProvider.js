@@ -138,12 +138,14 @@ export const TocProvider = props => {
 
   useEffect(() => {
     let s = getRootPages(tocPages);
+    let newExercisesState = getExercisesState();
     setTocState(oldState => ({
       ...oldState,
       activeMenuPage: s.currentPage,
       currentExerciseByPath: s.currentPage,
-      exercisesState: getExercisesState().exercisesState,
-      treeIdsPath: getTreePath()
+      exercisesState: newExercisesState.exercisesState,
+      treeIdsPath: getTreePath(),
+      tocPagesMap: newExercisesState.tocPagesMap
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.location.pathname, tocState.activeMenu]);

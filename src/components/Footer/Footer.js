@@ -1,10 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import "./footer.css";
+import ReactToPrint from "react-to-print";
 import { withRouter, NavLink } from "react-router-dom";
-import { Image, Confirm } from "semantic-ui-react";
+import { Image, Confirm, Button, Modal, Input } from "semantic-ui-react";
 import { TocContext } from "../../util/TocProvider";
+import ComponentToPrint from "../Print/ComponentToPrint";
 import i3 from "../../assets/pics/level-up-icon.png";
 import i4 from "../../assets/pics/trash.svg";
+import i5 from "../../assets/pics/print.svg";
 // Footer
 
 // Deals with "<->  <<-->>"" buttons, Menu, MainMenu, Notes, Search
@@ -48,11 +51,13 @@ const Footer = props => {
         100
     );
   };
+
+  // Dialog for Delete Function
+
   const [deleteState, setDeleteState] = useState({
     open: false,
     result: "show the modal to capture a result"
   });
-
   const show = () => setDeleteState(oldState => ({ ...oldState, open: true }));
   const handleConfirm = () => {
     localStorage.removeItem("pagesList");
@@ -61,6 +66,74 @@ const Footer = props => {
   };
   const handleCancel = () =>
     setDeleteState(oldState => ({ result: "cancelled", open: false }));
+  // ENDE //
+
+  // Dialog for Print Function  {state and function to change this state}
+  const [printPrintDialog, setPrintDialog] = useState({
+    open: false,
+    result: "show the modal to ask a Name"
+  });
+  const showPrintDialog = () => {
+    setPrintDialog(oldState => ({ ...oldState, open: true }));
+  };
+
+  const handleCancelPrintDialog = () => {
+    setPrintDialog(oldState => ({ result: "cancelled", open: false }));
+  };
+
+  //   ENDE  //
+
+  // reference for PrintBluePrint Component <ComponentToPrint>
+  const componentRef = useRef();
+  // user input field
+  const [userName, setName] = useState("");
+
+  // handle chage of userName value by typing in input
+  const handleChange = (e, { value }) => {
+    setName(value);
+  };
+
+  // build current date
+  const getCurrentDate = (separator = ".") => {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    return `${date}${separator}${
+      month < 10 ? `0${month}` : `${month}`
+    }${separator}${year}`;
+  };
+  const setPrintInformation = (allExercises = tocState.tocPagesMap) => {
+    let printInf = {
+      section_one: { name: "Chemisches Labor", doneCount: 0, totalCount: 0 },
+      section_two: {
+        name: "Biotechnologisches Labor",
+        doneCount: 0,
+        totalCount: 0
+      }
+    };
+    const values = Object.values(allExercises);
+    const upperBoundary = 8;
+    for (const element of values) {
+      const chapter = element.kuerzel
+        .toLowerCase()
+        .split(" ")[1]
+        .split(".")[0];
+      if (parseInt(chapter) < upperBoundary && element.type === 1) {
+        printInf.section_one.totalCount++;
+        if (element.done) {
+          printInf.section_one.doneCount++;
+        }
+      } else if (parseInt(chapter) >= upperBoundary && element.type === 1) {
+        printInf.section_two.totalCount++;
+        if (element.done) {
+          printInf.section_two.doneCount++;
+        }
+      }
+    }
+    return printInf;
+  };
 
   return (
     <div className="footer">
@@ -86,6 +159,15 @@ const Footer = props => {
         >
           <Image src={i4} />
         </div>
+        <div
+          as="button"
+          className="pointer"
+          style={{ width: "24px", margin: "auto", marginRight: "12px" }}
+          onClick={showPrintDialog}
+        >
+          <Image src={i5} />
+        </div>
+
         <Confirm
           open={deleteState.open}
           size="mini"
@@ -140,6 +222,45 @@ const Footer = props => {
           <span>Hauptmenü</span>
         </a>
       </div>
+
+      <Modal
+        size="mini"
+        open={printPrintDialog.open}
+        onClose={handleCancelPrintDialog}
+      >
+        <Modal.Header>Bitte geben Sie Ihren Namen ein!</Modal.Header>
+        <Modal.Content>
+          <Input
+            focus
+            fluid
+            placeholder="Name..."
+            value={userName}
+            onChange={handleChange.bind(this)}
+            name="name"
+          />
+        </Modal.Content>
+        <Modal.Actions>
+          <Button onClick={handleCancelPrintDialog}>Abbrechen</Button>
+
+          <ReactToPrint
+            trigger={() => <Button primary content="Drucken..." />}
+            content={() => componentRef.current}
+          />
+          <div style={{ display: "none" }}>
+            <ComponentToPrint
+              ref={componentRef}
+              printDetails={{
+                name: userName,
+                doneCount: tocState.exercisesState.doneCount,
+                totalCount: tocState.exercisesState.totalExercisesCount,
+                currentDate: getCurrentDate(),
+                // percentFromTotal: getPercentFromTotal(),
+                twoSectionsDetails: setPrintInformation()
+              }}
+            />
+          </div>
+        </Modal.Actions>
+      </Modal>
     </div>
   );
 };

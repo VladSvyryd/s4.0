@@ -1,0 +1,136 @@
+.center {
+  -ms-flex-align: center;
+  -ms-flex-direction: column;
+  -ms-flex-pack: center;
+  -webkit-box-align: center;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11pt;
+  justify-content: center;
+}
+.center .container {
+  max-width: 476pt;
+  min-width: 320px;
+  width: 100%;
+}
+.center header {
+  margin-bottom: 70pt;
+  margin-top: 25px;
+  width: 100%;
+}
+.center .titel {
+  text-align: center;
+}
+.center .titel h2 {
+  font-size: 26.25pt;
+  margin-bottom: 10px;
+}
+.center .titel h1 {
+  color: #0095db;
+  font-size: 30pt;
+  margin-top: 0;
+}
+.center .daten {
+  margin: 55px 0;
+}
+.center .daten_line {
+  margin: 13px 0;
+}
+.center .container .bs {
+  margin: 40px 0 80px;
+}
+.center .container .bs .text {
+  -ms-flex-align: center;
+  -ms-flex-flow: row;
+  -webkit-box-align: center;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  align-items: center;
+  background-color: #e2e2e2;
+  border-bottom: 2pt solid #000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-flow: row;
+  height: 40px;
+  padding: 0 6px;
+  width: 100%;
+}
+.center .container .bs .text span:nth-child(2) {
+  margin-left: auto;
+  margin-right: 66px;
+}
+.center .resultLine {
+  -ms-flex-flow: row;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-flow: row;
+  margin: 18px 6px;
+}
+.center .resultLine > span {
+  margin-right: auto;
+}
+.center .status_bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 11pt;
+  margin-left: 15px;
+}
+.center .bs_number {
+  width: 45px;
+}
+.center .color {
+  border-top: 0 solid #f39200;
+  height: 0%;
+  left: -1pt;
+  position: absolute;
+  top: -1pt;
+  width: 0;
+  z-index: -1;
+}
+.center .status_bar .bs_bar {
+  margin-right: 10px;
+  position: relative;
+  text-align: center;
+  width: 135px;
+}
+.center .status_bar .bs_bar .prozent {
+  font-size: 10pt;
+  left: 48%;
+  position: absolute;
+  top: 1pt;
+}
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+#erfolg,
+.comments {
+  margin: 14px 6px;
+}
+.status_bar progress[value] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 13pt;
+  transition: all;
+}
+.status_bar progress[value]::-webkit-progress-bar {
+  box-shadow: none;
+  background: rgba(255, 255, 255, 1);
+  padding: 0;
+  border: 1px solid black;
+}
