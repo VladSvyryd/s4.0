@@ -146,7 +146,7 @@ function Regal(props) {
               <Image
                 src={i1}
                 className="absolute"
-                style={{ top: "0", left: "15px" }}
+                style={{ top: "0", left: "13px" }}
               />
               <Transition
                 visible={animationTrigger || (my_exercise && my_exercise.done)}

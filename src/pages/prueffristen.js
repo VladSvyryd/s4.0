@@ -479,7 +479,7 @@ function Prueffristen(props) {
                       flexWrap: "wrap",
                       width: "729px",
                       margin: "auto",
-                      justifyContent: "space-evenly"
+                      justifyContent: "space-between"
                     }}
                   >
                     {exercise.draggableItems.map((item, index) => (

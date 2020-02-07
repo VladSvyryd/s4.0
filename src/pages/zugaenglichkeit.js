@@ -148,7 +148,7 @@ function Zugaenglichkeit(props) {
               <Image
                 src={i1}
                 className="absolute"
-                style={{ top: "0", left: "14px" }}
+                style={{ top: "0", left: "13px" }}
                 floated="left"
               />
               <Transition
@@ -172,7 +172,7 @@ function Zugaenglichkeit(props) {
                 >
                   <div
                     className="absolute"
-                    style={{ top: "11%", maxWidth: "390px" }}
+                    style={{ top: "11%", maxWidth: "360px" }}
                   >
                     <div className="gridList">
                       <div>

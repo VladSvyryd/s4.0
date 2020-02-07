@@ -38,3 +38,12 @@
 .toc.ui.menu:after {
   display: none;
 }
+
+.my_menu_item {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+}
+.my_menu_item > *:first-child {
+  margin-right: 10px;
+}

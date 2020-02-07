@@ -137,7 +137,13 @@ const Footer = props => {
 
   return (
     <div className="footer">
-      <div style={{ display: "flex", background: " rgba(222, 222, 222, 1)" }}>
+      <div
+        style={{
+          display: "flex",
+          background: " rgba(222, 222, 222, 1)",
+          alignItems: "center"
+        }}
+      >
         <div className="left_footer">
           <span style={{ fontSize: "11px", paddingBottom: "5px" }}>
             {" "}

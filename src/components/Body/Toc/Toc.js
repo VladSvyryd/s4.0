@@ -46,12 +46,7 @@ const Toc = props => {
         index={index}
         active={tocState.activeMenu === index}
         onClick={handleItemClick}
-        style={{
-          display: "grid",
-          gridTemplateColumns: "auto auto",
-          justifyContent: "left",
-          gridColumnGap: "10px"
-        }}
+        className="my_menu_item"
       >
         <div>{index + 1} </div>
         <div>{cursor && cursor.titel}</div>
@@ -64,12 +59,7 @@ const Toc = props => {
         to={`/virtuelles_labor/${tocPages[index].filename}`}
         onMouseEnter={() => handleHover(index)}
         onMouseLeave={() => handleHoverOff()}
-        style={{
-          display: "grid",
-          gridTemplateColumns: "auto auto",
-          justifyContent: "left",
-          gridColumnGap: "10px"
-        }}
+        className="my_menu_item"
       >
         <div>{index + 1} </div>
         <div>{cursor && cursor.titel}</div>

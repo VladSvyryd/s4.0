@@ -187,7 +187,6 @@ function Pers_schutz(props) {
                     <div
                       className="gridList"
                       style={{
-                        gridTemplateColumns: "auto auto",
                         marginBottom: "15px"
                       }}
                     >
@@ -199,15 +198,14 @@ function Pers_schutz(props) {
                         className="gridList"
                         style={{
                           width: "180px",
-                          gridTemplateRows: "auto auto",
-                          gridTemplateColumns: "auto"
+                          flexDirection: "column"
                         }}
                       >
                         <Image src={i4} />
 
                         <h1
                           className="my_title small"
-                          style={{ marginTop: "17px" }}
+                          style={{ marginTop: "17px", alignSelf: "stretch" }}
                         >
                           Ihr Kollege ist nun richtig gekleidet. Was müssen Sie
                           außerdem beachten, um den Autoklaven sicher zu

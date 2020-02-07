@@ -54,11 +54,13 @@ input[type="submit"] {
   display: inline;
 }
 .externalLink .linkContent {
-  display: grid;
-  grid-template-columns: auto auto;
+  display: inline-flex;
   justify-content: flex-start;
-  column-gap: 5px;
   align-items: baseline;
+  vertical-align: bottom;
+}
+.externalLink .linkContent > *:first-child {
+  margin-right: 5px;
 }
 
 .font16 {
@@ -78,32 +80,32 @@ input[type="submit"] {
   padding-left: 14px;
 }
 .gridList {
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
   justify-content: left;
-  grid-column-gap: 10px;
+  align-items: flex-start;
 }
-.gridList[class$="two"] {
-  grid-template-columns: auto auto;
+.gridList > *:first-child {
+  margin-right: 10px;
 }
-.gridList[class$="three"] {
-  grid-template-columns: auto auto auto;
+.gridList.two > *:nth-child(1) {
+  margin-right: 10px;
+}
+.gridList.three > *:nth-child(2) {
+  margin-right: 10px;
 }
 
 .grid {
-  display: grid;
+  display: flex;
 }
-.grid.twoColumn {
-  grid-template-columns: auto auto;
-}
+
 .grid.alignCenter {
   align-items: center;
 }
 .grid.padded {
   padding: 0 10px;
 }
-.grid.gap10 {
-  grid-column-gap: 5px;
+.grid.gap10 > *:first-child {
+  margin-right: 5px;
 }
 .my_title {
   font-size: 20px;
@@ -180,8 +182,7 @@ input[type="submit"] {
 }
 /* After draggable item has been dropped, he can change his style*/
 .itemIsDroppedState {
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
   justify-content: left;
   font-weight: bold;
   font-size: 15px;

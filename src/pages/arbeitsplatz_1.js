@@ -148,7 +148,7 @@ function Arbeitsplatz_1(props) {
               <Image
                 src={i1}
                 className="absolute"
-                style={{ top: "0", left: "15px" }}
+                style={{ top: "0", left: "13px" }}
                 floated="left"
               />
               <Transition
@@ -163,7 +163,7 @@ function Arbeitsplatz_1(props) {
             <Grid.Column width="8">
               <div
                 className="relative fullHeight"
-                style={{ paddingLeft: "15px" }}
+                style={{ paddingLeft: "13px" }}
               >
                 <Transition
                   visible={my_exercise && !my_exercise.done}

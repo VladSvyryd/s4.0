@@ -220,7 +220,7 @@ function Sicherheitsschrank(props) {
                     <Image
                       src={i2}
                       className="absolute"
-                      style={{ top: "0", left: "14px" }}
+                      style={{ top: "0", left: "13px" }}
                     />
 
                     <Image
@@ -234,7 +234,7 @@ function Sicherheitsschrank(props) {
                     <Image
                       src={i1}
                       className="absolute"
-                      style={{ top: "0", left: "14px" }}
+                      style={{ top: "0", left: "13px" }}
                     />
                     <Image
                       src={i7}
@@ -395,7 +395,7 @@ function Sicherheitsschrank(props) {
                   <Image
                     src={i2}
                     className="absolute"
-                    style={{ top: "0", left: "14px" }}
+                    style={{ top: "0", left: "13px" }}
                   />
                 ) : (
                   <Image src={i1} />

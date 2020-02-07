@@ -18,7 +18,6 @@ import i5 from "../assets/pics/achtung_gruen.png";
 import i3 from "../assets/pics/5-druckgasflaschenschrank/finish_1.jpg";
 import markNodeDone from "../util/externalFunctions";
 import i_q from "../assets/pics/querverweis.png";
-import LazyImage from "../components/LazyImage/LazyImage";
 
 function Druckgasflasche(props) {
   // state to go through active page
@@ -141,12 +140,10 @@ function Druckgasflasche(props) {
         <Grid style={{ width: "100%" }}>
           <Grid.Row columns="2">
             <Grid.Column width="9" className="relative">
-              <LazyImage
+              <Image
                 src={i1}
-                size="mini"
                 className="absolute"
-                style={{ top: "0", left: "15px" }}
-                floated="left"
+                style={{ top: "0", left: "13px" }}
               />
               <Transition
                 visible={animationTrigger || (my_exercise && my_exercise.done)}

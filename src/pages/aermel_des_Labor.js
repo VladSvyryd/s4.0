@@ -186,7 +186,7 @@ function Aermel_des_Labors(props) {
   }
   const style_food_false = {
     left: "0",
-    bottom: "111px"
+    bottom: "110px"
   };
   const style_food_true = {
     position: "absolute",
@@ -196,7 +196,7 @@ function Aermel_des_Labors(props) {
   };
   const style_smoke_false = {
     left: "136px",
-    top: "302px"
+    top: "301px"
   };
   const style_smoke_true = {
     display: "flex",
@@ -229,7 +229,7 @@ function Aermel_des_Labors(props) {
                 style={{
                   position: "absolute",
                   left: "0",
-                  bottom: "0",
+                  bottom: "-1px",
                   display: "flex"
                 }}
               >

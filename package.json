@@ -8,9 +8,11 @@
   "homepage": "./",
   "home": "./",
   "dependencies": {
+    "core-js": "^3.6.4",
     "electron-is-dev": "^1.1.0",
     "moment": "^2.24.0",
     "react": "^16.12.0",
+    "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.12.0",
     "react-drag-drop-container": "^6.1.1",
     "react-draggable": "^3.3.2",
@@ -42,12 +44,13 @@
       ">0.2%",
       "not dead",
       "not op_mini all",
-      "ie >= 9"
+      "ie 11"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "ie 11"
     ]
   },
   "devDependencies": {
