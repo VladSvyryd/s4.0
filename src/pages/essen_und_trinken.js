@@ -215,8 +215,8 @@ function Essen_und_trinken(props) {
   const style_smoke_true = {
     display: "flex",
     position: "absolute",
-    left: "38px",
-    top: "38px"
+    left: "37px",
+    top: "36px"
   };
   // if exercise has been already done, go back
   useEffect(() => {
@@ -236,8 +236,8 @@ function Essen_und_trinken(props) {
   return (
     <>
       <div className="exerciseFrame">
-        <Grid style={{ width: "100%", margin: "-13px 0" }}>
-          <Grid.Row columns="2">
+        <Grid style={{ width: "100%", margin: "0 0" }}>
+          <Grid.Row style={{ padding: "0" }} columns="2">
             <Grid.Column width="11" className="relative">
               <div
                 style={{

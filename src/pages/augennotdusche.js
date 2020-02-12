@@ -325,12 +325,8 @@ function Augennotdusche(props) {
   };
   return (
     <div className="exerciseFrame">
-      <Grid
-        style={{ width: "100%" }}
-        padded="horizontally"
-        className="relative"
-      >
-        <Grid.Row columns="2">
+      <Grid style={{ width: "100%" }} className="relative">
+        <Grid.Row columns="2" style={{ position: "absolute", height: "100%" }}>
           <Grid.Column
             width="9"
             style={{ paddingLeft: "0" }}

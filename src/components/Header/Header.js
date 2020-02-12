@@ -24,7 +24,7 @@ const Header = props => {
 
         break;
       case "checklist":
-        setTitle("Checklist");
+        setTitle("Checkliste");
         break;
       default:
         setTitle(

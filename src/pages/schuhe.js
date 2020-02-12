@@ -186,23 +186,23 @@ function Schuhe(props) {
   }
   const style_food_false = {
     left: "0",
-    bottom: "110px"
+    bottom: "111px"
   };
   const style_food_true = {
     position: "absolute",
-    left: "158px",
+    left: "157px",
     top: "38px",
     display: "flex"
   };
   const style_smoke_false = {
     left: "136px",
-    top: "301px"
+    top: "302px"
   };
   const style_smoke_true = {
     display: "flex",
     position: "absolute",
-    left: "38px",
-    top: "38px"
+    left: "37px",
+    top: "36px"
   };
 
   // if exercise has been already done, go back
@@ -223,14 +223,14 @@ function Schuhe(props) {
   return (
     <>
       <div className="exerciseFrame">
-        <Grid style={{ width: "100%", margin: "-13px 0" }}>
-          <Grid.Row columns="2">
+        <Grid style={{ width: "100%", margin: "0 0" }}>
+          <Grid.Row style={{ padding: "0" }} columns="2">
             <Grid.Column width="11" className="relative">
               <div
                 style={{
                   position: "absolute",
                   left: "0",
-                  bottom: "-1px",
+                  bottom: "0px",
                   display: "flex"
                 }}
               >

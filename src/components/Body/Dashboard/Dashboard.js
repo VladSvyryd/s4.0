@@ -53,7 +53,6 @@ import laborkittel from "../../../pages/laborkittel";
 import aermel_des_Labor from "../../../pages/aermel_des_Labor";
 import schuhe from "../../../pages/schuhe";
 import pruefungWirksamkeit from "../../../pages/pruefungWirksamkeit";
-
 // Dashboard
 // Placeholder for all internal links used in Programm
 // maps all url that can be loaded into Dashboard component

@@ -29,7 +29,7 @@ function Rett_einrichtung(props) {
 
   // instructions for pictures
   const instructions = [
-    "Suchen Sie im Bild nach aktiven Bereichen und überfürüfen Sie, ob alles in Ordnung ist!",
+    "Suchen Sie im Bild nach aktiven Bereichen und überprüfen Sie, ob alles in Ordnung ist!",
     "Verbandkasten",
     "Feuerlöscher",
     "Flipchart"

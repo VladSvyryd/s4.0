@@ -206,7 +206,7 @@ function Rauchen(props) {
   };
   const style_food_true = {
     position: "absolute",
-    left: "158px",
+    left: "157px",
     top: "38px",
     display: "flex"
   };
@@ -232,8 +232,8 @@ function Rauchen(props) {
   return (
     <>
       <div className="exerciseFrame">
-        <Grid style={{ width: "100%", margin: "-13px 0" }}>
-          <Grid.Row columns="2">
+        <Grid style={{ width: "100%", margin: "0 0" }}>
+          <Grid.Row style={{ padding: "0" }} columns="2">
             <Grid.Column width="11" className="relative">
               <div
                 style={{
