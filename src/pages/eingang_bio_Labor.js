@@ -252,7 +252,7 @@ function Eingang_bio_Labor(props) {
                 >
                   <div className="absolute" style={{ top: "12%", left: "9%" }}>
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ width: "400px", columnGap: "30px" }}
                     >
                       <Image src={i5} />

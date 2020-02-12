@@ -284,7 +284,7 @@ function Hygieneplan(props) {
                   duration={animationTrigger ? 700 : 0}
                 >
                   <div className="absolute" style={{ top: "11%", left: "0%" }}>
-                    <div className=" gridList " style={{ columnGap: "17px" }}>
+                    <div className="gridList" style={{ columnGap: "17px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Sehr gut!</span>

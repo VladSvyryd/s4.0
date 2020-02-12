@@ -271,7 +271,7 @@ function Arbeitsmittel(props) {
                     style={{ top: "12%", left: "-370px" }}
                   >
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ width: "570px", columnGap: "30px" }}
                     >
                       <Image src={i5} />

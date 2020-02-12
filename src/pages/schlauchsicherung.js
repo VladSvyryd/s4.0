@@ -229,7 +229,7 @@ function Schlauchsicherung(props) {
                     style={{ left: "250px", top: "30%" }}
                   >
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ width: "270px", columnGap: "15px" }}
                     >
                       <Image src={i5} />

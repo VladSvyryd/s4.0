@@ -226,7 +226,7 @@ function PruefungWirksamkeit(props) {
                       </div>
                     </div>
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{
                         width: "390px",
                         marginTop: "20px",

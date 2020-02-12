@@ -225,7 +225,7 @@ function Statische_sicherung(props) {
                 >
                   <div className="absolute" style={{ bottom: "44%" }}>
                     <div
-                      className=" gridList"
+                      className="gridList"
                       style={{ width: "300px", columnGap: "15px" }}
                     >
                       <Image src={i5} />

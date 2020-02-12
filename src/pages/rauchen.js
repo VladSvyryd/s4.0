@@ -359,7 +359,7 @@ function Rauchen(props) {
                 >
                   <div className="absolute " style={{ top: "9%", left: "0px" }}>
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ width: "250px", columnGap: "30px" }}
                     >
                       <Image src={i5} />

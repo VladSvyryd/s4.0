@@ -218,7 +218,7 @@ function Schliffsicherung(props) {
                 >
                   <div className="absolute" style={{ bottom: "44%" }}>
                     <div
-                      className=" gridList"
+                      className="gridList"
                       style={{ width: "230px", columnGap: "15px" }}
                     >
                       <Image src={i5} />

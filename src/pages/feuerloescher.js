@@ -214,7 +214,7 @@ function Feuerloescher(props) {
                     style={{ top: "13%", maxWidth: "390px" }}
                   >
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ columnGap: "30px", maxWidth: "280px" }}
                     >
                       <Image src={i5} />

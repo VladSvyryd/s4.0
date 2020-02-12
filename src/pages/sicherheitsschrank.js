@@ -340,7 +340,7 @@ function Sicherheitsschrank(props) {
                       }}
                     >
                       <div
-                        className=" gridList "
+                        className="gridList"
                         style={{ width: "270px", columnGap: "15px" }}
                       >
                         <Image src={i5} />
@@ -469,7 +469,7 @@ function Sicherheitsschrank(props) {
                 <div className="relative fullHeight">
                   <div className="absolute " style={{ top: "13%" }}>
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ width: "260px", columnGap: "30px" }}
                     >
                       <Image src={i6} />

@@ -250,7 +250,7 @@ function Augennotdusche(props) {
             />
             <div className="absolute" style={{ top: "200px", left: "200px" }}>
               <div
-                className=" gridList "
+                className="gridList"
                 style={{ width: "270px", columnGap: "30px" }}
               >
                 <Image src={i8} />

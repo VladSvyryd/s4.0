@@ -232,7 +232,7 @@ function Beansprungungsarten(props) {
               }}
             >
               <div
-                className=" gridList "
+                className="gridList"
                 style={{ width: "720px", columnGap: "36px" }}
               >
                 <Image src={i5} />

@@ -272,7 +272,7 @@ function Pers_schutz(props) {
                 >
                   <div className="absolute " style={{ top: "33%" }}>
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ width: "330px", columnGap: "30px" }}
                     >
                       <Image src={i5} />

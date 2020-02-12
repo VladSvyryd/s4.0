@@ -232,7 +232,7 @@ function Zugaenglichkeit(props) {
                     className="absolute "
                     style={{ top: "13%", maxWidth: "390px" }}
                   >
-                    <div className=" gridList " style={{ columnGap: "30px" }}>
+                    <div className="gridList" style={{ columnGap: "30px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

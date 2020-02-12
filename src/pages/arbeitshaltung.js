@@ -271,7 +271,7 @@ function Arbeitshaltung(props) {
                     style={{ top: "34%", left: "40px" }}
                   >
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ width: "339px", columnGap: "30px" }}
                     >
                       <Image src={i5} />

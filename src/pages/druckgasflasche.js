@@ -226,7 +226,7 @@ function Druckgasflasche(props) {
                 >
                   <div className="absolute " style={{ top: "13%", left: "4%" }}>
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ width: "270px", columnGap: "30px" }}
                     >
                       <Image src={i5} />

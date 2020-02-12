@@ -236,7 +236,7 @@ function Koerpernotdusche(props) {
                 >
                   <div className="absolute" style={{ top: "22%", left: "9%" }}>
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ width: "270px", columnGap: "30px" }}
                     >
                       <Image src={i5} />

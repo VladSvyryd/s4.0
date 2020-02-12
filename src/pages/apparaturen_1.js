@@ -227,7 +227,7 @@ function Apparaturen_1(props) {
                     className="absolute "
                     style={{ top: "33%", maxWidth: "180px", right: "-20px" }}
                   >
-                    <div className=" gridList " style={{ columnGap: "30px" }}>
+                    <div className="gridList" style={{ columnGap: "30px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

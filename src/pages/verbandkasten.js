@@ -253,7 +253,7 @@ function Verbandkasten(props) {
                 >
                   <div className="absolute " style={{ top: "33%" }}>
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ columnGap: "30px", maxWidth: "280px" }}
                     >
                       <Image src={i5} />

@@ -260,7 +260,7 @@ function Rundkolben(props) {
                       />
                     </div>
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ width: "250px", columnGap: "15px" }}
                     >
                       <Image src={i5} />

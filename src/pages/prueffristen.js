@@ -212,7 +212,7 @@ function Prueffristen(props) {
                   }}
                 >
                   <div
-                    className=" gridList "
+                    className="gridList"
                     style={{ columnGap: "17px", paddingLeft: "57px" }}
                   >
                     <Image src={i5} />

@@ -205,7 +205,7 @@ function Regal(props) {
                 >
                   <div className="absolute " style={{ top: "13%" }}>
                     <div
-                      className=" gridList "
+                      className="gridList"
                       style={{ width: "270px", columnGap: "30px" }}
                     >
                       <Image src={i5} />
