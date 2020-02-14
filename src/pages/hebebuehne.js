@@ -202,7 +202,7 @@ function Hebebuehne(props) {
                     backgroundColor: "white"
                   }}
                 >
-                  <div className="gridList" style={{ columnGap: "15px" }}>
+                  <div className="gridList">
                     <Image src={i5} />
                     <div>
                       <span className="my_title small">Richtig!</span>

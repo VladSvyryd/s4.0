@@ -46,7 +46,7 @@ function Durchfuehrungen(props) {
     answerBitValue: 7 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
   const instructions = [
-    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
+    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
 
@@ -239,10 +239,7 @@ function Durchfuehrungen(props) {
                   duration={animationTrigger ? 700 : 0}
                 >
                   <div className="absolute " style={{ top: "13%" }}>
-                    <div
-                      className="gridList"
-                      style={{ width: "270px", columnGap: "30px" }}
-                    >
+                    <div className="gridList" style={{ width: "270px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig</span>

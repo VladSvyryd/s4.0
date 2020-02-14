@@ -32,7 +32,7 @@ function Feuerloescher(props) {
     answerIndex: 2 /// right answer index in array of questions
   };
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
 
@@ -213,10 +213,7 @@ function Feuerloescher(props) {
                     className="absolute "
                     style={{ top: "13%", maxWidth: "390px" }}
                   >
-                    <div
-                      className="gridList"
-                      style={{ columnGap: "30px", maxWidth: "280px" }}
-                    >
+                    <div className="gridList" style={{ maxWidth: "280px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

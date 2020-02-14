@@ -16,14 +16,15 @@ export default class DraggableItem extends React.Component {
     };
   }
 
-  landedOn = e => {
+  landedOn2 = e => {
+    console.log("landed");
+    console.log(e);
     console.log(e.dragData);
     console.log("I was dropped on " + e.dropData.name);
     console.log({ "onDrop event passed back to DropBox": e });
     // check if you can't drop and trigger function of failled drop
     // this function will trigger some feedback in the parent
-
-    if (!this.state.multipleDroppable && e.dropData.name !== "undefined") {
+    if (e.dropData.name !== "undefined" && !this.state.multipleDroppable) {
       let isMatched =
         (this.state.exerciseBitValueAnswer & e.dragData.value) ===
         e.dragData.value;
@@ -44,14 +45,23 @@ export default class DraggableItem extends React.Component {
       }
       // trigger function from parent
       this.props.callbackAfterDropFail(isMatched);
+    } else {
+      this.setState({ noDragging: false });
     }
   };
-  handleDrop = currentTarget => {};
+  landedOn = e => {
+    let isMatched =
+      (this.state.exerciseBitValueAnswer & e.dragData.value) ===
+      e.dragData.value;
+    if (isMatched) {
+      this.setState({ noDragging: true });
+    }
+  };
+
   render() {
     // note use of render prop below, rather than child element
     return (
       <DragDropContainer
-        onDragEnd={this.handleDrop}
         targetKey={this.props.targetKey}
         dragClone={this.props.dragClone || false}
         dragData={{
@@ -59,8 +69,11 @@ export default class DraggableItem extends React.Component {
           extraText: this.props.extraText,
           value: this.props.bitValue
         }}
+        onDragStart={() => console.log("start")}
+        onDrag={() => console.log("dragging")}
+        onDragEnd={() => console.log("end")}
+        onDrop={e => console.log(e)}
         customDragElement={this.props.customDragElement}
-        onDrop={this.landedOn}
         noDragging={this.props.noDragging || this.state.noDragging}
         render={() => {
           return this.props.handler;

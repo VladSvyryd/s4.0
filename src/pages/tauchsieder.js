@@ -36,7 +36,7 @@ function Tauchsieder(props) {
     answerIndex: 2 /// right answer index in array of questions
   };
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
 
@@ -226,10 +226,7 @@ function Tauchsieder(props) {
                   duration={animationTrigger ? 700 : 0}
                 >
                   <div className="absolute" style={{ bottom: "13%" }}>
-                    <div
-                      className="gridList"
-                      style={{ width: "300px", columnGap: "15px" }}
-                    >
+                    <div className="gridList" style={{ width: "300px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

@@ -37,7 +37,7 @@ function Schlauchsicherung(props) {
   };
 
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
 
@@ -228,10 +228,7 @@ function Schlauchsicherung(props) {
                     className="absolute "
                     style={{ left: "250px", top: "30%" }}
                   >
-                    <div
-                      className="gridList"
-                      style={{ width: "270px", columnGap: "15px" }}
-                    >
+                    <div className="gridList" style={{ width: "270px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

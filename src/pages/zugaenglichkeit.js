@@ -36,7 +36,7 @@ function Zugaenglichkeit(props) {
   };
 
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
 
@@ -230,9 +230,9 @@ function Zugaenglichkeit(props) {
                 >
                   <div
                     className="absolute "
-                    style={{ top: "13%", maxWidth: "390px" }}
+                    style={{ top: "13%", maxWidth: "300px" }}
                   >
-                    <div className="gridList" style={{ columnGap: "30px" }}>
+                    <div className="gridList" style={{}}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

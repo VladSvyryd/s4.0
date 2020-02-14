@@ -227,8 +227,9 @@ function Hygieneplan(props) {
                         className="my_title small"
                         style={{ paddingBottom: "0" }}
                       >
-                        Welche Geräte und Materialien dürfen sich während der
-                        Arbeit in der Sicherheitswerkbank befinden?
+                        Ab der Schutzstufe 2 muss ein Hygieneplan erstellt
+                        werden. Welche der folgenden Angaben sind in einem
+                        solchen Plan enthalten?
                       </h1>
                       <Image src={i4} />
                     </div>
@@ -264,7 +265,7 @@ function Hygieneplan(props) {
                         und{" "}
                         <a
                           target="_blank"
-                          href="../../fachinformation-responsiv/kapc/schutzstufe_3_4.htm"
+                          href="../../fachinformation-responsiv/kapc/schutzstufen_3_4.htm"
                           className="externalLink"
                         >
                           <span className="linkContent">
@@ -284,7 +285,7 @@ function Hygieneplan(props) {
                   duration={animationTrigger ? 700 : 0}
                 >
                   <div className="absolute" style={{ top: "11%", left: "0%" }}>
-                    <div className="gridList" style={{ columnGap: "17px" }}>
+                    <div className="gridList">
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Sehr gut!</span>

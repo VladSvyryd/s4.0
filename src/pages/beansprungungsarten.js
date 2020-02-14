@@ -168,7 +168,7 @@ function Beansprungungsarten(props) {
           >
             <>
               <div className="absolute" style={{ top: "15px", left: "38px" }}>
-                <div className="gridList" style={{ columnGap: "20px" }}>
+                <div className="gridList">
                   <Image src={i4} />
                   <div>
                     <h1
@@ -231,10 +231,7 @@ function Beansprungungsarten(props) {
                 backgroundColor: "white"
               }}
             >
-              <div
-                className="gridList"
-                style={{ width: "720px", columnGap: "36px" }}
-              >
+              <div className="gridList" style={{ width: "720px" }}>
                 <Image src={i5} />
                 <div>
                   <span className="my_title small">Richtig</span>

@@ -48,7 +48,7 @@ function Arbeitshaltung(props) {
     answerBitValue: 5 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
   const instructions = [
-    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
+    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
 
@@ -200,11 +200,11 @@ function Arbeitshaltung(props) {
                     >
                       <h1
                         className="my_title small"
-                        style={{ paddingBottom: "0", margin: "0" }}
+                        style={{ paddingBottom: "0" }}
                       >
                         Was macht diese Mitarbeiterin falsch?
                       </h1>
-                      <Image src={i4} />
+                      <Image src={i4} style={{ marginLeft: "auto" }} />
                     </div>
                     <Popup
                       className="warning"
@@ -270,10 +270,7 @@ function Arbeitshaltung(props) {
                     className="absolute "
                     style={{ top: "34%", left: "40px" }}
                   >
-                    <div
-                      className="gridList"
-                      style={{ width: "339px", columnGap: "30px" }}
-                    >
+                    <div className="gridList" style={{ width: "339px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

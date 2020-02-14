@@ -1,22 +1,24 @@
 import React, { useContext, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { Grid, Image, Transition } from "semantic-ui-react";
 import { TocContext } from "../util/TocProvider";
+import {
+  Grid,
+  Checkbox,
+  Popup,
+  Button,
+  Image,
+  Transition
+} from "semantic-ui-react";
+import markNodeDone from "../util/externalFunctions";
+
 import { PagesContext } from "../util/PagesProvider";
-import i1 from "../assets/pics/12-sterilisationsauklav/mitarbeiter.jpg";
-import i2 from "../assets/pics/12-sterilisationsauklav/mitarbeiter_richtig.jpg";
+import i1 from "../assets/pics/12-sterilisationsauklav/draussen.jpg";
+import i2 from "../assets/pics/12-sterilisationsauklav/draussen_klein.jpg";
+import i6 from "../assets/pics/achtung_rot.png";
 import i4 from "../assets/pics/frage.png";
 import i5 from "../assets/pics/achtung_gruen.png";
-import DropBox from "../components/DropBox";
-import DraggableItem from "../components/DraggableItem";
-import markNodeDone from "../util/externalFunctions";
+import i3 from "../assets/pics/12-sterilisationsauklav/draussen_loesung.jpg";
 import i_q from "../assets/pics/querverweis.png";
-
-// to create drag and drop component used external library  react-drag-drop-container
-// https://github.com/peterh32/react-drag-drop-container <---- this is github page with instructions
-// to create exercise you need to Objects DropBox (Object that recieves draggables) and DraggableItem (Object to Drag)
-// the logic of exercises flows into DropBox, which has check of exerciseBitValue and currentBitValue of recieved by DropBox Draggables
-// the isDone() function goes from this Parent component into DropBox to be activated as soon as th exercise has been done
 
 function Ausstatung_entladung(props) {
   // state to go through active page
@@ -29,25 +31,68 @@ function Ausstatung_entladung(props) {
     (props.location.state && props.location.state.currentExercise) ||
       tocState.currentExerciseByPath
   );
-  const [exerciseCurrentState, setExerciseCurrentState] = useState(0);
+  const [radioGroupState, setRadioGroupState] = useState({
+    r0: false,
+    r1: false,
+    r2: false
+  });
   const [animationTrigger, setAnimationTrigger] = useState(false);
-
+  const [triggerWarning, setTrigger] = useState(false);
+  // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
+  const aufgabe = {
+    labels: [
+      "Das autoklavierte Gut darf ich nur zusammen mit einem Kollegen entladen.",
+      "Ich entnehme autoklaviertes Gut nur im abgekühlten Zustand, da es zu Siedeverzügen kommen könnte.",
+      "Der Autoklav darf nur betrieben werden, wenn er einen Filter zur Nachbehandlung der Abluft enthält."
+    ],
+    answerBitValue: 6 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
+  };
   const instructions = [
-    "Sie haben leider die falsche Schutzausrüstung ausgewählt! Versuchen Sie es erneut.",
-    "Ziehen Sie die richtige Begriffe auf die Liste neben der Person!",
+    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen!",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
-  const [currentInstruction, setCurrentInstruction] = useState(
-    my_exercise && my_exercise.done ? instructions[2] : instructions[1]
-  );
 
-  // handle change of exerciseCurrentState,
+  // parse radioButtons from aufgabe object
+  // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
+  const generateRadioButtons = () => {
+    return aufgabe.labels.map((radioButton, i) => {
+      return (
+        <Checkbox
+          key={`radioButton-${i}`}
+          name={"r" + i}
+          label={radioButton}
+          value={i > 0 ? i * 2 : 1}
+          onChange={handleChange}
+          checked={radioGroupState[`r${i}`] === (i > 0 ? i * 2 : 1)}
+        />
+      );
+    });
+  };
+
+  // check if answerBitValue match bitValue of checkbox group ->
   //set state of exercise,
   //add click event to get back to other exercise
-  const handleExerciseIsDone = () => {
-    setAnimationTrigger(true);
-    isDone();
+  const handleSubmit = () => {
+    // get sum of objects values to get bitvalue of radio button group
+    let sum = Object.values(radioGroupState).reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    );
+    if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
+      isDone();
+      setAnimationTrigger(true);
+    } else {
+      tryAgain();
+    }
   };
+  // handle change of radio button,
+  const handleChange = (e, { name, value }) => {
+    if (!radioGroupState[name]) {
+      setRadioGroupState(old => ({ ...old, [name]: value }));
+    } else {
+      setRadioGroupState(old => ({ ...old, [name]: false }));
+    }
+  };
+
   // add click event to document to return to other exercises and reset click events
   const handleClickToReturnBack = () => {
     props.history.goBack();
@@ -55,14 +100,27 @@ function Ausstatung_entladung(props) {
 
   // reset state of current exercise
   const resetAllAnswers = () => {
-    setExerciseCurrentState("this");
+    setRadioGroupState({ r0: false, r1: false, r2: false });
+    setTrigger(false);
     removeClick();
   };
-
+  // set up current exercise state and set click event to reset radio button states
+  const tryAgain = value => {
+    setTrigger(true);
+    document.addEventListener("mousedown", resetAllAnswers);
+  };
   // reset click event on document
   const removeClick = () => {
     document.removeEventListener("mousedown", resetAllAnswers);
   };
+
+  // check if any of radiobuttons are checked
+  function checkRadioButtonsStatus() {
+    let sum = Object.values(radioGroupState).reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    );
+    return sum > 0 ? true : false;
+  }
 
   // set exercise as done
   // get pages object from local storage, change with new state, trigger tocPages events to save pages object back to local storage
@@ -80,49 +138,6 @@ function Ausstatung_entladung(props) {
       done: !old.done
     }));
   }
-
-  const droppableStyle = {
-    width: "225px",
-    height: "246px",
-    top: "157px",
-    left: "304px",
-    display: "flex",
-    flexDirection: "column"
-  };
-  const draggableSet = {
-    display: "flex",
-    flexDirection: "column",
-    width: "230px"
-  };
-
-  const exercise = {
-    draggableItems: [
-      { id: 1, text: "Gesichtschutz" },
-      { id: 2, text: "Schutzbrille" },
-      { id: 4, text: "Chemikalienhandschuhe" },
-      { id: 8, text: "Hitzehandschuhe" },
-      { id: 16, text: "Latexhandschuhe" },
-      { id: 32, text: "Gummierte Schürze" }
-    ],
-    bitValueAnswer: 10
-  };
-  const itemsStyle = {
-    backgroundColor: "rgb(222,222,222)",
-    padding: "7px 11px",
-    fontWeight: "bold",
-    margin: "6px 0",
-    width: "100%",
-    boxShadow: "3px 3px 7px #0000003d"
-  };
-
-  // feedbackSuccess is true: it was match by drop, false: wrong element
-  const handleFailToDropItem = feedbackSuccess => {
-    if (my_exercise && !my_exercise.done) {
-      feedbackSuccess
-        ? setCurrentInstruction(instructions[1])
-        : setCurrentInstruction(instructions[0]);
-    }
-  };
   // if exercise has been already done, go back
   useEffect(() => {
     if (my_exercise.done)
@@ -138,74 +153,99 @@ function Ausstatung_entladung(props) {
   }, [handleClickToReturnBack]);
   return (
     <>
-      <div className="exerciseFrame ausstatung_entladung">
+      <div className="exerciseFrame">
         <Grid style={{ width: "100%" }}>
           <Grid.Row columns="2">
-            <Grid.Column width="10" className="relative">
+            <Grid.Column
+              width={`${my_exercise && my_exercise.done ? 9 : 8}`}
+              className="relative"
+            >
               <Image
                 src={i1}
                 className="absolute"
                 style={{ top: "0", left: "14px" }}
+                floated="left"
               />
-              <div className="absolute" style={droppableStyle}>
-                <DropBox
-                  id="dr2"
-                  name="dr2"
-                  droppedItemsClass="itemIsDroppedState"
-                  exerciseBitValueAnswer={exercise.bitValueAnswer}
-                  exerciseCurrentState={exerciseCurrentState}
-                  setExerciseCurrentState={setExerciseCurrentState}
-                  feedbackAboutSucces={""}
-                  idDoneCallback={
-                    // this triggers animation and exercise is Done
-                    // this trieger has to be activated in DropBox by calling function isDoneCallb ack
-                    handleExerciseIsDone
-                  }
-                  withLabel={<b>-</b>}
-                />
-              </div>
               <Transition
                 visible={animationTrigger || (my_exercise && my_exercise.done)}
                 animation="fade"
                 duration={animationTrigger ? 700 : 0}
                 className="absolute"
+                floated="left"
               >
-                <Image src={i2} />
+                <Image src={i3} />
               </Transition>
             </Grid.Column>
-            <Grid.Column width="6">
+            <Grid.Column width={`${my_exercise && my_exercise.done ? 7 : 8}`}>
               <div className="relative fullHeight">
                 <Transition
                   visible={my_exercise && !my_exercise.done}
                   animation="fade"
                   duration={animationTrigger ? 700 : 0}
                 >
-                  <div className="absolute" style={{ top: "7%" }}>
-                    <div className="gridList" style={{ width: "320px" }}>
-                      <h1 className="my_title small">
-                        Welche persönliche Schutzausrüstung muss Ihr Kollege
-                        zusätzlich tragen, um autoklaviertes Gut sicher aus dem
-                        Sterilisationsautoklaven entnehmen zu können?
-                      </h1>
-                      <Image src={i4} />
-                    </div>
-                    <div style={{ width: "320px" }}>
-                      <div id="dr1" style={draggableSet}>
-                        {exercise.draggableItems.map(item => (
-                          <DraggableItem
-                            key={item.id}
-                            label={item.text}
-                            bitValue={item.id}
-                            exerciseBitValueAnswer={exercise.bitValueAnswer}
-                            callbackAfterDropFail={handleFailToDropItem}
-                            dragClone={true}
-                            dragElemOpacity={0.4}
-                            handler={<div style={itemsStyle}>{item.text}</div>}
-                          />
-                        ))}
+                  <div className="absolute" style={{ top: "4%", left: "4%" }}>
+                    <div
+                      className="gridList"
+                      style={{
+                        marginBottom: "15px"
+                      }}
+                    >
+                      <div>
+                        <Image src={i2} />
+                      </div>
+
+                      <div
+                        className="gridList"
+                        style={{
+                          width: "180px",
+                          flexDirection: "column"
+                        }}
+                      >
+                        <Image src={i4} />
+
+                        <h1
+                          className="my_title small"
+                          style={{ marginTop: "17px", alignSelf: "stretch" }}
+                        >
+                          Ihr Kollege ist nun richtig gekleidet. Was müssen Sie
+                          außerdem beachten, um den Autoklaven sicher zu
+                          betreiben?
+                        </h1>
                       </div>
                     </div>
-                    <div style={{ marginTop: "20px", width: "270px" }}>
+
+                    <Popup
+                      className="warning"
+                      hoverable={false}
+                      trigger={
+                        <div
+                          className="exerciseContainer"
+                          style={{ width: "390px" }}
+                        >
+                          {generateRadioButtons()}
+                          <Button
+                            disabled={!checkRadioButtonsStatus()}
+                            type="submit"
+                            compact
+                            style={{ margin: "20px 30px" }}
+                            onClick={() => handleSubmit()}
+                          >
+                            Auswertung
+                          </Button>
+                        </div>
+                      }
+                      offset="0, 25px"
+                      position="left center"
+                      open={triggerWarning}
+                    >
+                      <Popup.Header as="span" className="headerPop">
+                        Diese Antwort war leider falsch!
+                      </Popup.Header>
+                      <Popup.Content>
+                        <Image src={i6} centered />
+                      </Popup.Content>
+                    </Popup>
+                    <div style={{ width: "330px" }}>
                       <p>
                         Weitere Informationen zu dieser Frage erhalten Sie in
                         Kapitel{" "}
@@ -230,18 +270,21 @@ function Ausstatung_entladung(props) {
                   animation="fade"
                   duration={animationTrigger ? 700 : 0}
                 >
-                  <div className="absolute" style={{ top: "22%", left: "9%" }}>
-                    <div
-                      className="gridList"
-                      style={{ width: "270px", columnGap: "30px" }}
-                    >
+                  <div className="absolute " style={{ top: "33%" }}>
+                    <div className="gridList" style={{ width: "330px" }}>
                       <Image src={i5} />
                       <div>
-                        <span className="my_title small">Richtig</span>
+                        <span className="my_title small">Sehr gut!</span>
                         <p style={{ marginTop: "5px" }}>
-                          Mit Hitzehandschuhen und Schutzbrille kann Ihr Kollege
-                          das sterilisierte Gut sicher aus dem Autoklaven
-                          nehmen.
+                          Um Siedeverzüge und das Herausschleudern von heißer
+                          Flüssigkeit zu vermeiden, sollten Sie das
+                          sterilisierte Gut nur im abgekühlten Zustand
+                          entnehmen.
+                        </p>
+                        <p>
+                          Außerdem muss bei biologischen Arbeitsstoffen ab der
+                          Risikogruppe 2 die Abluft von Autoklaven, die in den
+                          Arbeitsbereich zurückgeführt wird, gefiltert werden.
                         </p>
                       </div>
                     </div>
@@ -253,7 +296,11 @@ function Ausstatung_entladung(props) {
         </Grid>
       </div>
       <div className="instructionsField">
-        <span>{currentInstruction}</span>
+        <span>
+          {my_exercise && my_exercise.done
+            ? instructions[instructions.length - 1]
+            : instructions[instructions.length - 2]}
+        </span>
       </div>
     </>
   );

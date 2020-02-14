@@ -339,10 +339,7 @@ function Sicherheitsschrank(props) {
                         borderRadius: "15px"
                       }}
                     >
-                      <div
-                        className="gridList"
-                        style={{ width: "270px", columnGap: "15px" }}
-                      >
+                      <div className="gridList" style={{ width: "270px" }}>
                         <Image src={i5} />
                         <div>
                           <span className="my_title small">Richtig</span>
@@ -468,10 +465,7 @@ function Sicherheitsschrank(props) {
               <Grid.Column width="6">
                 <div className="relative fullHeight">
                   <div className="absolute " style={{ top: "13%" }}>
-                    <div
-                      className="gridList"
-                      style={{ width: "260px", columnGap: "30px" }}
-                    >
+                    <div className="gridList" style={{ width: "260px" }}>
                       <Image src={i6} />
                       <div>
                         <span className="my_title small">

@@ -38,7 +38,7 @@ function Apparaturen_1(props) {
     answerIndex: 2 /// right answer index in array of questions
   };
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
 
@@ -144,7 +144,7 @@ function Apparaturen_1(props) {
   return (
     <>
       <div className="exerciseFrame">
-        <Grid style={{ width: "100%" }} padded="horizontally">
+        <Grid style={{ width: "100%", padding: "0" }} padded="horizontally">
           <Grid.Row columns="3">
             <Grid.Column
               width="5"
@@ -227,7 +227,7 @@ function Apparaturen_1(props) {
                     className="absolute "
                     style={{ top: "33%", maxWidth: "180px", right: "-20px" }}
                   >
-                    <div className="gridList" style={{ columnGap: "30px" }}>
+                    <div className="gridList" style={{}}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

@@ -42,7 +42,7 @@ function Laborbrille(props) {
     answerIndex: 0 /// right answer index in array of questions
   };
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   const [currentMittarbeiter, setMitarbeiter] = useState(0);
@@ -278,11 +278,9 @@ function Laborbrille(props) {
                     style={{ top: "11%", maxWidth: "250px" }}
                   >
                     <div className="gridList">
-                      <div>
-                        <h1 className="my_title small">
-                          Muss Ihr Kollege im Labor eine Laborbrille tragen?
-                        </h1>
-                      </div>
+                      <h1 className="my_title small">
+                        Muss Ihr Kollege im Labor eine Laborbrille tragen?
+                      </h1>
                       <Image src={i4} />
                     </div>
                     <div
@@ -319,9 +317,9 @@ function Laborbrille(props) {
                 >
                   <div
                     className="absolute "
-                    style={{ top: "13%", maxWidth: "270px" }}
+                    style={{ top: "13%", maxWidth: "240px" }}
                   >
-                    <div className="gridList" style={{ columnGap: "30px" }}>
+                    <div className="gridList" style={{}}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

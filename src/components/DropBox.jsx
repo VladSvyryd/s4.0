@@ -49,7 +49,7 @@ export default class DropBox extends React.Component {
       if (
         this.props.multipleDropBitValueAnswer &&
         this.props.exerciseCurrentState ===
-        this.props.multipleDropBitValueAnswer
+          this.props.multipleDropBitValueAnswer
       )
         this.props.idDoneCallback();
 

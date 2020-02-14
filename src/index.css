@@ -87,7 +87,10 @@ input[type="submit"] {
 
 [class="gridList"] div:first-of-type,
 [class="gridList"] > h1 {
-  flex: 10;
+  flex: 10 auto;
+}
+[class="gridList"] img {
+  flex-shrink: 0;
 }
 .gridList > *:first-child {
   margin-right: 10px;

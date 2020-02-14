@@ -42,7 +42,7 @@ function Aermel_des_Labors(props) {
     answerIndex: 1 /// right answer index in array of questions
   };
   const instructions = [
-    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft",
+    "Klicken Sie die Aussage an, die Ihrer Meinung nach zutrifft.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   const [currentMittarbeiter, setMitarbeiter] = useState(0);
@@ -278,11 +278,9 @@ function Aermel_des_Labors(props) {
                     style={{ top: "11%", maxWidth: "215px" }}
                   >
                     <div className="gridList">
-                      <div>
-                        <h1 className="my_title small">
-                          Krempeln Sie niemals Ihre Ärmel des Laborkittels hoch,
-                        </h1>
-                      </div>
+                      <h1 className="my_title small">
+                        Krempeln Sie niemals Ihre Ärmel des Laborkittels hoch,
+                      </h1>
                       <Image src={i4} />
                     </div>
                     <div
@@ -321,7 +319,7 @@ function Aermel_des_Labors(props) {
                     className="absolute "
                     style={{ top: "13%", maxWidth: "215px" }}
                   >
-                    <div className="gridList" style={{ columnGap: "30px" }}>
+                    <div className="gridList" style={{}}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

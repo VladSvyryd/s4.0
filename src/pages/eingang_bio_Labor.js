@@ -251,10 +251,7 @@ function Eingang_bio_Labor(props) {
                   duration={animationTrigger ? 700 : 0}
                 >
                   <div className="absolute" style={{ top: "12%", left: "9%" }}>
-                    <div
-                      className="gridList"
-                      style={{ width: "400px", columnGap: "30px" }}
-                    >
+                    <div className="gridList" style={{ width: "400px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig</span>

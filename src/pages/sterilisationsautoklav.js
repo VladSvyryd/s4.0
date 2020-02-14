@@ -63,8 +63,8 @@ function Sterilisationsautoklav(props) {
       <>
         <div className="exerciseFrame">
           <div className="relative">
-            {exercise.pages[1].done ? (
-              exercise.pages[0].done ? (
+            {exercise.pages[0].done ? (
+              exercise.pages[1].done ? (
                 <Image src={i7} style={{ width: "542px" }} />
               ) : (
                 <Image src={i5} style={{ width: "542px" }} />
@@ -78,14 +78,14 @@ function Sterilisationsautoklav(props) {
               onMouseEnter={() => setCurrentInstruction(instructions[1])}
               onMouseLeave={() => setCurrentInstruction(instructions[0])}
               to={{
-                pathname: `${pathname}/${exercise.pages[1].filename}`,
+                pathname: `${pathname}/${exercise.pages[0].filename}`,
                 state: {
-                  currentExercise: exercise.pages[1]
+                  currentExercise: exercise.pages[0]
                 }
               }}
             >
-              {exercise.pages[1].done ? (
-                exercise.pages[0].done ? (
+              {exercise.pages[0].done ? (
+                exercise.pages[1].done ? (
                   <Image src={i8} />
                 ) : (
                   <Image src={i6} />
@@ -94,22 +94,22 @@ function Sterilisationsautoklav(props) {
                 <Image src={i2} />
               )}
             </Link>
-            {exercise.pages[1].done ? (
+            {exercise.pages[0].done ? (
               <Link
                 onMouseEnter={() => setCurrentInstruction(instructions[2])}
                 onMouseLeave={() => setCurrentInstruction(instructions[0])}
                 className="absolute hoverReveal pointer"
                 style={
-                  exercise.pages[1].done
-                    ? exercise.pages[0].done
+                  exercise.pages[0].done
+                    ? exercise.pages[1].done
                       ? style_technische_ausstattung
                       : style_technische_ausstattung_first_true
                     : style_technische_ausstattung
                 }
                 to={{
-                  pathname: `${pathname}/${exercise.pages[0].filename}`,
+                  pathname: `${pathname}/${exercise.pages[1].filename}`,
                   state: {
-                    currentExercise: exercise.pages[0]
+                    currentExercise: exercise.pages[1]
                   }
                 }}
               >
@@ -164,11 +164,11 @@ function Sterilisationsautoklav(props) {
                           style={{ alignItems: "center" }}
                         >
                           <Image src={i4} />
-                          <span>
+                          <div>
                             Das autoklarierte Gut kann noch nicht entnommen
                             werden, da der Mitarbeiter nicht ordnungsgemäß
                             gekleidet ist.
-                          </span>
+                          </div>
                         </div>
                       </Popup.Content>
                     </div>

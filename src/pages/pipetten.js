@@ -265,10 +265,7 @@ function Pipetten(props) {
                     className="absolute "
                     style={{ top: "9%", left: "-140px" }}
                   >
-                    <div
-                      className="gridList"
-                      style={{ width: "339px", columnGap: "30px" }}
-                    >
+                    <div className="gridList" style={{ width: "339px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

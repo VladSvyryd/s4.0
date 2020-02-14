@@ -259,10 +259,7 @@ function Rundkolben(props) {
                         style={{ marginBottom: "40px" }}
                       />
                     </div>
-                    <div
-                      className="gridList"
-                      style={{ width: "250px", columnGap: "15px" }}
-                    >
+                    <div className="gridList" style={{ width: "250px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

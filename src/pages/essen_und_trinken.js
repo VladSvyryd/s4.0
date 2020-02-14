@@ -48,14 +48,14 @@ function Essen_und_trinken(props) {
   // label of radio buttons and answerIndex which is index in array of labels that is a right answer.
   const aufgabe = {
     labels: [
-      "Bei Tätigkeiten mit Gefahrstoffen dürfen keine Nahrungsmittel mit in das Labor genommen werden..",
+      "Bei Tätigkeiten mit Gefahrstoffen dürfen keine Nahrungsmittel mit in das Labor genommen werden.",
       "Nahrungsmittel dürfen nicht zusammen mit Chemikalien aufbewahrt werden.",
       "Für Chemikalien dürfen keine Gefäße benutzt werden, die üblicherweise für Speisen und Getränke bestimmt sind."
     ],
     answerBitValue: 7 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
   const instructions = [
-    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
+    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
   const [currentMittarbeiter, setMitarbeiter] = useState(0);
@@ -361,10 +361,7 @@ function Essen_und_trinken(props) {
                   duration={animationTrigger ? 700 : 0}
                 >
                   <div className="absolute " style={{ top: "9%", left: "0px" }}>
-                    <div
-                      className="gridList"
-                      style={{ width: "250px", columnGap: "30px" }}
-                    >
+                    <div className="gridList" style={{ width: "250px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

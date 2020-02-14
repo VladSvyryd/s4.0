@@ -48,7 +48,7 @@ function Arbeitsmittel(props) {
     answerBitValue: 6 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
   const instructions = [
-    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen",
+    "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen.",
     "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
   ];
 
@@ -270,10 +270,7 @@ function Arbeitsmittel(props) {
                     className="absolute "
                     style={{ top: "12%", left: "-370px" }}
                   >
-                    <div
-                      className="gridList"
-                      style={{ width: "570px", columnGap: "30px" }}
-                    >
+                    <div className="gridList" style={{ width: "570px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Richtig!</span>

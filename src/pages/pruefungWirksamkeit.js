@@ -229,8 +229,7 @@ function PruefungWirksamkeit(props) {
                       className="gridList"
                       style={{
                         width: "390px",
-                        marginTop: "20px",
-                        columnGap: "30px"
+                        marginTop: "20px"
                       }}
                     >
                       <Image src={i5} />

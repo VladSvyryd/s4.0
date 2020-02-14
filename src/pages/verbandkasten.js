@@ -252,10 +252,7 @@ function Verbandkasten(props) {
                   duration={animationTrigger ? 700 : 0}
                 >
                   <div className="absolute " style={{ top: "33%" }}>
-                    <div
-                      className="gridList"
-                      style={{ columnGap: "30px", maxWidth: "280px" }}
-                    >
+                    <div className="gridList" style={{ maxWidth: "280px" }}>
                       <Image src={i5} />
                       <div>
                         <span className="my_title small">Sehr gut!</span>

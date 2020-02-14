@@ -142,10 +142,10 @@ function Rett_einrichtung(props) {
                           style={{ alignItems: "center" }}
                         >
                           <Image src={i4} />
-                          <span>
+                          <div>
                             An den Verbandkasten kommen Sie nicht heran, da er
                             von dem Flipchart verstellt ist.
-                          </span>
+                          </div>
                         </div>
                       </Popup.Content>
                     </div>
@@ -220,10 +220,10 @@ function Rett_einrichtung(props) {
                           style={{ alignItems: "center" }}
                         >
                           <Image src={i4} />
-                          <span>
+                          <div>
                             An den Feuerlöscher kommen Sie nicht heran, da er
                             von dem Flipchart verstellt ist.
-                          </span>
+                          </div>
                         </div>
                       </Popup.Content>
                     </div>
