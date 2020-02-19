@@ -101,7 +101,7 @@ function Arbeitsmittel(props) {
 
   // reset state of current exercise
   const resetAllAnswers = () => {
-    setRadioGroupState({ r0: false, r1: false, r2: false });
+    setRadioGroupState({ r0: false, r1: false, r2: false, r3: false });
     setTrigger(false);
     removeClick();
   };

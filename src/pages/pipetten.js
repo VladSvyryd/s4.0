@@ -56,14 +56,27 @@ function Pipetten(props) {
   // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
+      let index = 0;
+      if (i === 0) {
+        index = 1;
+      }
+      if (i === 1) {
+        index = 2;
+      }
+      if (i === 2) {
+        index = 4;
+      }
+      if (i === 3) {
+        index = 8;
+      }
       return (
         <Checkbox
-          key={`radioButton-${i}`}
+          key={`radioButton-${index}`}
           name={"r" + i}
           label={radioButton}
-          value={i > 0 ? i * 2 : 1}
+          value={index}
           onChange={handleChange}
-          checked={radioGroupState[`r${i}`] === (i > 0 ? i * 2 : 1)}
+          checked={radioGroupState[`r${i}`] === index}
         />
       );
     });
@@ -77,7 +90,7 @@ function Pipetten(props) {
     let sum = Object.values(radioGroupState).reduce(
       (accumulator, currentValue) => accumulator + currentValue
     );
-    if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
+    if ((sum & aufgabe.answerBitValue) === sum) {
       isDone();
       setAnimationTrigger(true);
     } else {
@@ -101,7 +114,7 @@ function Pipetten(props) {
 
   // reset state of current exercise
   const resetAllAnswers = () => {
-    setRadioGroupState({ r0: false, r1: false, r2: false });
+    setRadioGroupState({ r0: false, r1: false, r2: false, r3: false });
     setTrigger(false);
     removeClick();
   };

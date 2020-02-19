@@ -64,6 +64,15 @@ function Mikrobiologische(props) {
       console.log(exercise, "alles falsch");
       return i1;
     } else if (
+      !exercise.pages[0].done &&
+      exercise.pages[2].done &&
+      !exercise.pages[1].done
+    ) {
+      // schutzhandschuhe richtig
+      console.log(exercise, " nur schutzhandschuhe richtig");
+
+      return i1;
+    } else if (
       (!exercise.pages[0].done && exercise.pages[1].done) ||
       (!exercise.pages[0].done && exercise.pages[2].done)
     ) {
@@ -104,6 +113,18 @@ function Mikrobiologische(props) {
     ) {
       // alles falsch
       console.log(exercise, "alles falsch");
+      return {
+        img: i6,
+        style: style_arbeitsmittel
+      };
+    } else if (
+      !exercise.pages[0].done &&
+      exercise.pages[2].done &&
+      !exercise.pages[1].done
+    ) {
+      // schutzhandschuhe richtig
+      console.log(exercise, "pippeten richtig");
+
       return {
         img: i6,
         style: style_arbeitsmittel
@@ -204,6 +225,16 @@ function Mikrobiologische(props) {
       !exercise.pages[1].done
     ) {
       // alles falsch
+      return {
+        img: i7,
+        style: style_pipetten
+      };
+    } else if (
+      !exercise.pages[0].done &&
+      exercise.pages[2].done &&
+      !exercise.pages[1].done
+    ) {
+      // pippeten richtig
       return {
         img: i7,
         style: style_pipetten
