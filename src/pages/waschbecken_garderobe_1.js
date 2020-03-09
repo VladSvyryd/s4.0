@@ -33,8 +33,7 @@ function Waschbecken_garderobe_1(props) {
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
     r1: false,
-    r2: false,
-    r3: false
+    r2: false
   });
   const [animationTrigger, setAnimationTrigger] = useState(false);
   const [triggerWarning, setTrigger] = useState(false);
@@ -42,10 +41,10 @@ function Waschbecken_garderobe_1(props) {
   const aufgabe = {
     labels: [
       "Wenn ich den Laborbereich der Schutzstufe 2 verlasse, muss ich meine Schutzkleidung ablegen.",
-      "Ich bewahre die persönliche Schutzausrüstung generell getrennt von der sonstigen Kleidung auf.",
-      "Die Schutzkleidung muss sich farblich von der für die Schutzstufe 1 unterscheiden."
+      "Die Schutzkleidung muss sich farblich von der für die Schutzstufe 1 unterscheiden.",
+      "Ich bewahre die persönliche Schutzausrüstung generell getrennt von der sonstigen Kleidung auf."
     ],
-    answerBitValue: 3 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
+    answerBitValue: 5 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
   const instructions = [
     "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen.",
@@ -56,14 +55,27 @@ function Waschbecken_garderobe_1(props) {
   // each button gets value 1=> which is used ba evaluation, compare bit value of multiple radiobuttons
   const generateRadioButtons = () => {
     return aufgabe.labels.map((radioButton, i) => {
+      let index = 0;
+      if (i === 0) {
+        index = 1;
+      }
+      if (i === 1) {
+        index = 2;
+      }
+      if (i === 2) {
+        index = 4;
+      }
+      if (i === 3) {
+        index = 8;
+      }
       return (
         <Checkbox
-          key={`radioButton-${i}`}
+          key={`radioButton-${index}`}
           name={"r" + i}
           label={radioButton}
-          value={i > 0 ? i * 2 : 1}
+          value={index}
           onChange={handleChange}
-          checked={radioGroupState[`r${i}`] === (i > 0 ? i * 2 : 1)}
+          checked={radioGroupState[`r${i}`] === index}
         />
       );
     });
@@ -77,7 +89,7 @@ function Waschbecken_garderobe_1(props) {
     let sum = Object.values(radioGroupState).reduce(
       (accumulator, currentValue) => accumulator + currentValue
     );
-    if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
+    if ((sum & aufgabe.answerBitValue) === sum) {
       isDone();
       setAnimationTrigger(true);
     } else {

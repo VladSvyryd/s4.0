@@ -42,10 +42,10 @@ function Arbeitshaltung(props) {
     labels: [
       "Die Schutzhandschuhe sind aufgerollt. Sie sollten über die Bündchen des Arbeitskittels gezogen werden.",
       "Der Arm darf die Luftschlitze in der Sicherheitswerkbank nicht verdecken.",
-      "Das Material der Schutzhandschuhe ist für Tätigkeiten mit biologischen Arbeitsmitteln nicht geeignet.",
-      "Nur die Hände dürfen in die Sicherheitswerkbank hineinreichen."
+      "Nur die Hände dürfen in die Sicherheitswerkbank hineinreichen.",
+      "Das Material der Schutzhandschuhe ist für Tätigkeiten mit biologischen Arbeitsmitteln nicht geeignet."
     ],
-    answerBitValue: 3 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
+    answerBitValue: 9 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
   const instructions = [
     "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen.",
@@ -95,7 +95,7 @@ function Arbeitshaltung(props) {
       sum,
       parseInt(sum) & parseInt(aufgabe.answerBitValue)
     );
-    if ((sum & aufgabe.answerBitValue) === sum) {
+    if ((sum & aufgabe.answerBitValue) === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
     } else {

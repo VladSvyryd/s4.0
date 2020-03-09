@@ -226,7 +226,7 @@ function Sicherheitsschrank(props) {
                     <Image
                       src={i7}
                       className="absolute"
-                      style={{ top: "174px", left: "226px" }}
+                      style={{ top: "174px", left: "224px" }}
                     />
                   </>
                 ) : (
@@ -234,12 +234,12 @@ function Sicherheitsschrank(props) {
                     <Image
                       src={i1}
                       className="absolute"
-                      style={{ top: "0", left: "13px" }}
+                      style={{ top: "0", left: "14px" }}
                     />
                     <Image
                       src={i7}
                       className="absolute"
-                      style={{ top: "174px", left: "226px" }}
+                      style={{ top: "174px", left: "225px" }}
                     />
                   </>
                 )}
@@ -400,7 +400,11 @@ function Sicherheitsschrank(props) {
                 <div
                   className="absolute hoverReveal pointer"
                   style={{
-                    right: "200px",
+                    right: `${
+                      sibling_exercise && sibling_exercise.done
+                        ? "201px"
+                        : "200px"
+                    }`,
                     top: "174px",
                     backgroundImage: `url('${my_exercise &&
                       my_exercise.done &&
@@ -440,7 +444,7 @@ function Sicherheitsschrank(props) {
                     {
                       <div
                         className="absolute hoverReveal pointer"
-                        style={{ right: "355px", top: "82px" }}
+                        style={{ right: "357px", top: "82px" }}
                         onMouseLeave={() => setOpenWarning(false)}
                       >
                         <Image src={i8} />
