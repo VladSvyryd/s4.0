@@ -28,7 +28,6 @@ function Chemikalien(props) {
     "Regal mit Chemikalien"
   ];
   const [currentInstruction, setCurrentInstruction] = useState(instructions[0]);
-  console.log(exercise.pages);
   const introExercise = () => {
     return (
       <>

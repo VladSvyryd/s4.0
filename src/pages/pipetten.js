@@ -7,7 +7,7 @@ import {
   Popup,
   Button,
   Image,
-  Transition
+  Transition,
 } from "semantic-ui-react";
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/11-sicherheitswerkbank/pipeten.jpg";
@@ -33,7 +33,7 @@ function Pipetten(props) {
     r0: false,
     r1: false,
     r2: false,
-    r3: false
+    r3: false,
   });
   const [animationTrigger, setAnimationTrigger] = useState(false);
   const [triggerWarning, setTrigger] = useState(false);
@@ -43,13 +43,13 @@ function Pipetten(props) {
       "Ich berühre die Pipettenspitze nicht mit der Hand, da eine Kontaminationsgefahr besteht.",
       "Ich presse die Flüssigkeit mit viel Druck aus der Pipette heraus. Dabei halte ich die Pipette in die Mitte des Gefäßes, um die Innenwände nicht zu kontaminieren.",
       "Ich halte die Spitze der Pipette immer nach unten. Ich lasse die Pipette am Innenrand des Gefäßes langsam auslaufen und streife sie ab, um ein Nachtropfen zu vermeiden.",
-      "Einwegpipetten werfe ich sofort in den Abfall, eine Desinfektion ist nicht notwendig."
+      "Einwegpipetten werfe ich sofort in den Abfall, eine Desinfektion ist nicht notwendig.",
     ],
-    answerBitValue: 5 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
+    answerBitValue: 5, // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
   const instructions = [
     "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen!",
-    "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
+    "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen.",
   ];
 
   // parse radioButtons from aufgabe object
@@ -90,7 +90,7 @@ function Pipetten(props) {
     let sum = Object.values(radioGroupState).reduce(
       (accumulator, currentValue) => accumulator + currentValue
     );
-    if ((sum & aufgabe.answerBitValue) === sum) {
+    if (sum === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
     } else {
@@ -100,9 +100,9 @@ function Pipetten(props) {
   // handle change of radio button,
   const handleChange = (e, { name, value }) => {
     if (!radioGroupState[name]) {
-      setRadioGroupState(old => ({ ...old, [name]: value }));
+      setRadioGroupState((old) => ({ ...old, [name]: value }));
     } else {
-      setRadioGroupState(old => ({ ...old, [name]: false }));
+      setRadioGroupState((old) => ({ ...old, [name]: false }));
     }
     console.log(radioGroupState);
   };
@@ -119,7 +119,7 @@ function Pipetten(props) {
     removeClick();
   };
   // set up current exercise state and set click event to reset radio button states
-  const tryAgain = value => {
+  const tryAgain = (value) => {
     setTrigger(true);
     document.addEventListener("mousedown", resetAllAnswers);
   };
@@ -142,14 +142,14 @@ function Pipetten(props) {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
     // performe change of property "done" in JSON Exerciselist object
-    pagesFromLocalStorage.forEach(e => markNodeDone(my_exercise.id, e));
+    pagesFromLocalStorage.forEach((e) => markNodeDone(my_exercise.id, e));
 
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page
-    setMyExercise(old => ({
+    setMyExercise((old) => ({
       ...old,
-      done: !old.done
+      done: !old.done,
     }));
   }
   // if exercise has been already done, go back
@@ -199,7 +199,7 @@ function Pipetten(props) {
                   <div
                     className="absolute"
                     style={{
-                      top: "5%"
+                      top: "5%",
                     }}
                   >
                     <div className="gridList" style={{ width: "390px" }}>

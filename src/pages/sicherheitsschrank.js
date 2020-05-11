@@ -170,7 +170,6 @@ function Sicherheitsschrank(props) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleClickToReturnBack]);
-  console.log(my_exercise);
   function Notification(state) {
     switch (state) {
       case 0:
@@ -234,7 +233,7 @@ function Sicherheitsschrank(props) {
                     <Image
                       src={i1}
                       className="absolute"
-                      style={{ top: "0", left: "14px" }}
+                      style={{ top: "0", left: "13px" }}
                     />
                     <Image
                       src={i7}
@@ -406,9 +405,9 @@ function Sicherheitsschrank(props) {
                         : "200px"
                     }`,
                     top: "174px",
-                    backgroundImage: `url('${my_exercise &&
-                      my_exercise.done &&
-                      i10}')`,
+                    backgroundImage: `url('${
+                      my_exercise && my_exercise.done ? i10 : ""
+                    }')`,
                     backgroundRepeat: "no-repeat"
                   }}
                   onClick={() => setActiveActualExercise(true)}

@@ -7,7 +7,7 @@ import {
   Popup,
   Button,
   Image,
-  Transition
+  Transition,
 } from "semantic-ui-react";
 import { PagesContext } from "../util/PagesProvider";
 import i1 from "../assets/pics/9-waschbecken/garderobe.jpg";
@@ -33,7 +33,7 @@ function Waschbecken_garderobe_1(props) {
   const [radioGroupState, setRadioGroupState] = useState({
     r0: false,
     r1: false,
-    r2: false
+    r2: false,
   });
   const [animationTrigger, setAnimationTrigger] = useState(false);
   const [triggerWarning, setTrigger] = useState(false);
@@ -42,13 +42,13 @@ function Waschbecken_garderobe_1(props) {
     labels: [
       "Wenn ich den Laborbereich der Schutzstufe 2 verlasse, muss ich meine Schutzkleidung ablegen.",
       "Die Schutzkleidung muss sich farblich von der für die Schutzstufe 1 unterscheiden.",
-      "Ich bewahre die persönliche Schutzausrüstung generell getrennt von der sonstigen Kleidung auf."
+      "Ich bewahre die persönliche Schutzausrüstung generell getrennt von der sonstigen Kleidung auf.",
     ],
-    answerBitValue: 5 // to complete exercise compare BitValue of radioGroupState and this answerBitValue
+    answerBitValue: 5, // to complete exercise compare BitValue of radioGroupState and this answerBitValue
   };
   const instructions = [
     "Klicken Sie die Aussagen an, die Ihrer Meinung nach zutreffen.",
-    "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen."
+    "Klicken Sie auf eine beliebige Position, um in die vorherige Ansicht zu gelangen.",
   ];
 
   // parse radioButtons from aufgabe object
@@ -89,7 +89,8 @@ function Waschbecken_garderobe_1(props) {
     let sum = Object.values(radioGroupState).reduce(
       (accumulator, currentValue) => accumulator + currentValue
     );
-    if ((sum & aufgabe.answerBitValue) === sum) {
+    console.log(sum === aufgabe.answerBitValue);
+    if (sum === aufgabe.answerBitValue) {
       isDone();
       setAnimationTrigger(true);
     } else {
@@ -99,9 +100,9 @@ function Waschbecken_garderobe_1(props) {
   // handle change of radio button,
   const handleChange = (e, { name, value }) => {
     if (!radioGroupState[name]) {
-      setRadioGroupState(old => ({ ...old, [name]: value }));
+      setRadioGroupState((old) => ({ ...old, [name]: value }));
     } else {
-      setRadioGroupState(old => ({ ...old, [name]: false }));
+      setRadioGroupState((old) => ({ ...old, [name]: false }));
     }
     console.log(radioGroupState);
   };
@@ -118,7 +119,7 @@ function Waschbecken_garderobe_1(props) {
     removeClick();
   };
   // set up current exercise state and set click event to reset radio button states
-  const tryAgain = value => {
+  const tryAgain = (value) => {
     setTrigger(true);
     document.addEventListener("mousedown", resetAllAnswers);
   };
@@ -141,14 +142,14 @@ function Waschbecken_garderobe_1(props) {
     // parse pages from local storage
     let pagesFromLocalStorage = JSON.parse(localStorage.getItem("pagesList"));
     // performe change of property "done" in JSON Exerciselist object
-    pagesFromLocalStorage.forEach(e => markNodeDone(my_exercise.id, e));
+    pagesFromLocalStorage.forEach((e) => markNodeDone(my_exercise.id, e));
 
     // trigger tocPages function to resave Pages on local storage
     setTocPages(pagesFromLocalStorage);
     // change local state of exercise as done to trigger changes on the Page
-    setMyExercise(old => ({
+    setMyExercise((old) => ({
       ...old,
-      done: !old.done
+      done: !old.done,
     }));
   }
   // if exercise has been already done, go back
